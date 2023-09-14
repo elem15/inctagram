@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Index = () => {
+const Statistics = () => {
   return <div>Statistics</div>
 }
 
-export default Index
+export default Statistics

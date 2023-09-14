@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Index = () => {
+const Messenger = () => {
   return <div>Messenger</div>
 }
 
-export default Index
+export default Messenger

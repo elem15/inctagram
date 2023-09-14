@@ -1,5 +1,7 @@
 import React from 'react'
 
-export default function Index() {
-  return <div>Create some</div>
+const Create = () => {
+  return <div>Create</div>
 }
+
+export default Create

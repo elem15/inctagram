@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Index = () => {
+const Favorites = () => {
   return <div>Favorites</div>
 }
 
-export default Index
+export default Favorites
