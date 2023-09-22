@@ -1,8 +1,4 @@
-import React from 'react'
-
-import Link from 'next/link'
-
-import Navbar from '@/widgets/Navbar'
+import Navbar from '../widgets/Navbar'
 
 export default function Home() {
   return (
