@@ -1,0 +1,27 @@
+.wrapper {
+    @apply border border-dark-100 rounded-sm px-8 py-8 max-md:w-full lg:w-1/4 bg-dark-500;
+
+    .heading {
+        @apply  text-light-100 font-bold text-xl text-center;
+    }
+
+    .icon {
+        @apply flex justify-center items-center my-4;
+
+        >a {
+            @apply mx-8;
+        }
+    }
+
+    .form {
+        .checkbox{
+            @apply mb-4;
+
+            >label>a{
+                @apply underline decoration-primary-300 text-primary-300
+
+            }
+
+        }
+    }
+}

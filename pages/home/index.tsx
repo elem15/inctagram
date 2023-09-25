@@ -1,8 +1,7 @@
-import React from 'react'
-
+import { NextPage } from 'next'
 import Link from 'next/link'
 
-const Navbar = () => {
+export const Home: NextPage = () => {
   return (
     <ul>
       <li>
@@ -26,8 +25,9 @@ const Navbar = () => {
       <li>
         <Link href="favorites">Favorites</Link>
       </li>
+      <li>
+        <Link href="signup">Sign Up</Link>
+      </li>
     </ul>
   )
 }
-
-export default Navbar
