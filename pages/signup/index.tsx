@@ -1,9 +1,9 @@
 import { NextPage } from 'next'
 
-import { SignUp } from '@/pages/signUp'
+import { SignUpPage } from '@/pages/signUp'
 
-const SignUpPage: NextPage = () => {
-  return <SignUp />
+const SignUp: NextPage = () => {
+  return <SignUpPage />
 }
 
-export default SignUpPage
+export default SignUp

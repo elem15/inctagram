@@ -1,6 +1,6 @@
 import { forwardRef, useState } from 'react'
 
-import { IField } from '../InputField'
+import { IField } from '../InputField/Field'
 
 import styles from './PasswordField.module.scss'
 
@@ -11,8 +11,7 @@ export const PasswordField = forwardRef<HTMLInputElement, IField>(
     const [type, setType] = useState('password')
 
     const togglePassword = () => {
-      if (type === 'password') setType('text')
-      else setType('password')
+      setType(state => (state === 'password' ? 'text' : 'password'))
     }
 
     return (

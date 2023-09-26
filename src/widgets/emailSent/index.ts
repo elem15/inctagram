@@ -1,1 +1,1 @@
-export { EmailSentWidget } from './ui'
+export { EmailSentWidget } from './ui/EmailSentWidget'
