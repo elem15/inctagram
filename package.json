@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/node": "20.6.0",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
@@ -19,6 +20,7 @@
     "next": "13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sass": "^1.68.0",
     "storybook": "^7.4.1",
     "typescript": "5.2.2"
   },

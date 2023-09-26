@@ -1,0 +1,6 @@
+export { default as GithubIcon } from './icons/GitHubIcon.svg'
+export { default as GoogleIcon } from './icons/GoogleIcon.svg'
+export { default as EyeOutlineIcon } from './icons/Eye-outlineIcon.svg'
+export { default as EyeOffOutlineIcon } from './icons/EyeOffOutlineIcon.svg'
+export { default as DarkEyeIcon } from './icons/DarkEyeIcon.svg'
+export { default as CloseIcon } from './icons/CloseIcon.svg'
