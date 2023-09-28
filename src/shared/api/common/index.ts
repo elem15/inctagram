@@ -1,1 +1,1 @@
-export { googleAuth } from './auth/googleAuth'
+export { googleAuth } from './auth/authConfig'
