@@ -18,9 +18,10 @@ export const SignInWidget: FC = () => {
         </a>
       </div>
       <form className={styles.form}>
-        <Field name="Email" placeholder="Email" />
-
-        <PasswordField name="Password" placeholder="Password" />
+        <div className="space-y-4">
+          <Field name="Email" placeholder="Email" />
+          <PasswordField name="Password" placeholder="Password" />
+        </div>
 
         <div className="text-sm text-light-900 mt-9 mb-6 text-end">Forgot Password</div>
 
