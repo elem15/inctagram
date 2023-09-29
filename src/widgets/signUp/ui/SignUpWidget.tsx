@@ -26,16 +26,16 @@ export const SignUpWidget: FC = () => {
 
         <div className={styles.checkbox}>
           <input type="checkbox" id="agree" className=" border-gray-400 rounded" />
-          <label htmlFor="agree" className="ml-2 text-sm text-light-100">
+          <label htmlFor="agree" className="ml-2 text-xs  text-light-100">
             I agree to the <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>
           </label>
         </div>
 
-        <button className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-2 ">
+        <button className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-4 ">
           Sign Up
         </button>
-        <div className="font-bold text-light-100 text-center">Do you have an account?</div>
-        <button className="font-semibold text-primary-500 p-2 bg-transparent w-full">
+        <div className="font-base text-light-100 text-center">Do you have an account?</div>
+        <button className="font-semibold text-primary-500 p-4 bg-transparent w-full">
           Sign In
         </button>
       </form>

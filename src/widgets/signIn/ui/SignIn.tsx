@@ -24,11 +24,11 @@ export const SignInWidget: FC = () => {
 
         <div className="text-sm text-light-900 mt-9 mb-6 text-end">Forgot Password</div>
 
-        <button className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-2 ">
+        <button className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-4 ">
           Sign In
         </button>
-        <div className="font-bold text-light-100 text-center">{`Don't have an account?`}</div>
-        <button className="font-semibold text-primary-500 p-2 bg-transparent w-full">
+        <div className="font-base text-light-100 text-center">{`Don't have an account?`}</div>
+        <button className="font-semibold text-primary-500 p-4 bg-transparent w-full">
           Sign Up
         </button>
       </form>
