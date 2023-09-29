@@ -5,9 +5,13 @@ import { useSession } from 'next-auth/react'
 export const Home: NextPage = () => {
   const { data: session } = useSession()
 
+  // @ts-ignore
+  // const { accessToken } = session
+
   return (
     <>
       <h3>Signed in as {session?.user?.email}</h3>
+      {/* <div>{accessToken}</div> */}
       <ul>
         <li>
           <Link href="home">Home</Link>

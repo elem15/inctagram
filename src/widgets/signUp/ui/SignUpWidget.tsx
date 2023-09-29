@@ -4,15 +4,17 @@ import { signIn } from 'next-auth/react'
 
 import styles from './SignUp.module.scss'
 
+import { login, oauthSignIn } from '@/features'
 import { Field, PasswordField } from '@/shared'
-import { EyeOffOutlineIcon, EyeOutlineIcon, GithubIcon, GoogleIcon } from '@/shared/assets'
+import { GithubIcon, GoogleIcon } from '@/shared/assets'
 
 export const SignUpWidget: FC = () => {
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>Sign Up</div>
       <div className={styles.icon}>
+        {/* <GoogleIcon onClick={() => login()} /> */}
+        {/* <GoogleIcon onClick={() => oauthSignIn()} /> */}
         <GoogleIcon onClick={() => signIn('google')} />
         <a href="">
           <GithubIcon className="fill-light-100" />

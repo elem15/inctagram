@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth'
 
-import { authConfig } from '@/shared/api/common/auth/authConfig'
+import { authConfig } from '@/shared'
 
 export default NextAuth(authConfig)
