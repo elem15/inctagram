@@ -13,8 +13,8 @@ export function oauthSignIn() {
 
   // Parameters to pass to OAuth 2.0 endpoint.
   var params = {
-    client_id: process.env.GOOGLE_CLIENT_ID,
-    redirect_uri: 'http://localhost:3000',
+    client_id: '577523906594-hvdm5h4k4pd6h948692da85qgqh20kq4.apps.googleusercontent.com',
+    redirect_uri: 'http://localhost:3000/api/auth/callback/google',
     response_type: 'token',
     scope: 'https://www.googleapis.com/auth/drive.metadata.readonly',
     include_granted_scopes: 'true',
@@ -36,8 +36,8 @@ export function oauthSignIn() {
   form.submit()
 }
 
-const login = (): void => {
-  const CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+export const login = (): void => {
+  const CLIENT_ID = '577523906594-hvdm5h4k4pd6h948692da85qgqh20kq4.apps.googleusercontent.com'
   const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/drive.metadata.readonly&response_type=code&redirect_uri=http://localhost:3000&client_id=${CLIENT_ID}`
 
   window.location.assign(url)
