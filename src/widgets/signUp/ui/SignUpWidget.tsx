@@ -1,9 +1,9 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import styles from './SignUp.module.scss'
 
 import { Field, PasswordField } from '@/shared'
-import { EyeOffOutlineIcon, EyeOutlineIcon, GithubIcon, GoogleIcon } from '@/shared/assets'
+import { GithubIcon, GoogleIcon } from '@/shared/assets'
 
 export const SignUpWidget: FC = () => {
   return (
@@ -27,7 +27,7 @@ export const SignUpWidget: FC = () => {
         </div>
 
         <div className={styles.checkbox}>
-          <input type="checkbox" id="agree" className=" border-gray-400 rounded" />
+          <input type="checkbox" id="agree" className=" border-gray-400 rounded accent-white" />
           <label htmlFor="agree" className="ml-2 text-xs  text-light-100">
             I agree to the <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>
           </label>

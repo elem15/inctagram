@@ -18,7 +18,7 @@ export const PasswordField = forwardRef<HTMLInputElement, IField>(
       <div className={styles.wrapper} style={style}>
         <label>{name}</label>
         <div>
-          <input type={type} placeholder={placeholder} />
+          <input id="password" type={type} placeholder={placeholder} />
           <span onClick={togglePassword}>
             {type === 'password' ? <EyeOutlineIcon /> : <EyeOffOutlineIcon />}
           </span>
