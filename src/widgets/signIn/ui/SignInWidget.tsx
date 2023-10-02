@@ -8,7 +8,7 @@ import { GithubIcon, GoogleIcon } from '@/shared/assets'
 export const SignInWidget: FC = () => {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.heading}>Sign In</div>
+      <h1 className={styles.heading}>Sign In</h1>
       <div className={styles.icon}>
         <a href="">
           <GoogleIcon />
