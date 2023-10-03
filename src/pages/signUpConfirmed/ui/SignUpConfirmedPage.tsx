@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import { SignUpConfirmImg, OutlinedBellIcon, FlagUnitedKingdom } from '@/shared/assets/'
-
 import styles from './SignUpConfirmed.module.css'
+
+import { SignUpConfirmImg, OutlinedBellIcon, FlagUnitedKingdom } from '@/shared/assets/'
 
 export const SignUpConfirmedPage: FC = () => {
   return (
