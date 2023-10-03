@@ -31,6 +31,15 @@ export const Home: NextPage = () => {
       <li>
         <Link href="signup-confirm">Sign Up Confirmed</Link>
       </li>
+      <li>
+        <Link href="signin">Sign In</Link>
+      </li>
+      <li>
+        <Link href="resend">Resend Verification Link</Link>
+      </li>
+      <li>
+        <Link href="email">Send Email menu</Link>
+      </li>
     </ul>
   )
 }
