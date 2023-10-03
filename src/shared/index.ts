@@ -1,2 +1,2 @@
-export { Field } from './ui/InputField/Field'
+export { InputField } from './ui/InputField/InputField'
 export { PasswordField } from './ui/PasswordField/PasswordField'

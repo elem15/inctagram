@@ -1,6 +1,6 @@
 import { FC, ReactElement, ReactNode } from 'react'
 
-import { HeaderWidget } from '../../../widgets/header'
+import { HeaderWidget } from '../../header'
 
 type Props = {
   children: ReactNode
