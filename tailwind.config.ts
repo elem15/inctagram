@@ -43,9 +43,6 @@ module.exports = {
         '20': '5rem',
         '46': '11.5rem',
       },
-      fontSize: {
-        '26px': '26px',
-      },
     },
   },
   plugins: [],
