@@ -29,6 +29,9 @@ export const Home: NextPage = () => {
         <Link href="signup">Sign Up</Link>
       </li>
       <li>
+        <Link href="signup-confirm">Sign Up Confirmed</Link>
+      </li>
+      <li>
         <Link href="signin">Sign In</Link>
       </li>
       <li>
