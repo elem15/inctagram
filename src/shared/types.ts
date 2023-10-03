@@ -4,7 +4,6 @@ import { FormState, UseFormRegister } from 'react-hook-form'
 
 interface IInputField {
   label: string
-  name: string
   placeholder: string
   helperText?: string | undefined
 }
