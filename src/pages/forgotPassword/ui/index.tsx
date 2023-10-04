@@ -1,11 +1,16 @@
 import { FC } from 'react'
 
 import { ForgotPasswordWidget } from '@/widgets/forgotPassword'
+import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 
-export const ForgotPasswordPage: FC = () => {
+const ForgotPasswordPage = () => {
   return (
-    <div className="flex justify-center min-h-screen items-center bg-dark-700">
+    <div className="flex justify-center  items-center bg-dark-700">
       <ForgotPasswordWidget />
     </div>
   )
 }
+
+ForgotPasswordPage.getLayout = getHeaderLayout
+
+export { ForgotPasswordPage }

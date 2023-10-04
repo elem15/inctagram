@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 
 import { InputField, PasswordField } from '@/shared'
+import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
 import { EmailValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 
@@ -29,12 +30,11 @@ export const SignInAuth: FC<IAuthFields> = ({
           required: 'Password is required',
           minLength: {
             value: 6,
-            message: 'Minimum number of characters 6',
+            message: PasswordMinLength,
           },
           pattern: {
             value: PasswordValidation,
-            message:
-              'Password must contain a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [  ] ^ _` { | } ~ ',
+            message: PasswordValidateMessage,
           },
         })}
         label="Password"

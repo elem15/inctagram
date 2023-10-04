@@ -1,6 +1,12 @@
 import React, { FC } from 'react'
 
 import { InputField, PasswordField } from '@/shared'
+import {
+  EmailFormatMessage,
+  MaxLength,
+  PasswordMinLength,
+  PasswordValidateMessage,
+} from '@/shared/messages'
 import { EmailValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 
@@ -17,7 +23,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
           required: 'UserName is required',
           maxLength: {
             value: 30,
-            message: 'Maximum number of characters 30',
+            message: MaxLength,
           },
         })}
         label="Username"
@@ -29,7 +35,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
           required: 'Email is required',
           pattern: {
             value: EmailValidation,
-            message: 'The email must match the format example@xample.com',
+            message: EmailFormatMessage,
           },
         })}
         label="Email"
@@ -42,12 +48,11 @@ export const SignUpAuth: FC<IAuthFields> = ({
           required: 'Password is required',
           minLength: {
             value: 6,
-            message: 'Minimum number of characters 6',
+            message: PasswordMinLength,
           },
           pattern: {
             value: PasswordValidation,
-            message:
-              'Password must contain a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [  ] ^ _` { | } ~ ',
+            message: PasswordValidateMessage,
           },
         })}
         label="Password"
@@ -59,7 +64,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
           required: 'Password is required',
           minLength: {
             value: 6,
-            message: 'Minimum number of characters 6',
+            message: PasswordMinLength,
           },
           validate: value => value === getValues('password') || 'The passwords must match',
         })}
