@@ -1,11 +1,16 @@
 import { FC } from 'react'
 
+import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { SignInWidget } from '@/widgets/signIn'
 
-export const SignInPage: FC = () => {
+const SignInPage = () => {
   return (
-    <div className="flex justify-center min-h-screen items-center bg-dark-700">
+    <div className="flex justify-center items-center bg-dark-700">
       <SignInWidget />
     </div>
   )
 }
+
+SignInPage.getLayout = getHeaderLayout
+
+export { SignInPage }
