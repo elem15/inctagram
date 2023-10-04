@@ -1,16 +1,17 @@
 import { FC, useState } from 'react'
 
-import { FormState, SubmitHandler, UseFormRegister, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { SignUpAuth } from '../signUpAuth/SignUpAuth'
+import { SignInAuth } from '../signInAuth/SignInAuth'
 
-import styles from './SignUpWidget.module.scss'
+import styles from './SignInWidget.module.scss'
 
-import { InputField, PasswordField } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { IAuthFields, IAuthInput } from '@/shared/types'
 
-export const SignUpWidget: FC<IAuthFields> = () => {
+export const SignInWidget: FC<IAuthFields> = () => {
+  const [type, setType] = useState<'login' | 'register'>('login')
+
   const {
     register: registerInput,
     handleSubmit,
@@ -22,13 +23,19 @@ export const SignUpWidget: FC<IAuthFields> = () => {
     reValidateMode: 'onBlur',
   })
 
+  const login = (data: any) => {
+    console.log(data)
+  }
+
   const onSubmit: SubmitHandler<IAuthInput> = data => {
+    type === 'login' && login(data)
+
     reset()
   }
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.heading}>Sign Up</h1>
+      <h1 className={styles.heading}>Sign In</h1>
       <div className={styles.icon}>
         <a href="">
           <GoogleIcon />
@@ -38,26 +45,25 @@ export const SignUpWidget: FC<IAuthFields> = () => {
         </a>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <SignUpAuth
+        <SignInAuth
           formState={formState}
           register={registerInput}
           isPasswordRequired
           getValues={getValues}
         />
 
-        <div className={styles.checkbox}>
-          <input type="checkbox" id="agree" className=" border-gray-400 rounded accent-white" />
-          <label htmlFor="agree" className="ml-2 text-xs  text-light-100">
-            I agree to the <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>
-          </label>
-        </div>
+        <div className="text-sm text-light-900 mt-9 mb-6 text-end">Forgot Password</div>
 
-        <button className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-4 ">
-          Sign Up
-        </button>
-        <div className="font-base text-light-100 text-center">Do you have an account?</div>
-        <button className="font-semibold text-primary-500 p-4 bg-transparent w-full">
+        <button
+          type="submit"
+          onClick={() => setType('login')}
+          className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-4 "
+        >
           Sign In
+        </button>
+        <div className="font-base text-light-100 text-center">{`Don't have an account?`}</div>
+        <button className="font-semibold text-primary-500 p-4 bg-transparent w-full">
+          Sign Up
         </button>
       </form>
     </div>

@@ -1,12 +1,11 @@
 .wrapper{
-    @apply my-4;
     
     >label{
         @apply block mb-1 text-light-900; 
     }
 
-    >input{
-        @apply w-full bg-dark-500 border-2 border-dark-100 p-2 rounded text-light-900
+.input{
+        @apply w-full bg-dark-500 border-2  p-2 rounded text-light-900 outline-none 
     }
 
 

@@ -1,1 +1,1 @@
-export { getHeaderLayout } from './header-layout/ui'
+export { getHeaderLayout } from './header-layout/HeaderLayout'

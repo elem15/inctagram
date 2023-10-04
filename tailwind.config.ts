@@ -6,10 +6,10 @@ module.exports = {
     extend: {
       fontSize: {
         xs: ['12px', '16px'],
-        sm: ['14px', '24px'],
+        sm: ['14px', '20px'],
         base: ['16px', '24px'],
-        lg: ['20px', '36px'],
-        xl: ['24px', '32px'],
+        lg: ['18px', '28px'],
+        xl: ['20px', '28px'],
         '3xl': ['30px', '36px'],
       },
       fontFamily: {
@@ -37,6 +37,19 @@ module.exports = {
           700: '#2F68CC',
           900: '#234E99',
         },
+      },
+      spacing: {
+        '11': '2.75rem',
+        '12': '3rem',
+        '13': '3.25rem',
+        '14': '3.5rem',
+        '15': '3.75rem',
+        '16': '4rem',
+        '17': '4.25rem',
+        '18': '4.5rem',
+        '19': '4.75rem',
+        '20': '5rem',
+        '46': '11.5rem',
       },
     },
   },

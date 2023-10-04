@@ -2,7 +2,7 @@ import styles from './ResendVerifLink.module.scss'
 
 import { TimeManagement } from '@/shared/assets'
 import { useTranslation } from '@/shared/hooks'
-import { getHeaderLayout } from '@/widgets/layouts/header-layout/ui'
+import { getHeaderLayout } from '@/widgets/layouts'
 
 const ResendVerifLink = () => {
   const { t } = useTranslation()
