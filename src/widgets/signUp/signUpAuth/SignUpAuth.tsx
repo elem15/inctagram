@@ -1,12 +1,14 @@
 import React, { FC } from 'react'
 
 import { InputField, PasswordField } from '@/shared'
+import { EmailValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 
 export const SignUpAuth: FC<IAuthFields> = ({
   register,
   formState: { errors },
   isPasswordRequired = false,
+  getValues,
 }) => {
   return (
     <>
@@ -26,7 +28,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
         {...register('email', {
           required: 'Email is required',
           pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            value: EmailValidation,
             message: 'The email must match the format example@xample.com',
           },
         })}
@@ -43,7 +45,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
             message: 'Minimum number of characters 6',
           },
           pattern: {
-            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+            value: PasswordValidation,
             message:
               'Password must contain a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [  ] ^ _` { | } ~ ',
           },
@@ -59,11 +61,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
             value: 6,
             message: 'Minimum number of characters 6',
           },
-          pattern: {
-            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            message:
-              'Password must contain a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [  ] ^ _` { | } ~ ',
-          },
+          validate: value => value === getValues('password') || 'The passwords must match',
         })}
         label="Password Confirmation"
         placeholder="Password Confirmation"

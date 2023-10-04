@@ -1,12 +1,11 @@
 import { FC, useState } from 'react'
 
-import { FormState, SubmitHandler, UseFormRegister, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { SignInAuth } from '../signInAuth/SignInAuth'
 
 import styles from './SignInWidget.module.scss'
 
-import { InputField, PasswordField } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { IAuthFields, IAuthInput } from '@/shared/types'
 
@@ -17,6 +16,7 @@ export const SignInWidget: FC<IAuthFields> = () => {
     register: registerInput,
     handleSubmit,
     formState,
+    getValues,
     reset,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
@@ -26,11 +26,9 @@ export const SignInWidget: FC<IAuthFields> = () => {
   const login = (data: any) => {
     console.log(data)
   }
-  // const register = (data: any) => {}
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
     type === 'login' && login(data)
-    // else if (type === 'register') register(data)
 
     reset()
   }
@@ -47,7 +45,12 @@ export const SignInWidget: FC<IAuthFields> = () => {
         </a>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <SignInAuth formState={formState} register={registerInput} isPasswordRequired />
+        <SignInAuth
+          formState={formState}
+          register={registerInput}
+          isPasswordRequired
+          getValues={getValues}
+        />
 
         <div className="text-sm text-light-900 mt-9 mb-6 text-end">Forgot Password</div>
 

@@ -1,6 +1,13 @@
 import { InputHTMLAttributes } from 'react'
 
-import { FormState, UseFormRegister } from 'react-hook-form'
+import {
+  FormState,
+  SubmitHandler,
+  UseFormGetValues,
+  UseFormRegister,
+  UseFormReturn,
+  UseFormWatch,
+} from 'react-hook-form'
 
 interface IInputField {
   label: string
@@ -16,6 +23,7 @@ export interface IAuthFields {
   register: UseFormRegister<any>
   formState: FormState<any>
   isPasswordRequired?: boolean
+  getValues: UseFormGetValues<any>
 }
 
 export interface IAuthInput {
