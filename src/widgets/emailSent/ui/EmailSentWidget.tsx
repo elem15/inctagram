@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import { CloseIcon } from '@/shared/assets'
-import { useTranslation } from '@/shared/hooks'
+import { useTranslation } from '@/shared/model'
 
 export const EmailSentWidget: FC = () => {
   const { t } = useTranslation()

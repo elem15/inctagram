@@ -1,7 +1,11 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
 
+import { useAppSelector } from '@/shared/model'
+
 export const Home: NextPage = () => {
+  const count = useAppSelector(state => state.counter.value)
+
   return (
     <ul>
       <li>
@@ -39,6 +43,9 @@ export const Home: NextPage = () => {
       </li>
       <li>
         <Link href="email">Send Email menu</Link>
+      </li>
+      <li>
+        <Link href="counter">Redux Counter: {count}</Link>
       </li>
     </ul>
   )
