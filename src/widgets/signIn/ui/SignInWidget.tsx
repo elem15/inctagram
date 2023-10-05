@@ -7,9 +7,9 @@ import { SignInAuth } from '../signInAuth/SignInAuth'
 import styles from './SignInWidget.module.scss'
 
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
-import { IAuthFields, IAuthInput } from '@/shared/types'
+import { IAuthInput } from '@/shared/types'
 
-export const SignInWidget: FC<IAuthFields> = () => {
+export const SignInWidget: FC = () => {
   const [type, setType] = useState<'login' | 'register'>('login')
 
   const {
