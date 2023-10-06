@@ -1,19 +1,19 @@
 .container {
-  @apply flex h-screen min-[400px]:justify-center items-center text-center bg-dark-700
+  @apply flex justify-center items-center text-center bg-dark-700;
 }
 
 .heading {
-  @apply text-xl text-light-100 font-bold mb-5 
+  @apply text-xl text-light-100 font-bold mb-5;
 }
-.text{
-  @apply mb-14 text-light-100
+.text {
+  @apply mb-14 text-light-100;
 }
 .btn {
-  @apply block w-46 bg-primary-500 font-semibold text-light-100 p-2 rounded mx-auto
+  @apply block w-46 bg-primary-500 font-semibold text-light-100 p-2 rounded mx-auto;
 }
-.btnWrapper{
-  @apply mb-18
+.btnWrapper {
+  @apply mb-18;
 }
-.img{
-  @apply mx-auto
+.img {
+  @apply mx-auto;
 }

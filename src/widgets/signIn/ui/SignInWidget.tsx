@@ -1,11 +1,38 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
-import styles from './SignIn.module.scss'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { Field, PasswordField } from '@/shared'
+import { SignInAuth } from '../signInAuth/SignInAuth'
+
+import styles from './SignInWidget.module.scss'
+
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
+import { IAuthFields, IAuthInput } from '@/shared/types'
 
-export const SignInWidget: FC = () => {
+export const SignInWidget: FC<IAuthFields> = () => {
+  const [type, setType] = useState<'login' | 'register'>('login')
+
+  const {
+    register: registerInput,
+    handleSubmit,
+    formState,
+    getValues,
+    reset,
+  } = useForm<IAuthInput>({
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
+  })
+
+  const login = (data: any) => {
+    console.log(data)
+  }
+
+  const onSubmit: SubmitHandler<IAuthInput> = data => {
+    type === 'login' && login(data)
+
+    reset()
+  }
+
   return (
     <div className={styles.wrapper}>
       <h1 className={styles.heading}>Sign In</h1>
@@ -17,14 +44,21 @@ export const SignInWidget: FC = () => {
           <GithubIcon className="fill-light-100" />
         </a>
       </div>
-      <form className={styles.form}>
-        <Field name="Email" placeholder="Email" />
-
-        <PasswordField name="Password" placeholder="Password" />
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <SignInAuth
+          formState={formState}
+          register={registerInput}
+          isPasswordRequired
+          getValues={getValues}
+        />
 
         <div className="text-sm text-light-900 mt-9 mb-6 text-end">Forgot Password</div>
 
-        <button className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-4 ">
+        <button
+          type="submit"
+          onClick={() => setType('login')}
+          className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-4 "
+        >
           Sign In
         </button>
         <div className="font-base text-light-100 text-center">{`Don't have an account?`}</div>

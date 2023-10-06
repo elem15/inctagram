@@ -1,11 +1,16 @@
 import { FC } from 'react'
 
+import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { SignUpWidget } from '@/widgets/signUp'
 
-export const SignUpPage: FC = () => {
+const SignUpPage = () => {
   return (
-    <div className="flex justify-center min-h-screen items-center bg-dark-700">
+    <div className="flex justify-center items-center bg-dark-700">
       <SignUpWidget />
     </div>
   )
 }
+
+SignUpPage.getLayout = getHeaderLayout
+
+export { SignUpPage }

@@ -1,11 +1,31 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
-import styles from './SignUp.module.scss'
+import { FormState, SubmitHandler, UseFormRegister, useForm } from 'react-hook-form'
 
-import { Field, PasswordField } from '@/shared'
+import { SignUpAuth } from '../signUpAuth/SignUpAuth'
+
+import styles from './SignUpWidget.module.scss'
+
+import { InputField, PasswordField } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
+import { IAuthFields, IAuthInput } from '@/shared/types'
 
-export const SignUpWidget: FC = () => {
+export const SignUpWidget: FC<IAuthFields> = () => {
+  const {
+    register: registerInput,
+    handleSubmit,
+    formState,
+    getValues,
+    reset,
+  } = useForm<IAuthInput>({
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
+  })
+
+  const onSubmit: SubmitHandler<IAuthInput> = data => {
+    reset()
+  }
+
   return (
     <div className={styles.wrapper}>
       <h1 className={styles.heading}>Sign Up</h1>
@@ -17,12 +37,13 @@ export const SignUpWidget: FC = () => {
           <GithubIcon className="fill-light-100" />
         </a>
       </div>
-      <form className={styles.form}>
-        <Field name="UserName" placeholder="UserName" />
-        <Field name="Email" placeholder="Email" />
-
-        <PasswordField name="Password" placeholder="Password" />
-        <PasswordField name="Password Confirmation" placeholder="Password Confirmation" />
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <SignUpAuth
+          formState={formState}
+          register={registerInput}
+          isPasswordRequired
+          getValues={getValues}
+        />
 
         <div className={styles.checkbox}>
           <input type="checkbox" id="agree" className=" border-gray-400 rounded accent-white" />

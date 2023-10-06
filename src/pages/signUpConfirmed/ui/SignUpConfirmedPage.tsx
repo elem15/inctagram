@@ -1,10 +1,11 @@
 import { FC } from 'react'
 
-import { SignUpConfirmImg, OutlinedBellIcon, FlagUnitedKingdom } from '@/shared/assets/'
-
 import styles from './SignUpConfirmed.module.css'
 
-export const SignUpConfirmedPage: FC = () => {
+import { SignUpConfirmImg, OutlinedBellIcon, FlagUnitedKingdom } from '@/shared/assets/'
+import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
+
+const SignUpConfirmedPage = () => {
   return (
     <div>
       <div className={styles.container}>
@@ -20,3 +21,7 @@ export const SignUpConfirmedPage: FC = () => {
     </div>
   )
 }
+
+SignUpConfirmedPage.getLayout = getHeaderLayout
+
+export { SignUpConfirmedPage }
