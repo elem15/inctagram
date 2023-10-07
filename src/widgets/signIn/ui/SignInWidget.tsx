@@ -1,11 +1,14 @@
 import { FC, useState } from 'react'
 
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 
 import { SignInAuth } from '../signInAuth/SignInAuth'
 
 import styles from './SignInWidget.module.scss'
 
+import { AppDispatch } from '@/app/appStore'
+import { signInUser } from '@/entities/auth/AuthSlice'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { IAuthInput } from '@/shared/types'
 
@@ -23,12 +26,10 @@ export const SignInWidget: FC = () => {
     reValidateMode: 'onBlur',
   })
 
-  const login = (data: any) => {
-    console.log(data)
-  }
+  const dispatch = useDispatch<AppDispatch>()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
-    type === 'login' && login(data)
+    dispatch(signInUser({ email: data.email, password: data.password }))
 
     reset()
   }

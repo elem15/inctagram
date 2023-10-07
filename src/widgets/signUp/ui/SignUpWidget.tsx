@@ -1,16 +1,19 @@
 import { FC, useState } from 'react'
 
 import { FormState, SubmitHandler, UseFormRegister, useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 
 import { SignUpAuth } from '../signUpAuth/SignUpAuth'
 
 import styles from './SignUpWidget.module.scss'
 
+import { AppDispatch } from '@/app/appStore'
+import { signUpUser } from '@/entities/auth/AuthSlice'
 import { InputField, PasswordField } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { IAuthFields, IAuthInput } from '@/shared/types'
 
-export const SignUpWidget: FC<IAuthFields> = () => {
+export const SignUpWidget: FC = () => {
   const {
     register: registerInput,
     handleSubmit,
@@ -22,7 +25,10 @@ export const SignUpWidget: FC<IAuthFields> = () => {
     reValidateMode: 'onBlur',
   })
 
+  const dispatch = useDispatch<AppDispatch>()
+
   const onSubmit: SubmitHandler<IAuthInput> = data => {
+    dispatch(signUpUser({ email: data.email, username: data.username, password: data.password }))
     reset()
   }
 
