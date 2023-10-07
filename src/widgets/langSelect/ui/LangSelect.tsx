@@ -1,61 +1,123 @@
 'use client'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
-import Image from 'next/image'
 import { useRouter } from 'next/router'
+import Select, { components } from 'react-select'
+
+const { SingleValue, Option } = components
 
 import { FlagRu, FlagUK } from '@/shared/assets'
 
-export const English = () => {
-  return (
-    <div className="flex text-base justify-items-center items-baseline">
-      <Image src="/icons/FlagUnitedKingdom.png" alt="" width={20} height={20} />
-      {/* <FlagUK /> */}
-      <span>English</span>
-    </div>
-  )
-}
-export const Russian = () => {
-  return (
-    <div className="flex text-base justify-items-center items-baseline">
-      {/* <Image src="/icons/FlagUnitedKingdom.png" alt="" width={20} height={20} /> */}
-      <FlagRu />
-      <span>Русский</span>
-    </div>
-  )
+const IconSingleValue = props => (
+  <SingleValue {...props}>
+    {props.data.value === 'en' ? <FlagUK /> : <FlagRu />}
+    {props.data.label}
+  </SingleValue>
+)
+const IconOption = props => (
+  <Option {...props}>
+    {props.data.value === 'en' ? <FlagUK /> : <FlagRu />}
+    {props.data.label}
+  </Option>
+)
+
+const customStyles = {
+  control: (baseStyles, state) => ({
+    ...baseStyles,
+    backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
+    borderColor: 'white',
+    borderRadius: 0,
+    width: '163px',
+    height: '36px',
+  }),
+  valueContainer: (baseStyles, state) => ({
+    background: 'rgba(0, 0, 0, 0)',
+    padding: '0',
+    height: '30px',
+  }),
+  indicatorSeparator: (baseStyles, state) => ({
+    ...baseStyles,
+    display: 'none',
+  }),
+  dropdownIndicator: (base, state) => ({
+    ...base,
+    transition: 'all .2s ease',
+    transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
+  }),
+  menu: (baseStyles, state) => ({
+    ...baseStyles,
+    backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
+    margin: 0,
+    border: 'solid 1px white',
+    borderRadius: 0,
+  }),
+  menuList: (baseStyles, state) => ({
+    ...baseStyles,
+    border: 'solid 1px white',
+    backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
+  }),
+  option: (baseStyles, state) => ({
+    ...baseStyles,
+    backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '12px',
+    alignItems: 'center',
+    fontSize: '1rem',
+    color: 'white',
+    height: '30px',
+  }),
+  singleValue: (baseStyles, state) => ({
+    ...baseStyles,
+    background: 'rgba(0, 0, 0, 0)',
+    marginLeft: '12px',
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '12px',
+    alignItems: 'center',
+    fontSize: '1rem',
+    color: 'white',
+    height: '30px',
+  }),
 }
 
 export const LangSelectWidget = () => {
   const { locale, push, pathname, query, asPath, locales } = useRouter()
 
-  const changeLangHandler = (event: ChangeEvent<HTMLSelectElement>) => {
-    const locale = event.currentTarget.value
+  const options = useMemo(
+    () =>
+      (locales as string[]).map(l => ({
+        value: l,
+        label: l === 'en' ? 'English' : 'Русский',
+      })),
+    [locales]
+  )
+  const defaultValue = useMemo(
+    () => ({ value: locale as string, label: locale === 'en' ? 'English' : 'Русский' }),
+    [locale]
+  )
 
-    push({ pathname, query }, asPath, { locale })
-  }
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
   }, [])
 
+  const changeLangHandler = (selectedOption: { value: string; label: string }) => {
+    push({ pathname, query }, asPath, { locale: selectedOption.value })
+  }
+
   return (
-    <div className="flex text-base justify-between items-center w-40 h-8 border border-light-500 px-2 py-2">
-      {locale === 'en' ? <FlagUK /> : <FlagRu />}
+    <div>
       {isClient && (
-        <select
+        <Select
+          style={{ backgroundColor: 'black' }}
+          styles={customStyles}
+          defaultValue={defaultValue}
           onChange={changeLangHandler}
-          defaultValue={locale}
-          className="bg-black text-base border-collapse w-28"
-        >
-          {locales?.map(l => {
-            return (
-              <option value={l} key={l}>
-                {l === 'en' ? <English /> : <Russian />}
-              </option>
-            )
-          })}
-        </select>
+          options={options}
+          components={{ SingleValue: IconSingleValue, Option: IconOption }}
+        />
       )}
     </div>
   )
