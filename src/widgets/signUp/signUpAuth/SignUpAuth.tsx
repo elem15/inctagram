@@ -5,10 +5,11 @@ import {
   EmailFormatMessage,
   MaxLength,
   MinLength,
+  NameFormatMessage,
   PasswordMinLength,
   PasswordValidateMessage,
 } from '@/shared/messages'
-import { EmailValidation, PasswordValidation } from '@/shared/regex'
+import { EmailValidation, NameValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 
 export const SignUpAuth: FC<IAuthFields> = ({
@@ -27,8 +28,12 @@ export const SignUpAuth: FC<IAuthFields> = ({
             message: MaxLength,
           },
           minLength: {
-            value: 2,
+            value: 6,
             message: MinLength,
+          },
+          pattern: {
+            value: NameValidation,
+            message: NameFormatMessage,
           },
         })}
         label="Username"
