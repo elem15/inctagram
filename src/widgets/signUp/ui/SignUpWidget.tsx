@@ -5,7 +5,7 @@ import { FormState, SubmitHandler, UseFormRegister, useForm } from 'react-hook-f
 import { SignUpAuth } from '../signUpAuth/SignUpAuth'
 
 import styles from './SignUpWidget.module.scss'
-
+import { useTranslation } from '@/shared/hooks'
 import { InputField, PasswordField } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { IAuthFields, IAuthInput } from '@/shared/types'
@@ -25,10 +25,11 @@ export const SignUpWidget: FC<IAuthFields> = () => {
   const onSubmit: SubmitHandler<IAuthInput> = data => {
     reset()
   }
+  const { t } = useTranslation()
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.heading}>Sign Up</h1>
+      <h1 className={styles.heading}>{t.signup.title}</h1>
       <div className={styles.icon}>
         <a href="">
           <GoogleIcon />
@@ -48,16 +49,16 @@ export const SignUpWidget: FC<IAuthFields> = () => {
         <div className={styles.checkbox}>
           <input type="checkbox" id="agree" className=" border-gray-400 rounded accent-white" />
           <label htmlFor="agree" className="ml-2 text-xs  text-light-100">
-            I agree to the <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>
+            {t.signup.agreement} <a href="">{t.signup.terms_service}</a> {t.signup.and} <a href="">{t.signup.privacy_policy}</a>
           </label>
         </div>
 
         <button className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-4 ">
-          Sign Up
+          {t.signup.sign_up}
         </button>
-        <div className="font-base text-light-100 text-center">Do you have an account?</div>
+        <div className="font-base text-light-100 text-center">{t.signup.account_question}</div>
         <button className="font-semibold text-primary-500 p-4 bg-transparent w-full">
-          Sign In
+        {t.signup.sign_in}
         </button>
       </form>
     </div>

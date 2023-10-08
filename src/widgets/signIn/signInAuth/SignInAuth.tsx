@@ -4,12 +4,14 @@ import { InputField, PasswordField } from '@/shared'
 import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
 import { EmailValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
+import { useTranslation } from '@/shared/hooks'
 
 export const SignInAuth: FC<IAuthFields> = ({
   register,
   formState: { errors },
   isPasswordRequired = false,
 }) => {
+  const { t } = useTranslation()
   return (
     <>
       <InputField
@@ -20,8 +22,8 @@ export const SignInAuth: FC<IAuthFields> = ({
             message: 'Email is invalid ',
           },
         })}
-        label="Email"
-        placeholder="Email"
+        label={t.signin.email}
+        placeholder={t.signin.email}
         // error={errors.password}
         helperText={errors.email?.message?.toString()}
       ></InputField>
@@ -37,8 +39,8 @@ export const SignInAuth: FC<IAuthFields> = ({
             message: PasswordValidateMessage,
           },
         })}
-        label="Password"
-        placeholder="Password"
+        label={t.signin.password}
+        placeholder={t.signin.password}
         helperText={errors.password?.message?.toString()}
       ></PasswordField>
     </>

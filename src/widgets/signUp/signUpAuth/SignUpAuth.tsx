@@ -9,6 +9,7 @@ import {
 } from '@/shared/messages'
 import { EmailValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
+import { useTranslation } from '@/shared/hooks'
 
 export const SignUpAuth: FC<IAuthFields> = ({
   register,
@@ -16,6 +17,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
   isPasswordRequired = false,
   getValues,
 }) => {
+  const { t } = useTranslation()
   return (
     <>
       <InputField
@@ -26,8 +28,8 @@ export const SignUpAuth: FC<IAuthFields> = ({
             message: MaxLength,
           },
         })}
-        label="Username"
-        placeholder="Username"
+        label={t.signup.username}
+        placeholder={t.signup.username}
         helperText={errors.username?.message?.toString()}
       ></InputField>
       <InputField
@@ -38,8 +40,8 @@ export const SignUpAuth: FC<IAuthFields> = ({
             message: EmailFormatMessage,
           },
         })}
-        label="Email"
-        placeholder="Email"
+        label= {t.signup.email}
+        placeholder={t.signup.email}
         // error={errors.password}
         helperText={errors.email?.message?.toString()}
       ></InputField>
@@ -55,8 +57,8 @@ export const SignUpAuth: FC<IAuthFields> = ({
             message: PasswordValidateMessage,
           },
         })}
-        label="Password"
-        placeholder="Password"
+        label={t.signup.password}
+        placeholder={t.signup.password}
         helperText={errors.password?.message?.toString()}
       ></PasswordField>
       <PasswordField
@@ -68,8 +70,8 @@ export const SignUpAuth: FC<IAuthFields> = ({
           },
           validate: value => value === getValues('password') || 'The passwords must match',
         })}
-        label="Password Confirmation"
-        placeholder="Password Confirmation"
+        label={t.signup.password_confirmation}
+        placeholder={t.signup.password_confirmation}
         helperText={errors.passwordConfirm?.message?.toString()}
       ></PasswordField>
     </>
