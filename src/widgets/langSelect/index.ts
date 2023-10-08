@@ -1,1 +1,1 @@
-export { LangSelectWidget, English } from './ui/langSelect'
+export { LangSelectWidget } from './ui/LangSelect'

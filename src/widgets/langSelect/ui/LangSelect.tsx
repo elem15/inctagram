@@ -2,50 +2,60 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import { useRouter } from 'next/router'
-import Select, { components } from 'react-select'
-
-const { SingleValue, Option } = components
+import Select, { OptionProps, SingleValueProps, components, StylesConfig } from 'react-select'
 
 import { FlagRu, FlagUK } from '@/shared/assets'
 
-const IconSingleValue = props => (
+const { SingleValue, Option } = components
+
+// @ts-ignore
+const IconSingleValue = (props: SingleValueProps<Option_19, IsMulti_19, Group_19>) => (
   <SingleValue {...props}>
     {props.data.value === 'en' ? <FlagUK /> : <FlagRu />}
-    {props.data.label}
+    <span className="sm:block hidden">{props.data.label}</span>
   </SingleValue>
 )
-const IconOption = props => (
+// @ts-ignore
+const IconOption = (props: OptionProps<Option_16, IsMulti_16, Group_16>) => (
   <Option {...props}>
     {props.data.value === 'en' ? <FlagUK /> : <FlagRu />}
-    {props.data.label}
+    <span className="sm:block hidden">{props.data.label}</span>
   </Option>
 )
 
-const customStyles = {
+type MyOptionType = {
+  value: string
+  label: string
+}
+type IsMulti = boolean
+const customStyles: StylesConfig<MyOptionType, IsMulti> = {
   control: (baseStyles, state) => ({
     ...baseStyles,
     backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
     borderColor: 'white',
     borderRadius: 0,
-    width: '163px',
     height: '36px',
   }),
-  valueContainer: (baseStyles, state) => ({
+  valueContainer: () => ({
     background: 'rgba(0, 0, 0, 0)',
     padding: '0',
     height: '30px',
   }),
-  indicatorSeparator: (baseStyles, state) => ({
+  indicatorSeparator: baseStyles => ({
     ...baseStyles,
     display: 'none',
   }),
-  dropdownIndicator: (base, state) => ({
-    ...base,
+  // @ts-ignore
+  dropdownIndicator: (baseStyles, state) => ({
+    ...baseStyles,
     transition: 'all .2s ease',
     transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
+    color: 'white',
+    '&:hover': { color: 'lightgray' },
   }),
   menu: (baseStyles, state) => ({
     ...baseStyles,
+    // @ts-ignore
     backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
     margin: 0,
     border: 'solid 1px white',
@@ -54,6 +64,7 @@ const customStyles = {
   menuList: (baseStyles, state) => ({
     ...baseStyles,
     border: 'solid 1px white',
+    // @ts-ignore
     backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
   }),
   option: (baseStyles, state) => ({
@@ -67,7 +78,7 @@ const customStyles = {
     color: 'white',
     height: '30px',
   }),
-  singleValue: (baseStyles, state) => ({
+  singleValue: baseStyles => ({
     ...baseStyles,
     background: 'rgba(0, 0, 0, 0)',
     marginLeft: '12px',
@@ -81,10 +92,10 @@ const customStyles = {
   }),
 }
 
-export const LangSelectWidget = () => {
+function LangSelectWidget() {
   const { locale, push, pathname, query, asPath, locales } = useRouter()
 
-  const options = useMemo(
+  const options: MyOptionType[] = useMemo(
     () =>
       (locales as string[]).map(l => ({
         value: l,
@@ -92,7 +103,7 @@ export const LangSelectWidget = () => {
       })),
     [locales]
   )
-  const defaultValue = useMemo(
+  const defaultValue: MyOptionType = useMemo(
     () => ({ value: locale as string, label: locale === 'en' ? 'English' : 'Русский' }),
     [locale]
   )
@@ -111,9 +122,9 @@ export const LangSelectWidget = () => {
     <div>
       {isClient && (
         <Select
-          style={{ backgroundColor: 'black' }}
           styles={customStyles}
           defaultValue={defaultValue}
+          // @ts-ignore
           onChange={changeLangHandler}
           options={options}
           components={{ SingleValue: IconSingleValue, Option: IconOption }}
@@ -122,3 +133,5 @@ export const LangSelectWidget = () => {
     </div>
   )
 }
+
+export { LangSelectWidget }
