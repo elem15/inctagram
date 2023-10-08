@@ -1,12 +1,17 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
 
-import { useAppSelector } from '@/shared/model'
+import { logout } from '@/entities/auth/AuthSlice'
+import { useAppDispatch, useAppSelector } from '@/shared/model'
+import { useAuth } from '@/shared/model/hooks/useAuth'
 
 export const Home: NextPage = () => {
   const count = useAppSelector(state => state.counter.value)
+  const dispatch = useAppDispatch()
 
-  return (
+  const { isAuth, email } = useAuth()
+
+  return isAuth ? (
     <ul>
       <li>
         <Link href="home">Home</Link>
@@ -47,6 +52,11 @@ export const Home: NextPage = () => {
       <li>
         <Link href="counter">Redux Counter: {count}</Link>
       </li>
+      <Link href={'/'}>
+        <button onClick={() => dispatch(logout())}>Log out {email} </button>
+      </Link>
     </ul>
+  ) : (
+    <div>Nolog</div>
   )
 }

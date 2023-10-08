@@ -2,18 +2,17 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { RootState } from '@/app/appStore'
 
-export interface IEmailPasswordUser {
-  email: string
-  userName: string
-  password: string
-}
 export interface IEmailPassword {
   email: string
   password: string
 }
 
+export interface IEmailPasswordUser extends IEmailPassword {
+  userName: string
+}
+
 export interface IInitialState {
-  user: string | null
+  email: string | null
   isLoading: boolean
   error: string | null
   token: string | null
@@ -21,7 +20,7 @@ export interface IInitialState {
 }
 
 const initialState: IInitialState = {
-  user: '',
+  email: '',
   isLoading: false,
   error: '',
   token: '',
@@ -38,7 +37,7 @@ export const signUpUser = createAsyncThunk<any, IEmailPasswordUser>(
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, userName }),
     })
 
     return await response.json()
@@ -68,10 +67,11 @@ const authSlice = createSlice({
       state.token = localStorage.getItem('token')
     },
     addUser: (state, action) => {
-      state.user = localStorage.getItem('user')
+      state.email = localStorage.getItem('email')
     },
-    logout: (state, action) => {
+    logout: state => {
       state.token = null
+      state.email = null
       localStorage.clear()
     },
   },
@@ -91,16 +91,17 @@ const authSlice = createSlice({
       .addCase(signInUser.pending, state => {
         state.isLoading = true
       })
-      .addCase(signInUser.fulfilled, (state, { payload: { token, error, messages } }) => {
+      .addCase(signInUser.fulfilled, (state, { payload: { token, error, messages, email } }) => {
         state.isLoading = false
         if (error) {
           state.error = error
         } else {
           state.token = token
           state.message = messages.message
+          state.email = email
 
           localStorage.setItem('message', messages.message)
-          // localStorage.setItem('user', user)
+          localStorage.setItem('email', email)
           localStorage.setItem('token', token)
         }
       })
