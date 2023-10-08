@@ -4,6 +4,7 @@ import { InputField, PasswordField } from '@/shared'
 import {
   EmailFormatMessage,
   MaxLength,
+  MinLength,
   PasswordMinLength,
   PasswordValidateMessage,
 } from '@/shared/messages'
@@ -24,6 +25,10 @@ export const SignUpAuth: FC<IAuthFields> = ({
           maxLength: {
             value: 30,
             message: MaxLength,
+          },
+          minLength: {
+            value: 2,
+            message: MinLength,
           },
         })}
         label="Username"
