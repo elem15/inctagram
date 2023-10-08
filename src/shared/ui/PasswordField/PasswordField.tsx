@@ -27,13 +27,13 @@ export const PasswordField = forwardRef<HTMLInputElement, IField>(
             type={type}
             {...rest}
             placeholder={placeholder}
-            className={cn(styles.input, helperText ? 'border-red-500' : 'border-dark-100 ')}
+            className={cn(styles.input, helperText ? 'border-danger-500' : 'border-dark-100 ')}
           />
           <span onClick={togglePassword}>
             {type === 'password' ? <EyeOutlineIcon /> : <EyeOffOutlineIcon />}
           </span>
         </div>
-        {helperText && <div className="max-w-[330px] text-red-500 text-sm">{helperText}</div>}
+        {helperText && <div className="max-w-[330px] text-danger-500 text-sm">{helperText}</div>}
       </div>
     )
   }

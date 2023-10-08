@@ -37,6 +37,9 @@ module.exports = {
           700: '#2F68CC',
           900: '#234E99',
         },
+        danger: {
+          500: '#CC1439',
+        },
       },
       spacing: {
         '11': '2.75rem',
