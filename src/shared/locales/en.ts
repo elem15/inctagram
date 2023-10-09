@@ -12,7 +12,7 @@ export const en = {
   },
   signin: {
     title: 'Sign In',
-    email: 'email',
+    email: 'Email',
     password: 'Password',
     forgot_password: 'Forgot Password',
     sign_in:'Sign In',
@@ -21,7 +21,7 @@ export const en = {
   },
   signup: {
     title: 'Sign Up',
-    email: 'email',
+    email: 'Email',
     password: 'Password',
     password_confirmation: 'Password Confirmation',
     forgot_password: 'Forgot Password',

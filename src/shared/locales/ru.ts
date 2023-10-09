@@ -31,7 +31,7 @@ export const ru: LangType = {
     sign_up:'Зарегистрироваться',
     account_question: 'Вы зарегистрированы?',
     agreement: 'Я соглашаюсь с ',
-    and: 'and',
+    and: 'и',
     terms_service: 'Условиями обслуживания',
     privacy_policy: 'Политикой конфиденциальности',
     username: 'Имя пользователя',
