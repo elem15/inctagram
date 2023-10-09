@@ -1,8 +1,6 @@
-import { FC } from 'react'
-
 import styles from './SignUpConfirmed.module.css'
 
-import { SignUpConfirmImg, OutlinedBellIcon, FlagUnitedKingdom } from '@/shared/assets/'
+import { SignUpConfirmImg } from '@/shared/assets/'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 
 const SignUpConfirmedPage = () => {
