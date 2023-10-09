@@ -28,7 +28,7 @@ export const SignUpWidget: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
-    dispatch(signUpUser({ email: data.email, username: data.username, password: data.password }))
+    dispatch(signUpUser({ email: data.email, userName: data.username, password: data.password }))
     reset()
   }
 

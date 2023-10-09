@@ -15,16 +15,18 @@ export interface IInitialState {
   email: string | null
   isLoading: boolean
   error: string | null
-  token: string | null
+  accessToken: string | null
   message: string
+  statusCode: number | null
 }
 
 const initialState: IInitialState = {
   email: '',
   isLoading: false,
   error: '',
-  token: '',
+  accessToken: '',
   message: '',
+  statusCode: null,
 }
 
 export interface IAuthResponse {}
@@ -64,13 +66,13 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     addToken: (state, action) => {
-      state.token = localStorage.getItem('token')
+      state.accessToken = localStorage.getItem('token')
     },
     addUser: (state, action) => {
       state.email = localStorage.getItem('email')
     },
     logout: state => {
-      state.token = null
+      state.accessToken = null
       state.email = null
       localStorage.clear()
     },
@@ -80,8 +82,9 @@ const authSlice = createSlice({
       .addCase(signUpUser.pending, state => {
         state.isLoading = true
       })
-      .addCase(signUpUser.fulfilled, (state, action) => {
+      .addCase(signUpUser.fulfilled, (state, { payload: { statusCode } }) => {
         state.isLoading = false
+        state.statusCode = statusCode
       })
       .addCase(signUpUser.rejected, (state, action) => {
         state.isLoading = false
@@ -91,20 +94,22 @@ const authSlice = createSlice({
       .addCase(signInUser.pending, state => {
         state.isLoading = true
       })
-      .addCase(signInUser.fulfilled, (state, { payload: { token, error, messages, email } }) => {
-        state.isLoading = false
-        if (error) {
-          state.error = error
-        } else {
-          state.token = token
-          state.message = messages.message
-          state.email = email
+      .addCase(
+        signInUser.fulfilled,
+        (state, { payload: { accessToken, error, messages, email } }) => {
+          state.isLoading = false
+          if (error) {
+            state.error = error
+            state.message = messages.message
+          } else {
+            state.accessToken = accessToken
+            state.email = email
 
-          localStorage.setItem('message', messages.message)
-          localStorage.setItem('email', email)
-          localStorage.setItem('token', token)
+            localStorage.setItem('email', email)
+            localStorage.setItem('token', accessToken)
+          }
         }
-      })
+      )
       .addCase(signInUser.rejected, (state, action) => {
         state.isLoading = false
       })
