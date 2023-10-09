@@ -22,9 +22,13 @@ export const SignUpWidget: FC<IAuthFields> = () => {
     reValidateMode: 'onBlur',
   })
 
-  const onSubmit: SubmitHandler<IAuthInput> = data => {
+  const onSubmit: SubmitHandler<IAuthInput> = () => {
     reset()
   }
+
+  const [agree, setAgree] = useState(false)
+
+  console.log(formState.isValid)
 
   return (
     <div className={styles.wrapper}>
@@ -49,6 +53,8 @@ export const SignUpWidget: FC<IAuthFields> = () => {
           <input
             type="checkbox"
             id="agree"
+            checked={agree}
+            onChange={() => setAgree(agree => !agree)}
             className="border-gray-400 rounded accent-white h-6 w-6"
           />
           <label htmlFor="agree" className="ml-2 text-xs  text-light-100">
@@ -56,7 +62,10 @@ export const SignUpWidget: FC<IAuthFields> = () => {
           </label>
         </div>
 
-        <button className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-4 ">
+        <button
+          className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded my-4 disabled:opacity-75"
+          disabled={!(formState.isValid && agree)}
+        >
           Sign Up
         </button>
         <div className="font-base text-light-100 text-center">Do you have an account?</div>
