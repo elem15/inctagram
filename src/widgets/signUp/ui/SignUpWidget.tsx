@@ -46,7 +46,11 @@ export const SignUpWidget: FC<IAuthFields> = () => {
         />
 
         <div className={styles.checkbox}>
-          <input type="checkbox" id="agree" className=" border-gray-400 rounded accent-white" />
+          <input
+            type="checkbox"
+            id="agree"
+            className="border-gray-400 rounded accent-white h-6 w-6"
+          />
           <label htmlFor="agree" className="ml-2 text-xs  text-light-100">
             I agree to the <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>
           </label>
