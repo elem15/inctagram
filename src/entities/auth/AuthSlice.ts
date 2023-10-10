@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, isRejectedWithValue, PayloadAction } from '@reduxjs/toolkit'
 
 import { RootState } from '@/app/appStore'
 
@@ -14,7 +14,7 @@ export interface IEmailPasswordUser extends IEmailPassword {
 export interface IInitialState {
   email: string | null
   isLoading: boolean
-  error: string | null
+  error: any | null
   accessToken: string | null
   message: string
   statusCode: number | null
@@ -33,16 +33,24 @@ export interface IAuthResponse {}
 
 export const signUpUser = createAsyncThunk<any, IEmailPasswordUser>(
   'signupuser',
-  async ({ email, userName, password }) => {
-    const response = await fetch('https://incta.online/api/v1/auth/registration', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password, userName }),
-    })
+  async ({ email, userName, password }, { rejectWithValue }) => {
+    try {
+      const response = await fetch('https://incta.online/api/v1/auth/registratio', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userName, email, password }),
+      })
 
-    return await response.json()
+      if (!response.ok) {
+        throw new Error('Server Error')
+      }
+
+      return await response.json()
+    } catch (error: any) {
+      return rejectWithValue(error.message)
+    }
   }
 )
 
@@ -88,6 +96,7 @@ const authSlice = createSlice({
       })
       .addCase(signUpUser.rejected, (state, action) => {
         state.isLoading = false
+        state.error = action.payload
       })
 
     builder
