@@ -1,6 +1,6 @@
 .wrapper {
 
-    >label {
+    .label {
         @apply block mb-1 text-light-900 text-sm;
     }
 
@@ -8,7 +8,7 @@
         @apply w-full bg-dark-500 border-2 p-2 rounded text-light-100 outline-none
     }
 
-    ::placeholder {
+    .input::placeholder {
         @apply text-light-900
     }
 
