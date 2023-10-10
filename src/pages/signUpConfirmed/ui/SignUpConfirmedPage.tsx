@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import styles from './SignUpConfirmed.module.css'
 
 import { SignUpConfirmImg } from '@/shared/assets/'
@@ -13,7 +15,8 @@ const SignUpConfirmedPage = () => {
           <div className={styles.btnWrapper}>
             <button className={styles.btn}>Sign In</button>
           </div>
-          <SignUpConfirmImg className={styles.img} />
+          {/* <SignUpConfirmImg className={styles.img} /> */}
+          <Image src="/icons/SignUpConfirm.png" width={432} height={300} alt="sign-up" />
         </div>
       </div>
     </div>

@@ -19,5 +19,5 @@
 }
 
 .img {
-  @apply mx-auto;
+  @apply mx-auto w-full h-auto;
 }
