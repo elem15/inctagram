@@ -14,6 +14,7 @@ module.exports = {
       },
       fontFamily: {
         primary: ['Inter'],
+        roboto: ['Roboto', 'Inter'],
       },
       colors: {
         light: {
