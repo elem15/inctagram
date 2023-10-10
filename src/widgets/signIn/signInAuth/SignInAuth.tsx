@@ -20,6 +20,7 @@ export const SignInAuth: FC<IAuthFields> = ({
             message: 'Email is invalid ',
           },
         })}
+        type="email"
         label="Email"
         placeholder="Email"
         // error={errors.password}

@@ -48,6 +48,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
             message: EmailFormatMessage,
           },
         })}
+        type="email"
         label="Email"
         placeholder="Email"
         // error={errors.password}

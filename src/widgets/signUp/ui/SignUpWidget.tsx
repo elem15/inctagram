@@ -28,8 +28,6 @@ export const SignUpWidget: FC<IAuthFields> = () => {
 
   const [agree, setAgree] = useState(false)
 
-  console.log(formState.isValid)
-
   return (
     <div className={styles.wrapper}>
       <h1 className={styles.heading}>Sign Up</h1>
