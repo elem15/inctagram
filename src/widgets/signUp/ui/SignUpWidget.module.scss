@@ -1,5 +1,5 @@
 .wrapper {
-    @apply border border-dark-100 rounded-sm px-8 py-8 max-sm:w-full max-md:sm:w-1/2 md:w-96 bg-dark-500;
+    @apply border border-dark-100 rounded-sm px-6 py-6 w-full sm:w-96 bg-dark-500;
 
     .heading {
         @apply text-light-100 font-bold text-xl text-center;
