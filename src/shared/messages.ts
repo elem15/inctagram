@@ -3,7 +3,7 @@ export const PasswordValidateMessage =
 
 export const PasswordMinLength = 'Minimum number of characters 6'
 
-export const PasswordMaxLength = 'Minimum number of characters 20'
+export const PasswordMaxLength = 'Maximum number of characters 20'
 
 export const EmailFormatMessage = 'The email must match the format example@xample.com'
 
