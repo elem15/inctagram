@@ -12,6 +12,7 @@ export interface IEmailPasswordUser extends IEmailPassword {
 }
 
 export interface IInitialState {
+  user: string | null
   email: string | null
   isLoading: boolean
   error: any | null
@@ -21,6 +22,7 @@ export interface IInitialState {
 }
 
 const initialState: IInitialState = {
+  user: '',
   email: '',
   isLoading: false,
   error: '',
@@ -84,6 +86,10 @@ const authSlice = createSlice({
       state.email = null
       localStorage.clear()
     },
+    setUser: (state, { payload: { user, email } }) => {
+      state.user = user
+      state.email = email
+    },
   },
   extraReducers: builder => {
     builder
@@ -125,5 +131,5 @@ const authSlice = createSlice({
   },
 })
 
-export const { addToken, addUser, logout } = authSlice.actions
+export const { addToken, addUser, logout, setUser } = authSlice.actions
 export default authSlice.reducer
