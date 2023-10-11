@@ -6,6 +6,7 @@ import {
   MaxLength,
   MinLength,
   NameFormatMessage,
+  PasswordMaxLength,
   PasswordMinLength,
   PasswordValidateMessage,
 } from '@/shared/messages'
@@ -60,6 +61,10 @@ export const SignUpAuth: FC<IAuthFields> = ({
           minLength: {
             value: 6,
             message: PasswordMinLength,
+          },
+          maxLength: {
+            value: 20,
+            message: PasswordMaxLength,
           },
           pattern: {
             value: PasswordValidation,

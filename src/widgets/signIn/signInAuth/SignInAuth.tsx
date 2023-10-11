@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import { InputField, PasswordField } from '@/shared'
-import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
+import { PasswordMaxLength, PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
 import { EmailValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 
@@ -32,6 +32,10 @@ export const SignInAuth: FC<IAuthFields> = ({
           minLength: {
             value: 6,
             message: PasswordMinLength,
+          },
+          maxLength: {
+            value: 20,
+            message: PasswordMaxLength,
           },
           pattern: {
             value: PasswordValidation,
