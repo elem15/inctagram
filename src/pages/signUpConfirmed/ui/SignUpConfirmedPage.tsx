@@ -1,11 +1,23 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
+
+import { useRouter } from 'next/router'
 
 import styles from './SignUpConfirmed.module.css'
 
-import { SignUpConfirmImg, OutlinedBellIcon, FlagUnitedKingdom } from '@/shared/assets/'
+import { useRegistrationConfirmationMutation } from '@/entities/auth/AuthApi'
+import { SignUpConfirmImg } from '@/shared/assets/'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 
 const SignUpConfirmedPage = () => {
+  const [RegistrationConfirmation, { isError }] = useRegistrationConfirmationMutation()
+  const router = useRouter()
+  const { code } = router.query
+
+  useEffect(() => {
+    console.log(code)
+    code && RegistrationConfirmation({ confirmationCode: code }).unwrap().then().catch()
+  }, [router])
+
   return (
     <div>
       <div className={styles.container}>

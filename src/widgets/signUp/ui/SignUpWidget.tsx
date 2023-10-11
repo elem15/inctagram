@@ -9,6 +9,7 @@ import { SignUpAuth } from '../signUpAuth/SignUpAuth'
 import styles from './SignUpWidget.module.scss'
 
 import { AppDispatch } from '@/app/appStore'
+import { useRegistrationMutation } from '@/entities/auth/AuthApi'
 import { setUser, signUpUser } from '@/entities/auth/AuthSlice'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { IAuthInput } from '@/shared/types'
@@ -28,15 +29,15 @@ export const SignUpWidget: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
 
+  const [Registration, { status }] = useRegistrationMutation()
+
   const onSubmit: SubmitHandler<IAuthInput> = data => {
-    dispatch(
-      signUpUser({ email: data.email, userName: data.username, password: data.password })
-    ).then(error => {
-      if (!error) {
-        router.push('/email'), reset()
-      }
-    })
     dispatch(setUser({ user: data.username, email: data.email }))
+
+    Registration({ email: data.email, userName: data.username, password: data.password })
+      .unwrap()
+      .then(() => router.push('/email'))
+      .catch()
   }
 
   return (
