@@ -1,16 +1,19 @@
 import styles from './ResendVerifLink.module.scss'
 
 import { TimeManagement } from '@/shared/assets'
-import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
+import { useTranslation } from '@/shared/hooks'
+import { getHeaderLayout } from '@/widgets/layouts'
 
 const ResendVerifLink = () => {
+  const { t } = useTranslation()
+
   return (
     <div className={styles.wrapper}>
-      <div className={styles.heading}>Email verification link expired</div>
-      <p>Looks like the verification link has expired. Not to worry, we can send the link again</p>
+      <div className={styles.heading}>{t.resend.title}</div>
+      <p>{t.resend.message}</p>
 
       <button className="flex justify-center items-center bg-primary-500   font-semibold text-light-100 px-6 py-1.5 rounded  my-8 ">
-        Resend verification link
+        {t.resend.resend_link}
       </button>
       <div>
         <TimeManagement className="w-full h-auto " />

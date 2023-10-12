@@ -4,10 +4,13 @@ import { InputField, PasswordField } from '@/shared'
 import {
   EmailFormatMessage,
   MaxLength,
+  MinLength,
+  NameFormatMessage,
+  PasswordMaxLength,
   PasswordMinLength,
   PasswordValidateMessage,
 } from '@/shared/messages'
-import { EmailValidation, PasswordValidation } from '@/shared/regex'
+import { EmailValidation, NameValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 
 export const SignUpAuth: FC<IAuthFields> = ({
@@ -25,6 +28,14 @@ export const SignUpAuth: FC<IAuthFields> = ({
             value: 30,
             message: MaxLength,
           },
+          minLength: {
+            value: 6,
+            message: MinLength,
+          },
+          pattern: {
+            value: NameValidation,
+            message: NameFormatMessage,
+          },
         })}
         label="Username"
         placeholder="Username"
@@ -38,6 +49,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
             message: EmailFormatMessage,
           },
         })}
+        type="email"
         label="Email"
         placeholder="Email"
         // error={errors.password}
@@ -49,6 +61,10 @@ export const SignUpAuth: FC<IAuthFields> = ({
           minLength: {
             value: 6,
             message: PasswordMinLength,
+          },
+          maxLength: {
+            value: 20,
+            message: PasswordMaxLength,
           },
           pattern: {
             value: PasswordValidation,

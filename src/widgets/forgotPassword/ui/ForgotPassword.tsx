@@ -20,7 +20,7 @@ export const ForgotPasswordWidget: FC = () => {
         </div>
 
         <div className="my-4">
-          <button className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  ">
+          <button className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded  ">
             Send Link
           </button>
         </div>

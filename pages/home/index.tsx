@@ -40,6 +40,12 @@ export const Home: NextPage = () => {
       <li>
         <Link href="email">Send Email menu</Link>
       </li>
+      <li>
+        <Link href="resend">Send Verification link</Link>
+      </li>
+      <li>
+        <Link href="forgotpassword">Forgot password</Link>
+      </li>
     </ul>
   )
 }
