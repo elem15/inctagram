@@ -14,7 +14,6 @@ const SignUpConfirmedPage = () => {
   const { code } = router.query
 
   useEffect(() => {
-    console.log(code)
     code && RegistrationConfirmation({ confirmationCode: code }).unwrap().then().catch()
   }, [router])
 
@@ -25,7 +24,9 @@ const SignUpConfirmedPage = () => {
           <h1 className={styles.heading}>Congratulations!</h1>
           <p className={styles.text}>Your email has been confirmed</p>
           <div className={styles.btnWrapper}>
-            <button className={styles.btn}>Sign In</button>
+            <button onClick={() => router.push('/signin')} className={styles.btn}>
+              Sign In
+            </button>
           </div>
           <SignUpConfirmImg className={styles.img} />
         </div>

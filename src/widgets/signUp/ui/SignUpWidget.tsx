@@ -10,7 +10,7 @@ import styles from './SignUpWidget.module.scss'
 
 import { AppDispatch } from '@/app/appStore'
 import { useRegistrationMutation } from '@/entities/auth/AuthApi'
-import { setUser, signUpUser } from '@/entities/auth/AuthSlice'
+import { setUser } from '@/entities/auth/AuthSlice'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { IAuthInput } from '@/shared/types'
 
@@ -29,7 +29,7 @@ export const SignUpWidget: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
 
-  const [Registration, { status }] = useRegistrationMutation()
+  const [Registration, { isLoading }] = useRegistrationMutation()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
     dispatch(setUser({ user: data.username, email: data.email }))
@@ -37,7 +37,7 @@ export const SignUpWidget: FC = () => {
     Registration({ email: data.email, userName: data.username, password: data.password })
       .unwrap()
       .then(() => router.push('/email'))
-      .catch()
+      .catch(error => console.error('rejected', error))
   }
 
   return (

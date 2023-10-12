@@ -1,5 +1,8 @@
+import { access } from 'fs'
+
 import { FC, useState } from 'react'
 
+import { useRouter } from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 
@@ -8,13 +11,12 @@ import { SignInAuth } from '../signInAuth/SignInAuth'
 import styles from './SignInWidget.module.scss'
 
 import { AppDispatch } from '@/app/appStore'
-import { signInUser } from '@/entities/auth/AuthSlice'
+import { useLoginMutation } from '@/entities/auth/AuthApi'
+import { setLoginUser } from '@/entities/auth/AuthSlice'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { IAuthInput } from '@/shared/types'
 
 export const SignInWidget: FC = () => {
-  const [type, setType] = useState<'login' | 'register'>('login')
-
   const {
     register: registerInput,
     handleSubmit,
@@ -27,11 +29,17 @@ export const SignInWidget: FC = () => {
   })
 
   const dispatch = useDispatch<AppDispatch>()
+  const [Login, { status }] = useLoginMutation()
+  const router = useRouter()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
-    dispatch(signInUser({ email: data.email, password: data.password }))
-
-    reset()
+    Login({ email: data.email, password: data.password })
+      .unwrap()
+      .then(payload => {
+        dispatch(setLoginUser({ email: data.email, accessToken: payload.accessToken })),
+          router.push('/')
+      })
+      .catch()
   }
 
   return (
@@ -57,7 +65,6 @@ export const SignInWidget: FC = () => {
 
         <button
           type="submit"
-          onClick={() => setType('login')}
           className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-4 "
         >
           Sign In
