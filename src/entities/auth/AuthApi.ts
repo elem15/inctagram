@@ -14,7 +14,7 @@ export const authApi = createApi({
         method: 'POST',
       }),
     }),
-    RegistrationConfirmation: builder.mutation<any, object>({
+    RegistrationConfirmation: builder.mutation<any, string | string[]>({
       query: code => ({
         body: { confirmationCode: code },
         url: '/auth/registration-confirmation',

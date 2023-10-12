@@ -14,7 +14,7 @@ const SignUpConfirmedPage = () => {
   const { code } = router.query
 
   useEffect(() => {
-    code && RegistrationConfirmation({ confirmationCode: code }).unwrap().then().catch()
+    code && RegistrationConfirmation(code).unwrap().then().catch()
   }, [router])
 
   return (
