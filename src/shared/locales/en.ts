@@ -1,9 +1,17 @@
 export const en = {
-  test: 'Lorem Ipsum is simply dummy text of the printing',
+  home: {
+    home: 'Home',
+    create: 'Create',
+    profile: 'My Profile',
+    messenger: 'Messenger',
+    search: 'Search',
+    statistics: 'Statistics',
+    favorites: 'Favorites'
+  },
   resend: {
     title: 'Email verification link expired',
     message:'Looks like the verification link has expired. Not to worry, we can send the link again',
-    resend_link: 'resend verification link'
+    resend_link: 'Resend verification link'
   },
   signup_confirm: {
     congratulations: 'Congratulations!',
@@ -18,6 +26,8 @@ export const en = {
     sign_in:'Sign In',
     sign_up:'Sign Up',
     account_question: 'Don`t have an account?',
+    email_required: 'Email is required',
+    password_required: 'Password is required',
   },
   signup: {
     title: 'Sign Up',
@@ -33,7 +43,11 @@ export const en = {
     terms_service: 'Terms of Service',
     privacy_policy: 'Privacy Policy',
     username: 'Username',
-    username_required: 'UserName is required',
+    username_required: 'Username is required',
+    email_required: 'Email is required',
+    password_required: 'Password is required',
+    email_invalid: 'Email is invalid',
+    minPasswordLength: 'Minimum number of characters 6',
   },
 
   forgotpassword: {

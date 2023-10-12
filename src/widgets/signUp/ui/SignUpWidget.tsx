@@ -57,7 +57,8 @@ export const SignUpWidget: FC<IAuthFields> = () => {
             className="border-gray-400 rounded accent-white h-6 w-6"
           />
           <label htmlFor="agree" className="ml-2 text-xs  text-light-100">
-            {t.signup.agreement} <a href="">{t.signup.terms_service}</a> {t.signup.and} <a href="">{t.signup.privacy_policy}</a>
+            {t.signup.agreement} <a href="">{t.signup.terms_service}</a> {t.signup.and}{' '}
+            <a href="">{t.signup.privacy_policy}</a>
           </label>
         </div>
         <button
@@ -68,7 +69,7 @@ export const SignUpWidget: FC<IAuthFields> = () => {
         </button>
         <div className="font-base text-light-100 text-center">{t.signup.account_question}</div>
         <button className="font-semibold text-primary-500 p-4 bg-transparent w-full">
-        {t.signup.sign_in}
+          {t.signup.sign_in}
         </button>
       </form>
     </div>
