@@ -10,10 +10,10 @@ const ResendVerifLink = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>{t.resend.title}</div>
-      <p>Looks like the verification link has expired. Not to worry, we can send the link again</p>
+      <p>{t.resend.message}</p>
 
       <button className="flex justify-center items-center bg-primary-500   font-semibold text-light-100 px-6 py-1.5 rounded  my-8 ">
-        Resend verification link
+        {t.resend.resend_link}
       </button>
       <div>
         <TimeManagement className="w-full h-auto " />

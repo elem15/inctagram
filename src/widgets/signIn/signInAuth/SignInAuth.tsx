@@ -1,15 +1,17 @@
 import React, { FC } from 'react'
 
 import { InputField, PasswordField } from '@/shared'
-import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
+import { PasswordMaxLength, PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
 import { EmailValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
+import { useTranslation } from '@/shared/model'
 
 export const SignInAuth: FC<IAuthFields> = ({
   register,
   formState: { errors },
   isPasswordRequired = false,
 }) => {
+  const { t } = useTranslation()
   return (
     <>
       <InputField
@@ -20,9 +22,9 @@ export const SignInAuth: FC<IAuthFields> = ({
             message: 'Email is invalid ',
           },
         })}
-        label="Email"
-        placeholder="Email"
-        // error={errors.password}
+        label={t.signin.email}
+        placeholder={t.signin.email}
+        type="email"
         helperText={errors.email?.message?.toString()}
       ></InputField>
       <PasswordField
@@ -32,13 +34,17 @@ export const SignInAuth: FC<IAuthFields> = ({
             value: 6,
             message: PasswordMinLength,
           },
+          maxLength: {
+            value: 20,
+            message: PasswordMaxLength,
+          },
           pattern: {
             value: PasswordValidation,
             message: PasswordValidateMessage,
           },
         })}
-        label="Password"
-        placeholder="Password"
+        label={t.signin.password}
+        placeholder={t.signin.password}
         helperText={errors.password?.message?.toString()}
       ></PasswordField>
     </>

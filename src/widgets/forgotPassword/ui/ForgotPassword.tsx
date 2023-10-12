@@ -1,37 +1,39 @@
 import { FC, useState } from 'react'
 
 import styles from './ForgotPassword.module.scss'
-
+import { useTranslation } from '@/shared/model'
 import { CheckBoxField, InputField } from '@/shared'
 import { Captcha } from '@/shared/assets'
 
 export const ForgotPasswordWidget: FC = () => {
+  const { t } = useTranslation()
+
   return (
     <div className={styles.wrapper}>
-      <div className={styles.heading}>Forgot Password</div>
+      <div className={styles.heading}>{t.forgotpassword.title}</div>
 
       <form className={styles.form}>
         <div className="mb-1">
-          <InputField label="Email" placeholder="Email" />
+          <InputField label={t.forgotpassword.email} placeholder={t.forgotpassword.email} />
         </div>
 
         <div className="text-sm text-light-900   mb-4 ">
-          Enter your email address and we will send you further instructions
+        {t.forgotpassword.message}
         </div>
 
         <div className="my-4">
-          <button className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  ">
-            Send Link
+          <button className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded ">
+          {t.forgotpassword.send_link}
           </button>
         </div>
         <div className="my-8 ">
           <button className="font-semibold text-primary-500 bg-transparent w-full">
-            Back to Sign In
+          {t.forgotpassword.back_signin}
           </button>
         </div>
 
         <div className={styles.captcha}>
-          <CheckBoxField text={`I'm not a robot`} />
+          <CheckBoxField text={t.forgotpassword.checkbox_text} />
           <div className="flex flex-col  items-center">
             <Captcha className="mb-1" />
             <span>reCAPTCHA</span>

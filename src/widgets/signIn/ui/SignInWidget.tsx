@@ -1,6 +1,4 @@
-import { access } from 'fs'
-
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import { useRouter } from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -14,6 +12,7 @@ import { AppDispatch } from '@/app/appStore'
 import { useLoginMutation } from '@/entities/auth/AuthApi'
 import { setLoginUser } from '@/entities/auth/AuthSlice'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
+import { useTranslation } from '@/shared/model'
 import { IAuthInput } from '@/shared/types'
 
 export const SignInWidget: FC = () => {
@@ -41,10 +40,11 @@ export const SignInWidget: FC = () => {
       })
       .catch()
   }
+  const { t } = useTranslation()
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.heading}>Sign In</h1>
+      <h1 className={styles.heading}>{t.signin.title}</h1>
       <div className={styles.icon}>
         <a href="">
           <GoogleIcon />
@@ -61,17 +61,18 @@ export const SignInWidget: FC = () => {
           getValues={getValues}
         />
 
-        <div className="text-sm text-light-900 mt-9 mb-6 text-end">Forgot Password</div>
+        <div className="text-sm text-light-900 mt-9 mb-6 text-end">{t.signin.forgot_password}</div>
 
         <button
           type="submit"
-          className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-4 "
+          className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded my-4 disabled:opacity-75"
+          disabled={!formState.isValid}
         >
-          Sign In
+          {t.signin.sign_in}
         </button>
-        <div className="font-base text-light-100 text-center">{`Don't have an account?`}</div>
+        <div className="font-base text-light-100 text-center">{t.signin.account_question}</div>
         <button className="font-semibold text-primary-500 p-4 bg-transparent w-full">
-          Sign Up
+          {t.signin.sign_up}
         </button>
       </form>
     </div>
