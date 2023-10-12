@@ -14,7 +14,7 @@ export const ForgotPasswordWidget: FC = () => {
 
       <form className={styles.form}>
         <div className="mb-1">
-          <InputField label={t.forgotpassword.label} placeholder={t.forgotpassword.placeholder} />
+          <InputField label={t.forgotpassword.email} placeholder={t.forgotpassword.email} />
         </div>
 
         <div className="text-sm text-light-900   mb-4 ">
@@ -22,7 +22,7 @@ export const ForgotPasswordWidget: FC = () => {
         </div>
 
         <div className="my-4">
-          <button className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  ">
+          <button className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded ">
           {t.forgotpassword.send_link}
           </button>
         </div>

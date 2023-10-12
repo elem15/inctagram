@@ -1,8 +1,7 @@
-import { FC } from 'react'
+import Image from 'next/image'
 
 import styles from './SignUpConfirmed.module.css'
 
-import { SignUpConfirmImg, OutlinedBellIcon } from '@/shared/assets/'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { useTranslation } from '@/shared/hooks'
 
@@ -18,7 +17,8 @@ const SignUpConfirmedPage = () => {
           <div className={styles.btnWrapper}>
             <button className={styles.btn}>{t.signup_confirm.sign_in}</button>
           </div>
-          <SignUpConfirmImg className={styles.img} />
+          {/* <SignUpConfirmImg className={styles.img} /> */}
+          <Image src="/icons/SignUpConfirm.png" width={432} height={300} alt="sign-up" />
         </div>
       </div>
     </div>

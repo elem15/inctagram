@@ -38,16 +38,18 @@ export const en = {
 
   forgotpassword: {
     title: 'Forgot Password',
-    email: 'email',
+    email: 'Email',
     message: 'Enter your email address and we will send you further instructions',
     send_link: 'Send Link',
     back_signin: 'Back to Sign In',
     checkbox_text: 'I`m not a robot',
+
   },
   
   email: {
     title: 'Email sent',
     message: 'We have sent a link to confirm your email to epam@epam.com'
   },
+
 }
 export type LangType = typeof en

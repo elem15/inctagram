@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import { InputField, PasswordField } from '@/shared'
-import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
+import { PasswordMaxLength, PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
 import { EmailValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 import { useTranslation } from '@/shared/hooks'
@@ -24,7 +24,7 @@ export const SignInAuth: FC<IAuthFields> = ({
         })}
         label={t.signin.email}
         placeholder={t.signin.email}
-        // error={errors.password}
+        type="email"
         helperText={errors.email?.message?.toString()}
       ></InputField>
       <PasswordField
@@ -33,6 +33,10 @@ export const SignInAuth: FC<IAuthFields> = ({
           minLength: {
             value: 6,
             message: PasswordMinLength,
+          },
+          maxLength: {
+            value: 20,
+            message: PasswordMaxLength,
           },
           pattern: {
             value: PasswordValidation,

@@ -59,7 +59,8 @@ export const SignInWidget: FC = () => {
         <button
           type="submit"
           onClick={() => setType('login')}
-          className="block w-full bg-primary-500   font-semibold text-light-100 p-2 rounded  my-4 "
+          className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded my-4 disabled:opacity-75"
+          disabled={!formState.isValid}
         >
           {t.signin.sign_in}
         </button>
