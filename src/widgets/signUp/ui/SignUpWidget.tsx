@@ -1,5 +1,6 @@
 import { FC, useState } from 'react'
 
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
@@ -97,9 +98,14 @@ export const SignUpWidget: FC = () => {
           {t.signup.sign_up}
         </button>
         <div className="font-base text-light-100 text-center">{t.signup.account_question}</div>
-        <button className="font-semibold text-primary-500 p-4 bg-transparent w-full">
-          {t.signup.sign_in}
-        </button>
+        <div className="text-center mt-3">
+          <Link
+            href={'/signin'}
+            className="font-semibold text-primary-500 p-4 bg-transparent w-full"
+          >
+            {t.signup.sign_in}
+          </Link>
+        </div>
       </form>
     </div>
   )
