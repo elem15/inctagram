@@ -21,6 +21,7 @@ export const ru: LangType = {
     sign_in: 'Войти',
     sign_up: 'Зарегистрироваться',
     account_question: 'Вы не зарегистрированы?',
+    error_message: 'Неверная почта или пароль. Попробуйте еще раз',
   },
   signup: {
     title: 'Регистрация',

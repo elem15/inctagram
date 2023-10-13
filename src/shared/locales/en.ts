@@ -19,6 +19,7 @@ export const en = {
     sign_in: 'Sign In',
     sign_up: 'Sign Up',
     account_question: 'Don`t have an account?',
+    error_message: 'The email or password are incorrect. Try again please',
   },
   signup: {
     title: 'Sign Up',

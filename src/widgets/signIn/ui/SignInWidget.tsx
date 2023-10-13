@@ -21,14 +21,14 @@ export const SignInWidget: FC = () => {
     handleSubmit,
     formState,
     getValues,
-    reset,
+    setError,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   })
 
   const dispatch = useDispatch<AppDispatch>()
-  const [Login, { status }] = useLoginMutation()
+  const [Login, { status, isLoading }] = useLoginMutation()
   const router = useRouter()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
@@ -38,7 +38,19 @@ export const SignInWidget: FC = () => {
         dispatch(setLoginUser({ email: data.email, accessToken: payload.accessToken })),
           router.push('/')
       })
-      .catch()
+      .catch(error => {
+        if ('data' in error) {
+          const errMsg = error.data as ErrorDataType
+
+          if ('messages' in errMsg) {
+            console.error(errMsg.messages)
+            setError('password', {
+              type: 'server',
+              message: t.signin.error_message,
+            })
+          }
+        }
+      })
   }
   const { t } = useTranslation()
 
@@ -54,12 +66,7 @@ export const SignInWidget: FC = () => {
         </a>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <SignInAuth
-          formState={formState}
-          register={registerInput}
-          isPasswordRequired
-          getValues={getValues}
-        />
+        <SignInAuth formState={formState} register={registerInput} getValues={getValues} />
 
         <div className="text-sm text-light-900 mt-9 mb-6 text-end">{t.signin.forgot_password}</div>
 
