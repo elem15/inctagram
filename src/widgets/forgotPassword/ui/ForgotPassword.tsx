@@ -1,9 +1,10 @@
 import { FC, useState } from 'react'
 
 import styles from './ForgotPassword.module.scss'
-import { useTranslation } from '@/shared/hooks'
+
 import { CheckBoxField, InputField } from '@/shared'
 import { Captcha } from '@/shared/assets'
+import { useTranslation } from '@/shared/model'
 
 export const ForgotPasswordWidget: FC = () => {
   const { t } = useTranslation()
@@ -17,18 +18,16 @@ export const ForgotPasswordWidget: FC = () => {
           <InputField label={t.forgotpassword.email} placeholder={t.forgotpassword.email} />
         </div>
 
-        <div className="text-sm text-light-900   mb-4 ">
-        {t.forgotpassword.message}
-        </div>
+        <div className="text-sm text-light-900   mb-4 ">{t.forgotpassword.message}</div>
 
         <div className="my-4">
           <button className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded ">
-          {t.forgotpassword.send_link}
+            {t.forgotpassword.send_link}
           </button>
         </div>
         <div className="my-8 ">
           <button className="font-semibold text-primary-500 bg-transparent w-full">
-          {t.forgotpassword.back_signin}
+            {t.forgotpassword.back_signin}
           </button>
         </div>
 

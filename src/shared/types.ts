@@ -31,3 +31,12 @@ export interface IAuthInput {
   email: string
   password: string
 }
+
+export interface IEmailPassword {
+  email: string
+  password: string
+}
+
+export interface IEmailPasswordUser extends IEmailPassword {
+  userName: string
+}

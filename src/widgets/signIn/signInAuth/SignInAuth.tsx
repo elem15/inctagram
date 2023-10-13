@@ -2,16 +2,13 @@ import React, { FC } from 'react'
 
 import { InputField, PasswordField } from '@/shared'
 import { PasswordMaxLength, PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
+import { useTranslation } from '@/shared/model'
 import { EmailValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
-import { useTranslation } from '@/shared/hooks'
 
-export const SignInAuth: FC<IAuthFields> = ({
-  register,
-  formState: { errors },
-  isPasswordRequired = false,
-}) => {
+export const SignInAuth: FC<IAuthFields> = ({ register, formState: { errors } }) => {
   const { t } = useTranslation()
+
   return (
     <>
       <InputField

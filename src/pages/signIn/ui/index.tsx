@@ -1,5 +1,3 @@
-import { FC } from 'react'
-
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { SignInWidget } from '@/widgets/signIn'
 
