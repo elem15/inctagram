@@ -26,7 +26,7 @@ export const en = {
     forgot_password: 'Forgot Password',
     sign_in: 'Sign In',
     sign_up: 'Sign Up',
-    account_question: 'Don`t have an account?',
+    account_question: 'Don’t have an account?',
     error_message: 'The email or password are incorrect. Try again please',
     email_required: 'Email is required',
     password_required: 'Password is required',
