@@ -14,6 +14,7 @@ import { setLoginUser } from '@/entities/auth/AuthSlice'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { useTranslation } from '@/shared/model'
 import { IAuthInput } from '@/shared/types'
+import { Spinner } from '@/widgets/spinner'
 
 export const SignInWidget: FC = () => {
   const {
@@ -56,6 +57,7 @@ export const SignInWidget: FC = () => {
 
   return (
     <div className={styles.wrapper}>
+      {isLoading && <Spinner />}
       <h1 className={styles.heading}>{t.signin.title}</h1>
       <div className={styles.icon}>
         <a href="">

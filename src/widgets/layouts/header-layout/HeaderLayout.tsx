@@ -10,7 +10,7 @@ export const HeaderLayout: FC<Props> = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col bg-dark-700">
       <HeaderWidget />
-      <div className="w-full flex  justify-center items-center ">{children}</div>
+      <div className="w-screen flex  justify-center items-center">{children}</div>
     </div>
   )
 }

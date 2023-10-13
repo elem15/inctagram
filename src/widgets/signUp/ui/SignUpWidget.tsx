@@ -11,10 +11,10 @@ import styles from './SignUpWidget.module.scss'
 import { AppDispatch } from '@/app/appStore'
 import { useRegistrationMutation } from '@/entities/auth/AuthApi'
 import { setUser } from '@/entities/auth/AuthSlice'
-import { InputField, PasswordField } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { useTranslation } from '@/shared/model'
 import { IAuthInput } from '@/shared/types'
+import { Spinner } from '@/widgets/spinner'
 
 export const SignUpWidget: FC = () => {
   const {
@@ -59,6 +59,7 @@ export const SignUpWidget: FC = () => {
 
   return (
     <div className={styles.wrapper}>
+      {isLoading && <Spinner />}
       <h1 className={styles.heading}>{t.signup.title}</h1>
       <div className={styles.icon}>
         <a href="">

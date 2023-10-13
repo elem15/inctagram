@@ -1,5 +1,5 @@
 .container {
-  @apply flex justify-center items-center text-center bg-dark-700;
+  @apply flex justify-center items-center text-center bg-dark-700 mt-6;
 }
 
 .heading {

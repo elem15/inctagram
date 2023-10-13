@@ -55,6 +55,12 @@ export const Home: NextPage = () => {
           <Link href="counter">Redux Counter: {count}</Link>
         </li>
         <li>{statusCode}</li>
+        <li>
+          <Link href="signin">Sign In</Link>
+        </li>
+        <li>
+          <Link href="forgotpassword">Forgot password</Link>
+        </li>
       </ul>
       {isAuth && <button onClick={() => dispatch(logout())}>Log out {email} </button>}
     </div>

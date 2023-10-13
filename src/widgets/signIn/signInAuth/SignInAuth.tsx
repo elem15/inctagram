@@ -6,10 +6,7 @@ import { useTranslation } from '@/shared/model'
 import { EmailValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 
-export const SignInAuth: FC<IAuthFields> = ({
-  register,
-  formState: { errors },
-}) => {
+export const SignInAuth: FC<IAuthFields> = ({ register, formState: { errors } }) => {
   const { t } = useTranslation()
 
   return (

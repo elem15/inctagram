@@ -1,16 +1,16 @@
 .wrapper {
-    @apply flex flex-col justify-center items-center mx-2;
+    @apply flex flex-col justify-center items-center mx-2 mt-6;
 
     .heading {
-        @apply  text-light-100 my-4 font-bold text-xl text-center;
+        @apply text-light-100 my-4 font-bold text-xl text-center;
     }
 
     >p {
-        @apply text-light-100 my-2 text-center w-6/12 max-sm:text-sm sm:text-base 
+        @apply text-light-100 my-2 text-center w-6/12 max-sm:text-sm sm:text-base
     }
 
-    
 
 
-    
+
+
 }
