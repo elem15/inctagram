@@ -1,7 +1,15 @@
 import { LangType } from './en'
 
 export const ru: LangType = {
-  test: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати ',
+  home: {
+    home: 'Главная',
+    create: 'Создать',
+    profile: 'Мой Профиль',
+    messenger: 'Мессенджер',
+    search: 'Поиск',
+    statistics: 'Статистика',
+    favorites: 'Избранное',
+  },
   resend: {
     title: 'Срок действия ссылки для подтверждения электронной почты истек',
     message:
@@ -22,6 +30,8 @@ export const ru: LangType = {
     sign_up: 'Зарегистрироваться',
     account_question: 'Вы не зарегистрированы?',
     error_message: 'Неверная почта или пароль. Попробуйте еще раз',
+    email_required: 'Введите почту',
+    password_required: 'Введите пароль',
   },
   signup: {
     title: 'Регистрация',
@@ -39,6 +49,10 @@ export const ru: LangType = {
     username: 'Имя пользователя',
     username_required: 'Введите имя пользователя',
     user_exist_error: 'Пользователь с такой эл. почтой уже существует',
+    email_required: 'Введите почту',
+    password_required: 'Введите пароль',
+    email_invalid: 'Почта недействительна',
+    minPasswordLength: 'Минимальное количество знаков 6',
   },
 
   forgotpassword: {

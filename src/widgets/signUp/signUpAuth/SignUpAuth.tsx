@@ -26,7 +26,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
     <>
       <InputField
         {...register('username', {
-          required: 'UserName is required',
+          required: `${t.signup.username_required}`,
           maxLength: {
             value: 30,
             message: MaxLength,
@@ -46,7 +46,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
       ></InputField>
       <InputField
         {...register('email', {
-          required: 'Email is required',
+          required: `${t.signup.email_required}`,
           pattern: {
             value: EmailValidation,
             message: EmailFormatMessage,
@@ -59,7 +59,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
       ></InputField>
       <PasswordField
         {...register('password', {
-          required: 'Password is required',
+          required: `${t.signup.password_required}`,
           minLength: {
             value: 6,
             message: PasswordMinLength,
@@ -79,7 +79,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
       ></PasswordField>
       <PasswordField
         {...register('passwordConfirm', {
-          required: 'Password is required',
+          required: `${t.signup.password_required}`,
           minLength: {
             value: 6,
             message: PasswordMinLength,

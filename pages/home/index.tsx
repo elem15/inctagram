@@ -56,9 +56,6 @@ export const Home: NextPage = () => {
         </li>
         <li>{statusCode}</li>
         <li>
-          <Link href="signin">Sign In</Link>
-        </li>
-        <li>
           <Link href="forgotpassword">Forgot password</Link>
         </li>
         <li>

@@ -13,10 +13,10 @@ export const SignInAuth: FC<IAuthFields> = ({ register, formState: { errors } })
     <>
       <InputField
         {...register('email', {
-          required: 'Email is required',
+          required: `${t.signup.email_required}`,
           pattern: {
             value: EmailValidation,
-            message: 'Email is invalid ',
+            message: `${t.signup.email_invalid}`,
           },
         })}
         label={t.signin.email}
@@ -26,7 +26,7 @@ export const SignInAuth: FC<IAuthFields> = ({ register, formState: { errors } })
       ></InputField>
       <PasswordField
         {...register('password', {
-          required: 'Password is required',
+          required: `${t.signup.password_required}`,
           minLength: {
             value: 6,
             message: PasswordMinLength,
