@@ -40,7 +40,7 @@ export const Home: NextPage = () => {
           <Link href="signup">Sign Up</Link>
         </li>
         <li>
-          <Link href="signup-confirm">Sign Up Confirmed</Link>
+          <Link href="auth/registration-confirmation">Sign Up Confirmed</Link>
         </li>
         <li>
           <Link href="signin">Sign In</Link>
@@ -60,6 +60,9 @@ export const Home: NextPage = () => {
         </li>
         <li>
           <Link href="forgotpassword">Forgot password</Link>
+        </li>
+        <li>
+          <Link href="createnewpassword">Create new password</Link>
         </li>
       </ul>
       {isAuth && <button onClick={() => dispatch(logout())}>Log out {email} </button>}
