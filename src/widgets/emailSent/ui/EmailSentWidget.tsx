@@ -18,7 +18,7 @@ export const EmailSentWidget: FC = () => {
         <hr className="w full border-dark-100 " />
         <div className="px-8 mt-8">
           <p className="text-light-100">
-            We have sent a link to confirm your email to epam@epam.com
+          {t.email.message}
           </p>
           <button className="block px-10 mb-12  bg-primary-500   font-semibold text-light-100 p-2 rounded  my-2 float-right">
             OK

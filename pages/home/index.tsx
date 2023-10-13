@@ -1,29 +1,31 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
+import { useTranslation } from '@/shared/hooks'
 
 export const Home: NextPage = () => {
+  const { t } = useTranslation()
   return (
     <ul>
       <li>
-        <Link href="home">Home</Link>
+        <Link href="home">{t.home.home}</Link>
       </li>
       <li>
-        <Link href="create">Create</Link>
+        <Link href="create">{t.home.create}</Link>
       </li>
       <li>
-        <Link href="profile">Profile</Link>
+        <Link href="profile">{t.home.profile}</Link>
       </li>
       <li>
-        <Link href="messenger">Messenger</Link>
+        <Link href="messenger">{t.home.messenger}</Link>
       </li>
       <li>
-        <Link href="search">Search</Link>
+        <Link href="search">{t.home.search}</Link>
       </li>
       <li>
-        <Link href="statistics">Statistics</Link>
+        <Link href="statistics">{t.home.statistics}</Link>
       </li>
       <li>
-        <Link href="favorites">Favorites</Link>
+        <Link href="favorites">{t.home.favorites}</Link>
       </li>
       <li>
         <Link href="signup">Sign Up</Link>

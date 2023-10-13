@@ -12,6 +12,7 @@ import {
 } from '@/shared/messages'
 import { EmailValidation, NameValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
+import { useTranslation } from '@/shared/hooks'
 
 export const SignUpAuth: FC<IAuthFields> = ({
   register,
@@ -19,11 +20,12 @@ export const SignUpAuth: FC<IAuthFields> = ({
   isPasswordRequired = false,
   getValues,
 }) => {
+  const { t } = useTranslation()
   return (
     <>
       <InputField
         {...register('username', {
-          required: 'UserName is required',
+          required: `${t.signup.username_required}`,
           maxLength: {
             value: 30,
             message: MaxLength,
@@ -37,27 +39,26 @@ export const SignUpAuth: FC<IAuthFields> = ({
             message: NameFormatMessage,
           },
         })}
-        label="Username"
-        placeholder="Username"
+        label={t.signup.username}
+        placeholder={t.signup.username}
         helperText={errors.username?.message?.toString()}
       ></InputField>
       <InputField
         {...register('email', {
-          required: 'Email is required',
+          required: `${t.signup.email_required}`,
           pattern: {
             value: EmailValidation,
             message: EmailFormatMessage,
           },
         })}
+        label={t.signup.email}
+        placeholder={t.signup.email}
         type="email"
-        label="Email"
-        placeholder="Email"
-        // error={errors.password}
         helperText={errors.email?.message?.toString()}
       ></InputField>
       <PasswordField
         {...register('password', {
-          required: 'Password is required',
+          required: `${t.signup.password_required}`,
           minLength: {
             value: 6,
             message: PasswordMinLength,
@@ -71,21 +72,21 @@ export const SignUpAuth: FC<IAuthFields> = ({
             message: PasswordValidateMessage,
           },
         })}
-        label="Password"
-        placeholder="Password"
+        label={t.signup.password}
+        placeholder={t.signup.password}
         helperText={errors.password?.message?.toString()}
       ></PasswordField>
       <PasswordField
         {...register('passwordConfirm', {
-          required: 'Password is required',
+          required: `${t.signup.password_required}`,
           minLength: {
             value: 6,
             message: PasswordMinLength,
           },
           validate: value => value === getValues('password') || 'The passwords must match',
         })}
-        label="Password Confirmation"
-        placeholder="Password Confirmation"
+        label={t.signup.password_confirmation}
+        placeholder={t.signup.password_confirmation}
         helperText={errors.passwordConfirm?.message?.toString()}
       ></PasswordField>
     </>
