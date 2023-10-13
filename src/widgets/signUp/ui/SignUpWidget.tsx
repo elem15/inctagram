@@ -89,8 +89,7 @@ export const SignUpWidget: FC = () => {
             />
           </div>
           <label htmlFor="agree" className="text-xs text-light-100 ml-2">
-            {t.signup.agreement}
-            <a href="">{t.signup.terms_service}</a> {t.signup.and}{' '}
+            {t.signup.agreement} <a href="">{t.signup.terms_service}</a> {t.signup.and}{' '}
             <a href="">{t.signup.privacy_policy}</a>
           </label>
         </div>
