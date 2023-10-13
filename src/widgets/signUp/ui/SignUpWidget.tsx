@@ -22,7 +22,7 @@ export const SignUpWidget: FC = () => {
     handleSubmit,
     formState,
     getValues,
-    reset,
+    setError,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
@@ -39,7 +39,19 @@ export const SignUpWidget: FC = () => {
     Registration({ email: data.email, userName: data.username, password: data.password })
       .unwrap()
       .then(() => router.push('/email'))
-      .catch(error => console.error('rejected', error))
+      .catch(error => {
+        if ('data' in error) {
+          const errMsg = error.data as ErrorDataType
+
+          if ('messages' in errMsg) {
+            console.error(errMsg.messages)
+            setError('email', {
+              type: 'server',
+              message: t.signup.user_exist_error,
+            })
+          }
+        }
+      })
   }
   const { t } = useTranslation()
 

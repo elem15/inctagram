@@ -38,6 +38,7 @@ export const ru: LangType = {
     privacy_policy: 'Политикой конфиденциальности',
     username: 'Имя пользователя',
     username_required: 'Введите имя пользователя',
+    user_exist_error: 'Пользователь с такой эл. почтой уже существует',
   },
 
   forgotpassword: {

@@ -1,6 +1,9 @@
 type ErrorDataType = {
   error: string;
-  messages: string;
+  messages: string | {
+    message: string,
+    field: string;
+  };
   statusCode: number;
 };
 

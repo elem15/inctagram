@@ -36,6 +36,7 @@ export const en = {
     privacy_policy: 'Privacy Policy',
     username: 'Username',
     username_required: 'UserName is required',
+    user_exist_error: 'User with this email is already registered',
   },
 
   forgotpassword: {
