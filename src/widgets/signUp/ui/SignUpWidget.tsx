@@ -79,15 +79,18 @@ export const SignUpWidget: FC = () => {
         />
 
         <div className={styles.checkbox}>
-          <input
-            type="checkbox"
-            id="agree"
-            checked={agree}
-            onChange={() => setAgree(agree => !agree)}
-            className="border-gray-400 rounded accent-white h-5.5 w-5.5"
-          />
+          <div className="h-6 w-6 flex justify-end items-center">
+            <input
+              type="checkbox"
+              id="agree"
+              checked={agree}
+              onChange={() => setAgree(agree => !agree)}
+              className="border-gray-400 rounded accent-white h-5.5 w-5.5"
+            />
+          </div>
           <label htmlFor="agree" className="text-xs text-light-100 ml-2">
-            {t.signup.agreement} <a href="">{t.signup.terms_service}</a> {t.signup.and}{' '}
+            {t.signup.agreement}
+            <a href="">{t.signup.terms_service}</a> {t.signup.and}{' '}
             <a href="">{t.signup.privacy_policy}</a>
           </label>
         </div>
