@@ -10,9 +10,9 @@ import {
   PasswordMinLength,
   PasswordValidateMessage,
 } from '@/shared/messages'
+import { useTranslation } from '@/shared/model'
 import { EmailValidation, NameValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
-import { useTranslation } from '@/shared/model'
 
 export const SignUpAuth: FC<IAuthFields> = ({
   register,
@@ -21,6 +21,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
   getValues,
 }) => {
   const { t } = useTranslation()
+
   return (
     <>
       <InputField
@@ -51,7 +52,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
             message: EmailFormatMessage,
           },
         })}
-        label= {t.signup.email}
+        label={t.signup.email}
         placeholder={t.signup.email}
         type="email"
         helperText={errors.email?.message?.toString()}

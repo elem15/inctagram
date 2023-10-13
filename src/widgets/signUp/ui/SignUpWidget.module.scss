@@ -15,7 +15,7 @@
 
     .form {
         .checkbox {
-            @apply mb-4 flex justify-center items-center;
+            @apply mb-4 grid-flow-col grid justify-evenly items-center h-10;
 
             >label>a {
                 @apply underline decoration-primary-300 text-primary-300

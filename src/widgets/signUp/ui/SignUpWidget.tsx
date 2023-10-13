@@ -85,7 +85,7 @@ export const SignUpWidget: FC = () => {
             onChange={() => setAgree(agree => !agree)}
             className="border-gray-400 rounded accent-white h-6 w-6"
           />
-          <label htmlFor="agree" className="ml-2 text-xs  text-light-100">
+          <label htmlFor="agree" className="text-xs text-light-100 ml-2">
             {t.signup.agreement} <a href="">{t.signup.terms_service}</a> {t.signup.and}{' '}
             <a href="">{t.signup.privacy_policy}</a>
           </label>
