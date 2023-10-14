@@ -25,10 +25,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     addToken: (state, action) => {
-      state.accessToken = localStorage.getItem('token')
+      state.accessToken = action.payload
     },
     addUser: (state, action) => {
-      state.email = localStorage.getItem('email')
+      state.email = action.payload
     },
     logout: state => {
       state.accessToken = null
