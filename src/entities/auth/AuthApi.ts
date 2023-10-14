@@ -28,8 +28,35 @@ export const authApi = createApi({
         method: 'POST',
       }),
     }),
+    ForgotPassword: builder.mutation({
+      query: ({ email, recaptcha }) => ({
+        body: { email, recaptcha },
+        url: '/auth/password-recovery',
+        method: 'POST',
+      }),
+    }),
+    CreateNewPassword: builder.mutation({
+      query: ({ newPassword, recoveryCode }) => ({
+        body: { newPassword, recoveryCode },
+        url: '/auth/new-password',
+        method: 'POST',
+      }),
+    }),
+    ValidCode: builder.mutation({
+      query: ({ recoveryCode }) => ({
+        body: { recoveryCode },
+        url: '/auth/check-recovery-code',
+        method: 'POST',
+      }),
+    }),
   }),
 })
 
-export const { useRegistrationMutation, useRegistrationConfirmationMutation, useLoginMutation } =
-  authApi
+export const {
+  useRegistrationMutation,
+  useRegistrationConfirmationMutation,
+  useLoginMutation,
+  useForgotPasswordMutation,
+  useCreateNewPasswordMutation,
+  useValidCodeMutation,
+} = authApi

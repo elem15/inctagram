@@ -1,43 +1,87 @@
 import { FC, useState } from 'react'
 
+import Link from 'next/link'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { useForm } from 'react-hook-form'
+
 import styles from './ForgotPassword.module.scss'
 
-import { CheckBoxField, InputField } from '@/shared'
-import { Captcha } from '@/shared/assets'
-import { useTranslation } from '@/shared/model'
+import { useForgotPasswordMutation } from '@/entities/auth/AuthApi'
+import { setUser } from '@/entities/auth/AuthSlice'
+import { InputField } from '@/shared'
+import { useAppDispatch, useTranslation } from '@/shared/model'
+import { EmailValidation } from '@/shared/regex'
+import { IAuthInput } from '@/shared/types'
 
 export const ForgotPasswordWidget: FC = () => {
+  const {
+    register: registerInput,
+    handleSubmit,
+    formState,
+    getValues,
+    setError,
+  } = useForm<IAuthInput>({
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
+  })
+
   const { t } = useTranslation()
+
+  const dispatch = useAppDispatch()
+
+  const [reCaptcha, setReCaptcha] = useState(null)
+  const [ForgotPassword, { status, isLoading }] = useForgotPasswordMutation()
+
+  const onSubmit = (data: any) => {
+    ForgotPassword({ email: data.email, recaptcha: reCaptcha })
+    dispatch(setUser({ email: data.email, user: '' }))
+  }
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>{t.forgotpassword.title}</div>
 
-      <form className={styles.form}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <div className="mb-1">
-          <InputField label={t.forgotpassword.email} placeholder={t.forgotpassword.email} />
+          <InputField
+            {...registerInput('email', {
+              required: `${t.signup.email_required}`,
+              pattern: {
+                value: EmailValidation,
+                message: `${t.signup.email_invalid}`,
+              },
+            })}
+            label={t.forgotpassword.email}
+            placeholder={t.forgotpassword.email}
+            type="email"
+            helperText={formState.errors.email?.message?.toString()}
+          />
         </div>
 
         <div className="text-sm text-light-900   mb-4 ">{t.forgotpassword.message}</div>
 
         <div className="my-4">
-          <button className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded ">
+          <button
+            disabled={!formState.isValid}
+            className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded "
+          >
             {t.forgotpassword.send_link}
           </button>
         </div>
-        <div className="my-8 ">
-          <button className="font-semibold text-primary-500 bg-transparent w-full">
+        <div className="my-8 flex justify-center">
+          <Link href={'/signin'} className="font-semibold text-primary-500 bg-transparent ">
             {t.forgotpassword.back_signin}
-          </button>
+          </Link>
         </div>
 
         <div className={styles.captcha}>
-          <CheckBoxField text={t.forgotpassword.checkbox_text} />
-          <div className="flex flex-col  items-center">
-            <Captcha className="mb-1" />
-            <span>reCAPTCHA</span>
-            <span>Privacy - Terms</span>
-          </div>
+          <ReCAPTCHA
+            onChange={(value: any) => setReCaptcha(value)}
+            sitekey=" "
+            hl={'en'}
+            theme="dark"
+          />
+          ,
         </div>
       </form>
     </div>
