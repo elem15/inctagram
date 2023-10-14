@@ -12,11 +12,11 @@ import styles from './SignUpWidget.module.scss'
 import { AppDispatch } from '@/app/appStore'
 import { useRegistrationMutation } from '@/entities/auth/AuthApi'
 import { setUser } from '@/entities/auth/AuthSlice'
+import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { useTranslation } from '@/shared/model'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
-import {AUTH_URLS} from '@/shared';
 
 export const SignUpWidget: FC = () => {
   const {
@@ -64,9 +64,9 @@ export const SignUpWidget: FC = () => {
       {isLoading && <Spinner />}
       <h1 className={styles.heading}>{t.signup.title}</h1>
       <div className={styles.icon}>
-        <a href="#">
+        <Link href={AUTH_URLS.GOOGLE}>
           <GoogleIcon />
-        </a>
+        </Link>
         <Link href={AUTH_URLS.GITHUB}>
           <GithubIcon className="fill-light-100" />
         </Link>

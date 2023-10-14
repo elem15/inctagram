@@ -1,9 +1,11 @@
-import {AppDispatch} from '@/app/appStore';
-import {setLoginUser} from '@/entities/auth/AuthSlice';
+import { useEffect } from 'react'
+
 import { useSearchParams } from 'next/navigation'
-import {useRouter} from 'next/router';
-import {useEffect} from 'react';
-import {useDispatch} from 'react-redux';
+import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
+
+import { AppDispatch } from '@/app/appStore'
+import { setLoginUser } from '@/entities/auth/AuthSlice'
 
 export function Github() {
   const searchParams = useSearchParams()
@@ -15,16 +17,11 @@ export function Github() {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    if (email && accessToken) {      
-      dispatch(setLoginUser({email, accessToken}))
+    if (email && accessToken) {
+      dispatch(setLoginUser({ email, accessToken }))
     }
     router.push('/')
-  },[email, accessToken])
-     
-  return (
-    <div>
-      <h1>Github email: {email}</h1>
-      <p>{accessToken}</p>
-    </div>
-  )
+  }, [email, accessToken])
+
+  return null
 }

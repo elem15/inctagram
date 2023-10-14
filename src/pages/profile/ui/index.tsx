@@ -1,8 +1,8 @@
-import { getLayout } from '@/widgets/layouts/base-layout/ui'
+import { getHeaderLayout } from '@/widgets/layouts'
 
 const Profile = () => {
   return <div>ProfilePage</div>
 }
 
-Profile.getLayout = getLayout
+Profile.getLayout = getHeaderLayout
 export { Profile }
