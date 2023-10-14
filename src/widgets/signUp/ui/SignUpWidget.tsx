@@ -16,6 +16,7 @@ import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { useTranslation } from '@/shared/model'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
+import {AUTH_URLS} from '@/shared';
 
 export const SignUpWidget: FC = () => {
   const {
@@ -63,12 +64,12 @@ export const SignUpWidget: FC = () => {
       {isLoading && <Spinner />}
       <h1 className={styles.heading}>{t.signup.title}</h1>
       <div className={styles.icon}>
-        <a href="">
+        <a href="#">
           <GoogleIcon />
         </a>
-        <a href="">
+        <Link href={AUTH_URLS.GITHUB}>
           <GithubIcon className="fill-light-100" />
-        </a>
+        </Link>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <SignUpAuth
