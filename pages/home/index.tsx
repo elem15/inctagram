@@ -1,9 +1,14 @@
+import { useEffect } from 'react'
+
 import { NextPage } from 'next'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
-import { logout } from '@/entities/auth/AuthSlice'
-import { useAppDispatch, useAppSelector } from '@/shared/model'
+import { useGoogleLoginMutation } from '@/entities/auth/AuthApi'
+import { logout, setLoginUser } from '@/entities/auth/AuthSlice'
+import { useAppDispatch, useAppSelector, useGoogleLogin } from '@/shared/model'
 import { useAuth } from '@/shared/model/hooks/useAuth'
+import { Spinner } from '@/widgets/spinner'
 
 export const Home: NextPage = () => {
   const count = useAppSelector(state => state.counter.value)
@@ -12,8 +17,15 @@ export const Home: NextPage = () => {
 
   const { isAuth, email } = useAuth()
 
+  const searchParams = useSearchParams()
+
+  const code = searchParams?.get('code') as string | undefined
+
+  const { isLoading, error } = useGoogleLogin(code)
+
   return (
     <div>
+      {isLoading && <Spinner />}
       <ul>
         <li>
           <Link href="home">Home</Link>
