@@ -68,10 +68,10 @@ export const Home: NextPage = () => {
         </li>
         <li>{statusCode}</li>
         <li>
-          <Link href="forgotpassword">Forgot password</Link>
+          <Link href="auth/forgotpassword">Forgot password</Link>
         </li>
         <li>
-          <Link href="createnewpassword">Create new password</Link>
+          <Link href="auth/recovery">Create new password</Link>
         </li>
       </ul>
       {isAuth && (

@@ -62,10 +62,12 @@ export const ru: LangType = {
     send_link: 'Отправить ссылку',
     back_signin: 'Вернуться ко Входу в приложение',
     checkbox_text: 'Я не робот',
+    lg: 'ru',
   },
   email: {
     title: 'Письмо отправлено',
     message: 'Вам отправлена ссылка для подтверждения по адресу: ',
+    yes: 'ОК',
   },
 
   logout: {

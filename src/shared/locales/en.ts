@@ -60,11 +60,13 @@ export const en = {
     send_link: 'Send Link',
     back_signin: 'Back to Sign In',
     checkbox_text: 'I’m not a robot',
+    lg: 'en',
   },
 
   email: {
     title: 'Email sent',
     message: 'We have sent a link to confirm your email to ',
+    yes: 'OK',
   },
 
   logout: {

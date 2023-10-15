@@ -71,7 +71,11 @@ export const SignInWidget: FC = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <SignInAuth formState={formState} register={registerInput} getValues={getValues} />
 
-        <div className="text-sm text-light-900 mt-9 mb-6 text-end">{t.signin.forgot_password}</div>
+        <div className="mt-9 mb-6 text-end">
+          <Link href={'/auth/forgotpassword'} className="text-sm text-light-900 ">
+            {t.signin.forgot_password}
+          </Link>
+        </div>
 
         <button
           type="submit"
