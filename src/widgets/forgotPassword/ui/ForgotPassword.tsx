@@ -71,7 +71,7 @@ export const ForgotPasswordWidget: FC = () => {
 
           <div className="my-4">
             <button
-              disabled={!formState.isValid}
+              disabled={!(formState.isValid && reCaptcha)}
               className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded "
             >
               {t.forgotpassword.send_link}
@@ -86,11 +86,10 @@ export const ForgotPasswordWidget: FC = () => {
           <div className={styles.captcha}>
             <ReCAPTCHA
               onChange={(value: any) => setReCaptcha(value)}
-              sitekey="6LeY2y0mAAAAANwI_paCWfoksCgBm1n2z9J0nwNQ"
+              sitekey=""
               hl={t.forgotpassword.lg}
               theme="dark"
             />
-            ,
           </div>
         </form>
       </div>
