@@ -12,7 +12,7 @@ export const en = {
     title: 'Email verification link expired',
     message:
       'Looks like the verification link has expired. Not to worry, we can send the link again',
-    resend_link: 'resend verification link',
+    resend_link: 'Resend verification link',
   },
   signup_confirm: {
     congratulations: 'Congratulations!',
