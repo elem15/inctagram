@@ -4,10 +4,10 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
-import { useGoogleLoginMutation } from '@/entities/auth/AuthApi'
-import { logout, setLoginUser } from '@/entities/auth/AuthSlice'
+import { logout } from '@/entities/auth/AuthSlice'
 import { useAppDispatch, useAppSelector, useGoogleLogin } from '@/shared/model'
 import { useAuth } from '@/shared/model/hooks/useAuth'
+import { LogOutButton } from '@/widgets/logOut'
 import { Spinner } from '@/widgets/spinner'
 
 export const Home: NextPage = () => {
@@ -74,7 +74,11 @@ export const Home: NextPage = () => {
           <Link href="createnewpassword">Create new password</Link>
         </li>
       </ul>
-      {isAuth && <button onClick={() => dispatch(logout())}>Log out {email} </button>}
+      {isAuth && (
+        <>
+          <LogOutButton /> <span>{email}</span>
+        </>
+      )}
     </div>
   )
 }

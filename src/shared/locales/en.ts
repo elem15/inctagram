@@ -66,5 +66,12 @@ export const en = {
     title: 'Email sent',
     message: 'We have sent a link to confirm your email to ',
   },
+
+  logout: {
+    title: 'Log out',
+    message: 'Are you really want to log out of your account ',
+    yes: 'Yes',
+    no: 'No',
+  },
 }
 export type LangType = typeof en
