@@ -32,7 +32,7 @@ export const SignUpWidget: FC = () => {
 
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
-
+  const [socialsLoading, setSocialsLoading] = useState(false)
   const [Registration, { isLoading }] = useRegistrationMutation()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
@@ -61,13 +61,13 @@ export const SignUpWidget: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      {isLoading && <Spinner />}
+      {(isLoading || socialsLoading) && <Spinner />}
       <h1 className={styles.heading}>{t.signup.title}</h1>
       <div className={styles.icon}>
-        <Link href={AUTH_URLS.GOOGLE}>
+        <Link href={AUTH_URLS.GOOGLE} onClick={() => setSocialsLoading(true)}>
           <GoogleIcon />
         </Link>
-        <Link href={AUTH_URLS.GITHUB}>
+        <Link href={AUTH_URLS.GITHUB} onClick={() => setSocialsLoading(true)}>
           <GithubIcon className="fill-light-100" />
         </Link>
       </div>
