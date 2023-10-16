@@ -18,6 +18,7 @@ export const CreateNewPasswordWidget: FC = () => {
     handleSubmit,
     formState: { errors },
     getValues,
+    formState,
     setError,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
@@ -53,7 +54,7 @@ export const CreateNewPasswordWidget: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.heading}>Create New Password</div>
+      <div className={styles.heading}>{t.password_recovery.title}</div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <PasswordField
           {...registerInput('password', {
@@ -67,8 +68,8 @@ export const CreateNewPasswordWidget: FC = () => {
               message: PasswordValidateMessage,
             },
           })}
-          label="Password"
-          placeholder="Password"
+          label={t.signup.password}
+          placeholder={t.signup.password}
           helperText={errors.password?.message?.toString()}
         ></PasswordField>
         <PasswordField
@@ -80,16 +81,17 @@ export const CreateNewPasswordWidget: FC = () => {
             },
             validate: value => value === getValues('password') || 'The passwords must match',
           })}
-          label="Password Confirmation"
-          placeholder="Password Confirmation"
+          label={t.signup.password_confirmation}
+          placeholder={t.signup.password_confirmation}
           helperText={errors.passwordConfirm?.message?.toString()}
         ></PasswordField>
-        <div className="text-sm text-light-900   mb-4 ">
-          Your password must be between 6 and 20 characters
-        </div>
+        <div className="text-sm text-light-900 mb-4">{t.password_recovery.message}</div>
         <div className="my-4">
-          <button className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded  ">
-            Create new password
+          <button
+            disabled={!formState.isValid}
+            className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded disabled:opacity-75"
+          >
+            {t.password_recovery.title}
           </button>
         </div>
       </form>

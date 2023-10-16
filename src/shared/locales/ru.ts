@@ -76,4 +76,9 @@ export const ru: LangType = {
     yes: 'Да',
     no: 'Нет',
   },
+
+  password_recovery: {
+    title: 'Придумайте новый пароль',
+    message: 'Пароль должен быть более 6 и менее 20 букв',
+  },
 }

@@ -75,5 +75,10 @@ export const en = {
     yes: 'Yes',
     no: 'No',
   },
+
+  password_recovery: {
+    title: 'Create New Password',
+    message: 'Your password must be between 6 and 20 characters',
+  },
 }
 export type LangType = typeof en
