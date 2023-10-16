@@ -30,7 +30,7 @@ export const SignInWidget: FC = () => {
   })
 
   const dispatch = useDispatch<AppDispatch>()
-  const [Login, { status, isLoading }] = useLoginMutation()
+  const [Login, { isLoading }] = useLoginMutation()
   const router = useRouter()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
@@ -50,7 +50,11 @@ export const SignInWidget: FC = () => {
               type: 'server',
               message: t.signin.error_message,
             })
+          } else {
+            console.error(JSON.stringify(errMsg))
           }
+        } else {
+          console.error(JSON.stringify(error))
         }
       })
   }

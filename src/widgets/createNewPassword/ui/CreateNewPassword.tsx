@@ -8,7 +8,7 @@ import styles from './CreateNewPassword.module.scss'
 import { useCreateNewPasswordMutation, useValidCodeMutation } from '@/entities/auth/AuthApi'
 import { PasswordField } from '@/shared'
 import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
-import { useTranslation } from '@/shared/model'
+import { consoleErrors, useTranslation } from '@/shared/model'
 import { PasswordValidation } from '@/shared/regex'
 import { IAuthFields, IAuthInput } from '@/shared/types'
 
@@ -33,7 +33,7 @@ export const CreateNewPasswordWidget: FC = () => {
 
   useEffect(() => {
     recoveryCode &&
-      ValidCode({ recoveryCode: recoveryCode })
+      ValidCode({ recoveryCode })
         .unwrap()
         .then()
         .catch(() => {
@@ -49,7 +49,7 @@ export const CreateNewPasswordWidget: FC = () => {
       .then(() => {
         router.push('/signin')
       })
-      .catch()
+      .catch(consoleErrors)
   }
 
   return (
