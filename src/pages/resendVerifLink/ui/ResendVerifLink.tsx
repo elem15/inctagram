@@ -15,7 +15,7 @@ const ResendVerifLink = () => {
       <p>{t.resend.message}</p>
 
       <Link
-        href={'/'}
+        href={'/auth/forgotpassword'}
         className="flex justify-center items-center bg-primary-500   font-semibold text-light-100 px-6 py-1.5 rounded  my-8 "
       >
         {t.resend.resend_link}

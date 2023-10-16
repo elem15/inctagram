@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import styles from './SignUpConfirmed.module.css'
 
 import { useRegistrationConfirmationMutation } from '@/entities/auth/AuthApi'
-import { consoleErrors, useTranslation } from '@/shared/model'
+import { useTranslation } from '@/shared/model'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 
 const SignUpConfirmedPage = () => {
@@ -15,8 +15,12 @@ const SignUpConfirmedPage = () => {
   const { code } = router.query
 
   useEffect(() => {
-    code && RegistrationConfirmation(code).unwrap().then().catch(consoleErrors)
-  }, [RegistrationConfirmation, code])
+    code &&
+      RegistrationConfirmation(code)
+        .unwrap()
+        .then()
+        .catch(() => router.push('/resend'))
+  }, [RegistrationConfirmation, code, router])
 
   const { t } = useTranslation()
 
