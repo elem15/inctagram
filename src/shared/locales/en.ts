@@ -12,7 +12,7 @@ export const en = {
     title: 'Email verification link expired',
     message:
       'Looks like the verification link has expired. Not to worry, we can send the link again',
-    resend_link: 'resend verification link',
+    resend_link: 'Resend verification link',
   },
   signup_confirm: {
     congratulations: 'Congratulations!',
@@ -60,11 +60,13 @@ export const en = {
     send_link: 'Send Link',
     back_signin: 'Back to Sign In',
     checkbox_text: 'I’m not a robot',
+    lg: 'en',
   },
 
   email: {
     title: 'Email sent',
     message: 'We have sent a link to confirm your email to ',
+    yes: 'OK',
   },
 
   logout: {
@@ -72,6 +74,11 @@ export const en = {
     message: 'Are you really want to log out of your account ',
     yes: 'Yes',
     no: 'No',
+  },
+
+  password_recovery: {
+    title: 'Create New Password',
+    message: 'Your password must be between 6 and 20 characters',
   },
 }
 export type LangType = typeof en

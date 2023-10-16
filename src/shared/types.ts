@@ -30,6 +30,7 @@ export interface IAuthInput {
   username: string
   email: string
   password: string
+  passwordConfirm?: string
 }
 
 export interface IEmailPassword {

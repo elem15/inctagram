@@ -13,6 +13,10 @@ const nextConfig = {
     locales: ['en', 'ru'],
     defaultLocale: 'en',
   },
+  env: {
+    captcha_site_key: process.env.CAPTCHA_SITE_KEY,
+    google_client_id: process.env.GOOGLE_CLIENT_ID,
+  },
 }
 
 module.exports = nextConfig

@@ -51,7 +51,11 @@ export const SignUpWidget: FC = () => {
               type: 'server',
               message: t.signup.user_exist_error,
             })
+          } else {
+            console.error(JSON.stringify(errMsg))
           }
+        } else {
+          console.error(JSON.stringify(error))
         }
       })
   }

@@ -21,7 +21,7 @@ export function Github() {
       dispatch(setLoginUser({ email, accessToken }))
     }
     router.push('/')
-  }, [email, accessToken])
+  }, [accessToken, dispatch, email, router])
 
   return null
 }

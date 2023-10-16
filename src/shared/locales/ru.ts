@@ -62,10 +62,12 @@ export const ru: LangType = {
     send_link: 'Отправить ссылку',
     back_signin: 'Вернуться ко Входу в приложение',
     checkbox_text: 'Я не робот',
+    lg: 'ru',
   },
   email: {
     title: 'Письмо отправлено',
     message: 'Вам отправлена ссылка для подтверждения по адресу: ',
+    yes: 'ОК',
   },
 
   logout: {
@@ -73,5 +75,10 @@ export const ru: LangType = {
     message: 'Вы действительно хотите выйти из аккаунта ',
     yes: 'Да',
     no: 'Нет',
+  },
+
+  password_recovery: {
+    title: 'Создать новый пароль',
+    message: 'Пароль должен быть более 6 и менее 20 букв',
   },
 }

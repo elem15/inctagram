@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import styles from './ResendVerifLink.module.scss'
 
 import { TimeManagement } from '@/shared/assets'
@@ -12,9 +14,12 @@ const ResendVerifLink = () => {
       <div className={styles.heading}>{t.resend.title}</div>
       <p>{t.resend.message}</p>
 
-      <button className="flex justify-center items-center bg-primary-500   font-semibold text-light-100 px-6 py-1.5 rounded  my-8 ">
+      <Link
+        href={'/auth/forgotpassword'}
+        className="flex justify-center items-center bg-primary-500   font-semibold text-light-100 px-6 py-1.5 rounded  my-8 "
+      >
         {t.resend.resend_link}
-      </button>
+      </Link>
       <div>
         <TimeManagement className="w-full h-auto " />
       </div>
