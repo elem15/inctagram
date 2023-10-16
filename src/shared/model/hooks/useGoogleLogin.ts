@@ -28,7 +28,7 @@ export const useGoogleLogin = (code: string | undefined) => {
           }
         })
     }
-  }, [code])
+  }, [GoogleLogin, code, dispatch])
 
   return { isLoading, error }
 }

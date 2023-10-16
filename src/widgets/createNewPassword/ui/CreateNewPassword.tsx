@@ -38,7 +38,7 @@ export const CreateNewPasswordWidget: FC = () => {
         .catch(() => {
           router.push('/resend')
         })
-  }, [router])
+  }, [ValidCode, recoveryCode, router])
 
   const { t } = useTranslation()
 

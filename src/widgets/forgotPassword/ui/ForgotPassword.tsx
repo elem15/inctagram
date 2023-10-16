@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 
 import Link from 'next/link'
+// eslint-disable-next-line import/no-named-as-default
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 
@@ -12,7 +13,6 @@ import { InputField } from '@/shared'
 import { useAppDispatch, useTranslation } from '@/shared/model'
 import { EmailValidation } from '@/shared/regex'
 import { IAuthInput } from '@/shared/types'
-import { EmailSentPopUpWidget } from '@/widgets/EmailSentPopUp/ui/EmailSentPopUpWidget'
 import { SetPopUp } from '@/widgets/EmailSentPopUp/ui/SetPopUp'
 
 export const ForgotPasswordWidget: FC = () => {

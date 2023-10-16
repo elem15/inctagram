@@ -13,7 +13,7 @@ export const useAuth = () => {
       dispatch(addUser(localStorage.getItem('email')))
       dispatch(addToken(localStorage.getItem('token')))
     }
-  }, [email, accessToken])
+  }, [email, accessToken, dispatch])
 
   return {
     isAuth: !!accessToken,
