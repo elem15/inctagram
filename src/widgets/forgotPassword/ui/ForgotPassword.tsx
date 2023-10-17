@@ -14,6 +14,7 @@ import { useAppDispatch, useTranslation } from '@/shared/model'
 import { EmailValidation } from '@/shared/regex'
 import { IAuthInput } from '@/shared/types'
 import { SetPopUp } from '@/widgets/EmailSentPopUp/ui/SetPopUp'
+import { Spinner } from '@/widgets/spinner'
 
 export const ForgotPasswordWidget: FC = () => {
   const {
@@ -41,11 +42,8 @@ export const ForgotPasswordWidget: FC = () => {
 
   return (
     <div>
-      {isSuccess && (
-        <>
-          <SetPopUp />
-        </>
-      )}
+      {isLoading && <Spinner />}
+      {isSuccess && <SetPopUp />}
 
       <div className={styles.wrapper}>
         <div className={styles.heading}>{t.forgotpassword.title}</div>

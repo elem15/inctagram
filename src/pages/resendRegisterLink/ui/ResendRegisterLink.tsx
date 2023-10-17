@@ -26,9 +26,7 @@ const ResendRegisterLink = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>{t.resend.title}</div>
-      <p>
-        {t.resend.message} {email}
-      </p>
+      <p>{t.resend.message}</p>
 
       <button
         onClick={() => onSubmit(email as string)}
