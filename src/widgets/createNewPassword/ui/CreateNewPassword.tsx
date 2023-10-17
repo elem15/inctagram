@@ -6,12 +6,12 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import styles from './CreateNewPassword.module.scss'
 
-import { useCreateNewPasswordMutation, useValidCodeMutation } from '@/entities/auth/AuthApi'
+import { useCreateNewPasswordMutation, useValidCodeMutation } from '@/entities/auth/authApi'
 import { PasswordField } from '@/shared'
 import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
 import { consoleErrors, useTranslation } from '@/shared/model'
 import { PasswordValidation } from '@/shared/regex'
-import { IAuthFields, IAuthInput } from '@/shared/types'
+import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
 
 export const CreateNewPasswordWidget: FC = () => {

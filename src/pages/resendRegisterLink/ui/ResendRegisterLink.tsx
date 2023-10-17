@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 
 import styles from './ResendRegisterLink.module.scss'
 
-import { useResendRegistrationLinkMutation } from '@/entities/auth/AuthApi'
+import { useResendRegistrationLinkMutation } from '@/entities/auth/authApi'
 import { TimeManagement } from '@/shared/assets'
 import { useTranslation } from '@/shared/model'
 import { useAuth } from '@/shared/model/hooks/useAuth'

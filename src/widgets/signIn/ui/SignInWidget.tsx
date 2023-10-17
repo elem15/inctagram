@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -10,14 +10,17 @@ import { SignInAuth } from '../signInAuth/SignInAuth'
 import styles from './SignInWidget.module.scss'
 
 import { AppDispatch } from '@/app/appStore'
-import { useLoginMutation } from '@/entities/auth/AuthApi'
-import { setLoginUser } from '@/entities/auth/AuthSlice'
+import { useLoginMutation } from '@/entities/auth/authApi'
+import { setLoginUser } from '@/entities/auth/authSlice'
+import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { useTranslation } from '@/shared/model'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
 
 export const SignInWidget: FC = () => {
+  const [socialsLoading, setSocialsLoading] = useState(false)
+
   const {
     register: registerInput,
     handleSubmit,
@@ -62,15 +65,15 @@ export const SignInWidget: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      {isLoading && <Spinner />}
+      {(isLoading || socialsLoading) && <Spinner />}
       <h1 className={styles.heading}>{t.signin.title}</h1>
       <div className={styles.icon}>
-        <a href="">
+        <Link href={AUTH_URLS.GOOGLE} onClick={() => setSocialsLoading(true)}>
           <GoogleIcon />
-        </a>
-        <a href="">
+        </Link>
+        <Link href={AUTH_URLS.GITHUB} onClick={() => setSocialsLoading(true)}>
           <GithubIcon className="fill-light-100" />
-        </a>
+        </Link>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <SignInAuth formState={formState} register={registerInput} getValues={getValues} />

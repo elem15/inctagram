@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
 
-import { logout } from '@/entities/auth/AuthSlice'
+import { logout, selectAuthUser } from '@/entities/auth/authSlice'
 import { CloseIcon } from '@/shared/assets'
 import { useAppDispatch, useAppSelector, useTranslation } from '@/shared/model'
 
 export const EmailSentPopUpWidget: FC<{ onClose: () => void }> = ({ onClose }) => {
   const { t } = useTranslation()
 
-  const { email } = useAppSelector(state => state.user)
+  const { email } = useAppSelector(selectAuthUser)
 
   return (
     <div

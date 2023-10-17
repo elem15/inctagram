@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 
+import { consoleErrors } from '..'
+
 import { useAppDispatch } from '.'
 
-import { useGoogleLoginMutation } from '@/entities/auth/AuthApi'
-import { setLoginUser } from '@/entities/auth/AuthSlice'
-import {consoleErrors} from '..';
+import { useGoogleLoginMutation } from '@/entities/auth/authApi'
+import { setLoginUser } from '@/entities/auth/authSlice'
 
 export const useGoogleLogin = (code: string | undefined) => {
   const dispatch = useAppDispatch()

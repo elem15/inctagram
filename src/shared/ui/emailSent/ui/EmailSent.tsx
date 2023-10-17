@@ -2,13 +2,14 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
+import { selectAuthUser } from '@/entities/auth/authSlice'
 import { CloseIcon } from '@/shared/assets'
 import { useAppSelector, useTranslation } from '@/shared/model'
 
 export const EmailSent: FC<{ path: string }> = ({ path }) => {
   const { t } = useTranslation()
 
-  const { email } = useAppSelector(state => state.user)
+  const { email } = useAppSelector(selectAuthUser)
   const router = useRouter()
 
   return (

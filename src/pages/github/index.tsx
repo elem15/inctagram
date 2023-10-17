@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 import { AppDispatch } from '@/app/appStore'
-import { setLoginUser } from '@/entities/auth/AuthSlice'
+import { setLoginUser } from '@/entities/auth/authSlice'
 
 export function Github() {
   const searchParams = useSearchParams()

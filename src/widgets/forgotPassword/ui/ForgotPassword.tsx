@@ -7,8 +7,8 @@ import { useForm } from 'react-hook-form'
 
 import styles from './ForgotPassword.module.scss'
 
-import { useForgotPasswordMutation } from '@/entities/auth/AuthApi'
-import { setUser } from '@/entities/auth/AuthSlice'
+import { useForgotPasswordMutation } from '@/entities/auth/authApi'
+import { setUser } from '@/entities/auth/authSlice'
 import { InputField } from '@/shared'
 import { useAppDispatch, useTranslation } from '@/shared/model'
 import { EmailValidation } from '@/shared/regex'
