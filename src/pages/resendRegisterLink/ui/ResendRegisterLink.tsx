@@ -7,6 +7,7 @@ import { TimeManagement } from '@/shared/assets'
 import { useTranslation } from '@/shared/model'
 import { useAuth } from '@/shared/model/hooks/useAuth'
 import { getHeaderLayout } from '@/widgets/layouts'
+import { Spinner } from '@/widgets/spinner'
 
 const ResendRegisterLink = () => {
   const { t } = useTranslation()
@@ -25,6 +26,7 @@ const ResendRegisterLink = () => {
 
   return (
     <div className={styles.wrapper}>
+      {isLoading && <Spinner />}
       <div className={styles.heading}>{t.resend.title}</div>
       <p>{t.resend.message}</p>
 
