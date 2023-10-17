@@ -58,7 +58,10 @@ export const Home: NextPage = () => {
           <Link href="signin">Sign In</Link>
         </li>
         <li>
-          <Link href="resend">Resend Verification Link</Link>
+          <Link href="resend">Resend Verification Link Password recovery</Link>
+        </li>
+        <li>
+          <Link href="auth/registration-resend">Resend Verification Link Registration</Link>
         </li>
         <li>
           <Link href="email">Send Email menu</Link>

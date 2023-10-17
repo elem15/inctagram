@@ -19,7 +19,8 @@ const SignUpConfirmedPage = () => {
       RegistrationConfirmation(code)
         .unwrap()
         .then()
-        .catch(() => router.push('/resend'))
+        // .catch(() => router.push('/resend'))
+        .catch(() => router.push('/auth/registration-resend'))
   }, [RegistrationConfirmation, code, router])
 
   const { t } = useTranslation()
