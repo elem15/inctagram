@@ -38,6 +38,9 @@ const authSlice = createSlice({
     setUser: (state, { payload: { user, email } }) => {
       state.user = user
       state.email = email
+      state.accessToken = ''
+      localStorage.setItem('email', email)
+      localStorage.setItem('token', '')
     },
     setLoginUser: (state, { payload: { email, accessToken } }) => {
       state.email = email

@@ -1,16 +1,25 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { IEmailPassword, IEmailPasswordUser } from '@/shared/types'
+import { IEmailBaseUrl, IEmailPassword, IEmailPasswordUser } from '@/shared/types'
 
 export const authApi = createApi({
   reducerPath: 'userAuth',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://incta.online/api/v1' }),
-  //   tagTypes: ['User'],
   endpoints: builder => ({
     Registration: builder.mutation<any, IEmailPasswordUser>({
       query: body => ({
         body: body,
         url: '/auth/registration',
+        method: 'POST',
+      }),
+    }),
+    resendRegistrationLink: builder.mutation<any, IEmailBaseUrl>({
+      query: ({ email, baseUrl }) => ({
+        body: {
+          email,
+          baseUrl,
+        },
+        url: '/auth/registration-email-resending',
         method: 'POST',
       }),
     }),
@@ -67,4 +76,5 @@ export const {
   useCreateNewPasswordMutation,
   useValidCodeMutation,
   useGoogleLoginMutation,
+  useResendRegistrationLinkMutation,
 } = authApi

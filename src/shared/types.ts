@@ -37,6 +37,10 @@ export interface IEmailPassword {
   email: string
   password: string
 }
+export interface IEmailBaseUrl {
+  email: string
+  baseUrl: string
+}
 
 export interface IEmailPasswordUser extends IEmailPassword {
   userName: string
