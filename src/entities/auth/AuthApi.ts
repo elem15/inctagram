@@ -5,7 +5,6 @@ import { IEmailBaseUrl, IEmailPassword, IEmailPasswordUser } from '@/shared/type
 export const authApi = createApi({
   reducerPath: 'userAuth',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://incta.online/api/v1' }),
-  //   tagTypes: ['User'],
   endpoints: builder => ({
     Registration: builder.mutation<any, IEmailPasswordUser>({
       query: body => ({

@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react'
 
+import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -11,6 +12,7 @@ import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
 import { consoleErrors, useTranslation } from '@/shared/model'
 import { PasswordValidation } from '@/shared/regex'
 import { IAuthFields, IAuthInput } from '@/shared/types'
+import { Spinner } from '@/widgets/spinner'
 
 export const CreateNewPasswordWidget: FC = () => {
   const {
@@ -25,11 +27,13 @@ export const CreateNewPasswordWidget: FC = () => {
     reValidateMode: 'onBlur',
   })
 
-  const [ValidCode] = useValidCodeMutation()
+  const [ValidCode, { isLoading: isValidationLoading }] = useValidCodeMutation()
 
-  const [CreateNewPassword, { isError }] = useCreateNewPasswordMutation()
+  const [CreateNewPassword, { isError, isLoading }] = useCreateNewPasswordMutation()
   const router = useRouter()
-  const recoveryCode = router.query.code
+  const searchParams = useSearchParams()
+
+  const recoveryCode = searchParams?.get('code') as string
 
   useEffect(() => {
     recoveryCode &&
@@ -54,6 +58,8 @@ export const CreateNewPasswordWidget: FC = () => {
 
   return (
     <div className={styles.wrapper}>
+      {isLoading && isValidationLoading && <Spinner />}
+
       <div className={styles.heading}>{t.password_recovery.title}</div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <PasswordField
