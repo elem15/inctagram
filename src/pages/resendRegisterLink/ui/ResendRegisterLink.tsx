@@ -10,13 +10,16 @@ import { getHeaderLayout } from '@/widgets/layouts'
 import { Spinner } from '@/widgets/spinner'
 
 const ResendRegisterLink = () => {
+  const baseUrl =
+    process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://incta.online'
+
   const { t } = useTranslation()
   const [resendRegistrationLink, { isError, isLoading }] = useResendRegistrationLinkMutation()
   const router = useRouter()
   const { email } = useAuth()
 
   const onSubmit = (email: string) => {
-    resendRegistrationLink({ email: email, baseUrl: 'http://localhost:3000' })
+    resendRegistrationLink({ email: email, baseUrl })
       .unwrap()
       .then(() => {
         router.push('/email')
