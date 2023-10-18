@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { clearLocalUserData } from './authSlice'
+import { clearLocalUserData, setLoginUser } from './authSlice'
 
+import { consoleErrors } from '@/shared/model'
 import { IEmailBaseUrl, IEmailPassword, IEmailPasswordUser } from '@/shared/types'
 
 export const authApi = createApi({
@@ -40,6 +41,15 @@ export const authApi = createApi({
         method: 'POST',
         credentials: 'include',
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+
+          dispatch(setLoginUser({ email: args.email, accessToken: data.accessToken }))
+        } catch (error) {
+          consoleErrors(error as Error)
+        }
+      },
     }),
     logOut: builder.mutation<any, string>({
       query: accessToken => ({

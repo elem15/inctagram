@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -32,36 +32,27 @@ export const SignInWidget: FC = () => {
     reValidateMode: 'onBlur',
   })
 
-  const dispatch = useDispatch<AppDispatch>()
-  const [Login, { isLoading }] = useLoginMutation()
+  const { t } = useTranslation()
+  const [Login, { isLoading, error, isSuccess }] = useLoginMutation()
   const router = useRouter()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
     Login({ email: data.email, password: data.password })
-      .unwrap()
-      .then(payload => {
-        dispatch(setLoginUser({ email: data.email, accessToken: payload.accessToken })),
-          router.push('/')
-      })
-      .catch(error => {
-        if ('data' in error) {
-          const errMsg = error.data as ErrorDataType
-
-          if ('messages' in errMsg) {
-            console.error(errMsg.messages)
-            setError('password', {
-              type: 'server',
-              message: t.signin.error_message,
-            })
-          } else {
-            console.error(JSON.stringify(errMsg))
-          }
-        } else {
-          console.error(JSON.stringify(error))
-        }
-      })
   }
-  const { t } = useTranslation()
+
+  useEffect(() => {
+    isSuccess && router.push('/')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
+
+  useEffect(() => {
+    error &&
+      setError('password', {
+        type: 'server',
+        message: t.signin.error_message,
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error])
 
   return (
     <div className={styles.wrapper}>
