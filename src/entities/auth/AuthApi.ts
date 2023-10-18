@@ -1,10 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+import { clearLocalUserData } from './authSlice'
+
 import { IEmailBaseUrl, IEmailPassword, IEmailPasswordUser } from '@/shared/types'
 
 export const authApi = createApi({
   reducerPath: 'userAuth',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://incta.online/api/v1' }),
+  tagTypes: ['User'],
   endpoints: builder => ({
     Registration: builder.mutation<any, IEmailPasswordUser>({
       query: body => ({
@@ -30,12 +33,27 @@ export const authApi = createApi({
         method: 'POST',
       }),
     }),
-    Login: builder.mutation<any, IEmailPassword>({
+    login: builder.mutation<any, IEmailPassword>({
       query: ({ email, password }) => ({
         body: { email, password },
         url: '/auth/login',
         method: 'POST',
+        credentials: 'include',
       }),
+    }),
+    logOut: builder.mutation<any, string>({
+      query: accessToken => ({
+        url: '/auth/logout',
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + accessToken,
+        },
+      }),
+      async onQueryStarted(args, { dispatch }) {
+        dispatch(clearLocalUserData())
+      },
     }),
     ForgotPassword: builder.mutation({
       query: ({ email, recaptcha }) => ({
@@ -77,4 +95,5 @@ export const {
   useValidCodeMutation,
   useGoogleLoginMutation,
   useResendRegistrationLinkMutation,
+  useLogOutMutation,
 } = authApi

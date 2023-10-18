@@ -24,7 +24,7 @@ const authSlice = createSlice({
     addUser: (state, action) => {
       state.email = action.payload
     },
-    logout: state => {
+    clearLocalUserData: state => {
       state.accessToken = null
       state.email = null
       localStorage.clear()
@@ -45,7 +45,7 @@ const authSlice = createSlice({
   },
 })
 
-export const { addToken, addUser, logout, setUser, setLoginUser } = authSlice.actions
+export const { addToken, addUser, clearLocalUserData, setUser, setLoginUser } = authSlice.actions
 
 export const selectAuthUser = (state: RootState) => state.user
 
