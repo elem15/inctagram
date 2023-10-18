@@ -1,19 +1,13 @@
-import { useEffect } from 'react'
-
 import { NextPage } from 'next'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
-import { logout } from '@/entities/auth/AuthSlice'
-import { useAppDispatch, useAppSelector, useGoogleLogin } from '@/shared/model'
+import { useGoogleLogin } from '@/shared/model'
 import { useAuth } from '@/shared/model/hooks/useAuth'
 import { LogOutButton } from '@/widgets/logOut'
 import { Spinner } from '@/widgets/spinner'
 
 export const Home: NextPage = () => {
-  const count = useAppSelector(state => state.counter.value)
-  const { statusCode } = useAppSelector(state => state.user)
-  const dispatch = useAppDispatch()
 
   const { isAuth, email } = useAuth()
 
@@ -26,6 +20,7 @@ export const Home: NextPage = () => {
   return (
     <div>
       {isLoading && <Spinner />}
+      {error && <div className="text-red-600">Google authorization error</div>}
       <ul>
         <li>
           <Link href="home">Home</Link>
@@ -66,10 +61,6 @@ export const Home: NextPage = () => {
         <li>
           <Link href="email">Send Email menu</Link>
         </li>
-        <li>
-          <Link href="counter">Redux Counter: {count}</Link>
-        </li>
-        <li>{statusCode}</li>
         <li>
           <Link href="auth/forgotpassword">Forgot password</Link>
         </li>

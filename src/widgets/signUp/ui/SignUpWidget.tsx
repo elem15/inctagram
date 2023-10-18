@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -10,11 +10,11 @@ import { SignUpAuth } from '../signUpAuth/SignUpAuth'
 import styles from './SignUpWidget.module.scss'
 
 import { AppDispatch } from '@/app/appStore'
-import { useRegistrationMutation } from '@/entities/auth/AuthApi'
-import { setUser } from '@/entities/auth/AuthSlice'
+import { useRegistrationMutation } from '@/entities/auth/authApi'
+import { setUser } from '@/entities/auth/authSlice'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
-import { useTranslation } from '@/shared/model'
+import { consoleErrors, useTranslation } from '@/shared/model'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
 
@@ -30,38 +30,39 @@ export const SignUpWidget: FC = () => {
     reValidateMode: 'onBlur',
   })
 
+  const { t } = useTranslation()
+
+  const [agree, setAgree] = useState(false)
+
   const dispatch = useDispatch<AppDispatch>()
+
   const router = useRouter()
+
   const [socialsLoading, setSocialsLoading] = useState(false)
-  const [Registration, { isLoading }] = useRegistrationMutation()
+
+  const [registration, { isLoading, isSuccess, error }] = useRegistrationMutation()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
     dispatch(setUser({ user: data.username, email: data.email }))
 
-    Registration({ email: data.email, userName: data.username, password: data.password })
-      .unwrap()
-      .then(() => router.push('/email'))
-      .catch(error => {
-        if ('data' in error) {
-          const errMsg = error.data as ErrorDataType
-
-          if ('messages' in errMsg) {
-            console.error(errMsg.messages)
-            setError('email', {
-              type: 'server',
-              message: t.signup.user_exist_error,
-            })
-          } else {
-            console.error(JSON.stringify(errMsg))
-          }
-        } else {
-          console.error(JSON.stringify(error))
-        }
-      })
+    registration({ email: data.email, userName: data.username, password: data.password })
   }
-  const { t } = useTranslation()
 
-  const [agree, setAgree] = useState(false)
+  useEffect(() => {
+    isSuccess && router.push('/email')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
+
+  useEffect(() => {
+    if (error) {
+      consoleErrors(error as Error)
+      setError('password', {
+        type: 'server',
+        message: t.signin.error_message,
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error])
 
   return (
     <div className={styles.wrapper}>

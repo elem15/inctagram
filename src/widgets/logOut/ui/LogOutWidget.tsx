@@ -1,14 +1,16 @@
 import React, { FC } from 'react'
 
-import { logout } from '@/entities/auth/AuthSlice'
+import { useLogOutMutation } from '@/entities/auth/authApi'
+import { selectAuthUser } from '@/entities/auth/authSlice'
 import { CloseIcon } from '@/shared/assets'
-import { useAppDispatch, useAppSelector, useTranslation } from '@/shared/model'
+import { useAppSelector, useTranslation } from '@/shared/model'
+import { useAuth } from '@/shared/model/hooks/useAuth'
 
 export const LogOutWidget: FC<{ onClose: () => void }> = ({ onClose }) => {
   const { t } = useTranslation()
-  const dispatch = useAppDispatch()
-
-  const { email } = useAppSelector(state => state.user)
+  const [logOut] = useLogOutMutation()
+  const { email } = useAppSelector(selectAuthUser)
+  const { accessToken } = useAuth()
 
   return (
     <div
@@ -42,7 +44,7 @@ export const LogOutWidget: FC<{ onClose: () => void }> = ({ onClose }) => {
               </button>
               <button
                 onClick={() => {
-                  dispatch(logout())
+                  logOut(accessToken as string)
                   onClose()
                 }}
                 className="px-10 mb-12  bg-red-600 font-semibold text-light-100 p-2 rounded my-2"

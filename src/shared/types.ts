@@ -45,3 +45,8 @@ export interface IEmailBaseUrl {
 export interface IEmailPasswordUser extends IEmailPassword {
   userName: string
 }
+
+export interface IEmailToken {
+  accessToken: string
+  email: string
+}

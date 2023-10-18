@@ -1,23 +1,17 @@
-import { createAsyncThunk, createSlice, isRejectedWithValue, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+
+import { RootState } from '@/app/appStore'
 
 export interface IInitialState {
   user: string | null
   email: string | null
-  isLoading: boolean
-  error: any | null
   accessToken: string | null
-  message: string
-  statusCode: number | null
 }
 
 const initialState: IInitialState = {
   user: '',
   email: '',
-  isLoading: false,
-  error: '',
   accessToken: '',
-  message: '',
-  statusCode: null,
 }
 
 const authSlice = createSlice({
@@ -30,7 +24,7 @@ const authSlice = createSlice({
     addUser: (state, action) => {
       state.email = action.payload
     },
-    logout: state => {
+    clearLocalUserData: state => {
       state.accessToken = null
       state.email = null
       localStorage.clear()
@@ -51,5 +45,8 @@ const authSlice = createSlice({
   },
 })
 
-export const { addToken, addUser, logout, setUser, setLoginUser } = authSlice.actions
+export const { addToken, addUser, clearLocalUserData, setUser, setLoginUser } = authSlice.actions
+
+export const selectAuthUser = (state: RootState) => state.user
+
 export default authSlice.reducer

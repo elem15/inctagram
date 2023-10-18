@@ -79,6 +79,6 @@ export const ru: LangType = {
 
   password_recovery: {
     title: 'Создать новый пароль',
-    message: 'Пароль должен быть более 6 и менее 20 букв',
+    message: 'Пароль должен быть более 5 и менее 20 букв',
   },
 }

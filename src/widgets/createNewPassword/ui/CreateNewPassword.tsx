@@ -6,12 +6,12 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import styles from './CreateNewPassword.module.scss'
 
-import { useCreateNewPasswordMutation, useValidCodeMutation } from '@/entities/auth/AuthApi'
+import { useCreateNewPasswordMutation, useValidCodeMutation } from '@/entities/auth/authApi'
 import { PasswordField } from '@/shared'
 import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
 import { consoleErrors, useTranslation } from '@/shared/model'
 import { PasswordValidation } from '@/shared/regex'
-import { IAuthFields, IAuthInput } from '@/shared/types'
+import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
 
 export const CreateNewPasswordWidget: FC = () => {
@@ -21,15 +21,14 @@ export const CreateNewPasswordWidget: FC = () => {
     formState: { errors },
     getValues,
     formState,
-    setError,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   })
 
-  const [ValidCode, { isLoading: isValidationLoading }] = useValidCodeMutation()
+  const [validCode, { isLoading: isValidationLoading }] = useValidCodeMutation()
 
-  const [CreateNewPassword, { isError, isLoading }] = useCreateNewPasswordMutation()
+  const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation()
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -37,18 +36,18 @@ export const CreateNewPasswordWidget: FC = () => {
 
   useEffect(() => {
     recoveryCode &&
-      ValidCode({ recoveryCode })
+      validCode({ recoveryCode })
         .unwrap()
         .then()
         .catch(() => {
           router.push('/resend')
         })
-  }, [ValidCode, recoveryCode, router])
+  }, [validCode, recoveryCode, router])
 
   const { t } = useTranslation()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
-    CreateNewPassword({ newPassword: data.password, recoveryCode })
+    createNewPassword({ newPassword: data.password, recoveryCode })
       .unwrap()
       .then(() => {
         router.push('/signin')

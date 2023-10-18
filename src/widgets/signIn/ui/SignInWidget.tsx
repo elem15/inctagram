@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -9,15 +9,16 @@ import { SignInAuth } from '../signInAuth/SignInAuth'
 
 import styles from './SignInWidget.module.scss'
 
-import { AppDispatch } from '@/app/appStore'
-import { useLoginMutation } from '@/entities/auth/AuthApi'
-import { setLoginUser } from '@/entities/auth/AuthSlice'
+import { useLoginMutation } from '@/entities/auth/authApi'
+import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { useTranslation } from '@/shared/model'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
 
 export const SignInWidget: FC = () => {
+  const [socialsLoading, setSocialsLoading] = useState(false)
+
   const {
     register: registerInput,
     handleSubmit,
@@ -29,48 +30,39 @@ export const SignInWidget: FC = () => {
     reValidateMode: 'onBlur',
   })
 
-  const dispatch = useDispatch<AppDispatch>()
-  const [Login, { isLoading }] = useLoginMutation()
+  const { t } = useTranslation()
+  const [Login, { isLoading, error, isSuccess }] = useLoginMutation()
   const router = useRouter()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
     Login({ email: data.email, password: data.password })
-      .unwrap()
-      .then(payload => {
-        dispatch(setLoginUser({ email: data.email, accessToken: payload.accessToken })),
-          router.push('/')
-      })
-      .catch(error => {
-        if ('data' in error) {
-          const errMsg = error.data as ErrorDataType
-
-          if ('messages' in errMsg) {
-            console.error(errMsg.messages)
-            setError('password', {
-              type: 'server',
-              message: t.signin.error_message,
-            })
-          } else {
-            console.error(JSON.stringify(errMsg))
-          }
-        } else {
-          console.error(JSON.stringify(error))
-        }
-      })
   }
-  const { t } = useTranslation()
+
+  useEffect(() => {
+    isSuccess && router.push('/')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
+
+  useEffect(() => {
+    error &&
+      setError('password', {
+        type: 'server',
+        message: t.signin.error_message,
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error])
 
   return (
     <div className={styles.wrapper}>
-      {isLoading && <Spinner />}
+      {(isLoading || socialsLoading) && <Spinner />}
       <h1 className={styles.heading}>{t.signin.title}</h1>
       <div className={styles.icon}>
-        <a href="">
+        <Link href={AUTH_URLS.GOOGLE} onClick={() => setSocialsLoading(true)}>
           <GoogleIcon />
-        </a>
-        <a href="">
+        </Link>
+        <Link href={AUTH_URLS.GITHUB} onClick={() => setSocialsLoading(true)}>
           <GithubIcon className="fill-light-100" />
-        </a>
+        </Link>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <SignInAuth formState={formState} register={registerInput} getValues={getValues} />

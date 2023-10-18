@@ -7,10 +7,10 @@ import { useForm } from 'react-hook-form'
 
 import styles from './ForgotPassword.module.scss'
 
-import { useForgotPasswordMutation } from '@/entities/auth/AuthApi'
-import { setUser } from '@/entities/auth/AuthSlice'
+import { useSendCaptchaMutation } from '@/entities/auth/authApi'
+import { setUser } from '@/entities/auth/authSlice'
 import { InputField } from '@/shared'
-import { useAppDispatch, useTranslation } from '@/shared/model'
+import { consoleErrors, useAppDispatch, useTranslation } from '@/shared/model'
 import { EmailValidation } from '@/shared/regex'
 import { IAuthInput } from '@/shared/types'
 import { SetPopUp } from '@/widgets/EmailSentPopUp/ui/SetPopUp'
@@ -33,10 +33,10 @@ export const ForgotPasswordWidget: FC = () => {
   const dispatch = useAppDispatch()
 
   const [reCaptcha, setReCaptcha] = useState(null)
-  const [ForgotPassword, { status, isLoading, isSuccess, isError }] = useForgotPasswordMutation()
+  const [sendCaptcha, { isLoading, isSuccess }] = useSendCaptchaMutation()
 
   const onSubmit = (data: any) => {
-    ForgotPassword({ email: data.email, recaptcha: reCaptcha }).unwrap()
+    sendCaptcha({ email: data.email, recaptcha: reCaptcha }).unwrap().catch(consoleErrors)
     dispatch(setUser({ email: data.email, user: '' }))
   }
 

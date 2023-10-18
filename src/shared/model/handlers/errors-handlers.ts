@@ -5,9 +5,9 @@ export const consoleErrors = (error: Error) => {
     if ('messages' in errMsg) {
       console.error(errMsg.messages)
     } else {
-      console.error(JSON.stringify(errMsg))
+      console.error(errMsg)
     }
   } else {
-    console.error(JSON.stringify(error))
+    console.error(error)
   }
 }
