@@ -12,6 +12,6 @@ type CustomerError = {
   status: number;
 };
 
-type RTQError = {
+type RTKError = {
   error: Error
 }

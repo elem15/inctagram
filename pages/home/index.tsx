@@ -15,11 +15,12 @@ export const Home: NextPage = () => {
 
   const code = searchParams?.get('code') as string | undefined
 
-  const { isLoading } = useGoogleLogin(code)
+  const { isLoading, error } = useGoogleLogin(code)
 
   return (
     <div>
       {isLoading && <Spinner />}
+      {error && <div className="text-red-600">Google authorization error</div>}
       <ul>
         <li>
           <Link href="home">Home</Link>

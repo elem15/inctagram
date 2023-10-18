@@ -21,15 +21,14 @@ export const CreateNewPasswordWidget: FC = () => {
     formState: { errors },
     getValues,
     formState,
-    setError,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   })
 
-  const [ValidCode, { isLoading: isValidationLoading }] = useValidCodeMutation()
+  const [validCode, { isLoading: isValidationLoading }] = useValidCodeMutation()
 
-  const [CreateNewPassword, { isError, isLoading }] = useCreateNewPasswordMutation()
+  const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation()
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -37,18 +36,18 @@ export const CreateNewPasswordWidget: FC = () => {
 
   useEffect(() => {
     recoveryCode &&
-      ValidCode({ recoveryCode })
+      validCode({ recoveryCode })
         .unwrap()
         .then()
         .catch(() => {
           router.push('/resend')
         })
-  }, [ValidCode, recoveryCode, router])
+  }, [validCode, recoveryCode, router])
 
   const { t } = useTranslation()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
-    CreateNewPassword({ newPassword: data.password, recoveryCode })
+    createNewPassword({ newPassword: data.password, recoveryCode })
       .unwrap()
       .then(() => {
         router.push('/signin')

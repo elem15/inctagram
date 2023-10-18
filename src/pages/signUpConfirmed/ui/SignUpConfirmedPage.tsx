@@ -11,17 +11,18 @@ import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { Spinner } from '@/widgets/spinner'
 
 const SignUpConfirmedPage = () => {
-  const [RegistrationConfirmation, { isError, isLoading }] = useRegistrationConfirmationMutation()
+  const [registrationConfirmation, { isLoading }] = useRegistrationConfirmationMutation()
   const router = useRouter()
   const { code } = router.query
 
   useEffect(() => {
     code &&
-      RegistrationConfirmation(code)
+      registrationConfirmation(code)
         .unwrap()
         .then()
         .catch(() => router.push('/auth/registration-resend'))
-  }, [RegistrationConfirmation, code, router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [code])
 
   const { t } = useTranslation()
 

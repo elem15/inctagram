@@ -14,7 +14,7 @@ const ResendRegisterLink = () => {
     process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://incta.online'
 
   const { t } = useTranslation()
-  const [resendRegistrationLink, { isError, isLoading }] = useResendRegistrationLinkMutation()
+  const [resendRegistrationLink, { isLoading }] = useResendRegistrationLinkMutation()
   const router = useRouter()
   const { email } = useAuth()
 

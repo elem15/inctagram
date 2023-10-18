@@ -27,7 +27,7 @@ export const authApi = createApi({
         method: 'POST',
       }),
     }),
-    RegistrationConfirmation: builder.mutation<any, string | string[]>({
+    registrationConfirmation: builder.mutation<any, string | string[]>({
       query: code => ({
         body: { confirmationCode: code },
         url: '/auth/registration-confirmation',
@@ -47,11 +47,11 @@ export const authApi = createApi({
 
           dispatch(setLoginUser({ email: args.email, accessToken: data.accessToken }))
         } catch (error) {
-          const e = error as RTQError
+          const e = error as RTKError
 
           if ('error' in e) {
             consoleErrors(e.error)
-          } else console.error(JSON.stringify(e))
+          } else console.error(e)
         }
       },
     }),
@@ -65,37 +65,50 @@ export const authApi = createApi({
           Authorization: 'Bearer ' + accessToken,
         },
       }),
-      async onQueryStarted(args, { dispatch }) {
+      async onQueryStarted(_, { dispatch }) {
         dispatch(clearLocalUserData())
       },
     }),
-    ForgotPassword: builder.mutation({
+    sendCaptcha: builder.mutation({
       query: ({ email, recaptcha }) => ({
         body: { email, recaptcha },
         url: '/auth/password-recovery',
         method: 'POST',
       }),
     }),
-    CreateNewPassword: builder.mutation({
+    createNewPassword: builder.mutation({
       query: ({ newPassword, recoveryCode }) => ({
         body: { newPassword, recoveryCode },
         url: '/auth/new-password',
         method: 'POST',
       }),
     }),
-    ValidCode: builder.mutation({
+    validCode: builder.mutation({
       query: ({ recoveryCode }) => ({
         body: { recoveryCode },
         url: '/auth/check-recovery-code',
         method: 'POST',
       }),
     }),
-    GoogleLogin: builder.mutation<any, string>({
+    googleLogin: builder.mutation<any, string>({
       query: code => ({
         body: { code },
         url: '/auth/google/login',
         method: 'POST',
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+
+          dispatch(setLoginUser({ email: data.email, accessToken: data.accessToken }))
+        } catch (error) {
+          const e = error as RTKError
+
+          if ('error' in e) {
+            consoleErrors(e.error)
+          } else console.error(e)
+        }
+      },
     }),
   }),
 })
@@ -104,7 +117,7 @@ export const {
   useRegistrationMutation,
   useRegistrationConfirmationMutation,
   useLoginMutation,
-  useForgotPasswordMutation,
+  useSendCaptchaMutation,
   useCreateNewPasswordMutation,
   useValidCodeMutation,
   useGoogleLoginMutation,
