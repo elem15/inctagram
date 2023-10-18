@@ -9,9 +9,7 @@ import { SignInAuth } from '../signInAuth/SignInAuth'
 
 import styles from './SignInWidget.module.scss'
 
-import { AppDispatch } from '@/app/appStore'
 import { useLoginMutation } from '@/entities/auth/authApi'
-import { setLoginUser } from '@/entities/auth/authSlice'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { useTranslation } from '@/shared/model'

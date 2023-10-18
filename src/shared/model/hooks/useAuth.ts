@@ -13,7 +13,8 @@ export const useAuth = () => {
       dispatch(addUser(localStorage.getItem('email')))
       dispatch(addToken(localStorage.getItem('token')))
     }
-  }, [email, accessToken, dispatch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, accessToken])
 
   return {
     isAuth: !!accessToken,

@@ -10,7 +10,7 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://incta.online/api/v1' }),
   tagTypes: ['User'],
   endpoints: builder => ({
-    Registration: builder.mutation<any, IEmailPasswordUser>({
+    registration: builder.mutation<any, IEmailPasswordUser>({
       query: body => ({
         body: body,
         url: '/auth/registration',
@@ -47,7 +47,11 @@ export const authApi = createApi({
 
           dispatch(setLoginUser({ email: args.email, accessToken: data.accessToken }))
         } catch (error) {
-          consoleErrors(error as Error)
+          const e = error as RTQError
+
+          if ('error' in e) {
+            consoleErrors(e.error)
+          } else console.error(JSON.stringify(e))
         }
       },
     }),

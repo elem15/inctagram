@@ -11,3 +11,7 @@ type CustomerError = {
   data: ErrorDataType;
   status: number;
 };
+
+type RTQError = {
+  error: Error
+}
