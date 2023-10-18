@@ -7,8 +7,7 @@ import { useAuth } from '@/shared/model/hooks/useAuth'
 import { LogOutButton } from '@/widgets/logOut'
 import { Spinner } from '@/widgets/spinner'
 
-export const Home: NextPage = () => {
-
+export default function Home() {
   const { isAuth, email } = useAuth()
 
   const searchParams = useSearchParams()

@@ -1,1 +1,1 @@
-export { LogOutButton } from './ui/SetPopUp'
+export { SetPopUp } from './ui/SetPopUp'

@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 
-import { logout, selectAuthUser } from '@/entities/auth/authSlice'
+import { selectAuthUser } from '@/entities/auth/authSlice'
 import { CloseIcon } from '@/shared/assets'
-import { useAppDispatch, useAppSelector, useTranslation } from '@/shared/model'
+import { useAppSelector, useTranslation } from '@/shared/model'
 
 export const EmailSentPopUpWidget: FC<{ onClose: () => void }> = ({ onClose }) => {
   const { t } = useTranslation()
