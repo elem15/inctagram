@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { useAppDispatch, useAppSelector } from '.'
 
-import { addToken, addUser, selectAuthUser } from '@/entities/auth/authSlice'
+import { addToken, addUser, selectAuthUser } from '@/entities/auth/model/authSlice'
 
 export const useAuth = () => {
   const dispatch = useAppDispatch()

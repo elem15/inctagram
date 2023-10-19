@@ -1,11 +1,11 @@
-import '@/styles/globals.css'
+import './styles/globals.css'
 
 import type { ReactElement, ReactNode } from 'react'
 
 import type { NextPage } from 'next'
 import { AppProps } from 'next/app'
 
-import { Providers } from './Providers'
+import { ReduxProvider } from './providers'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -19,9 +19,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page)
 
   return getLayout(
-    <Providers>
+    <ReduxProvider>
       <Component {...pageProps} />
-    </Providers>
+    </ReduxProvider>
   )
 }
 

@@ -7,8 +7,8 @@ import { useForm } from 'react-hook-form'
 
 import styles from './ForgotPassword.module.scss'
 
-import { useSendCaptchaMutation } from '@/entities/auth/authApi'
-import { setUser } from '@/entities/auth/authSlice'
+import { useSendCaptchaMutation } from '@/entities/auth'
+import { setUser } from '@/entities/auth/model/authSlice'
 import { InputField } from '@/shared'
 import { consoleErrors, useAppDispatch, useTranslation } from '@/shared/model'
 import { EmailValidation } from '@/shared/regex'
@@ -21,8 +21,6 @@ export const ForgotPasswordWidget: FC = () => {
     register: registerInput,
     handleSubmit,
     formState,
-    getValues,
-    setError,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',

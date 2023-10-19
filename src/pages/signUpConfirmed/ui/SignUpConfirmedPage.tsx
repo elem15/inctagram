@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 import styles from './SignUpConfirmed.module.css'
 
-import { useRegistrationConfirmationMutation } from '@/entities/auth/authApi'
+import { useRegistrationConfirmationMutation } from '@/entities/auth'
 import { useTranslation } from '@/shared/model'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { Spinner } from '@/widgets/spinner'

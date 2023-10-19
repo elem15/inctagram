@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import styles from './CreateNewPassword.module.scss'
 
-import { useCreateNewPasswordMutation, useValidCodeMutation } from '@/entities/auth/authApi'
+import { useCreateNewPasswordMutation, useValidCodeMutation } from '@/entities/auth'
 import { PasswordField } from '@/shared'
 import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
 import { consoleErrors, useTranslation } from '@/shared/model'

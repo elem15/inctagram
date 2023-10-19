@@ -4,7 +4,7 @@ import { consoleErrors } from '..'
 
 import { useAppDispatch } from '.'
 
-import { useGoogleLoginMutation } from '@/entities/auth/authApi'
+import { useGoogleLoginMutation } from '@/entities/auth'
 
 export const useGoogleLogin = (code: string | undefined) => {
   const dispatch = useAppDispatch()
