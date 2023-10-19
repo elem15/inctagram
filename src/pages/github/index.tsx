@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 
 import { AppDispatch } from '@/app/appStore'
 import { setLoginUser } from '@/entities/auth/model/authSlice'
-import { useClient } from '@/shared/model/hooks/useClient'
+import { useClient } from '@/shared/lib/hooks/useClient'
 
 export function Github() {
   const searchParams = useSearchParams()

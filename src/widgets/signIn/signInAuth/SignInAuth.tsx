@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 
 import { InputField, PasswordField } from '@/shared'
+import { useTranslation } from '@/shared/lib'
 import { PasswordMaxLength, PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
-import { useTranslation } from '@/shared/model'
 import { EmailValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 

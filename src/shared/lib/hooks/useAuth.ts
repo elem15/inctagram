@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { useAppDispatch, useAppSelector } from '.'
+import { useAppDispatch, useAppSelector } from './index'
 
 import { addToken, addUser, selectAuthUser } from '@/entities/auth/model/authSlice'
 

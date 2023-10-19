@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { clearLocalUserData, setLoginUser } from '../model/authSlice'
 
-import { consoleErrors } from '@/shared/model'
+import { consoleErrors } from '@/shared/lib'
 import { IEmailBaseUrl, IEmailPassword, IEmailPasswordUser } from '@/shared/types'
 
 export const authApi = createApi({

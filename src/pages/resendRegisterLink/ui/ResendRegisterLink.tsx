@@ -4,8 +4,8 @@ import styles from './ResendRegisterLink.module.scss'
 
 import { useResendRegistrationLinkMutation } from '@/entities/auth'
 import { TimeManagement } from '@/shared/assets'
-import { useTranslation } from '@/shared/model'
-import { useAuth } from '@/shared/model/hooks/useAuth'
+import { useTranslation } from '@/shared/lib'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { getHeaderLayout } from '@/widgets/layouts'
 import { Spinner } from '@/widgets/spinner'
 

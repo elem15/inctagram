@@ -2,8 +2,8 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
-import { useGoogleLogin } from '@/shared/model'
-import { useAuth } from '@/shared/model/hooks/useAuth'
+import { useGoogleLogin } from '@/shared/lib'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { LogOutButton } from '@/widgets/logOut'
 import { Spinner } from '@/widgets/spinner'
 

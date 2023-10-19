@@ -3,7 +3,7 @@ import Link from 'next/link'
 import styles from './ResendVerifLink.module.scss'
 
 import { TimeManagement } from '@/shared/assets'
-import { useTranslation } from '@/shared/model'
+import { useTranslation } from '@/shared/lib'
 import { getHeaderLayout } from '@/widgets/layouts'
 
 const ResendVerifLink = () => {
