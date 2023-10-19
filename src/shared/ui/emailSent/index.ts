@@ -1,1 +1,1 @@
-export { EmailSentWidget } from './ui/EmailSent'
+export { EmailSent } from './ui/EmailSent'

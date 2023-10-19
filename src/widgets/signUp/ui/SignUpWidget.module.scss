@@ -1,26 +1,25 @@
 .wrapper {
-    @apply border border-dark-100 rounded-sm px-6 py-6 w-full sm:w-96 bg-dark-500 mt-6;
+  @apply border border-dark-100 rounded-sm px-6 py-6 w-full sm:w-96 bg-dark-500 mt-6;
 
-    .heading {
-        @apply text-light-100 font-bold text-xl text-center;
+  .heading {
+    @apply text-light-100 font-bold text-xl text-center;
+  }
+
+  .icon {
+    @apply flex justify-center items-center my-4;
+
+    > a {
+      @apply mx-8;
     }
+  }
 
-    .icon {
-        @apply flex justify-center items-center my-4;
+  .form {
+    .checkbox {
+      @apply mb-4 flex justify-start items-center h-10;
 
-        >a {
-            @apply mx-8;
-        }
+      > label > a {
+        @apply underline decoration-primary-300 text-primary-300;
+      }
     }
-
-    .form {
-        .checkbox {
-            @apply mb-4 flex justify-start items-center h-10;
-
-            >label>a {
-                @apply underline decoration-primary-300 text-primary-300
-            }
-
-        }
-    }
+  }
 }
