@@ -10,8 +10,8 @@ import { SignUpAuth } from '../signUpAuth/SignUpAuth'
 import styles from './SignUpWidget.module.scss'
 
 import { AppDispatch } from '@/app/appStore'
-import { useRegistrationMutation } from '@/entities/auth/authApi'
-import { setUser } from '@/entities/auth/authSlice'
+import { useRegistrationMutation } from '@/entities/auth'
+import { setUser } from '@/entities/auth/model/authSlice'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { consoleErrors, useTranslation } from '@/shared/model'
@@ -49,7 +49,7 @@ export const SignUpWidget: FC = () => {
   }
 
   useEffect(() => {
-    isSuccess && router.push('/email')
+    isSuccess && router.push('/email-sent')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
@@ -95,8 +95,10 @@ export const SignUpWidget: FC = () => {
             />
           </div>
           <label htmlFor="agree" className="text-xs text-light-100 ml-2">
-            {t.signup.agreement} <a href="">{t.signup.terms_service}</a> {t.signup.and}{' '}
-            <a href="">{t.signup.privacy_policy}</a>
+            <span>{t.signup.agreement} </span>
+            <a href="#">{t.signup.terms_service}</a>
+            <span> {t.signup.and} </span>
+            <a href="#">{t.signup.privacy_policy}</a>
           </label>
         </div>
         <button

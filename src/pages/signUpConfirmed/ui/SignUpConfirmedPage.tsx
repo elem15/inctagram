@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 import styles from './SignUpConfirmed.module.css'
 
-import { useRegistrationConfirmationMutation } from '@/entities/auth/authApi'
+import { useRegistrationConfirmationMutation } from '@/entities/auth'
 import { useTranslation } from '@/shared/model'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { Spinner } from '@/widgets/spinner'
@@ -28,22 +28,19 @@ const SignUpConfirmedPage = () => {
 
   return (
     <div className={styles.container}>
-      {isLoading ? (
-        <Spinner />
-      ) : (
+      {isLoading && <Spinner />}
+      <div>
         <div>
-          <div>
-            <h1 className={styles.heading}>{t.signup_confirm.congratulations}</h1>
-            <p className={styles.text}>{t.signup_confirm.confirmed}</p>
-            <div className={styles.btnWrapper}>
-              <button onClick={() => router.push('/signin')} className={styles.btn}>
-                {t.signup_confirm.sign_in}{' '}
-              </button>
-            </div>
-            <Image src="/icons/SignUpConfirm.png" width={432} height={300} alt="sign-up" />
+          <h1 className={styles.heading}>{t.signup_confirm.congratulations}</h1>
+          <p className={styles.text}>{t.signup_confirm.confirmed}</p>
+          <div className={styles.btnWrapper}>
+            <button onClick={() => router.push('/signin')} className={styles.btn}>
+              {t.signup_confirm.sign_in}{' '}
+            </button>
           </div>
+          <Image src="/icons/SignUpConfirm.png" width={432} height={300} alt="sign-up" />
         </div>
-      )}
+      </div>
     </div>
   )
 }

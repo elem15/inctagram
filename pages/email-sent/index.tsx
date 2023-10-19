@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { EmailSentWidget } from '@/widgets/emailSent'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 

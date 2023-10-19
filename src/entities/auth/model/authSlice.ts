@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { RootState } from '@/app/appStore'
 
-export interface IInitialState {
+interface IInitialState {
   user: string | null
   email: string | null
   accessToken: string | null

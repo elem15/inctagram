@@ -1,10 +1,10 @@
-'use client'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { useRouter } from 'next/router'
 import Select, { OptionProps, SingleValueProps, components, StylesConfig } from 'react-select'
 
 import { FlagRu, FlagUK } from '@/shared/assets'
+import { useClient } from '@/shared/model/hooks/useClient'
 
 const { SingleValue, Option } = components
 
@@ -108,11 +108,7 @@ function LangSelectWidget() {
     [locale]
   )
 
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+  const { isClient } = useClient()
 
   const changeLangHandler = (selectedOption: { value: string; label: string }) => {
     push({ pathname, query }, asPath, { locale: selectedOption.value })

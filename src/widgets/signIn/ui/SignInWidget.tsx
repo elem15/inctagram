@@ -9,7 +9,7 @@ import { SignInAuth } from '../signInAuth/SignInAuth'
 
 import styles from './SignInWidget.module.scss'
 
-import { useLoginMutation } from '@/entities/auth/authApi'
+import { useLoginMutation } from '@/entities/auth'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { useTranslation } from '@/shared/model'
@@ -68,7 +68,7 @@ export const SignInWidget: FC = () => {
         <SignInAuth formState={formState} register={registerInput} getValues={getValues} />
 
         <div className="mt-9 mb-6 text-end">
-          <Link href={'/auth/forgotpassword'} className="text-sm text-light-900 ">
+          <Link href={'/auth/forgot-password'} className="text-sm text-light-900 ">
             {t.signin.forgot_password}
           </Link>
         </div>

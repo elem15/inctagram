@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 
 import styles from './ResendRegisterLink.module.scss'
 
-import { useResendRegistrationLinkMutation } from '@/entities/auth/authApi'
+import { useResendRegistrationLinkMutation } from '@/entities/auth'
 import { TimeManagement } from '@/shared/assets'
 import { useTranslation } from '@/shared/model'
 import { useAuth } from '@/shared/model/hooks/useAuth'
@@ -22,7 +22,7 @@ const ResendRegisterLink = () => {
     resendRegistrationLink({ email: email, baseUrl })
       .unwrap()
       .then(() => {
-        router.push('/email')
+        router.push('/email-sent')
       })
       .catch(() => router.push('/auth/registration-resend'))
   }

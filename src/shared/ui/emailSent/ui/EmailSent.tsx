@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { selectAuthUser } from '@/entities/auth/authSlice'
+import { selectAuthUser } from '@/entities/auth/model/authSlice'
 import { CloseIcon } from '@/shared/assets'
 import { useAppSelector, useTranslation } from '@/shared/model'
 

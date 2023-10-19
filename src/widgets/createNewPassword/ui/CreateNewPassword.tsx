@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import styles from './CreateNewPassword.module.scss'
 
-import { useCreateNewPasswordMutation, useValidCodeMutation } from '@/entities/auth/authApi'
+import { useCreateNewPasswordMutation, useValidCodeMutation } from '@/entities/auth'
 import { PasswordField } from '@/shared'
 import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
 import { consoleErrors, useTranslation } from '@/shared/model'
@@ -26,23 +26,11 @@ export const CreateNewPasswordWidget: FC = () => {
     reValidateMode: 'onBlur',
   })
 
-  const [validCode, { isLoading: isValidationLoading }] = useValidCodeMutation()
-
   const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation()
   const router = useRouter()
   const searchParams = useSearchParams()
 
   const recoveryCode = searchParams?.get('code') as string
-
-  useEffect(() => {
-    recoveryCode &&
-      validCode({ recoveryCode })
-        .unwrap()
-        .then()
-        .catch(() => {
-          router.push('/resend')
-        })
-  }, [validCode, recoveryCode, router])
 
   const { t } = useTranslation()
 
@@ -56,50 +44,51 @@ export const CreateNewPasswordWidget: FC = () => {
   }
 
   return (
-    <div className={styles.wrapper}>
-      {isLoading && isValidationLoading && <Spinner />}
-
-      <div className={styles.heading}>{t.password_recovery.title}</div>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <PasswordField
-          {...registerInput('password', {
-            required: 'Password is required',
-            minLength: {
-              value: 6,
-              message: PasswordMinLength,
-            },
-            pattern: {
-              value: PasswordValidation,
-              message: PasswordValidateMessage,
-            },
-          })}
-          label={t.signup.password}
-          placeholder={t.signup.password}
-          helperText={errors.password?.message?.toString()}
-        ></PasswordField>
-        <PasswordField
-          {...registerInput('passwordConfirm', {
-            required: 'Password is required',
-            minLength: {
-              value: 6,
-              message: PasswordMinLength,
-            },
-            validate: value => value === getValues('password') || 'The passwords must match',
-          })}
-          label={t.signup.password_confirmation}
-          placeholder={t.signup.password_confirmation}
-          helperText={errors.passwordConfirm?.message?.toString()}
-        ></PasswordField>
-        <div className="text-sm text-light-900 mb-4">{t.password_recovery.message}</div>
-        <div className="my-4">
-          <button
-            disabled={!formState.isValid}
-            className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded disabled:opacity-75"
-          >
-            {t.password_recovery.title}
-          </button>
-        </div>
-      </form>
-    </div>
+    <>
+      {isLoading && <Spinner />}
+      <div className={styles.wrapper}>
+        <div className={styles.heading}>{t.password_recovery.title}</div>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          <PasswordField
+            {...registerInput('password', {
+              required: 'Password is required',
+              minLength: {
+                value: 6,
+                message: PasswordMinLength,
+              },
+              pattern: {
+                value: PasswordValidation,
+                message: PasswordValidateMessage,
+              },
+            })}
+            label={t.signup.password}
+            placeholder={t.signup.password}
+            helperText={errors.password?.message?.toString()}
+          ></PasswordField>
+          <PasswordField
+            {...registerInput('passwordConfirm', {
+              required: 'Password is required',
+              minLength: {
+                value: 6,
+                message: PasswordMinLength,
+              },
+              validate: value => value === getValues('password') || 'The passwords must match',
+            })}
+            label={t.signup.password_confirmation}
+            placeholder={t.signup.password_confirmation}
+            helperText={errors.passwordConfirm?.message?.toString()}
+          ></PasswordField>
+          <div className="text-sm text-light-900 mb-4">{t.password_recovery.message}</div>
+          <div className="my-4">
+            <button
+              disabled={!formState.isValid}
+              className="block w-full bg-primary-500 font-semibold text-light-100 p-2 rounded disabled:opacity-75"
+            >
+              {t.password_recovery.title}
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   )
 }

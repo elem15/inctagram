@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
-import { useLogOutMutation } from '@/entities/auth/authApi'
-import { selectAuthUser } from '@/entities/auth/authSlice'
+import { useLogOutMutation } from '@/entities/auth'
+import { selectAuthUser } from '@/entities/auth/model/authSlice'
 import { CloseIcon } from '@/shared/assets'
 import { useAppSelector, useTranslation } from '@/shared/model'
 import { useAuth } from '@/shared/model/hooks/useAuth'
