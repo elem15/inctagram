@@ -24,7 +24,7 @@ export type TypographyProps<T extends ElementType> = {
 } & ComponentPropsWithoutRef<T>
 export const Typography = <T extends ElementType>({
   as,
-  variant = 'regular_text 14',
+  variant = 'regular_text_14',
   children,
   className,
   ...restProps

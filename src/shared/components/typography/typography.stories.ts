@@ -54,51 +54,57 @@ export const H3: Story = {
     variant: 'h3',
   },
 }
-export const Body1: Story = {
+export const RegularText16: Story = {
   args: {
     children: 'Test Text',
-    variant: 'body1',
+    variant: 'regular_text_16',
   },
 }
-export const Subtitle1: Story = {
+export const BoldText16: Story = {
   args: {
     children: 'Test Text',
-    variant: 'subtitle1',
+    variant: 'bold_text_16',
   },
 }
-export const Body2: Story = {
+export const RegularText14: Story = {
   args: {
     children: 'Test Text',
-    variant: 'body2',
+    variant: 'regular_text_14',
   },
 }
-export const Subtitle2: Story = {
+export const MediumText14: Story = {
   args: {
     children: 'Test Text',
-    variant: 'subtitle2',
+    variant: 'medium_text_14',
   },
 }
-export const Caption: Story = {
+export const BoldText14: Story = {
   args: {
     children: 'Test Text',
-    variant: 'caption',
+    variant: 'bold_text_14',
   },
 }
-export const Overline: Story = {
+export const SmallText: Story = {
   args: {
     children: 'Test Text',
-    variant: 'overline',
+    variant: 'small_text',
   },
 }
-export const Link1: Story = {
+export const SemiBoldSmallText: Story = {
   args: {
     children: 'Test Text',
-    variant: 'link1',
+    variant: 'semi-bold_small_text',
   },
 }
-export const Link2: Story = {
+export const RegularLink: Story = {
   args: {
     children: 'Test Text',
-    variant: 'link2',
+    variant: 'regular_link',
+  },
+}
+export const SmallLink: Story = {
+  args: {
+    children: 'Test Text',
+    variant: 'small_link',
   },
 }

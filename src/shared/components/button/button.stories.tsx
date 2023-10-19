@@ -11,7 +11,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      options: ['primary', 'secondary', 'tertiary', 'link'],
+      options: ['primary', 'secondary', 'outline', 'link'],
       control: { type: 'radio' },
     },
   },
@@ -35,20 +35,21 @@ export const Secondary: Story = {
     disabled: false,
   },
 }
-export const Tertiary: Story = {
+export const Outline: Story = {
   args: {
-    variant: 'tertiary',
-    children: 'Tertiary Button',
+    variant: 'outline',
+    children: 'Outline Button',
     disabled: false,
   },
 }
-export const Link: Story = {
+
+export const TextButton: Story = {
   args: {
     variant: 'link',
     children: 'Tertiary Button',
     disabled: false,
   },
-}
+} /*
 export const FullWidth: Story = {
   args: {
     variant: 'primary',
@@ -63,7 +64,7 @@ export const ButtonAsLink: Story = {
     children: 'Link that looks like a button',
     as: 'a',
   },
-}
+}*/
 /*
 export const ButtonWithIcons: Story = {
   args: {

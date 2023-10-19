@@ -1,6 +1,7 @@
 import './styles/globals.css'
 //не удалять подключаю стили
-/*import '@/styles/index.scss'*/
+/*import './styles/index.scss'*/
+import './styles/index.scss'
 import '@fontsource/inter/300.css'
 import '@fontsource/inter/400.css'
 import '@fontsource/inter/500.css'
