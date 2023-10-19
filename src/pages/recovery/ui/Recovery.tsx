@@ -20,7 +20,7 @@ const Recovery = () => {
       validCode({ recoveryCode })
         .unwrap()
         .then(() => {
-          router.push(`/auth/createnewpassword?code=${recoveryCode}`)
+          router.push(`/auth/create-new-password?code=${recoveryCode}`)
         })
         .catch(() => {
           router.push('/resend')

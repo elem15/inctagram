@@ -68,7 +68,7 @@ export const SignInWidget: FC = () => {
         <SignInAuth formState={formState} register={registerInput} getValues={getValues} />
 
         <div className="mt-9 mb-6 text-end">
-          <Link href={'/auth/forgotpassword'} className="text-sm text-light-900 ">
+          <Link href={'/auth/forgot-password'} className="text-sm text-light-900 ">
             {t.signin.forgot_password}
           </Link>
         </div>

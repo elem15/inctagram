@@ -14,7 +14,7 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
-function App({ Component, pageProps }: AppPropsWithLayout) {
+export function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? (page => page)
 
@@ -24,5 +24,3 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
     </ReduxProvider>
   )
 }
-
-export default App

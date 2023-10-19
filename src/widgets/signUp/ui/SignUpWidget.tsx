@@ -49,7 +49,7 @@ export const SignUpWidget: FC = () => {
   }
 
   useEffect(() => {
-    isSuccess && router.push('/email')
+    isSuccess && router.push('/email-sent')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 

@@ -22,7 +22,7 @@ const ResendRegisterLink = () => {
     resendRegistrationLink({ email: email, baseUrl })
       .unwrap()
       .then(() => {
-        router.push('/email')
+        router.push('/email-sent')
       })
       .catch(() => router.push('/auth/registration-resend'))
   }
