@@ -1,0 +1,63 @@
+@mixin typography($fontSize, $lineHeight, $fontWeight) {
+  margin: 0;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+}
+
+.large {
+  @include typography(var(--font-size-xxl), var(--line-height-l), var(--font-weight-600));
+}
+
+.h1 {
+  @include typography(var(--font-size-xl), var(--line-height-l), var(--font-weight-700));
+}
+
+.h2 {
+  @include typography(var(--font-size-l), var(--line-height-m), var(--font-weight-700));
+}
+
+.h3 {
+  @include typography(var(--font-size-m), var(--line-height-m), var(--font-weight-600));
+}
+
+.regular_text_16 {
+  @include typography(var(--font-size-m), var(--line-height-m), var(--font-weight-400));
+}
+
+.bold_text_16 {
+  @include typography(var(--font-size-m), var(--line-height-m), var(--font-weight-700));
+}
+
+.regular_text_14 {
+  @include typography(var(--font-size-s), var(--line-height-m), var(--font-weight-400));
+}
+
+.medium_text_14 {
+  @include typography(var(--font-size-s), var(--line-height-m), var(--font-weight-500));
+}
+
+.bold_text_14 {
+  @include typography(var(--font-size-s), var(--line-height-m), var(--font-weight-700));
+}
+
+.small_text {
+  @include typography(var(--font-size-xs), var(--line-height-s), var(--font-weight-400));
+}
+
+.semi-bold_small_text {
+  @include typography(var(--font-size-xs), var(--line-height-s), var(--font-weight-600));
+
+}
+
+.regular_link {
+  @include typography(var(--font-size-s), var(--line-height-m), var(--font-weight-400));
+
+  text-decoration-line: underline;
+}
+
+.small_link {
+  @include typography(var(--font-size-xs), var(--line-height-s), var(--font-weight-400));
+
+  text-decoration-line: underline;
+}
