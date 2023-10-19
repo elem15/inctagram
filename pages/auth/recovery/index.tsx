@@ -1,1 +1,1 @@
-export { CreateNewPasswordPage as default } from '@/pages/createNewPassword'
+export { Recovery as default } from '@/pages/recovery'

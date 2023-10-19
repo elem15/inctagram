@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 
 import { AppDispatch } from '@/app/appStore'
 import { setLoginUser } from '@/entities/auth/model/authSlice'
+import { useClient } from '@/shared/model/hooks/useClient'
 
 export function Github() {
   const searchParams = useSearchParams()
@@ -15,6 +16,7 @@ export function Github() {
 
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
+  const { isClient } = useClient()
 
   useEffect(() => {
     if (email && accessToken) {
@@ -23,5 +25,10 @@ export function Github() {
     router.push('/')
   }, [accessToken, dispatch, email, router])
 
-  return null
+  return (
+    <>
+      <div>Github authorization...</div>
+      {!accessToken && isClient && <div className="text-red-600">Authorization error!</div>}
+    </>
+  )
 }
