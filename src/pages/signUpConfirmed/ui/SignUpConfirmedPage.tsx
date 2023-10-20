@@ -38,7 +38,7 @@ const SignUpConfirmedPage = () => {
               {t.signup_confirm.sign_in}{' '}
             </button>
           </div>
-          <Image src="/icons/SignUpConfirm.png" width={432} height={300} alt="sign-up" />
+          <Image src="/images/signup/SignUpConfirm.png" width={432} height={300} alt="sign-up" />
         </div>
       </div>
     </div>
