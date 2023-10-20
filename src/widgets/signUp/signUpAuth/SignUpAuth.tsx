@@ -2,15 +2,6 @@ import React, { FC } from 'react'
 
 import { InputField, PasswordField } from '@/shared'
 import { useTranslation } from '@/shared/lib'
-import {
-  EmailFormatMessage,
-  MaxLength,
-  MinLength,
-  NameFormatMessage,
-  PasswordMaxLength,
-  PasswordMinLength,
-  PasswordValidateMessage,
-} from '@/shared/messages'
 import { EmailValidation, NameValidation, PasswordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 
@@ -29,15 +20,15 @@ export const SignUpAuth: FC<IAuthFields> = ({
           required: `${t.signup.username_required}`,
           maxLength: {
             value: 30,
-            message: MaxLength,
+            message: `${t.messages.user_max_length}`,
           },
           minLength: {
             value: 6,
-            message: MinLength,
+            message: `${t.messages.user_min_length}`,
           },
           pattern: {
             value: NameValidation,
-            message: NameFormatMessage,
+            message: `${t.messages.name_format_message}`,
           },
         })}
         label={t.signup.username}
@@ -49,7 +40,7 @@ export const SignUpAuth: FC<IAuthFields> = ({
           required: `${t.signup.email_required}`,
           pattern: {
             value: EmailValidation,
-            message: EmailFormatMessage,
+            message: `${t.messages.email_format_message}`,
           },
         })}
         label={t.signup.email}
@@ -62,15 +53,15 @@ export const SignUpAuth: FC<IAuthFields> = ({
           required: `${t.signup.password_required}`,
           minLength: {
             value: 6,
-            message: PasswordMinLength,
+            message: `${t.messages.password_min_length}`,
           },
           maxLength: {
             value: 20,
-            message: PasswordMaxLength,
+            message: `${t.messages.password_max_length}`,
           },
           pattern: {
             value: PasswordValidation,
-            message: PasswordValidateMessage,
+            message: `${t.messages.password_validate_message}`,
           },
         })}
         label={t.signup.password}
@@ -82,9 +73,10 @@ export const SignUpAuth: FC<IAuthFields> = ({
           required: `${t.signup.password_required}`,
           minLength: {
             value: 6,
-            message: PasswordMinLength,
+            message: `${t.messages.password_min_length}`,
           },
-          validate: value => value === getValues('password') || 'The passwords must match',
+          validate: value =>
+            value === getValues('password') || `${t.messages.password_match_message}`,
         })}
         label={t.signup.password_confirmation}
         placeholder={t.signup.password_confirmation}

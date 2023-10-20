@@ -80,5 +80,17 @@ export const en = {
     title: 'Create New Password',
     message: 'Your password must be between 6 and 20 characters',
   },
+
+  messages: {
+    password_validate_message:
+      'Password must contain a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [  ] ^ _` { | } ~ ',
+    user_max_length: 'Maximum number of characters 30',
+    user_min_length: 'Minimum number of characters 6',
+    password_min_length: 'Minimum number of characters 6',
+    password_max_length: 'Maximum number of characters 20',
+    name_format_message: 'The name must contain characters, not spaces, not start with numbers.',
+    email_format_message: 'The email must match the format example@example.com',
+    password_match_message: 'Password must match',
+  },
 }
 export type LangType = typeof en

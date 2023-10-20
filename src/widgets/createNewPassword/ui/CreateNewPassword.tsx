@@ -9,7 +9,6 @@ import styles from './CreateNewPassword.module.scss'
 import { useCreateNewPasswordMutation } from '@/entities/auth'
 import { PasswordField } from '@/shared'
 import { consoleErrors, useTranslation } from '@/shared/lib'
-import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
 import { PasswordValidation } from '@/shared/regex'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
@@ -54,11 +53,11 @@ export const CreateNewPasswordWidget: FC = () => {
               required: 'Password is required',
               minLength: {
                 value: 6,
-                message: PasswordMinLength,
+                message: `${t.messages.password_min_length}`,
               },
               pattern: {
                 value: PasswordValidation,
-                message: PasswordValidateMessage,
+                message: `${t.messages.password_validate_message}`,
               },
             })}
             label={t.signup.password}
@@ -70,9 +69,10 @@ export const CreateNewPasswordWidget: FC = () => {
               required: 'Password is required',
               minLength: {
                 value: 6,
-                message: PasswordMinLength,
+                message: `${t.messages.password_min_length}`,
               },
-              validate: value => value === getValues('password') || 'The passwords must match',
+              validate: value =>
+                value === getValues('password') || `${t.messages.password_match_message}`,
             })}
             label={t.signup.password_confirmation}
             placeholder={t.signup.password_confirmation}

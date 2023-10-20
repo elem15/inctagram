@@ -81,4 +81,17 @@ export const ru: LangType = {
     title: 'Создать новый пароль',
     message: 'Пароль должен быть более 5 и менее 20 букв',
   },
+
+  messages: {
+    password_validate_message:
+      'Пароль должен содержать  a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [  ] ^ _` { | } ~ ',
+    user_max_length: 'Максимальное количество символов 30',
+    user_min_length: 'Минимальное количество символов 6',
+    password_min_length: 'Минимальное количество символов 6',
+    password_max_length: 'Максимальное количество символов 20',
+    name_format_message:
+      'Имя должно содержать символы, не содержать пробелов, не начинаться с цифр.',
+    email_format_message: 'Электронная почта должна соответствовать формату example@example.com.',
+    password_match_message: 'Пароли должны совпадать',
+  },
 }
