@@ -14,7 +14,7 @@ import { useRegistrationMutation } from '@/entities/auth'
 import { setUser } from '@/entities/auth/model/authSlice'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
-import { consoleErrors, useTranslation } from '@/shared/model'
+import { consoleErrors, useTranslation } from '@/shared/lib'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
 

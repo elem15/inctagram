@@ -12,7 +12,7 @@ import styles from './SignInWidget.module.scss'
 import { useLoginMutation } from '@/entities/auth'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
-import { useTranslation } from '@/shared/model'
+import { useTranslation } from '@/shared/lib'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
 

@@ -3,8 +3,8 @@ import React, { FC } from 'react'
 import { useLogOutMutation } from '@/entities/auth'
 import { selectAuthUser } from '@/entities/auth/model/authSlice'
 import { CloseIcon } from '@/shared/assets'
-import { useAppSelector, useTranslation } from '@/shared/model'
-import { useAuth } from '@/shared/model/hooks/useAuth'
+import { useAppSelector, useTranslation } from '@/shared/lib'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 export const LogOutWidget: FC<{ onClose: () => void }> = ({ onClose }) => {
   const { t } = useTranslation()

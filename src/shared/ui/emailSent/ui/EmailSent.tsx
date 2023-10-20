@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import { selectAuthUser } from '@/entities/auth/model/authSlice'
 import { CloseIcon } from '@/shared/assets'
-import { useAppSelector, useTranslation } from '@/shared/model'
+import { useAppSelector, useTranslation } from '@/shared/lib'
 
 export const EmailSent: FC<{ path: string }> = ({ path }) => {
   const { t } = useTranslation()

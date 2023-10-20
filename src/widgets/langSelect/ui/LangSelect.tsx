@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 
 import { useRouter } from 'next/router'
-import Select, { OptionProps, SingleValueProps, components, StylesConfig } from 'react-select'
+import Select, { components, OptionProps, SingleValueProps, StylesConfig } from 'react-select'
 
 import { FlagRu, FlagUK } from '@/shared/assets'
-import { useClient } from '@/shared/model/hooks/useClient'
+import { useClient } from '@/shared/lib/hooks/useClient'
 
 const { SingleValue, Option } = components
 

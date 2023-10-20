@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import styles from './SignUpConfirmed.module.css'
 
 import { useRegistrationConfirmationMutation } from '@/entities/auth'
-import { useTranslation } from '@/shared/model'
+import { useTranslation } from '@/shared/lib'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { Spinner } from '@/widgets/spinner'
 
@@ -38,7 +38,7 @@ const SignUpConfirmedPage = () => {
               {t.signup_confirm.sign_in}{' '}
             </button>
           </div>
-          <Image src="/icons/SignUpConfirm.png" width={432} height={300} alt="sign-up" />
+          <Image src="/images/signup/SignUpConfirm.png" width={432} height={300} alt="sign-up" />
         </div>
       </div>
     </div>

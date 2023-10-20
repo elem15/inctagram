@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
-import { consoleErrors } from '..'
+import { consoleErrors } from '../index'
 
-import { useAppDispatch } from '.'
+import { useAppDispatch } from './index'
 
 import { useGoogleLoginMutation } from '@/entities/auth'
 

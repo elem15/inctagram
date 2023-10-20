@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
@@ -6,10 +6,10 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import styles from './CreateNewPassword.module.scss'
 
-import { useCreateNewPasswordMutation, useValidCodeMutation } from '@/entities/auth'
+import { useCreateNewPasswordMutation } from '@/entities/auth'
 import { PasswordField } from '@/shared'
+import { consoleErrors, useTranslation } from '@/shared/lib'
 import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
-import { consoleErrors, useTranslation } from '@/shared/model'
 import { PasswordValidation } from '@/shared/regex'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
