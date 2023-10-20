@@ -47,7 +47,7 @@ export const en = {
     terms_service: 'Terms of Service',
     privacy_policy: 'Privacy Policy',
     username: 'Username',
-    username_required: 'UserName is required',
+    username_required: 'Username is required',
     user_exist_error: 'User with this email is already registered',
     email_required: 'Email is required',
     password_required: 'Password is required',

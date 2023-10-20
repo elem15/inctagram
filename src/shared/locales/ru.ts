@@ -61,7 +61,7 @@ export const ru: LangType = {
     email: 'Электронная почта',
     message: 'Введите адрес электронной почты и получите дальнейшие инструкции',
     send_link: 'Отправить ссылку',
-    back_signin: 'Вернуться ко Входу в приложение',
+    back_signin: 'Вернуться к входу',
     checkbox_text: 'Я не робот',
     lg: 'ru',
   },
@@ -80,7 +80,7 @@ export const ru: LangType = {
 
   password_recovery: {
     title: 'Создать новый пароль',
-    message: 'Пароль должен быть более 5 и менее 20 букв',
+    message: 'Пароль должен быть от 6 до 20 символов включительно',
   },
   terms_of_service: {
     button_text: 'Вернуться к регистрации',
