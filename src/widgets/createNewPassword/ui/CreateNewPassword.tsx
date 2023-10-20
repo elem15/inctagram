@@ -50,7 +50,7 @@ export const CreateNewPasswordWidget: FC = () => {
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <PasswordField
             {...registerInput('password', {
-              required: 'Password is required',
+              required: `${t.signup.password_required}`,
               minLength: {
                 value: 6,
                 message: `${t.messages.password_min_length}`,
@@ -66,7 +66,7 @@ export const CreateNewPasswordWidget: FC = () => {
           ></PasswordField>
           <PasswordField
             {...registerInput('passwordConfirm', {
-              required: 'Password is required',
+              required: `${t.signup.password_required}`,
               minLength: {
                 value: 6,
                 message: `${t.messages.password_min_length}`,
