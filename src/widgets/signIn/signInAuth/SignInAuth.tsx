@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { InputField, PasswordField } from '@/shared'
 import { useTranslation } from '@/shared/lib'
-import { EmailValidation, PasswordValidation } from '@/shared/regex'
+import { emailValidation, passwordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 
 export const SignInAuth: FC<IAuthFields> = ({ register, formState: { errors } }) => {
@@ -14,7 +14,7 @@ export const SignInAuth: FC<IAuthFields> = ({ register, formState: { errors } })
         {...register('email', {
           required: `${t.signup.email_required}`,
           pattern: {
-            value: EmailValidation,
+            value: emailValidation,
             message: `${t.signup.email_invalid}`,
           },
         })}
@@ -35,7 +35,7 @@ export const SignInAuth: FC<IAuthFields> = ({ register, formState: { errors } })
             message: `${t.messages.password_max_length}`,
           },
           pattern: {
-            value: PasswordValidation,
+            value: passwordValidation,
             message: `${t.messages.password_validate_message}`,
           },
         })}
