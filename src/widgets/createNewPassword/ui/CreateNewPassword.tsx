@@ -9,7 +9,7 @@ import styles from './CreateNewPassword.module.scss'
 import { useCreateNewPasswordMutation } from '@/entities/auth'
 import { PasswordField } from '@/shared'
 import { consoleErrors, useTranslation } from '@/shared/lib'
-import { PasswordValidation } from '@/shared/regex'
+import { passwordValidation } from '@/shared/regex'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
 
@@ -56,7 +56,7 @@ export const CreateNewPasswordWidget: FC = () => {
                 message: `${t.messages.password_min_length}`,
               },
               pattern: {
-                value: PasswordValidation,
+                value: passwordValidation,
                 message: `${t.messages.password_validate_message}`,
               },
             })}
