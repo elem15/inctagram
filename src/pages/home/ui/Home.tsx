@@ -1,4 +1,3 @@
-import { NextPage } from 'next'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
@@ -50,6 +49,9 @@ export function Home() {
         </li>
         <li>
           <Link href="auth/recovery">Create new password</Link>
+        </li>
+        <li>
+          <Link href="auth/terms-of-service">Terms of Service</Link>
         </li>
       </ul>
       {isAuth && (
