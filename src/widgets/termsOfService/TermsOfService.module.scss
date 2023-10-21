@@ -1,11 +1,26 @@
-.backButtonContainer{
-  margin: 24px 64px 0 64px;
+.backButtonContainer {
+  margin: 24px 64px 0;
+
+  .link {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    text-decoration: none;
+
+    &:hover {
+      cursor: pointer;
+      color: var(--color-accent-500);
+      stroke: var(--color-accent-500);
+    }
+  }
 }
-.title{
+
+.title {
   display: flex;
   justify-content: center;
-  margin: 23px 0 20px 0;
+  margin: 23px 0 20px;
 }
-.textContainer{
-  margin: 0 161px 0 161px;
+
+.textContainer {
+  margin: 0 161px;
 }
