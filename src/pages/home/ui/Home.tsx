@@ -2,6 +2,8 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
+import { Input } from '../../../shared/components/input'
+
 import { useGoogleLogin } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { LogOutButton } from '@/widgets/logOut'
@@ -57,6 +59,7 @@ export function Home() {
           <LogOutButton /> <span>{email}</span>
         </>
       )}
+      <Input type="search" />
     </div>
   )
 }
