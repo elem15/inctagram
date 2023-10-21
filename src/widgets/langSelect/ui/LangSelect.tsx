@@ -31,7 +31,7 @@ type IsMulti = boolean
 const customStyles: StylesConfig<MyOptionType, IsMulti> = {
   control: (baseStyles, state) => ({
     ...baseStyles,
-    backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
+    backgroundColor: state.isFocused ? 'rgb(23 23 23)' : 'rgb(13 13 13)',
     borderColor: 'white',
     borderRadius: 0,
     height: '36px',
@@ -56,7 +56,7 @@ const customStyles: StylesConfig<MyOptionType, IsMulti> = {
   menu: (baseStyles, state) => ({
     ...baseStyles,
     // @ts-ignore
-    backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
+    backgroundColor: state.isFocused ? 'rgb(23 23 23)' : 'rgb(13 13 13)',
     margin: 0,
     border: 'solid 1px white',
     borderRadius: 0,
@@ -65,11 +65,11 @@ const customStyles: StylesConfig<MyOptionType, IsMulti> = {
     ...baseStyles,
     border: 'solid 1px white',
     // @ts-ignore
-    backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
+    backgroundColor: state.isFocused ? 'rgb(23 23 23)' : 'rgb(13 13 13)',
   }),
   option: (baseStyles, state) => ({
     ...baseStyles,
-    backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
+    backgroundColor: state.isFocused ? 'rgb(23 23 23)' : 'rgb(13 13 13)',
     display: 'flex',
     flexDirection: 'row',
     gap: '12px',
@@ -93,7 +93,7 @@ const customStyles: StylesConfig<MyOptionType, IsMulti> = {
 }
 
 function LangSelectWidget() {
-  const { locale, push, pathname, query, asPath, locales } = useRouter()
+  const { locale, push, pathname, query, asPath, locales, reload, events } = useRouter()
 
   const options: MyOptionType[] = useMemo(
     () =>
@@ -109,9 +109,11 @@ function LangSelectWidget() {
   )
 
   const { isClient } = useClient()
-
   const changeLangHandler = (selectedOption: { value: string; label: string }) => {
     push({ pathname, query }, asPath, { locale: selectedOption.value })
+    events.on('routeChangeComplete', () => {
+      reload()
+    })
   }
 
   return (
