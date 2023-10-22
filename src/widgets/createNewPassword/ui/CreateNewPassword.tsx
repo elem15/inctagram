@@ -9,8 +9,7 @@ import styles from './CreateNewPassword.module.scss'
 import { useCreateNewPasswordMutation } from '@/entities/auth'
 import { PasswordField } from '@/shared'
 import { consoleErrors, useTranslation } from '@/shared/lib'
-import { PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
-import { PasswordValidation } from '@/shared/regex'
+import { passwordValidation } from '@/shared/regex'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
 
@@ -51,14 +50,14 @@ export const CreateNewPasswordWidget: FC = () => {
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <PasswordField
             {...registerInput('password', {
-              required: 'Password is required',
+              required: t.signup.password_required,
               minLength: {
                 value: 6,
-                message: PasswordMinLength,
+                message: t.messages.password_min_length,
               },
               pattern: {
-                value: PasswordValidation,
-                message: PasswordValidateMessage,
+                value: passwordValidation,
+                message: t.messages.password_validate_message,
               },
             })}
             label={t.signup.password}
@@ -67,12 +66,13 @@ export const CreateNewPasswordWidget: FC = () => {
           ></PasswordField>
           <PasswordField
             {...registerInput('passwordConfirm', {
-              required: 'Password is required',
+              required: t.signup.password_required,
               minLength: {
                 value: 6,
-                message: PasswordMinLength,
+                message: t.messages.password_min_length,
               },
-              validate: value => value === getValues('password') || 'The passwords must match',
+              validate: value =>
+                value === getValues('password') || t.messages.password_match_message,
             })}
             label={t.signup.password_confirmation}
             placeholder={t.signup.password_confirmation}

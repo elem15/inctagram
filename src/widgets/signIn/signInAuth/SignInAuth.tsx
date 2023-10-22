@@ -2,8 +2,7 @@ import React, { FC } from 'react'
 
 import { InputField, PasswordField } from '@/shared'
 import { useTranslation } from '@/shared/lib'
-import { PasswordMaxLength, PasswordMinLength, PasswordValidateMessage } from '@/shared/messages'
-import { EmailValidation, PasswordValidation } from '@/shared/regex'
+import { emailValidation, passwordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 
 export const SignInAuth: FC<IAuthFields> = ({ register, formState: { errors } }) => {
@@ -13,10 +12,10 @@ export const SignInAuth: FC<IAuthFields> = ({ register, formState: { errors } })
     <>
       <InputField
         {...register('email', {
-          required: `${t.signup.email_required}`,
+          required: t.signup.email_required,
           pattern: {
-            value: EmailValidation,
-            message: `${t.signup.email_invalid}`,
+            value: emailValidation,
+            message: t.signup.email_invalid,
           },
         })}
         label={t.signin.email}
@@ -26,18 +25,18 @@ export const SignInAuth: FC<IAuthFields> = ({ register, formState: { errors } })
       ></InputField>
       <PasswordField
         {...register('password', {
-          required: `${t.signup.password_required}`,
+          required: t.signup.password_required,
           minLength: {
             value: 6,
-            message: PasswordMinLength,
+            message: t.messages.password_min_length,
           },
           maxLength: {
             value: 20,
-            message: PasswordMaxLength,
+            message: t.messages.password_max_length,
           },
           pattern: {
-            value: PasswordValidation,
-            message: PasswordValidateMessage,
+            value: passwordValidation,
+            message: t.messages.password_validate_message,
           },
         })}
         label={t.signin.password}
