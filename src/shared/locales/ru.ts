@@ -90,8 +90,8 @@ export const ru: LangType = {
     password_min_length: 'Минимальное количество символов 6',
     password_max_length: 'Максимальное количество символов 20',
     name_format_message:
-      'Имя должно содержать символы, не содержать пробелов, не начинаться с цифр.',
-    email_format_message: 'Электронная почта должна соответствовать формату example@example.com.',
+      'Имя должно содержать символы, не содержать пробелов, не начинаться с цифр',
+    email_format_message: 'Электронная почта должна соответствовать формату example@example.com',
     password_match_message: 'Пароли должны совпадать',
   },
 }
