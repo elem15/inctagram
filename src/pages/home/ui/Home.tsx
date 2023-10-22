@@ -50,7 +50,7 @@ export function Home() {
           <Link href="auth/forgot-password">Forgot password</Link>
         </li>
         <li>
-          <Link href="auth/recovery">Create new password</Link>
+          <Link href="auth/create-new-password">Create new password</Link>
         </li>
         <li>
           <Link href="auth/terms-of-service">Terms of Service</Link>
