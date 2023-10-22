@@ -31,13 +31,12 @@ type IsMulti = boolean
 const customStyles: StylesConfig<MyOptionType, IsMulti> = {
   control: (baseStyles, state) => ({
     ...baseStyles,
-    backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
+    backgroundColor: state.isFocused ? 'var(--color-dark-500)' : 'var(--color-dark-700)',
     borderColor: 'white',
     borderRadius: 0,
     height: '36px',
   }),
   valueContainer: () => ({
-    background: 'rgba(0, 0, 0, 0)',
     padding: '0',
     height: '30px',
   }),
@@ -50,50 +49,51 @@ const customStyles: StylesConfig<MyOptionType, IsMulti> = {
     ...baseStyles,
     transition: 'all .2s ease',
     transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
-    color: 'white',
-    '&:hover': { color: 'lightgray' },
+    color: 'var(--color-light-100)',
+    '&:hover': { color: 'var(--color-light-200)' },
   }),
-  menu: (baseStyles, state) => ({
+  menu: baseStyles => ({
     ...baseStyles,
-    // @ts-ignore
-    backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
+    backgroundColor: 'var(--bg-opacity-100)',
     margin: 0,
     border: 'solid 1px white',
     borderRadius: 0,
+    color: 'var(--color-light-100)',
+    '&:hover': { color: 'var(--color-light-900)' },
   }),
   menuList: (baseStyles, state) => ({
     ...baseStyles,
     border: 'solid 1px white',
-    // @ts-ignore
-    backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
+    color: state.selectProps.menuIsOpen ? 'var(--color-light-100)' : 'var(--color-light-900)',
   }),
   option: (baseStyles, state) => ({
     ...baseStyles,
-    backgroundColor: state.isFocused ? '#171717' : 'rgb(13 13 13)',
+    backgroundColor: state.isFocused ? 'var(--color-dark-500)' : 'var(--color-dark-700)',
     display: 'flex',
     flexDirection: 'row',
     gap: '12px',
     alignItems: 'center',
     fontSize: '1rem',
-    color: 'white',
+    color: 'var(--color-light-900)',
+    '&:hover': { color: 'var(--color-accent-500)' },
     height: '30px',
   }),
   singleValue: baseStyles => ({
     ...baseStyles,
-    background: 'rgba(0, 0, 0, 0)',
     marginLeft: '12px',
     display: 'flex',
     flexDirection: 'row',
     gap: '12px',
     alignItems: 'center',
     fontSize: '1rem',
-    color: 'white',
+    color: 'var(--color-light-100)',
+    '&:hover': { color: 'var(--color-light-900)' },
     height: '30px',
   }),
 }
 
 function LangSelectWidget() {
-  const { locale, push, pathname, query, asPath, locales } = useRouter()
+  const { locale, push, pathname, query, asPath, locales, reload, events } = useRouter()
 
   const options: MyOptionType[] = useMemo(
     () =>
@@ -109,9 +109,11 @@ function LangSelectWidget() {
   )
 
   const { isClient } = useClient()
-
   const changeLangHandler = (selectedOption: { value: string; label: string }) => {
     push({ pathname, query }, asPath, { locale: selectedOption.value })
+    events.on('routeChangeComplete', () => {
+      reload()
+    })
   }
 
   return (
