@@ -1,3 +1,5 @@
+import { enTextsTermsOfService } from '@/shared/locales/en-texts-terms-of-service'
+
 export const en = {
   home: {
     home: 'Home',
@@ -84,42 +86,66 @@ export const en = {
   terms_of_service: {
     button_text: 'Back to Sign Up',
     title: 'Terms of Service',
-    text: ` 1. Acceptance of Terms By using Inctagram (the &apos;App&apos;), you agree to comply
-            with and be bound by these Terms of Service. If you do not agree to these terms, please
-            do not use the App. 2. Eligibility You must be at least 13 years old to use the App. By
-            using the App, you represent and warrant that you meet this requirement. 3. User
-            Accounts You are responsible for maintaining the confidentiality of your Instagram
-            account credentials. You may not share your Inctagram account credentials with others or
-            allow others to use your account. You are solely responsible for all activities
-            conducted through your Inctagram account. 4. User Content You are solely responsible for
-            the content you post on Inctagram. Do not post content that is illegal, abusive,
-            harassing, defamatory, or otherwise objectionable. You grant us a non-exclusive,
-            transferable, sub-licensable, royalty-free, worldwide license to use your content in
-            connection with the operation of Instagram. We reserve the right to remove or disable
-            any content that violates these terms. 5. Privacy and Data Collection Our Privacy
-            Policy, available at [Link to Inctagram&apos;s Privacy Policy], explains how we collect,
-            use, and protect your data. By using Instagram, you consent to the terms of the Privacy
-            Policy. 6. User Conduct You agree not to engage in any conduct that disrupts or
-            interferes with Inctagram or the experience of other users. You may not use Inctagram
-            for any unlawful purpose. 7. Safety Measures We provide mechanisms to report
-            inappropriate content or user behavior. You may block or report other Inctagram users as
-            needed to protect your experience. 8. Communication Features Use Instagram&apos;s
-            communication features responsibly and respect the rights and privacy of others. Do not
-            engage in spam, harassment, or bullying on Inctagram. 9. Third-Party Links and Services
-            Instagram may contain links to third-party websites or services. Inctagram is not
-            responsible for the content or practices of these external sites or services. 10.
-            Intellectual Property All content and trademarks on Inctagram are the property of
-            Inctagram. If you believe your copyright is being infringed, please follow
-            Inctagram&apos;s Copyright Infringement Policy. 11. Disclaimers Inctagram is provided
-            &apos;as is&apos; without warranties of any kind. Inctagram is not responsible for any
-            interruptions, errors, or omissions on the platform. 12. Termination Inctagram reserves
-            the right to terminate or suspend your Inctagram account or access to the platform for
-            violating these terms. 13. Governing Law These terms are governed by the laws of [Your
-            Jurisdiction]. 14. Changes to Terms Inctagram may update these terms from time to time.
-            Any changes will be communicated to you through the platform. 15. Contact Information If
-            you have any questions or concerns, you can contact Inctagram at [Your Contact
-            Information]. 16. Miscellaneous [Include any additional legal clauses or terms specific
-            to Inctagram.] 17. Effective Date These Terms of Service were last updated on [Date].`,
+    text: enTextsTermsOfService,
+  },
+  privacy_policy: {
+    buttons_text: 'Back to Sign Up',
+    title: 'Privacy Policy',
+    text: `1. Introduction
+
+Welcome to Inctagram, the social media platform that values your privacy and data security. This Privacy Policy outlines our commitment to protecting your personal information and explains how we collect, use, and safeguard your data.
+
+2. Information We Collect
+
+We collect the following types of information:
+
+Personal Information: Information you provide when registering, such as your name, email address, and date of birth.
+
+User-Generated Content: Content you post, including photos, videos, and messages.
+
+Usage Data: Information about how you use Inctagram, including your interactions with other users and content you view.
+
+Device Information: Information about the devices you use to access Inctagram, including device type, operating system, and unique device identifiers.
+
+Location Information: If you enable location services, we may collect your precise or approximate location.
+
+Cookies and Similar Technologies: We use cookies and similar technologies to track your use of Inctagram and collect data about your interactions.
+
+3. How We Use Your Information
+
+We use your information to:
+
+Provide, maintain, and improve Inctagram.
+Customize your experience and content you see.
+Communicate with you and send you important updates.
+Protect the security and integrity of our platform.
+Comply with legal and regulatory requirements.
+4. Sharing Your Information
+
+We may share your information with:
+
+Other Inctagram users as per your privacy settings.
+Third-party service providers who assist us in delivering our services.
+Law enforcement and regulatory authorities when required.
+5. Data Security
+
+We take data security seriously and employ measures to protect your data. However, no method of transmission or storage can be 100% secure. We cannot guarantee the security of your data.
+
+6. Your Choices
+
+You can manage your privacy settings on Inctagram, including who can see your content and interact with you. You can also opt-out of promotional emails.
+
+7. Children's Privacy
+
+Inctagram is not intended for individuals under the age of 13. We do not knowingly collect or store information from children under this age.
+
+8. Changes to this Privacy Policy
+
+We may update this Privacy Policy from time to time. When we do, we will notify you of the changes through Inctagram's communication channels.
+
+9. Contact Us
+
+If you have any questions or concerns about this Privacy Policy or your data, please contact us at [Your Contact Information].`,
   },
 }
 export type LangType = typeof en

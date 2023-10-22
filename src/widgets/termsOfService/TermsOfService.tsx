@@ -12,7 +12,7 @@ export const TermsOfService: FC<Props> = ({ onBackToSignUpClick }) => {
   const { t } = useTranslation()
 
   return (
-    <div>
+    <div className={s.container}>
       <div className={s.backButtonContainer}>
         <Typography variant={'regular_link'} onClick={onBackToSignUpClick} className={s.link}>
           <BackIcon /> {t.terms_of_service.button_text}
@@ -24,7 +24,13 @@ export const TermsOfService: FC<Props> = ({ onBackToSignUpClick }) => {
           <Typography variant={'h1'}>{t.terms_of_service.title}</Typography>
         </div>
         <div className={s.textContainer}>
-          <Typography variant={'regular_text_14'}>{t.terms_of_service.text}</Typography>
+          <ul>
+            {t.terms_of_service.text.map((text, index) => (
+              <li key={index} className={s.text}>
+                {text.text}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
