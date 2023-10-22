@@ -50,10 +50,10 @@ export const ForgotPasswordWidget: FC = () => {
           <div className="mb-1">
             <InputField
               {...registerInput('email', {
-                required: `${t.signup.email_required}`,
+                required: t.signup.email_required,
                 pattern: {
                   value: emailValidation,
-                  message: `${t.signup.email_invalid}`,
+                  message: t.signup.email_invalid,
                 },
               })}
               label={t.forgotpassword.email}

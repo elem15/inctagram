@@ -50,14 +50,14 @@ export const CreateNewPasswordWidget: FC = () => {
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <PasswordField
             {...registerInput('password', {
-              required: `${t.signup.password_required}`,
+              required: t.signup.password_required,
               minLength: {
                 value: 6,
-                message: `${t.messages.password_min_length}`,
+                message: t.messages.password_min_length,
               },
               pattern: {
                 value: passwordValidation,
-                message: `${t.messages.password_validate_message}`,
+                message: t.messages.password_validate_message,
               },
             })}
             label={t.signup.password}
@@ -66,13 +66,13 @@ export const CreateNewPasswordWidget: FC = () => {
           ></PasswordField>
           <PasswordField
             {...registerInput('passwordConfirm', {
-              required: `${t.signup.password_required}`,
+              required: t.signup.password_required,
               minLength: {
                 value: 6,
-                message: `${t.messages.password_min_length}`,
+                message: t.messages.password_min_length,
               },
               validate: value =>
-                value === getValues('password') || `${t.messages.password_match_message}`,
+                value === getValues('password') || t.messages.password_match_message,
             })}
             label={t.signup.password_confirmation}
             placeholder={t.signup.password_confirmation}
