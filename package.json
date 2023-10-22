@@ -7,11 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "next-lint:fix": "next lint --fix",
     "stylelint:fix": "stylelint --fix src/**/*.{scss,css} --allow-empty-input",
     "pretty": "prettier src --write",
     "eslint:fix": "eslint --fix src/**/*.{tsx,ts,jsx,js} --no-error-on-unmatched-pattern",
-    "lint:fix": "npm run next-lint:fix && npm run pretty && npm run eslint:fix && npm run stylelint:fix",
+    "lint:fix": "next lint --fix && npm run pretty && npm run eslint:fix && npm run stylelint:fix",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
