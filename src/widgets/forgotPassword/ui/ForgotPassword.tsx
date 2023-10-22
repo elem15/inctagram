@@ -11,9 +11,9 @@ import { useSendCaptchaMutation } from '@/entities/auth'
 import { setUser } from '@/entities/auth/model/authSlice'
 import { InputField } from '@/shared'
 import { consoleErrors, useAppDispatch, useTranslation } from '@/shared/lib'
-import { EmailValidation } from '@/shared/regex'
+import { emailValidation } from '@/shared/regex'
 import { IAuthInput } from '@/shared/types'
-import { SetPopUp } from '@/widgets/EmailSentPopUp/ui/SetPopUp'
+import { SetPopUp } from '@/widgets/emailSendPopUp/ui/SetPopUp'
 import { Spinner } from '@/widgets/spinner'
 
 export const ForgotPasswordWidget: FC = () => {
@@ -50,10 +50,10 @@ export const ForgotPasswordWidget: FC = () => {
           <div className="mb-1">
             <InputField
               {...registerInput('email', {
-                required: `${t.signup.email_required}`,
+                required: t.signup.email_required,
                 pattern: {
-                  value: EmailValidation,
-                  message: `${t.signup.email_invalid}`,
+                  value: emailValidation,
+                  message: t.signup.email_invalid,
                 },
               })}
               label={t.forgotpassword.email}
