@@ -20,5 +20,6 @@ export const DefaultSelect: Story = {
       { value: 'third', label: 'orange' },
     ],
     placeHolder: 'choose options...',
+    label: 'Select with Label',
   },
 }
