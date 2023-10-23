@@ -1,3 +1,4 @@
+import { enTextsPrivacyPolicy } from '@/shared/locales/en-texts-privacy-policy'
 import { enTextsTermsOfService } from '@/shared/locales/en-texts-terms-of-service'
 
 export const en = {
@@ -101,63 +102,8 @@ export const en = {
     text: enTextsTermsOfService,
   },
   privacy_policy: {
-    buttons_text: 'Back to Sign Up',
     title: 'Privacy Policy',
-    text: `1. Introduction
-
-Welcome to Inctagram, the social media platform that values your privacy and data security. This Privacy Policy outlines our commitment to protecting your personal information and explains how we collect, use, and safeguard your data.
-
-2. Information We Collect
-
-We collect the following types of information:
-
-Personal Information: Information you provide when registering, such as your name, email address, and date of birth.
-
-User-Generated Content: Content you post, including photos, videos, and messages.
-
-Usage Data: Information about how you use Inctagram, including your interactions with other users and content you view.
-
-Device Information: Information about the devices you use to access Inctagram, including device type, operating system, and unique device identifiers.
-
-Location Information: If you enable location services, we may collect your precise or approximate location.
-
-Cookies and Similar Technologies: We use cookies and similar technologies to track your use of Inctagram and collect data about your interactions.
-
-3. How We Use Your Information
-
-We use your information to:
-
-Provide, maintain, and improve Inctagram.
-Customize your experience and content you see.
-Communicate with you and send you important updates.
-Protect the security and integrity of our platform.
-Comply with legal and regulatory requirements.
-4. Sharing Your Information
-
-We may share your information with:
-
-Other Inctagram users as per your privacy settings.
-Third-party service providers who assist us in delivering our services.
-Law enforcement and regulatory authorities when required.
-5. Data Security
-
-We take data security seriously and employ measures to protect your data. However, no method of transmission or storage can be 100% secure. We cannot guarantee the security of your data.
-
-6. Your Choices
-
-You can manage your privacy settings on Inctagram, including who can see your content and interact with you. You can also opt-out of promotional emails.
-
-7. Children's Privacy
-
-Inctagram is not intended for individuals under the age of 13. We do not knowingly collect or store information from children under this age.
-
-8. Changes to this Privacy Policy
-
-We may update this Privacy Policy from time to time. When we do, we will notify you of the changes through Inctagram's communication channels.
-
-9. Contact Us
-
-If you have any questions or concerns about this Privacy Policy or your data, please contact us at [Your Contact Information].`,
+    text: enTextsPrivacyPolicy,
   },
 }
 export type LangType = typeof en
