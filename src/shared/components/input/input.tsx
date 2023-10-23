@@ -1,11 +1,14 @@
 import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
+import classNames from 'classnames'
+import clsx from 'clsx'
+
 import SearchIcon from '../../assets/icons/SearchIcon.svg'
 import { Typography } from '../typography/'
 
 import s from './input.module.scss'
 
-export type TextFieldProps = {
+export type InputProps = {
   onChangeValue?: (value: string) => void
   error?: string
   disabled?: boolean
@@ -13,7 +16,7 @@ export type TextFieldProps = {
   type?: 'text' | 'password' | 'search'
 } & ComponentPropsWithoutRef<'input'>
 
-export const Input = forwardRef<HTMLInputElement, TextFieldProps>(
+export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ onChangeValue, value, error, disabled, onChange, label, type, ...restProps }, ref) => {
     const [visiblePassword, setVisiblePassword] = useState<boolean>(false)
 
@@ -22,14 +25,16 @@ export const Input = forwardRef<HTMLInputElement, TextFieldProps>(
       onChangeValue?.(e.currentTarget.value)
     }
 
+    const classNames = {
+      passwordControl: clsx(s.passwordControl, visiblePassword ? s.showPassword : s.hidePassword),
+    }
+
     return (
       <div className={s.inputWrapper}>
         <label className={s.label}>{label}</label>
 
         <div className={s.inputContainer}>
-          {type === 'search' && (
-            <img src={SearchIcon} className={s.searchIcon} alt={'Search Icon'} />
-          )}
+          {type === 'search' && <SearchIcon className={s.searchIcon} alt={'Search Icon'} />}
           <input
             id={restProps.id}
             placeholder={restProps.placeholder}
@@ -42,9 +47,7 @@ export const Input = forwardRef<HTMLInputElement, TextFieldProps>(
           />
           {type === 'password' && (
             <a
-              className={`${s.passwordControl} ${
-                visiblePassword ? s.showPassword : s.hidePassword
-              }`}
+              className={classNames.passwordControl}
               onClick={() => {
                 setVisiblePassword(prevState => !prevState)
               }}
