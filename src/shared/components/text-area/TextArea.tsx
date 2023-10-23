@@ -9,7 +9,7 @@ type Props = {
 } & ComponentProps<'textarea'>
 export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
   ({ className, errorMessage, id, label, onChange, ...rest }, ref) => {
-    const showError = !!errorMessage && errorMessage.length > 0
+    const showError = !!errorMessage
 
     function handleInputValueChanged(e: ChangeEvent<HTMLTextAreaElement>) {
       onChange?.(e)
