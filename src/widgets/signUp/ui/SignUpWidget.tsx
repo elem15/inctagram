@@ -134,9 +134,9 @@ export const SignUpWidget: FC = () => {
           </div>
           <label htmlFor="agree" className="text-xs text-light-100 ml-2">
             <span>{t.signup.agreement} </span>
-            <a href="#">{t.signup.terms_service}</a>
+            <Link href="auth/terms-of-service">{t.signup.terms_service}</Link>
             <span> {t.signup.and} </span>
-            <a href="#">{t.signup.privacy_policy}</a>
+            <Link href="auth/privacy-policy">{t.signup.privacy_policy}</Link>
           </label>
         </div>
         <Button style={{ marginBottom: '18px' }} fullWidth>
