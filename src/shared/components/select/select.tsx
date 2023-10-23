@@ -57,7 +57,7 @@ export const SelectCustom = forwardRef<ElementRef<typeof Select.Trigger>, Select
         <Select.Trigger
           defaultValue={defaultValue}
           ref={ref}
-          className={`${s.trigger} ${className}`}
+          className={clsx(s.trigger, className)}
         >
           <div className={s.value}>
             <Select.Value placeholder={placeHolder} />

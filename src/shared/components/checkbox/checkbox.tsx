@@ -28,6 +28,7 @@ export const SuperCheckbox: FC<CheckboxProps> = ({
   const classNames = {
     checkBoxBlock: clsx(s.checkBoxBlock, className),
     checkBox: clsx(s.checkboxRoot, checked && s.active),
+    labelBlock: clsx(s.label, disabled && s.labelDisabled),
   }
 
   return (
@@ -44,7 +45,7 @@ export const SuperCheckbox: FC<CheckboxProps> = ({
         </Checkbox.Indicator>
       </Checkbox.Root>
       {label && (
-        <label className={`${s.label} ${disabled ? s.labelDisabled : ''}`} htmlFor={id}>
+        <label className={classNames.labelBlock} htmlFor={id}>
           <Typography variant={'regular_text_14'}>{label}</Typography>
         </label>
       )}
