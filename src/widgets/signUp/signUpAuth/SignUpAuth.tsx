@@ -1,127 +1,86 @@
 import React, { FC } from 'react'
 
 import { InputField, PasswordField } from '@/shared'
-import { ControlledInput } from '@/shared/components/controlled/controlled-input/controlled-input'
 import { useTranslation } from '@/shared/lib'
-import {
-  EmailFormatMessage,
-  MaxLength,
-  MinLength,
-  NameFormatMessage,
-  PasswordMaxLength,
-  PasswordMinLength,
-  PasswordValidateMessage,
-} from '@/shared/messages'
-import { EmailValidation, NameValidation, PasswordValidation } from '@/shared/regex'
+import { emailValidation, nameValidation, passwordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 
 export const SignUpAuth: FC<IAuthFields> = ({
-  // register,
+  register,
   formState: { errors },
-  // isPasswordRequired = false,
-  // getValues,
-  control,
+  isPasswordRequired = false,
+  getValues,
 }) => {
   const { t } = useTranslation()
 
   return (
     <>
-      {/*<InputField*/}
-      {/*  {...register('username', {*/}
-      {/*    required: `${t.signup.username_required}`,*/}
-      {/*    maxLength: {*/}
-      {/*      value: 30,*/}
-      {/*      message: MaxLength,*/}
-      {/*    },*/}
-      {/*    minLength: {*/}
-      {/*      value: 6,*/}
-      {/*      message: MinLength,*/}
-      {/*    },*/}
-      {/*    pattern: {*/}
-      {/*      value: NameValidation,*/}
-      {/*      message: NameFormatMessage,*/}
-      {/*    },*/}
-      {/*  })}*/}
-      {/*  label={t.signup.username}*/}
-      {/*  placeholder={t.signup.username}*/}
-      {/*  helperText={errors.username?.message?.toString()}*/}
-      {/*></InputField>*/}
-      {/*<InputField*/}
-      {/*  {...register('email', {*/}
-      {/*    required: `${t.signup.email_required}`,*/}
-      {/*    pattern: {*/}
-      {/*      value: EmailValidation,*/}
-      {/*      message: EmailFormatMessage,*/}
-      {/*    },*/}
-      {/*  })}*/}
-      {/*  label={t.signup.email}*/}
-      {/*  placeholder={t.signup.email}*/}
-      {/*  type="email"*/}
-      {/*  helperText={errors.email?.message?.toString()}*/}
-      {/*></InputField>*/}
-      {/*<PasswordField*/}
-      {/*  {...register('password', {*/}
-      {/*    required: `${t.signup.password_required}`,*/}
-      {/*    minLength: {*/}
-      {/*      value: 6,*/}
-      {/*      message: PasswordMinLength,*/}
-      {/*    },*/}
-      {/*    maxLength: {*/}
-      {/*      value: 20,*/}
-      {/*      message: PasswordMaxLength,*/}
-      {/*    },*/}
-      {/*    pattern: {*/}
-      {/*      value: PasswordValidation,*/}
-      {/*      message: PasswordValidateMessage,*/}
-      {/*    },*/}
-      {/*  })}*/}
-      {/*  label={t.signup.password}*/}
-      {/*  placeholder={t.signup.password}*/}
-      {/*  helperText={errors.password?.message?.toString()}*/}
-      {/*></PasswordField>*/}
-      {/*<PasswordField*/}
-      {/*  {...register('passwordConfirm', {*/}
-      {/*    required: `${t.signup.password_required}`,*/}
-      {/*    minLength: {*/}
-      {/*      value: 6,*/}
-      {/*      message: PasswordMinLength,*/}
-      {/*    },*/}
-      {/*    validate: value => value === getValues('password') || 'The passwords must match',*/}
-      {/*  })}*/}
-      {/*  label={t.signup.password_confirmation}*/}
-      {/*  placeholder={t.signup.password_confirmation}*/}
-      {/*  helperText={errors.passwordConfirm?.message?.toString()}*/}
-      {/*></PasswordField>*/}
-      <ControlledInput
-        name="username"
-        control={control}
+      <InputField
+        {...register('username', {
+          required: t.signup.username_required,
+          maxLength: {
+            value: 30,
+            message: t.messages.user_max_length,
+          },
+          minLength: {
+            value: 6,
+            message: t.messages.user_min_length,
+          },
+          pattern: {
+            value: nameValidation,
+            message: t.messages.name_format_message,
+          },
+        })}
         label={t.signup.username}
-        error={errors.username?.message?.toString()}
         placeholder={t.signup.username}
-      />
-      <ControlledInput
-        name="email"
-        control={control}
+        helperText={errors.username?.message?.toString()}
+      ></InputField>
+      <InputField
+        {...register('email', {
+          required: t.signup.email_required,
+          pattern: {
+            value: emailValidation,
+            message: t.messages.email_format_message,
+          },
+        })}
         label={t.signup.email}
-        error={errors.email?.message?.toString()}
         placeholder={t.signup.email}
-      />
-      <ControlledInput
-        name="password"
-        type="password"
-        control={control}
+        type="email"
+        helperText={errors.email?.message?.toString()}
+      ></InputField>
+      <PasswordField
+        {...register('password', {
+          required: t.signup.password_required,
+          minLength: {
+            value: 6,
+            message: t.messages.password_min_length,
+          },
+          maxLength: {
+            value: 20,
+            message: t.messages.password_max_length,
+          },
+          pattern: {
+            value: passwordValidation,
+            message: t.messages.password_validate_message,
+          },
+        })}
         label={t.signup.password}
-        error={errors.password?.message?.toString()}
         placeholder={t.signup.password}
-      />
-      <ControlledInput
-        name="passwordConfirm"
-        control={control}
-        type="password"
+        helperText={errors.password?.message?.toString()}
+      ></PasswordField>
+      <PasswordField
+        {...register('passwordConfirm', {
+          required: t.signup.password_required,
+          minLength: {
+            value: 6,
+            message: t.messages.password_min_length,
+          },
+          validate: value => value === getValues('password') || t.messages.password_match_message,
+        })}
         label={t.signup.password_confirmation}
-        error={errors.passwordConfirmation?.message?.toString()}
         placeholder={t.signup.password_confirmation}
-      />
+        helperText={errors.passwordConfirm?.message?.toString()}
+      ></PasswordField>
     </>
   )
 }

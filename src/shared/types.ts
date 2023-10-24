@@ -20,10 +20,10 @@ type TypeInputPropsField = InputHTMLAttributes<HTMLInputElement> & IInputField
 export interface IField extends TypeInputPropsField {}
 
 export interface IAuthFields {
+  register: UseFormRegister<any>
   formState: FormState<any>
   isPasswordRequired?: boolean
   getValues: UseFormGetValues<any>
-  control: any
 }
 
 export interface IAuthInput {
