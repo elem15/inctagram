@@ -1,0 +1,9 @@
+{
+  "scss.lint.unknownAtRules": "ignore",
+  "stylelint.validate": ["css", "scss"],
+  "cSpell.words": [
+    "recaptcha",
+    "signin",
+    "signup"
+  ]
+}

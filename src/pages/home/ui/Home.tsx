@@ -56,7 +56,7 @@ export function Home() {
           <Link href="auth/terms-of-service">Terms of Service</Link>
         </li>
         <li>
-          <Link href="auth/privacy-policy">Privacy Policy</Link>
+          <Link href="auth/privacy">Privacy Policy</Link>
         </li>
       </ul>
       {isAuth && (

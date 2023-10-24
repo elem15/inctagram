@@ -8,5 +8,11 @@ module.exports = {
                 'ignoreAtRules': [ 'tailwind' ]
             }
         ],
-    }
+    },
+    overrides: [
+        {
+          files: ["**/*.scss"],
+          customSyntax: "postcss-scss"
+        }
+      ]
 };
