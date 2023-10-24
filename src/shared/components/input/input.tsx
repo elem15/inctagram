@@ -1,9 +1,8 @@
 import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
-import classNames from 'classnames'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
-import SearchIcon from '../../assets/icons/SearchIcon.svg'
+import { SearchIcon } from '../../assets/'
 import { Typography } from '../typography/'
 
 import s from './input.module.scss'
@@ -34,7 +33,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <label className={s.label}>{label}</label>
 
         <div className={s.inputContainer}>
-          {type === 'search' && <SearchIcon className={s.searchIcon} alt={'Search Icon'} />}
+          {type === 'search' && <SearchIcon className={s.searchIcon} />}
           <input
             id={restProps.id}
             placeholder={restProps.placeholder}

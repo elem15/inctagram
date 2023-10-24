@@ -4,7 +4,6 @@
 
 .icon {
   display: flex;
-
 }
 
 .trigger {
@@ -31,7 +30,6 @@
   &[data-state='closed'] .icon {
     transition: all 0.3s ease-in-out;
   }
-
 }
 
 .value {
@@ -85,7 +83,6 @@
   color: var(--color-accent-500);
   background: var(--color-dark-300);
 }
-
 
 @keyframes fadein {
   from {
