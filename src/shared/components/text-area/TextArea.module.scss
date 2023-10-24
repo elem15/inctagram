@@ -1,24 +1,25 @@
-@mixin texts-properties($font-size) {
-  font-size: $font-size;
-  font-weight: 400;
+@mixin texts-properties($font-size){
+  font-size:$font-size;
+  font-weight:400;
   font-style: normal;
   line-height: 24px;
 }
 
 .container {
   display: flex;
-  flex-direction: column;
+flex-direction: column;
 
-  .label {
+  .label{
     @include texts-properties(var(--font-size-s));
 
-    color: var(--color-light-900);
+    color:var(--color-light-900)
   }
 
   .textarea {
     @include texts-properties(var(--font-size-m));
 
     resize: none;
+
 
     flex-grow: 1;
 
@@ -63,7 +64,7 @@
     &:disabled {
       border-color: var(--color-dark-100);
 
-      &::placeholder {
+      &::placeholder{
         color: var(--color-dark-100);
       }
     }
@@ -75,3 +76,4 @@
     color: var(--color-danger-500);
   }
 }
+
