@@ -1,0 +1,56 @@
+/* reset */
+button,
+fieldset,
+input {
+  all: unset;
+}
+
+.default {
+  font-family: var(--font-family-primary);
+  line-height: var(--line-height-m);
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-600);
+  background: none;
+  padding: 6px 24px;
+  border-bottom: 1px solid var(--color-accent-500);
+  cursor: pointer;
+  text-transform: capitalize;
+  color: var(--color-accent-500);
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(35, 78, 153, .15);
+    color: var(--color-accent-500);
+    border-bottom: 2px solid var(--color-accent-500);
+  }
+
+  &[data-state='active'] {
+
+    background-color: rgba(115, 165, 255, .15);
+    color: var(--color-accent-500);
+    border-bottom: 2px solid var(--color-accent-500);
+  }
+
+  &:focus-visible {
+    position: relative;
+    border-radius: 2px;
+    border: 2px solid var(--color-accent-700);
+  }
+
+  &:disabled {
+    border-bottom: 2px solid var(--color-dark-300);
+    color: var(--color-dark-300);
+
+    pointer-events: none;
+
+  }
+
+  &:first-child {
+    border-radius: 2px 0px 0px 2px;
+  }
+
+  &:last-child {
+    border-radius: 0px 2px 2px 0px;
+  }
+}
