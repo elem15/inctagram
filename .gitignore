@@ -37,9 +37,6 @@ next-env.d.ts
 # idea
 .idea
 
-#vscode
-.vscode
-
 #env
 .env
 *.local
