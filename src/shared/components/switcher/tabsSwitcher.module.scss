@@ -1,11 +1,5 @@
-/* reset */
-button,
-fieldset,
-input {
-  all: unset;
-}
-
 .default {
+  all: unset;
   font-family: var(--font-family-primary);
   line-height: var(--line-height-m);
   font-size: var(--font-size-m);
@@ -20,14 +14,13 @@ input {
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: rgba(35, 78, 153, .15);
+    background-color: rgba(35, 78, 153, 0.15);
     color: var(--color-accent-500);
     border-bottom: 2px solid var(--color-accent-500);
   }
 
   &[data-state='active'] {
-
-    background-color: rgba(115, 165, 255, .15);
+    background-color: rgba(115, 165, 255, 0.15);
     color: var(--color-accent-500);
     border-bottom: 2px solid var(--color-accent-500);
   }
@@ -43,7 +36,6 @@ input {
     color: var(--color-dark-300);
 
     pointer-events: none;
-
   }
 
   &:first-child {
