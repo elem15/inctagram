@@ -2,6 +2,7 @@
   "scss.lint.unknownAtRules": "ignore",
   "stylelint.validate": ["css", "scss"],
   "cSpell.words": [
+    "clsx",
     "recaptcha",
     "signin",
     "signup"

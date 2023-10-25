@@ -20,7 +20,7 @@ export const options = [
   'small_link',
 ] as const
 
-export type Options = (typeof options)[number]
+type Options = (typeof options)[number]
 
 export type TypographyProps<T extends ElementType> = {
   as?: T
