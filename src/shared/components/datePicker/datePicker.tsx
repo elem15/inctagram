@@ -3,9 +3,13 @@ import * as React from 'react'
 import { format } from 'date-fns'
 import { Calendar as CalendarIcon } from 'lucide-react'
 
-import { Calendar } from '@/shared/components/ui/Calendar'
-import { CalendarButton } from '@/shared/components/ui/CalendarButton'
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/Popover'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Calendar,
+  CalendarButton,
+} from '@/shared/components/ui'
 import { cn } from '@/shared/lib/utils'
 
 export function DatePicker() {
@@ -25,8 +29,8 @@ export function DatePicker() {
           {date ? format(date, 'PPP') : <span>Pick a date</span>}
         </CalendarButton>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+      <PopoverContent className="w-auto p-0 dark">
+        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus className="dark" />
       </PopoverContent>
     </Popover>
   )
