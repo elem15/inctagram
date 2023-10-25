@@ -3,7 +3,6 @@ import { FC, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
 
 import { SignInAuth } from '../signInAuth/SignInAuth'
 
