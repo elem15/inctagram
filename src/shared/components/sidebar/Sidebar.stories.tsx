@@ -37,16 +37,16 @@ export const Default = {
     )
   },
 }
-const options = [
-  {
-    value: 'frontend',
-    label: 'Frontend',
-  },
-  {
-    value: 'backend',
-    label: 'Backend',
-  },
-]
+// const options = [
+//   {
+//     value: 'frontend',
+//     label: 'Frontend',
+//   },
+//   {
+//     value: 'backend',
+//     label: 'Backend',
+//   },
+// ]
 //
 // export const FullLayout = {
 //   render: args => {
