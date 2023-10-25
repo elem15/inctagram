@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Typography } from './typography'
+import { Typography, options } from './typography'
 
 const meta = {
   title: 'Components/Typography',
@@ -8,22 +8,9 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      options: [
-        'large',
-        'h1',
-        'h2',
-        'h3',
-        'regular_text_16',
-        'bold_text_16',
-        'regular_text_14',
-        'medium_text_14',
-        'bold_text_14',
-        'small_text',
-        'semi-bold_small_text',
-        'regular_link',
-        'small_link',
-      ],
+      options,
     },
+    as: { type: 'string' },
   },
 } satisfies Meta<typeof Typography>
 
