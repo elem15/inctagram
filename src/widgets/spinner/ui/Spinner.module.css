@@ -1,21 +1,26 @@
 .spin-wrapper {
   position: fixed;
-  left: 0;
-  top: 0;
   z-index: 1000;
-  height: 100vh;
+  top: 0;
+  left: 0;
+
   width: 100vw;
+  height: 100vh;
 }
 
 .spin {
   position: absolute;
+
   display: block;
-  margin: 300px calc(50% - 20px);
+
   width: 40px;
   height: 40px;
+  margin: 300px calc(50% - 20px);
+
   border: 4px solid transparent;
-  border-radius: 50%;
   border-top-color: orange;
+  border-radius: 50%;
+
   animation: spin 1s ease infinite;
 }
 

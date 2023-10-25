@@ -47,7 +47,6 @@
 
 .semi-bold_small_text {
   @include typography(var(--font-size-xs), var(--line-height-s), var(--font-weight-600));
-
 }
 
 .regular_link {
