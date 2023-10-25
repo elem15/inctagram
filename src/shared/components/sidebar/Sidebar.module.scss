@@ -1,0 +1,31 @@
+.box {
+  position: fixed;
+  z-index: auto;
+  top: 0;
+  left: 0;
+
+  display: inline-flex;
+  justify-content: space-between;
+
+  width: 220px;
+  height: 100vh;
+
+  color: var(--color-text-primary);
+
+  background-color: transparent;
+
+}
+
+.contentBox {
+  flex-grow: 1;
+}
+
+.content {
+  display: none;
+  flex-grow: 1;
+
+  &.open {
+    display: block;
+  }
+}
+
