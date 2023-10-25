@@ -21,7 +21,7 @@ export function Home() {
       {error && <div className="text-red-600">Google authorization error</div>}
       <ul>
         <li>
-          <Link href="home">Home</Link>
+          <Link href="/">Home</Link>
         </li>
         <li>
           <Link href="email-sent">Email sent</Link>
@@ -40,9 +40,6 @@ export function Home() {
         </li>
         <li>
           <Link href="auth/registration-resend">Resend Verification Link Registration</Link>
-        </li>
-        <li>
-          <Link href="email">Send Email menu</Link>
         </li>
         <li>
           <Link href="auth/forgot-password">Forgot password</Link>
