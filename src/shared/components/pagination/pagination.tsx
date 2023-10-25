@@ -87,6 +87,7 @@ export const Pagination = (props: PaginationProps) => {
   const classNames = {
     arrowButton: clsx(s.pageStyle, s.arrowButtonsStyle),
   }
+
   return (
     <div className={s.paginationWrapper}>
       <div>

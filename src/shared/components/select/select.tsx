@@ -85,6 +85,7 @@ export const SelectItem = forwardRef<ElementRef<typeof Select.Item>, ItemProps>(
       item: clsx(s.item, className),
       itemText: clsx(s.itemText, className),
     }
+
     return (
       <Select.Item {...restProps} className={classNames.item} ref={ref}>
         <Select.ItemText className={classNames.itemText}>{children}</Select.ItemText>

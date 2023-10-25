@@ -1,6 +1,7 @@
+import { useState } from 'react'
+
 import { Pagination } from '@/shared/components'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
-import { useState } from 'react'
 
 const TestPage = () => {
   const [pageSize, setPageSize] = useState(10)
@@ -13,6 +14,7 @@ const TestPage = () => {
     { label: '40', value: '40' },
     { label: '50', value: '50' },
   ]
+
   return (
     <div className="flex justify-center items-center bg-dark-700">
       <Pagination
@@ -30,4 +32,4 @@ const TestPage = () => {
 
 TestPage.getLayout = getHeaderLayout
 
-export { TestPage };
+export { TestPage }
