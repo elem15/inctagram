@@ -1,0 +1,77 @@
+@mixin texts-properties($font-size) {
+  font-size: $font-size;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 24px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .label {
+    @include texts-properties(var(--font-size-s));
+
+    color: var(--color-light-900);
+  }
+
+  .textarea {
+    @include texts-properties(var(--font-size-m));
+
+    resize: none;
+
+    flex-grow: 1;
+
+    width: 100%;
+    padding: 6px 12px 8px;
+
+    color: var(--color-light-900);
+
+    background-color: var(--color-dark-500);
+    border: 1px solid var(--color-dark-100);
+    border-radius: 2px;
+    outline: none;
+
+    &::placeholder {
+      color: var(--color-light-900);
+    }
+
+    &:active {
+      border: 1px solid var(--color-light-100);
+
+      &::placeholder {
+        color: var(--color-light-100);
+      }
+    }
+
+    &:focus {
+      border: 2px solid var(--color-accent-700);
+
+      &::placeholder {
+        color: var(--color-light-100);
+      }
+    }
+
+    &.error {
+      border: 1px solid var(--color-danger-500);
+
+      &::placeholder {
+        color: var(--color-light-100);
+      }
+    }
+
+    &:disabled {
+      border-color: var(--color-dark-100);
+
+      &::placeholder {
+        color: var(--color-dark-100);
+      }
+    }
+  }
+
+  .error {
+    @include texts-properties(var(--font-size-s));
+
+    color: var(--color-danger-500);
+  }
+}

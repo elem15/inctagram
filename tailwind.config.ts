@@ -1,20 +1,62 @@
-import type { Config } from 'tailwindcss'
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
 
-const config: Config = {
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontSize: {
+        xs: ['12px', '16px'],
+        sm: ['14px', '20px'],
+        base: ['16px', '24px'],
+        lg: ['18px', '28px'],
+        xl: ['20px', '28px'],
+        '3xl': ['30px', '36px'],
+      },
+      fontFamily: {
+        primary: ['Inter'],
+        roboto: ['Roboto', 'Inter'],
+      },
+      colors: {
+        light: {
+          100: '#FFFFFF',
+          300: '#F7FBFF',
+          500: '#EDF3FA',
+          700: '#D5DAE0',
+          900: '#8D9094',
+        },
+        dark: {
+          100: '#4C4C4C',
+          300: '#333333',
+          500: '#171717',
+          700: '#0D0D0D',
+          900: '#000000',
+        },
+        primary: {
+          100: '#73A5FF',
+          300: '#4C8DFF',
+          500: '#397DF6',
+          700: '#2F68CC',
+          900: '#234E99',
+        },
+        danger: {
+          500: '#CC1439',
+        },
+      },
+      spacing: {
+        '5.5': '18px',
+        '11': '2.75rem',
+        '12': '3rem',
+        '13': '3.25rem',
+        '14': '3.5rem',
+        '15': '3.75rem',
+        '16': '4rem',
+        '17': '4.25rem',
+        '18': '4.5rem',
+        '19': '4.75rem',
+        '20': '5rem',
+        '46': '11.5rem',
       },
     },
   },
   plugins: [],
 }
-
-export default config

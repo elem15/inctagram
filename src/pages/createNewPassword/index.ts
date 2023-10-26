@@ -1,0 +1,1 @@
+export { CreateNewPasswordPage } from './ui'

@@ -1,0 +1,16 @@
+@import 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply font-primary;
+  }
+}
+
+body {
+  color: white;
+  background: black;
+}
