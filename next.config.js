@@ -14,8 +14,10 @@ const nextConfig = {
     defaultLocale: 'en',
   },
   env: {
-    captcha_site_key: process.env.CAPTCHA_SITE_KEY,
-    google_client_id: process.env.GOOGLE_CLIENT_ID,
+    captcha_site_key: process.env.CAPTCHA_SITE_KEY || '6LeY2y0mAAAAANwI_paCWfoksCgBm1n2z9J0nwNQ',
+    google_client_id:
+      process.env.GOOGLE_CLIENT_ID ||
+      '617342613759-f3kbvgm8l310fn40vh6qna2pv8u2uccr.apps.googleusercontent.com',
   },
 }
 
