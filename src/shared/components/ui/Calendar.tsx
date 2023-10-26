@@ -35,7 +35,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
           'h-9 w-9 p-0 font-normal aria-selected:opacity-100'
         ),
         day_selected:
-          'bg-primary-500 text-light-100 hover:bg-primary hover:text-primary-foreground focus:bg-primary-500 border-4 border-primary-900 rounded-full focus:text-light-100',
+          'bg-primary-500 text-light-100 hover:bg-primary hover:text-primary-foreground focus:bg-primary-500 border-4 border-primary-900 focus:rounded-full focus:text-light-100',
         day_today: 'text-primary-500',
         day_outside: 'text-muted-foreground opacity-50',
         day_disabled: 'text-muted-foreground opacity-50',
@@ -45,7 +45,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
       }}
       components={{
         IconLeft: ({ ...props }) => <ChevronLeft className="h-3 w-3" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-3 w-3 " />,
+        IconRight: ({ ...props }) => <ChevronRight className="h-3 w-3" />,
       }}
       {...props}
     />

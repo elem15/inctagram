@@ -21,16 +21,22 @@ export function DatePicker() {
         <CalendarButton
           variant={'outline'}
           className={cn(
-            'w-[280px] justify-start text-left font-normal',
+            'min-w-[160px] justify-between text-left font-normal bg-dark-500 border-dark-300 rounded-none',
             !date && 'text-muted-foreground'
           )}
         >
+          {date ? format(date, 'MM/dd/yyyy') : <span>Pick a date</span>}
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, 'PPP') : <span>Pick a date</span>}
         </CalendarButton>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0 dark">
-        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus className="dark" />
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          initialFocus
+          className="dark bg-dark-500 border-dark-300"
+        />
       </PopoverContent>
     </Popover>
   )
