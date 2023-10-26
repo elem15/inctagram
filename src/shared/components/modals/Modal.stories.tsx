@@ -1,10 +1,6 @@
-import React, { useState } from 'react'
-
 import { Meta } from '@storybook/react'
 
 import { Modal } from './Modal'
-
-import { Button } from '@/shared/components/button/button'
 
 export default {
   title: 'Components/Modal',
