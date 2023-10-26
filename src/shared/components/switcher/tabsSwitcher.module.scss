@@ -1,48 +1,52 @@
 .default {
   all: unset;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+  padding: 6px 24px;
+
   font-family: var(--font-family-primary);
-  line-height: var(--line-height-m);
   font-size: var(--font-size-m);
   font-weight: var(--font-weight-600);
-  background: none;
-  padding: 6px 24px;
-  border-bottom: 1px solid var(--color-accent-500);
-  cursor: pointer;
-  text-transform: capitalize;
+  line-height: var(--line-height-m);
   color: var(--color-accent-500);
-  box-sizing: border-box;
+  text-transform: capitalize;
+
+  background: none;
+  border-bottom: 1px solid var(--color-accent-500);
+
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: rgba(35, 78, 153, 0.15);
     color: var(--color-accent-500);
+    background-color: rgb(35 78 153 / 15%);
     border-bottom: 2px solid var(--color-accent-500);
   }
 
   &[data-state='active'] {
-    background-color: rgba(115, 165, 255, 0.15);
     color: var(--color-accent-500);
+    background-color: rgb(115 165 255 / 15%);
     border-bottom: 2px solid var(--color-accent-500);
   }
 
   &:focus-visible {
     position: relative;
-    border-radius: 2px;
     border: 2px solid var(--color-accent-700);
+    border-radius: 2px;
   }
 
   &:disabled {
-    border-bottom: 2px solid var(--color-dark-300);
-    color: var(--color-dark-300);
-
     pointer-events: none;
+    color: var(--color-dark-300);
+    border-bottom: 2px solid var(--color-dark-300);
   }
 
   &:first-child {
-    border-radius: 2px 0px 0px 2px;
+    border-radius: 2px 0 0 2px;
   }
 
   &:last-child {
-    border-radius: 0px 2px 2px 0px;
+    border-radius: 0 2px 2px 0;
   }
 }
