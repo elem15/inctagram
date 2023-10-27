@@ -21,7 +21,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
       weekStartsOn={1}
       showOutsideDays={showOutsideDays}
       modifiers={{
-        range_middle: [sunday, saturday],
+        outside: [sunday, saturday],
       }}
       className={cn('p-3', className)}
       classNames={{
@@ -43,14 +43,16 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
         cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-full last:[&:has([aria-selected])]:rounded-full focus-within:relative focus-within:z-20 rounded-full',
         day: cn(
           buttonVariants({ variant: 'ghost' }),
-          'h-9 w-9 p-0 font-normal aria-selected:opacity-100 rounded-full'
+          'h-9 w-9 p-0 font-normal aria-selected:opacity-100 rounded-full hover:bg-primary-900'
         ),
         day_selected:
-          'bg-primary-500 text-light-100 hover:bg-primary hover:text-primary-foreground focus:bg-primary-500 border-4 border-primary-900 focus:rounded-full focus:text-light-100',
+          'bg-primary-500 text-light-100 hover:bg-primary-900 hover:text-primary-foreground focus:bg-primary-500 border-4 border-primary-900 focus:rounded-full focus:text-light-100',
         day_today: 'text-primary-500',
         day_outside: 'text-muted-foreground opacity-50',
         day_disabled: 'text-muted-foreground opacity-50',
-        day_range_middle: 'aria-selected:bg-accent aria-selected:text-accent-foreground opacity-50',
+        day_range_start: 'text-muted-foreground opacity-50',
+        day_range_middle:
+          'aria-selected:bg-accent aria-selected:text-accent-foreground focus:bg-primary-500 opacity-50',
         day_range_end: 'text-muted-foreground opacity-50',
         day_hidden: 'text-muted-foreground opacity-50',
         ...classNames,
