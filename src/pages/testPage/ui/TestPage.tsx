@@ -8,7 +8,7 @@ const TestPage = () => {
       <SuperCheckbox />
       <hr />
       <br />
-      <DatePicker mode="range" />
+      <DatePicker mode="single" />
     </div>
   )
 }

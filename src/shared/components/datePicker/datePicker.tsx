@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { format } from 'date-fns'
 import { Calendar as CalendarIcon } from 'lucide-react'
+import { DateRange } from 'react-day-picker'
 
 import {
   Popover,
@@ -15,21 +16,11 @@ import { cn } from '@/shared/lib/utils'
 type Props = {
   mode: 'single' | 'range'
 }
-type CalendarProps =
-  | Date
-  | {
-      from: Date
-      to: Date | undefined
-    }
 
 export function DatePicker({ mode }: Props) {
-  const [date, setDate] = React.useState<CalendarProps>(new Date())
-
-  const formatDate = (date: CalendarProps) => {
-    return date instanceof Date
-      ? format(date, 'dd/MM/yyyy')
-      : `${format(date.from, 'dd/MM/yyyy')} - ${date.to ? format(date.to, 'dd/MM/yyyy') : ''}`
-  }
+  const today = new Date()
+  const [date, setDate] = React.useState<Date>()
+  const [range, setRange] = React.useState<DateRange | undefined>()
 
   return (
     <Popover>
@@ -41,18 +32,35 @@ export function DatePicker({ mode }: Props) {
             !date && 'text-muted-foreground'
           )}
         >
-          {formatDate(date)}
+          {!date && !range && format(today, 'dd/MM/yyyy')}
+          {date
+            ? format(date, 'dd/MM/yyyy')
+            : range?.from &&
+              `${format(range.from, 'dd/MM/yyyy')} - ${
+                range.to ? format(range.to, 'dd/MM/yyyy') : ''
+              }`}
           <CalendarIcon className="mr-2 h-4 w-4" />
         </CalendarButton>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0 dark">
-        <Calendar
-          mode={mode}
-          selected={date}
-          onSelect={setDate}
-          initialFocus
-          className="dark bg-dark-500 border-dark-300"
-        />
+        {mode === 'single' && (
+          <Calendar
+            mode={'single'}
+            selected={date}
+            onSelect={setDate}
+            initialFocus
+            className="dark bg-dark-500 border-dark-300"
+          />
+        )}
+        {mode === 'range' && (
+          <Calendar
+            mode={'range'}
+            selected={range}
+            onSelect={setRange}
+            initialFocus
+            className="dark bg-dark-500 border-dark-300"
+          />
+        )}
       </PopoverContent>
     </Popover>
   )
