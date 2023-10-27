@@ -1,7 +1,7 @@
-@mixin buttonColorsAndBorders($color, $backGroundColor, $border, $border-radius, $box-shadow) {
+@mixin button-colors-and-borders($color, $back-ground-color, $border, $border-radius, $box-shadow) {
   color: $color;
 
-  background-color: $backGroundColor;
+  background-color: $back-ground-color;
   border: $border;
   border-radius: $border-radius;
   box-shadow: $box-shadow;
@@ -20,12 +20,12 @@
 }
 
 .primary {
-  @include buttonColorsAndBorders(
-                  var(--color-light-100),
-                  var(--color-accent-500),
-                  2px solid var(--color-accent-500),
-                  4px,
-                  0 4px 18px 0 #8c61ff59
+  @include button-colors-and-borders(
+    var(--color-light-100),
+    var(--color-accent-500),
+    2px solid var(--color-accent-500),
+    4px,
+    0 4px 18px 0 #8c61ff59
   );
 
   &:hover {
@@ -51,12 +51,12 @@
 }
 
 .secondary {
-  @include buttonColorsAndBorders(
-                  var(--color-light-100),
-                  var(--color-dark-300),
-                  2px solid var(--color-dark-300),
-                  4px,
-                  0 4px 4px 0 #4d566021
+  @include button-colors-and-borders(
+    var(--color-light-100),
+    var(--color-dark-300),
+    2px solid var(--color-dark-300),
+    4px,
+    0 4px 4px 0 #4d566021
   );
 
   &:hover {
@@ -82,12 +82,12 @@
 }
 
 .outline {
-  @include buttonColorsAndBorders(
-                  var(--color-accent-500),
-                  rgba(255, 255, 255, 0),
-                  1px solid var(--color-accent-500),
-                  4px,
-                  none
+  @include button-colors-and-borders(
+    var(--color-accent-500),
+    rgba(255, 255, 255, 0),
+    1px solid var(--color-accent-500),
+    4px,
+    none
   );
 
   &:hover {
@@ -113,12 +113,12 @@
 }
 
 .link {
-  @include buttonColorsAndBorders(
-                  var(--color-accent-500),
-                  rgba(255, 255, 255, 0),
-                  2px solid rgb(0 0 0 / 0%),
-                  4px,
-                  none
+  @include button-colors-and-borders(
+    var(--color-accent-500),
+    rgba(255, 255, 255, 0),
+    2px solid rgb(0 0 0 / 0%),
+    4px,
+    none
   );
 
   padding: 6px 12px;
