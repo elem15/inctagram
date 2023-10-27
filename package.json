@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:production": "npm run build",
     "start": "next start",
     "lint": "next lint",
     "stylelint:fix": "stylelint --fix src/**/*.{scss,css} --allow-empty-input",
