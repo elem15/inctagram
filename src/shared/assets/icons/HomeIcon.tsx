@@ -1,20 +1,12 @@
-import { SVGProps, Ref, forwardRef } from 'react'
-const HomeIcon = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    fill="none"
-    ref={ref}
-  >
-    <path
-      fill="#000"
-      d="M20.42 10.18 12.71 2.3a1 1 0 0 0-1.42 0l-7.71 7.89A2 2 0 0 0 3 11.62V20a2 2 0 0 0 1.89 2h14.22A2 2 0 0 0 21 20v-8.38a2.07 2.07 0 0 0-.58-1.44ZM10 20v-6h4v6h-4Zm9 0h-3v-7a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v7H5v-8.42l7-7.15 7 7.19V20Z"
-    />
-  </svg>
-)
-const ForwardRef = forwardRef(HomeIcon)
+// icon:bx-home-alt | Boxicons https://boxicons.com/ | Atisa
+import * as React from 'react'
 
-export { ForwardRef as HomeIcon }
+function IconBxHomeAlt(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" height="24px" width="24px" {...props}>
+      <path d="M5 22h14a2 2 0 002-2v-9a1 1 0 00-.29-.71l-8-8a1 1 0 00-1.41 0l-8 8A1 1 0 003 11v9a2 2 0 002 2zm5-2v-5h4v5zm-5-8.59l7-7 7 7V20h-3v-5a2 2 0 00-2-2h-4a2 2 0 00-2 2v5H5z" />
+    </svg>
+  )
+}
+
+export default IconBxHomeAlt

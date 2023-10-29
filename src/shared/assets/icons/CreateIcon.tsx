@@ -1,24 +1,13 @@
-import { SVGProps, Ref, forwardRef } from 'react'
-const CreateIcon = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    viewBox="0 0 24 24"
-    height="1em"
-    fill="none"
-    ref={ref}
-  >
-    <path
-      fill="#000"
-      d="M18 3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3Zm1 15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12Z"
-    />
-    <path
-      fill="#000"
-      d="M15 11h-2V9a1 1 0 0 0-2 0v2H9a1 1 0 0 0 0 2h2v2a1 1 0 0 0 2 0v-2h2a1 1 0 0 0 0-2Z"
-    />
-  </svg>
-)
-const ForwardRef = forwardRef(CreateIcon)
+// icon:plus-square | Ant Design Icons https://ant.design/components/icon/ | Ant Design
+import * as React from 'react'
 
-export { ForwardRef as CreateIcon }
+function CreateIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 1024 1024" fill="currentColor" height="24px" width="24px" {...props}>
+      <path d="M328 544h152v152c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V544h152c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H544V328c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v152H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z" />
+      <path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z" />
+    </svg>
+  )
+}
+
+export default CreateIcon

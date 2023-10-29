@@ -56,6 +56,9 @@ export function Home() {
         <li>
           <Link href="auth/privacy-policy">Privacy Policy</Link>
         </li>
+        <li>
+          <Link href="my-profile">My Profile</Link>
+        </li>
       </ul>
       {isAuth && (
         <>

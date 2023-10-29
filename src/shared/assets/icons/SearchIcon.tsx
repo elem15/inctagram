@@ -1,20 +1,12 @@
-import { SVGProps, Ref, forwardRef } from 'react'
-const SearchsIcon = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    ref={ref}
-  >
-    <path
-      fill="#000"
-      d="m20.71 19.29-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095ZM5 11a6 6 0 1 1 12 0 6 6 0 0 1-12 0Z"
-    />
-  </svg>
-)
-const ForwardRef = forwardRef(SearchsIcon)
+// icon:bx-search | Boxicons https://boxicons.com/ | Atisa
+import * as React from 'react'
 
-export { ForwardRef as SearchsIcon }
+function SearchsIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" height="24px" width="24px" {...props}>
+      <path d="M10 18a7.952 7.952 0 004.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0018 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z" />
+    </svg>
+  )
+}
+
+export default SearchsIcon
