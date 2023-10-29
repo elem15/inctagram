@@ -1,5 +1,3 @@
-import { ComponentProps, FC } from 'react'
-
 import { clsx } from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -20,14 +18,8 @@ import IconUser2 from '../../assets/icons/UserIcon2'
 
 import s from './Sidebar.module.scss'
 
-type Props = {
-  // children: ReactNode
-} & ComponentProps<'div'>
-
-export const Sidebar: FC<Props> = ({ ...rest }) => {
+export const Sidebar = () => {
   const router = useRouter()
-
-  console.log(router)
 
   return (
     <div className={s.box} {...rest}>
