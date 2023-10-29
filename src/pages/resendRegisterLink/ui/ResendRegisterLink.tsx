@@ -4,14 +4,14 @@ import styles from './ResendRegisterLink.module.scss'
 
 import { useResendRegistrationLinkMutation } from '@/entities/auth'
 import { TimeManagement } from '@/shared/assets'
+import { BASE_URL } from '@/shared/constants/ext-urls'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { getHeaderLayout } from '@/widgets/layouts'
 import { Spinner } from '@/widgets/spinner'
 
 const ResendRegisterLink = () => {
-  const baseUrl =
-    process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://incta.online'
+  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : BASE_URL
 
   const { t } = useTranslation()
   const [resendRegistrationLink, { isLoading }] = useResendRegistrationLinkMutation()

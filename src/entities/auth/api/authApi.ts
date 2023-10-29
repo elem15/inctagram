@@ -2,12 +2,13 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { clearLocalUserData, setLoginUser } from '../model/authSlice'
 
+import { BASE_URL } from '@/shared/constants/ext-urls'
 import { consoleErrors } from '@/shared/lib'
 import { IEmailBaseUrl, IEmailPassword, IEmailPasswordUser } from '@/shared/types'
 
 export const authApi = createApi({
   reducerPath: 'userAuth',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://incta.online/api/v1' }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}/api/v1` }),
   tagTypes: ['User'],
   endpoints: builder => ({
     registration: builder.mutation<any, IEmailPasswordUser>({
