@@ -1,13 +1,13 @@
 FROM node:18.15 as dependencies
 WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install
+COPY package.json package-lock.json ./
+RUN npm install
 
 FROM node:18.15 as builder
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
-RUN yarn build:production
+RUN npm run build:production
 
 FROM node:18.15 as runner
 WORKDIR /app
@@ -19,4 +19,4 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 EXPOSE 3000
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
