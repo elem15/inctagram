@@ -11,14 +11,23 @@ import { Popover, PopoverContent, PopoverTrigger, Calendar, CalendarButton } fro
 type Props = {
   mode: 'single' | 'range'
   errorMessage?: string
+  getDate: (date: Date | DateRange) => typeof date
 }
 
-export function DatePicker({ mode, errorMessage }: Props) {
+export function DatePicker({ mode, errorMessage, getDate }: Props) {
   const today = new Date()
   const [date, setDate] = React.useState<Date>()
-  const [range, setRange] = React.useState<DateRange | undefined>()
+  const [range, setRange] = React.useState<DateRange>()
   const isSelected = date || range
   const CalendarIcon = mode === 'range' ? CalendarRange : CalendarDays
+
+  React.useEffect(() => {
+    if (date) {
+      getDate(date)
+    } else if (range && range.to) {
+      getDate(range)
+    }
+  }, [getDate, date, range])
 
   return (
     <Popover>
