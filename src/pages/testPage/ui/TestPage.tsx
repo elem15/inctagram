@@ -10,7 +10,6 @@ import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 const TestPage = () => {
   const [errorMessage, setErrorMessage] = useState('Error')
   const getDate = (date: Date | DateRange) => {
-    console.log(date)
     setErrorMessage('')
 
     return date
@@ -19,7 +18,7 @@ const TestPage = () => {
   return (
     <div className="flex flex-col justify-start items-start bg-dark-700">
       <SuperCheckbox />
-      <Textarea value={'content'}/>
+      <Textarea value={'content'} />
       <hr />
       <CalendarButton variant={'destructive'}>Button</CalendarButton>
       <br />

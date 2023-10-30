@@ -35,7 +35,7 @@ export function DatePicker({ mode, errorMessage, getDate }: Props) {
         <CalendarButton
           variant={'default'}
           className={cn(
-            'min-w-[160px] justify-between text-left gap-10 font-normal bg-dark-500 border-dark-300 rounded-none hover:text-light-100 group',
+            'min-w-[160px] w-full justify-between text-left gap-10 font-normal bg-dark-500 border-dark-300 rounded-none hover:text-light-100 group',
             !isSelected && 'text-muted-foreground',
             errorMessage &&
               'data-[state=closed]:border-red-500 data-[state=closed]:text-red-500 border-[1px]'
