@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import ArrowRight from '../../assets/icons//ArrowRight'
 import ArrowLeft from '../../assets/icons/ArrowLeft'
@@ -87,6 +87,8 @@ export const Pagination = (props: PaginationProps) => {
   const classNames = {
     arrowButton: clsx(s.pageStyle, s.arrowButtonsStyle),
   }
+  const primaryArrowColor = 'white'
+  const disabledArrowColor = '#4C4C4C'
 
   return (
     <div className={s.paginationWrapper}>
@@ -97,7 +99,7 @@ export const Pagination = (props: PaginationProps) => {
           disabled={currentPage === 1}
         >
           <ArrowLeft
-            fill={currentPage === 1 ? '#4C4C4C' : 'white'}
+            fill={currentPage === 1 ? disabledArrowColor : primaryArrowColor}
             className={clsx(s.arrowStyle)}
           />
         </button>
@@ -121,7 +123,7 @@ export const Pagination = (props: PaginationProps) => {
           disabled={currentPage === pagesCount}
         >
           <ArrowRight
-            fill={currentPage === pagesCount ? '#4C4C4C' : 'white'}
+            fill={currentPage === pagesCount ? disabledArrowColor : primaryArrowColor}
             className={s.arrowStyle}
           />
         </button>
