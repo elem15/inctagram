@@ -9,7 +9,6 @@ import FavoritesIcon from '../../assets/icons/FavoritesIcon'
 import IconBxHomeAlt from '../../assets/icons/HomeIcon'
 import Layer2 from '../../assets/icons/Layer2'
 import LogOutIcon from '../../assets/icons/LogOut'
-import MessengersIcon from '../../assets/icons/MessengerIcon'
 import MessengerIcon from '../../assets/icons/MessengerIcon'
 import IconUser from '../../assets/icons/MyProfileIcon'
 import SearchsIcon from '../../assets/icons/SearchIcon'
@@ -18,11 +17,13 @@ import IconUser2 from '../../assets/icons/UserIcon2'
 
 import s from './Sidebar.module.scss'
 
+import MessangersIcon from '@/shared/assets/icons/MessangersIcon'
+
 export const Sidebar = () => {
   const router = useRouter()
 
   return (
-    <div className={s.box} {...rest}>
+    <div className={s.box}>
       <div className={s.contentBox}>
         <ul>
           <li>
@@ -55,7 +56,7 @@ export const Sidebar = () => {
               href={'#'}
               className={router.pathname === '/message' ? clsx(s.activeLink, s.content) : s.content}
             >
-              {router.pathname === '/message' ? <MessengersIcon /> : <MessengerIcon />}
+              {router.pathname === '/message' ? <MessangersIcon /> : <MessengerIcon />}
               <span className={router.pathname === 'message' ? s.activeLink : ''}>Messenger</span>
             </Link>
           </li>

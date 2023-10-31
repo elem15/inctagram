@@ -1,4 +1,3 @@
-// icon:message | Ant Design Icons https://ant.design/components/icon/ | Ant Design
 import * as React from 'react'
 
 function MessangersIcon(props: React.SVGProps<SVGSVGElement>) {
