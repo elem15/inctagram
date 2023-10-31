@@ -24,7 +24,7 @@ const TestPage = () => {
       <hr />
       <CalendarButton variant={'destructive'}>Button</CalendarButton>
       <br />
-      <DatePicker mode="single" errorMessage={errorMessage} getDate={getDate} lang={t.lg} />
+      <DatePicker mode="range" errorMessage={errorMessage} getDate={getDate} lang={t.lg} />
     </div>
   )
 }
