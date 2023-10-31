@@ -42,9 +42,6 @@ export function Home() {
           <Link href="auth/registration-resend">Resend Verification Link Registration</Link>
         </li>
         <li>
-          <Link href="email">Send Email menu</Link>
-        </li>
-        <li>
           <Link href="auth/forgot-password">Forgot password</Link>
         </li>
         <li>
@@ -54,7 +51,7 @@ export function Home() {
           <Link href="auth/terms-of-service">Terms of Service</Link>
         </li>
         <li>
-          <Link href="auth/privacy-policy">Privacy Policy</Link>
+          <Link href="auth/privacy">Privacy Policy</Link>
         </li>
         <li>
           <Link href="my-profile">My Profile</Link>

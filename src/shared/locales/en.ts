@@ -86,7 +86,7 @@ export const en = {
 
   messages: {
     password_validate_message:
-      'Password must contain a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [  ] ^ _` { | } ~ ',
+      'Password must contain 0-9, a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [  ] ^ _` { | } ~ ',
     user_max_length: 'Maximum number of characters 30',
     user_min_length: 'Minimum number of characters 6',
     password_min_length: 'Minimum number of characters 6',
