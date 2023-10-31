@@ -56,6 +56,9 @@ export function Home() {
         <li>
           <Link href="test">Component`s test page</Link>
         </li>
+        <li>
+          <Link href="my-profile">My Profile</Link>
+        </li>
       </ul>
       {isAuth && (
         <>

@@ -12,3 +12,4 @@ export { default as TimeManagement } from './backgroundComponents/TimeManagement
 export { default as Captcha } from './icons/reCaptchaIcon.svg'
 export { default as CalendarLight } from './icons/CalendarLight.svg'
 export { default as CalendarDark } from './icons/CalendarDark.svg'
+export * from './icons'
