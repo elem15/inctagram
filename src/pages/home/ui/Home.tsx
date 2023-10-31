@@ -42,9 +42,6 @@ export function Home() {
           <Link href="auth/registration-resend">Resend Verification Link Registration</Link>
         </li>
         <li>
-          <Link href="email">Send Email menu</Link>
-        </li>
-        <li>
           <Link href="auth/forgot-password">Forgot password</Link>
         </li>
         <li>

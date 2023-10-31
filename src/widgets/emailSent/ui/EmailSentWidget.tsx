@@ -5,7 +5,7 @@ import { EmailSent } from '@/shared/ui/emailSent/ui/EmailSent'
 export const EmailSentWidget: FC = () => {
   return (
     <>
-      <EmailSent path="/" />
+      <EmailSent path="/signup" />
     </>
   )
 }

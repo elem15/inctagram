@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 
+import { useRouter } from 'next/router'
+
 import { useLogOutMutation } from '@/entities/auth'
 import { selectAuthUser } from '@/entities/auth/model/authSlice'
 import { CloseIcon } from '@/shared/assets'
@@ -11,6 +13,7 @@ export const LogOutWidget: FC<{ onClose: () => void }> = ({ onClose }) => {
   const [logOut] = useLogOutMutation()
   const { email } = useAppSelector(selectAuthUser)
   const { accessToken } = useAuth()
+  const router = useRouter()
 
   return (
     <div
@@ -33,7 +36,7 @@ export const LogOutWidget: FC<{ onClose: () => void }> = ({ onClose }) => {
           <hr className="w full border-dark-100 " />
           <div className="px-2 sm:px-6 mt-8">
             <p className="text-light-100 text-center sm:text-left mb-5">
-              {t.logout.message} {email}
+              {t.logout.message} {email}?
             </p>
             <div className="w-full flex justify-center sm:justify-end gap-5">
               <button
@@ -45,7 +48,7 @@ export const LogOutWidget: FC<{ onClose: () => void }> = ({ onClose }) => {
               <button
                 onClick={() => {
                   logOut(accessToken as string)
-                  onClose()
+                  router.push('/signin')
                 }}
                 className="px-10 mb-12  bg-red-600 font-semibold text-light-100 p-2 rounded my-2"
               >
