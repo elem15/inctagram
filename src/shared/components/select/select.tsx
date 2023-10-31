@@ -36,7 +36,7 @@ export const SelectCustom = forwardRef<ElementRef<typeof Select.Trigger>, Select
     ref
   ) => {
     const mappedOptions = options?.map(o => (
-      <SelectItem key={o.value} value={o.value}>
+      <SelectItem className={clsx(className && s[className])} key={o.value} value={o.value}>
         {o.label}
       </SelectItem>
     ))
@@ -83,7 +83,7 @@ export const SelectItem = forwardRef<ElementRef<typeof Select.Item>, ItemProps>(
   ({ children, className, ...restProps }, ref) => {
     const classNames = {
       item: clsx(s.item, className),
-      itemText: clsx(s.itemText),
+      itemText: clsx(s.itemText, className),
     }
 
     return (

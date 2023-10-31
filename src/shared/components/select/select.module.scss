@@ -84,6 +84,16 @@
   background: var(--color-dark-300);
 }
 
+.pagination:hover {
+  background: var(--color-dark-100);
+  color: var(--color-light-100);
+}
+
+.pagination:focus-visible {
+  background: var(--color-dark-100);
+  color: var(--color-light-100);
+}
+
 @keyframes fadein {
   from {
     opacity: 0;
