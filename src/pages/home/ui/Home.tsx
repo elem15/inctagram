@@ -21,7 +21,7 @@ export function Home() {
       {error && <div className="text-red-600">Google authorization error</div>}
       <ul>
         <li>
-          <Link href="home">Home</Link>
+          <Link href="/">Home</Link>
         </li>
         <li>
           <Link href="email-sent">Email sent</Link>
@@ -52,6 +52,9 @@ export function Home() {
         </li>
         <li>
           <Link href="auth/privacy">Privacy Policy</Link>
+        </li>
+        <li>
+          <Link href="test">Component`s test page</Link>
         </li>
         <li>
           <Link href="my-profile">My Profile</Link>

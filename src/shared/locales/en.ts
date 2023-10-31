@@ -2,6 +2,7 @@ import { enTextsPrivacyPolicy } from '@/shared/locales/en-texts-privacy-policy'
 import { enTextsTermsOfService } from '@/shared/locales/en-texts-terms-of-service'
 
 export const en = {
+  lg: 'en',
   home: {
     home: 'Home',
     create: 'Create',

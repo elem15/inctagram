@@ -3,6 +3,7 @@ import { LangType } from './en'
 import { ruTextsTermsOfService } from '@/shared/locales/ru-terms-of-service'
 import { ruTextsPrivacyPolicy } from '@/shared/locales/ru-texts-privacy-policy'
 export const ru: LangType = {
+  lg: 'ru',
   home: {
     home: 'Главная',
     create: 'Создать',
