@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FavoritesIcon = () => (
+export const FavoritesIcon = () => (
   <svg
     width="24px"
     height="24px"
@@ -14,5 +14,3 @@ const FavoritesIcon = () => (
     />
   </svg>
 )
-
-export default FavoritesIcon

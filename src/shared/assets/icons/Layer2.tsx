@@ -23,4 +23,5 @@ const Layer2 = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
 )
 const ForwardRef = forwardRef(Layer2)
 
+export { Layer2, ForwardRef }
 export default memo(ForwardRef)

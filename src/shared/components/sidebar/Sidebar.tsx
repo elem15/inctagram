@@ -2,22 +2,23 @@ import { clsx } from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import BookMarkIcon from '../../assets/icons/BookMarkIcon'
-import CreateIcon from '../../assets/icons/CreateIcon'
-import CreatesIcon from '../../assets/icons/CreateIcon2'
-import FavoritesIcon from '../../assets/icons/FavoritesIcon'
-import IconBxHomeAlt from '../../assets/icons/HomeIcon'
-import Layer2 from '../../assets/icons/Layer2'
-import LogOutIcon from '../../assets/icons/LogOut'
-import MessengerIcon from '../../assets/icons/MessengerIcon'
-import IconUser from '../../assets/icons/MyProfileIcon'
-import SearchsIcon from '../../assets/icons/SearchIcon'
-import StatisticsIcon from '../../assets/icons/StatisticsIcon'
-import IconUser2 from '../../assets/icons/UserIcon2'
+import {
+  BookMarkIcon,
+  CreateIcon,
+  CreatesIcon,
+  FavoritesIcon,
+  HomesIcon,
+  IconBxHomeAlt,
+  IconUser,
+  IconUser2,
+  LogOutIcon,
+  MessangersIcon,
+  MessengerIcon,
+  SearchsIcon,
+  StatisticsIcon,
+} from '../../assets'
 
 import s from './Sidebar.module.scss'
-
-import MessangersIcon from '@/shared/assets/icons/MessangersIcon'
 
 export const Sidebar = () => {
   const router = useRouter()
@@ -27,24 +28,19 @@ export const Sidebar = () => {
       <div className={s.contentBox}>
         <ul>
           <li>
-            <Link href={'#'} className={router.pathname === '/home' ? s.activeLink : s.content}>
-              {router.pathname == '/home' ? <Layer2 /> : <IconBxHomeAlt />}
+            <Link href={'#'} className={s.content}>
+              {router.pathname == '/home' ? <HomesIcon /> : <IconBxHomeAlt />}
               <span className={router.pathname === '/home' ? s.activeLink : ''}>Home</span>
             </Link>
           </li>
           <li>
-            <Link href={'#'} className={router.pathname === '/create' ? s.activeLink : s.content}>
+            <Link href={'#'} className={s.content}>
               {router.pathname === '/create' ? <CreatesIcon /> : <CreateIcon />}
               <span className={router.pathname === '/create' ? s.activeLink : ''}> Create</span>
             </Link>
           </li>
           <li>
-            <Link
-              href={'my-profile'}
-              className={
-                router.pathname === '/my-profile' ? clsx(s.activeLink, s.content) : s.content
-              }
-            >
+            <Link href={'my-profile'} className={s.content}>
               {router.pathname === '/my-profile' ? <IconUser2 /> : <IconUser />}
               <span className={router.pathname === '/my-profile' ? s.activeLink : ''}>
                 My Profile
@@ -52,12 +48,11 @@ export const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link
-              href={'#'}
-              className={router.pathname === '/message' ? clsx(s.activeLink, s.content) : s.content}
-            >
-              {router.pathname === '/message' ? <MessangersIcon /> : <MessengerIcon />}
-              <span className={router.pathname === 'message' ? s.activeLink : ''}>Messenger</span>
+            <Link href={'#'} className={s.content}>
+              {router.pathname === '/messenger' ? <MessangersIcon /> : <MessengerIcon />}
+              <span className={router.pathname === '/messenger' ? s.activeLink : ''}>
+                Messenger
+              </span>
             </Link>
           </li>
           <li>
@@ -66,7 +61,7 @@ export const Sidebar = () => {
               className={
                 router.pathname === '/search'
                   ? clsx(s.activeLink, s.content, s.marginBox)
-                  : s.content
+                  : clsx(s.content, s.marginBox)
               }
             >
               <SearchsIcon /> Search
@@ -83,14 +78,7 @@ export const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link
-              href={'#'}
-              className={
-                router.pathname === '/favorite'
-                  ? clsx(s.activeLink, s.content, s.largeMargin)
-                  : s.content
-              }
-            >
+            <Link href={'#'} className={clsx(s.content, s.largeMargin)}>
               {router.pathname === '/favorite' ? <BookMarkIcon /> : <FavoritesIcon />}
               <span className={router.pathname === '/favorite' ? s.activeLink : ''}>Favorites</span>
             </Link>

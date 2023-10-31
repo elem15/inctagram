@@ -1,7 +1,7 @@
 // icon:plus-square | Ant Design Icons https://ant.design/components/icon/ | Ant Design
 import * as React from 'react'
 
-function CreateIcon(props: React.SVGProps<SVGSVGElement>) {
+export function CreateIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 1024 1024" fill="currentColor" height="24px" width="24px" {...props}>
       <path d="M328 544h152v152c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V544h152c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H544V328c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v152H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z" />
@@ -9,5 +9,3 @@ function CreateIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
-
-export default CreateIcon
