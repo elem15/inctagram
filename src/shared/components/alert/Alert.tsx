@@ -1,8 +1,8 @@
 import { ComponentProps, FC, ReactNode, useState } from 'react'
 
-import s from './Alert.module.scss'
+import { CloseIcons } from '../../assets/icons/CloseIcons'
 
-import { CloseIcons } from '@/shared/assets/icons/CloseIcons'
+import s from './Alert.module.scss'
 
 type Props = {
   children: ReactNode
