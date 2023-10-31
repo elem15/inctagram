@@ -5,6 +5,7 @@ import { DateRange } from 'react-day-picker'
 import { SuperCheckbox, Textarea } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
 import { CalendarButton } from '@/shared/components/ui'
+import { useTranslation } from '@/shared/lib'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 
 const TestPage = () => {
@@ -14,6 +15,7 @@ const TestPage = () => {
 
     return date
   }
+  const { t } = useTranslation()
 
   return (
     <div className="flex flex-col justify-start items-start bg-dark-700">
@@ -22,7 +24,7 @@ const TestPage = () => {
       <hr />
       <CalendarButton variant={'destructive'}>Button</CalendarButton>
       <br />
-      <DatePicker mode="single" errorMessage={errorMessage} getDate={getDate} />
+      <DatePicker mode="single" errorMessage={errorMessage} getDate={getDate} lang={t.lg} />
     </div>
   )
 }

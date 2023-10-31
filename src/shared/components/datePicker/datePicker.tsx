@@ -1,6 +1,9 @@
 import * as React from 'react'
 
+// eslint-disable-next-line import/no-duplicates
 import { format } from 'date-fns'
+// eslint-disable-next-line import/no-duplicates
+import ru from 'date-fns/locale/ru'
 import { CalendarDays, CalendarRange, CalendarSearch } from 'lucide-react'
 import { DateRange } from 'react-day-picker'
 
@@ -11,15 +14,17 @@ import { Popover, PopoverContent, PopoverTrigger, Calendar, CalendarButton } fro
 type Props = {
   mode: 'single' | 'range'
   errorMessage?: string
+  lang?: string
   getDate: (date: Date | DateRange) => typeof date
 }
 
-export function DatePicker({ mode, errorMessage, getDate }: Props) {
+export function DatePicker({ mode, errorMessage, getDate, lang }: Props) {
   const today = new Date()
   const [date, setDate] = React.useState<Date>()
   const [range, setRange] = React.useState<DateRange>()
   const isSelected = date || range
   const CalendarIcon = mode === 'range' ? CalendarRange : CalendarDays
+  const locale = lang === 'ru' ? ru : undefined
 
   React.useEffect(() => {
     if (date) {
@@ -61,6 +66,7 @@ export function DatePicker({ mode, errorMessage, getDate }: Props) {
         {mode === 'single' && (
           <Calendar
             mode={'single'}
+            locale={locale}
             selected={date}
             onSelect={setDate}
             initialFocus
@@ -70,6 +76,7 @@ export function DatePicker({ mode, errorMessage, getDate }: Props) {
         {mode === 'range' && (
           <Calendar
             mode={'range'}
+            locale={locale}
             selected={range}
             onSelect={setRange}
             initialFocus

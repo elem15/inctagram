@@ -9,7 +9,13 @@ import { buttonVariants } from './CalendarButton'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
-function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
+function Calendar({
+  className,
+  classNames,
+  showOutsideDays = true,
+  locale,
+  ...props
+}: CalendarProps) {
   function sunday(day: Date) {
     return day.getDay() === 0
   }
@@ -19,6 +25,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
 
   return (
     <DayPicker
+      locale={locale}
       weekStartsOn={1}
       showOutsideDays={showOutsideDays}
       modifiers={{
