@@ -9,7 +9,7 @@ import { useTranslation } from '@/shared/lib'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 
 const TestPage = () => {
-  const [errorMessage, setErrorMessage] = useState('Error')
+  const [errorMessage, setErrorMessage] = useState('')
   const getDate = (date: Date | DateRange) => {
     setErrorMessage('')
 
