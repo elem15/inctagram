@@ -87,8 +87,8 @@ export const Pagination = (props: PaginationProps) => {
   const classNames = {
     arrowButton: clsx(s.pageStyle, s.arrowButtonsStyle),
   }
-  const primaryArrowColor = 'white'
-  const disabledArrowColor = '#4C4C4C'
+  const ARROW_COLOR = 'white'
+  const DISABLED_ARROW_COLOR = '#4C4C4C'
 
   return (
     <div className={s.paginationWrapper}>
@@ -99,7 +99,7 @@ export const Pagination = (props: PaginationProps) => {
           disabled={currentPage === 1}
         >
           <ArrowLeft
-            fill={currentPage === 1 ? disabledArrowColor : primaryArrowColor}
+            fill={currentPage === 1 ? DISABLED_ARROW_COLOR : ARROW_COLOR}
             className={clsx(s.arrowStyle)}
           />
         </button>
@@ -123,7 +123,7 @@ export const Pagination = (props: PaginationProps) => {
           disabled={currentPage === pagesCount}
         >
           <ArrowRight
-            fill={currentPage === pagesCount ? disabledArrowColor : primaryArrowColor}
+            fill={currentPage === pagesCount ? DISABLED_ARROW_COLOR : ARROW_COLOR}
             className={s.arrowStyle}
           />
         </button>
