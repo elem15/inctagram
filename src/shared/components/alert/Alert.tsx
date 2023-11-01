@@ -2,7 +2,7 @@ import { ComponentProps, FC, ReactNode, useState } from 'react'
 
 import { motion } from 'framer-motion'
 
-import { CloseIcons } from '../../assets/icons/CloseIcons'
+import { CloseIcon } from '../../assets/icons/CloseIcon'
 
 import s from './Alert.module.scss'
 
@@ -29,7 +29,7 @@ export const Alert: FC<Props> = ({ children, variant, ...rest }) => {
             onClick={() => setOpen(false)}
           >
             <motion.div whileHover={{ scale: 1.1 }}>
-              <CloseIcons />
+              <CloseIcon />
             </motion.div>
           </motion.div>
         </div>
