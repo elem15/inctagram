@@ -8,6 +8,7 @@ import s from './input.module.scss'
 
 import { EyeOffOutline, EyeOutline, SearchIcon } from '@/shared/assets'
 
+
 export type InputProps = {
   onChangeValue?: (value: string) => void
   error?: string
@@ -63,3 +64,5 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     )
   }
 )
+
+

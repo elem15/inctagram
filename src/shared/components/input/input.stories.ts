@@ -45,3 +45,4 @@ export const Search: Story = {
     type: 'search',
   },
 }
+
