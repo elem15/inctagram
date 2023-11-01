@@ -1,5 +1,7 @@
 import { ComponentProps, FC, ReactNode, useState } from 'react'
 
+import { motion } from 'framer-motion'
+
 import { CloseIcons } from '../../assets/icons/CloseIcons'
 
 import s from './Alert.module.scss'
@@ -11,17 +13,27 @@ type Props = {
 export const Alert: FC<Props> = ({ children, variant, ...rest }) => {
   const [open, setOpen] = useState(true)
 
-  if (open)
+  if (open) {
     return (
       <div className={s.box}>
         <div className={s[variant]} {...rest}>
           <div className={s.content}>
-            <div className={s.text}>{children}</div>
+            <motion.span animate={{ opacity: 1 }} className={s.text} initial={{ opacity: 0 }}>
+              {children}
+            </motion.span>
           </div>
-          <div className={s.icon} onClick={() => setOpen(false)}>
-            <CloseIcons />
-          </div>
+          <motion.div
+            animate={{ opacity: 1 }}
+            className={s.icon}
+            initial={{ opacity: 0 }}
+            onClick={() => setOpen(false)}
+          >
+            <motion.div whileHover={{ scale: 1.1 }}>
+              <CloseIcons />
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     )
+  }
 }
