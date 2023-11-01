@@ -35,7 +35,7 @@
 
   &:focus-visible {
     background-color: var(--color-accent-500);
-    border: 2px solid var(--color-info-700);
+    border: 2px solid var(--color-accent-700);
   }
 
   &:active {
@@ -66,7 +66,7 @@
 
   &:focus-visible {
     background-color: var(--color-dark-300);
-    border: 2px solid var(--color-accent-700);
+    border: 2px solid var(--color-accent-300);
   }
 
   &:active {
@@ -97,7 +97,7 @@
 
   &:focus-visible {
     color: var(--color-accent-700);
-    border: 1px solid var(--color-accent-700);
+    border: 2px solid var(--color-accent-700);
   }
 
   &:active {

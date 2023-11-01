@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const HomesIcon = props => {
+export const HomesIcon = (props: any) => {
   return (
     <svg
       width="24"
