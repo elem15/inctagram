@@ -1,6 +1,6 @@
 export * from './UserIcon2'
-export * from './SearchIcon'
 export * from './StatisticsIcon'
+export * from './SearchIcon'
 export * from './MyProfileIcon'
 export * from './MessengerIcon'
 export * from './MessangersIcon'

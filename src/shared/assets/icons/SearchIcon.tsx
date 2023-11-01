@@ -24,5 +24,3 @@ export function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
-
-

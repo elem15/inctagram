@@ -20,5 +20,3 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
 
   return <Input {...restProps} {...field} error={error} id={name} />
 }
-
-
