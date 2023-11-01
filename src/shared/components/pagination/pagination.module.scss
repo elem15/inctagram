@@ -24,6 +24,7 @@
   @include paginationTextAlign(5px, center);
   @include paginationColor(--color-light-100, rgb(255 255 255 / 0%));
   @include paginationBorder(rgb(255 255 255 / 0%), 2px);
+
   cursor: pointer;
 
   &:hover {
@@ -70,15 +71,17 @@
 
 .paginationWrapper {
   all: unset;
+
   display: flex;
   gap: 5px;
+
   margin-top: 15px;
   margin-bottom: 15px;
 }
 
 .selectWrapper {
-  gap: 10px;
   display: flex;
+  gap: 10px;
   align-items: center;
   justify-content: center;
 }
