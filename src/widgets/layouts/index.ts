@@ -1,2 +1,2 @@
 export { getHeaderLayout } from './header-layout/HeaderLayout'
-export { getSidebarLayout } from '@/widgets/layouts/header-with-sidebar-layout/HeaderWithSidebarLayout'
+export { getHeaderWithSidebarLayout } from '@/widgets/layouts/header-with-sidebar-layout/HeaderWithSidebarLayout'
