@@ -1,0 +1,46 @@
+.notificationBlock {
+  cursor: pointer;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  margin: 4px 32px;
+
+  .iconBadge {
+    position: absolute;
+    top: 2px;
+    left: 21px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 13px;
+    height: 13px;
+    padding: 4px;
+
+    font-size: 10px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 8px;
+
+    background: var(--color-danger-500);
+    border-radius: 50%;
+  }
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+}
+
+.iconColor {
+  width: 28px;
+  height: 28px;
+  color: var(--color-accent-500);
+}
