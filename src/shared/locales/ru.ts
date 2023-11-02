@@ -106,6 +106,16 @@ export const ru: LangType = {
     title: 'Политика конфиденциальности',
     text: ruTextsPrivacyPolicy,
   },
+  sidebar: {
+    home: 'Главная',
+    create: 'Создать',
+    my_profile: 'Профиль',
+    messenger: 'Сообщения',
+    search: 'Поиск',
+    statistics: 'Статистика',
+    favorites: 'Избранное',
+    log_out: 'Выйти',
+  },
   notification_menu: {
     title: 'Уведомления',
   },

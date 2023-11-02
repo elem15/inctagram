@@ -106,6 +106,16 @@ export const en = {
     title: 'Privacy Policy',
     text: enTextsPrivacyPolicy,
   },
+  sidebar: {
+    home: 'Home',
+    create: 'Create',
+    my_profile: 'My Profile',
+    messenger: 'Messenger',
+    search: 'Search',
+    statistics: 'Statistics',
+    favorites: 'Favorites',
+    log_out: 'Log Out',
+  },
   notification_menu: {
     title: 'Notification',
   },

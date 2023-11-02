@@ -20,8 +20,11 @@ import {
 
 import s from './Sidebar.module.scss'
 
+import { useTranslation } from '@/shared/lib'
+
 export const Sidebar = () => {
   const router = useRouter()
+  const { t } = useTranslation()
 
   return (
     <div className={s.box}>
@@ -30,20 +33,24 @@ export const Sidebar = () => {
           <li>
             <Link href={'#'} className={s.content}>
               {router.pathname == '/home' ? <HomesIcon /> : <IconBxHomeAlt />}
-              <span className={router.pathname === '/home' ? s.activeLink : ''}>Home</span>
+              <span className={router.pathname === '/home' ? s.activeLink : ''}>
+                {t.sidebar.home}
+              </span>
             </Link>
           </li>
           <li>
             <Link href={'#'} className={s.content}>
               {router.pathname === '/create' ? <CreatesIcon /> : <CreateIcon />}
-              <span className={router.pathname === '/create' ? s.activeLink : ''}> Create</span>
+              <span className={router.pathname === '/create' ? s.activeLink : ''}>
+                {t.sidebar.create}
+              </span>
             </Link>
           </li>
           <li>
             <Link href={'my-profile'} className={s.content}>
               {router.pathname === '/my-profile' ? <IconUser2 /> : <IconUser />}
               <span className={router.pathname === '/my-profile' ? s.activeLink : ''}>
-                My Profile
+                {t.sidebar.my_profile}
               </span>
             </Link>
           </li>
@@ -51,7 +58,7 @@ export const Sidebar = () => {
             <Link href={'#'} className={s.content}>
               {router.pathname === '/messenger' ? <MessangersIcon /> : <MessengerIcon />}
               <span className={router.pathname === '/messenger' ? s.activeLink : ''}>
-                Messenger
+                {t.sidebar.messenger}
               </span>
             </Link>
           </li>
@@ -64,7 +71,8 @@ export const Sidebar = () => {
                   : clsx(s.content, s.marginBox)
               }
             >
-              <SearchIcon /> Search
+              <SearchIcon />
+              {t.sidebar.search}
             </Link>
           </li>
           <li>
@@ -74,19 +82,21 @@ export const Sidebar = () => {
                 router.pathname === '/statistics' ? clsx(s.activeLink, s.content) : s.content
               }
             >
-              <StatisticsIcon /> Statistics
+              <StatisticsIcon /> {t.sidebar.statistics}
             </Link>
           </li>
           <li>
             <Link href={'#'} className={clsx(s.content, s.largeMargin)}>
               {router.pathname === '/favorite' ? <BookMarkIcon /> : <FavoritesIcon />}
-              <span className={router.pathname === '/favorite' ? s.activeLink : ''}>Favorites</span>
+              <span className={router.pathname === '/favorite' ? s.activeLink : ''}>
+                {t.sidebar.favorites}
+              </span>
             </Link>
           </li>
 
           <li className={s.content}>
             <Link href={'signin'} className={s.content}>
-              <LogOutIcon /> Log Out
+              <LogOutIcon /> {t.sidebar.log_out}
             </Link>
           </li>
         </ul>
