@@ -9,20 +9,19 @@
 
   width: 220px;
   height: 100vh;
-margin-top: 64px;
-padding: 72px 60px 10px;
+  margin-top: 64px;
+  padding: 72px 60px 10px;
 
   color: var(--color-text-primary);
 
   background-color: transparent;
-border-right: 1px solid var(--color-dark-300);
-
+  border-right: 1px solid var(--color-dark-300);
 }
 
 .contentBox {
   flex-grow: 1;
 
-  li{
+  li {
     list-style: none;
   }
 }
@@ -30,50 +29,45 @@ border-right: 1px solid var(--color-dark-300);
 .content {
   display: flex;
   gap: 12px;
-align-items: center;
+  align-items: center;
   justify-content: flex-start;
 
-margin-bottom: 24px;
+  margin-bottom: 24px;
 
   font-size: 14px;
   font-weight: 500;
   font-style: normal;
   line-height: 24px;
   color: #fff;
-text-decoration: none;
+  text-decoration: none;
 
+  &:active {
+    color: var(--color-accent-500);
+    fill: var(--color-accent-500);
+    stroke: var(--color-accent-500);
+  }
 
-
-&:active{
-  color: var(--color-accent-500);
-  fill:var(--color-accent-500);
-stroke: var(--color-accent-500);
-}
-
-  &:hover{
+  &:hover {
     color: var(--color-accent-100);
-    stroke:var(--color-accent-100)
+    stroke: var(--color-accent-100);
   }
 
-
-  &:focus-visible{
+  &:focus-visible {
     border-radius: 2px;
-    outline: 2px solid var(--color-accent-700)
+    outline: 2px solid var(--color-accent-700);
   }
 
-  &:disabled{
+  &:disabled {
     color: var(--color-dark-100);
     stroke: var(--color-dark-100);
   }
 }
 
-
-
-.marginBox{
+.marginBox {
   margin-bottom: 60px;
 }
 
-.largeMargin{
+.largeMargin {
   margin-bottom: 180px;
 }
 
@@ -82,5 +76,5 @@ stroke: var(--color-accent-500);
   font-weight: 700;
   font-style: normal;
   line-height: 24px;
-  color:var(--color-accent-500);
+  color: var(--color-accent-500);
 }

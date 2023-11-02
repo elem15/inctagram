@@ -1,11 +1,9 @@
 .wrapper {
   display: grid;
   grid-template-areas:
-  'h h'
-  's c';
+    'h h'
+    's c';
   grid-template-columns: 220px 9fr;
-
-
 
   .header {
     grid-area: h;
@@ -13,7 +11,6 @@
 
   .sidebar {
     grid-area: s;
-
   }
 
   .wrapperContent {
