@@ -1,11 +1,12 @@
 import { FC, useState } from 'react'
 
-import { BellIcon } from '@radix-ui/react-icons'
 import { clsx } from 'clsx'
 
 import { Typography } from '../typography'
 
 import s from './NotificationBell.module.scss'
+
+import { OutlineBellIcon } from '@/shared/assets/icons/OutlineBellIcon'
 
 export type NotificationProps = {
   className?: string
@@ -20,7 +21,7 @@ export const NotificationBell: FC<NotificationProps> = ({ toggle, setToggle, cla
 
   return (
     <button onClick={() => setToggle(!toggle)} className={classNames.notificationBlock}>
-      <BellIcon className={toggle ? s.iconColor : s.icon} />
+      <OutlineBellIcon className={toggle ? s.iconColor : s.icon} />
       {!toggle && (
         <Typography as="span" className={s.iconBadge}>
           2

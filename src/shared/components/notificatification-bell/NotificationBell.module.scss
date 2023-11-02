@@ -1,7 +1,10 @@
 .notificationBlock {
   cursor: pointer;
 
-  position: relative;
+  position: absolute;
+  z-index: 10;
+  top: 0.7rem;
+  right: 13.3rem;
 
   display: flex;
   align-items: center;
@@ -13,8 +16,8 @@
 
   .iconBadge {
     position: absolute;
-    top: 2px;
-    left: 21px;
+    top: 1.5px;
+    left: 16px;
 
     display: flex;
     align-items: center;
@@ -31,6 +34,11 @@
 
     background: var(--color-danger-500);
     border-radius: 50%;
+  }
+
+  @media (width <= 640px) {
+    top: 0.7rem;
+    right: 6rem;
   }
 }
 

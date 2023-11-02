@@ -106,5 +106,8 @@ export const en = {
     title: 'Privacy Policy',
     text: enTextsPrivacyPolicy,
   },
+  notification_menu: {
+    title: 'Notification',
+  },
 }
 export type LangType = typeof en

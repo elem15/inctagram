@@ -2,7 +2,7 @@
   position: absolute;
   z-index: 10;
   top: 3.5rem;
-  right: 15rem;
+  right: 15.2rem;
 
   display: flex;
   flex-direction: column;
@@ -16,8 +16,9 @@
   border-radius: 4px;
 
   @media (width <= 640px) {
-    top: 4.5rem;
-    right: 7.3rem;
+    top: 3.5rem;
+    right: 8rem;
+    width: 200px;
   }
 }
 

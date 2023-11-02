@@ -106,4 +106,7 @@ export const ru: LangType = {
     title: 'Политика конфиденциальности',
     text: ruTextsPrivacyPolicy,
   },
+  notification_menu: {
+    title: 'Уведомления',
+  },
 }
