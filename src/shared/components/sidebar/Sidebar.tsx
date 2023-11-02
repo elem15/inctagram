@@ -14,7 +14,7 @@ import {
   LogOutIcon,
   MessangersIcon,
   MessengerIcon,
-  SearchsIcon,
+  SearchIcon,
   StatisticsIcon,
 } from '../../assets'
 
@@ -64,7 +64,7 @@ export const Sidebar = () => {
                   : clsx(s.content, s.marginBox)
               }
             >
-              <SearchsIcon /> Search
+              <SearchIcon /> Search
             </Link>
           </li>
           <li>

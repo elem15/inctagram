@@ -1,6 +1,6 @@
 .dropDownNotification {
   position: absolute;
-  z-index: 10;
+  z-index: 1000;
   top: 3.5rem;
   right: 15.2rem;
 
@@ -17,8 +17,8 @@
 
   @media (width <= 640px) {
     top: 3.5rem;
-    right: 8rem;
-    width: 200px;
+    right: 4rem;
+    width: 250px;
   }
 }
 
@@ -36,6 +36,11 @@
   background-color: var(--color-dark-500);
   border-top: 1px solid var(--color-dark-300);
   border-left: 1px solid var(--color-dark-300);
+
+  @media (width <= 640px) {
+    top: -0.35rem;
+    right: 5rem;
+  }
 }
 
 .item {
