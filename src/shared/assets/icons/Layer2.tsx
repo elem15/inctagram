@@ -1,6 +1,6 @@
 import { forwardRef, memo, Ref, SVGProps } from 'react'
 
-const Layer2 = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
+const Layer = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
     width="16"
     height="16"
@@ -22,7 +22,7 @@ const Layer2 = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
     </g>
   </svg>
 )
-const ForwardRef = forwardRef(Layer2)
+const ForwardRef = forwardRef(Layer)
 
-export { Layer2, ForwardRef }
-export default memo(ForwardRef)
+export { Layer, ForwardRef }
+export const Layer2 = memo(ForwardRef)
