@@ -14,6 +14,7 @@ import { useRegistrationMutation } from '@/entities/auth'
 import { setUser } from '@/entities/auth/model/authSlice'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
+import { SuperCheckbox } from '@/shared/components'
 import { consoleErrors, useTranslation } from '@/shared/lib'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
@@ -86,13 +87,7 @@ export const SignUpWidget: FC = () => {
 
         <div className={styles.checkbox}>
           <div className="h-6 w-6 flex justify-end items-center">
-            <input
-              type="checkbox"
-              id="agree"
-              checked={agree}
-              onChange={() => setAgree(agree => !agree)}
-              className="border-gray-400 rounded accent-white h-5.5 w-5.5"
-            />
+            <SuperCheckbox checked={agree} onCheckedChange={() => setAgree(agree => !agree)} />
           </div>
           <label htmlFor="agree" className="text-xs text-light-100 ml-2">
             <span>{t.signup.agreement} </span>
