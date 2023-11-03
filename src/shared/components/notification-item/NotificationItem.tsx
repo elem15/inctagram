@@ -11,14 +11,14 @@ export const NotificationItem: FC = () => {
         <Typography as="span" variant="bold_text_16">
           Новое уведомление!
         </Typography>
-        <Typography as="span" variant="medium_text_14" className={s.textSm}>
+        <Typography as="span" variant="small_text" className={s.textSm}>
           Новое
         </Typography>
       </div>
-      <Typography as="span" variant="bold_text_14">
+      <Typography as="span" className={s.textBase}>
         Следующий платеж у вас спишется через 1 день
       </Typography>
-      <Typography variant="medium_text_14" className={s.textSb}>
+      <Typography variant="small_text" className={s.textSb}>
         1 день назад
       </Typography>
     </div>

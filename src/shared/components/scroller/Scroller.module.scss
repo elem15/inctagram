@@ -1,4 +1,4 @@
-.ScrollAreaRoot {
+.scrollAreaRoot {
   --scrollbar-size: 4px; /* scrollbar size variable */
 
   overflow: hidden;
@@ -7,7 +7,7 @@
   background-color: var(--color-dark-500);
 }
 
-.ScrollAreaViewport {
+.scrollAreaViewport {
   width: 100%;
   height: 100%;
   padding-right: 12px;
@@ -16,7 +16,7 @@
   border-radius: inherit;
 }
 
-.ScrollAreaScrollbar {
+.scrollAreaScrollbar {
   /* disable browser handling of all panning and zooming gestures on touch devices */
   touch-action: none;
 
@@ -44,14 +44,14 @@
   }
 }
 
-.ScrollAreaThumb {
+.scrollAreaThumb {
   position: relative;
   flex: 1;
   background: var(--color-dark-100);
   border-radius: var(--scrollbar-size);
 }
 
-.ScrollAreaThumb::before {
+.scrollAreaThumb::before {
   content: '';
 
   position: absolute;
@@ -65,6 +65,6 @@
   min-height: 44px;
 }
 
-.ScrollAreaCorner {
+.scrollAreaCorner {
   background: black;
 }

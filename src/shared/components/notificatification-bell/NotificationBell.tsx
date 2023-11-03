@@ -6,6 +6,7 @@ import { Typography } from '../typography'
 
 import s from './NotificationBell.module.scss'
 
+import { FillBellIcon } from '@/shared/assets/icons/FillBellIcon'
 import { OutlineBellIcon } from '@/shared/assets/icons/OutlineBellIcon'
 
 export type NotificationProps = {
@@ -21,7 +22,7 @@ export const NotificationBell: FC<NotificationProps> = ({ toggle, setToggle, cla
 
   return (
     <button onClick={() => setToggle(!toggle)} className={classNames.notificationBlock}>
-      <OutlineBellIcon className={toggle ? s.iconColor : s.icon} />
+      {toggle ? <FillBellIcon className={s.iconColor} /> : <OutlineBellIcon className={s.icon} />}
       {!toggle && (
         <Typography as="span" className={s.iconBadge}>
           2

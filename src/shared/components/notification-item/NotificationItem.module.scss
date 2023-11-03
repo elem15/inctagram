@@ -1,13 +1,23 @@
 .wrapper {
   padding: 4px 0;
+  padding-right: 12px;
   border-top: 2px solid var(--color-dark-100);
 }
 
 .textSm {
   padding-left: 4px;
-  color: var(--color-accent-100);
+  color: var(--color-accent-500);
 }
 
 .textSb {
   color: var(--color-light-900);
+}
+
+.textBase {
+  font-family: var(--font-family-roboto);
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 24px;
+  color: #fff;
 }
