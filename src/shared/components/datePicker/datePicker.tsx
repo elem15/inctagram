@@ -4,12 +4,13 @@ import * as React from 'react'
 import { format } from 'date-fns'
 // eslint-disable-next-line import/no-duplicates
 import ru from 'date-fns/locale/ru'
-import { CalendarDays, CalendarRange, CalendarSearch } from 'lucide-react'
 import { DateRange } from 'react-day-picker'
 
 import { Typography } from '..'
 import { cn } from '../../lib/utils'
 import { Popover, PopoverContent, PopoverTrigger, Calendar, CalendarButton } from '../ui'
+
+import { CalendarDark, CalendarLight } from '@/shared/assets'
 
 type Props = {
   mode: 'single' | 'range'
@@ -23,7 +24,6 @@ export function DatePicker({ mode, errorMessage, getDate, lang }: Props) {
   const [date, setDate] = React.useState<Date>()
   const [range, setRange] = React.useState<DateRange>()
   const isSelected = date || range
-  const CalendarIcon = mode === 'range' ? CalendarRange : CalendarDays
   const locale = lang === 'ru' ? ru : undefined
 
   React.useEffect(() => {
@@ -53,8 +53,8 @@ export function DatePicker({ mode, errorMessage, getDate, lang }: Props) {
               `${format(range.from, 'dd/MM/yyyy')} ${
                 range.to ? '- ' + format(range.to, 'dd/MM/yyyy') : ''
               }`}
-          <CalendarSearch className="group-data-[state=closed]:hidden" />
-          <CalendarIcon className="group-data-[state=open]:hidden" />
+          <CalendarDark className="group-data-[state=closed]:hidden" />
+          <CalendarLight className="group-data-[state=open]:hidden" />
         </CalendarButton>
       </PopoverTrigger>
       {errorMessage && (
