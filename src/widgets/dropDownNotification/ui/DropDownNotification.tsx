@@ -1,6 +1,6 @@
-import React, { FC, forwardRef } from 'react'
+import React from 'react'
 
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import s from './DropDownNotification.module.scss'
 

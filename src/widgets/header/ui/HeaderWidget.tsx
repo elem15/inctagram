@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 
 import Link from 'next/link'
 
@@ -21,15 +21,15 @@ export const HeaderWidget: FC = () => {
     return () => {
       document.removeEventListener('mousedown', handler)
     }
-  })
+  }, [])
 
   return (
     <div className="h-16 max-sm:px-6 sm:px-16 py-3 border-b border-dark-300 flex justify-between items-center">
       <Link href="/" className="text-light-100 text-[26px] font-semibold">
         Inctagram
       </Link>
-      <div className="flex justify-center items-center">
-        <div ref={menuRef}>
+      <div className="flex justify-center items-center space-x-6">
+        <div className="relative" ref={menuRef}>
           <NotificationBell toggle={toggle} setToggle={setToggle} />
           <DropDownNotification toggle={toggle} />
         </div>
