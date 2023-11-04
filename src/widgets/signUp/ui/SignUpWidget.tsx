@@ -86,10 +86,8 @@ export const SignUpWidget: FC = () => {
         />
 
         <div className={styles.checkbox}>
-          <div className="h-6 w-6 flex justify-end items-center">
-            <SuperCheckbox checked={agree} onCheckedChange={() => setAgree(agree => !agree)} />
-          </div>
-          <label htmlFor="agree" className="text-xs text-light-100 ml-2">
+          <SuperCheckbox checked={agree} onCheckedChange={() => setAgree(agree => !agree)} />
+          <label htmlFor="agree" className="text-xs text-light-100">
             <span>{t.signup.agreement} </span>
             <Link href="auth/terms-of-service">{t.signup.terms_service}</Link>
             <span> {t.signup.and} </span>
