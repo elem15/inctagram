@@ -26,7 +26,7 @@ export function OauthCallbackGoogle() {
 
   return (
     <>
-      <div>Github authorization...</div>
+      <div>Google authorization...</div>
       {error && isClient && <div className="text-red-600">Authorization error!</div>}
     </>
   )
