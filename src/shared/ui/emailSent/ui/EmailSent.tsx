@@ -18,7 +18,7 @@ export const EmailSent: FC<{ path: string }> = ({ path }) => {
         <div>
           <div className="flex justify-between items-center pl-3 sm:pl-6">
             <h1 className=" text-light-100 font-bold text-xl ">{t.email.title}</h1>
-            <button className="m-6" onClick={() => router.push(`${path}`)}>
+            <button className="mx-3 my-6" onClick={() => router.push(`${path}`)}>
               <CloseIcon />
             </button>
           </div>
@@ -29,7 +29,7 @@ export const EmailSent: FC<{ path: string }> = ({ path }) => {
             </p>
             <button
               onClick={() => router.push(`${path}`)}
-              className="block px-10 mb-12  bg-primary-500   font-semibold text-light-100 p-2 rounded my-2 float-right"
+              className="block px-10 mb-12  bg-primary-500   font-semibold text-light-100 p-2 rounded my-2 w-full sm:w-auto sm:float-right"
             >
               OK
             </button>
