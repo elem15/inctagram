@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import styles from './SignUpConfirmed.module.css'
 
 import { useRegistrationConfirmationMutation } from '@/entities/auth'
+import { SignUpConfirmSVG } from '@/shared/assets/images/SignUpConfirmSVG'
 import { useTranslation } from '@/shared/lib'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { Spinner } from '@/widgets/spinner'
@@ -38,7 +38,7 @@ const SignUpConfirmedPage = () => {
               {t.signup_confirm.sign_in}{' '}
             </button>
           </div>
-          <Image src="/images/signup/SignUpConfirm.png" width={432} height={300} alt="sign-up" />
+          <SignUpConfirmSVG className="w-80 sm:w-auto" />
         </div>
       </div>
     </div>
