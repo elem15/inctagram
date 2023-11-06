@@ -2,22 +2,28 @@ import { useEffect } from 'react'
 
 import { useAppDispatch, useAppSelector } from './index'
 
-import { addToken, addUser, selectAuthUser } from '@/entities/auth/model/authSlice'
+import { addUser, selectAuthUser } from '@/entities/auth/model/authSlice'
 
 export const useAuth = () => {
   const dispatch = useAppDispatch()
-  const { email, accessToken } = useAppSelector(selectAuthUser)
+  const { email, accessToken, userId } = useAppSelector(selectAuthUser)
 
   useEffect(() => {
     if (!email || !accessToken) {
-      dispatch(addUser(localStorage.getItem('email')))
-      dispatch(addToken(localStorage.getItem('token')))
+      dispatch(
+        addUser({
+          email: localStorage.getItem('email'),
+          accessToken: localStorage.getItem('token'),
+          userId: localStorage.getItem('userId'),
+        })
+      )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, accessToken])
+  }, [email, accessToken, userId])
 
   return {
     isAuth: !!accessToken,
+    userId,
     email,
     accessToken,
   }

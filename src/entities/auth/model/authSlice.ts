@@ -1,15 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { JwtPayload, jwtDecode } from 'jwt-decode'
 
 import { RootState } from '@/app/appStore'
 
 interface IInitialState {
-  user: string | null
-  email: string | null
-  accessToken: string | null
+  userId?: number
+  userName?: string
+  email?: string
+  accessToken?: string
+}
+interface MyJwtPayload extends JwtPayload {
+  userId: number
 }
 
 const initialState: IInitialState = {
-  user: '',
+  userId: undefined,
+  userName: '',
   email: '',
   accessToken: '',
 }
@@ -18,34 +24,40 @@ const authSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    addToken: (state, action) => {
-      state.accessToken = action.payload
-    },
     addUser: (state, action) => {
-      state.email = action.payload
+      state.email = action.payload.email
+      state.userId = action.payload.userId
+      state.accessToken = action.payload.accessToken
     },
     clearLocalUserData: state => {
-      state.accessToken = null
-      state.email = null
+      state.accessToken = ''
+      state.email = ''
+      state.userId = undefined
       localStorage.clear()
     },
-    setUser: (state, { payload: { user, email } }) => {
-      state.user = user
+    setUser: (state, { payload: { userName, email } }) => {
+      state.userName = userName
       state.email = email
       state.accessToken = ''
       localStorage.setItem('email', email)
+      localStorage.setItem('userId', '')
       localStorage.setItem('token', '')
     },
     setLoginUser: (state, { payload: { email, accessToken } }) => {
+      const userId = jwtDecode<MyJwtPayload>(accessToken).userId
+
       state.email = email
       state.accessToken = accessToken
+      state.userId = userId
+
+      localStorage.setItem('userId', '' + userId)
       localStorage.setItem('email', email)
       localStorage.setItem('token', accessToken)
     },
   },
 })
 
-export const { addToken, addUser, clearLocalUserData, setUser, setLoginUser } = authSlice.actions
+export const { addUser, clearLocalUserData, setUser, setLoginUser } = authSlice.actions
 
 export const selectAuthUser = (state: RootState) => state.user
 

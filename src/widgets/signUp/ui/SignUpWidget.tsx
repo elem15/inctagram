@@ -44,7 +44,7 @@ export const SignUpWidget: FC = () => {
   const [registration, { isLoading, isSuccess, error }] = useRegistrationMutation()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
-    dispatch(setUser({ user: data.username, email: data.email }))
+    dispatch(setUser({ userName: data.username, email: data.email }))
 
     registration({ email: data.email, userName: data.username, password: data.password })
   }

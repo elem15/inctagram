@@ -35,7 +35,7 @@ export const ForgotPasswordWidget: FC = () => {
 
   const onSubmit = (data: any) => {
     sendCaptcha({ email: data.email, recaptcha: reCaptcha }).unwrap().catch(consoleErrors)
-    dispatch(setUser({ email: data.email, user: '' }))
+    dispatch(setUser({ email: data.email, userName: '' }))
   }
 
   return (

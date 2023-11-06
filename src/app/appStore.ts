@@ -2,12 +2,16 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import { authReducer, authApi } from '../entities/auth'
 
+import { profileApi } from '@/entities/profile'
+
 const store = configureStore({
   reducer: {
     user: authReducer,
     [authApi.reducerPath]: authApi.reducer,
+    [profileApi.reducerPath]: profileApi.reducer,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApi.middleware),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(authApi.middleware, profileApi.middleware),
 })
 
 export default store
