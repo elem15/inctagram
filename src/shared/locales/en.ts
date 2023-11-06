@@ -116,5 +116,8 @@ export const en = {
     favorites: 'Favorites',
     log_out: 'Log Out',
   },
+  notification_menu: {
+    title: 'Notification',
+  },
 }
 export type LangType = typeof en

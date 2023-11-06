@@ -1,0 +1,70 @@
+.scrollAreaRoot {
+  --scrollbar-size: 4px; /* scrollbar size variable */
+
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-dark-500);
+}
+
+.scrollAreaViewport {
+  width: 100%;
+  height: 100%;
+  padding-right: 12px;
+
+  background-color: var(--color-dark-500);
+  border-radius: inherit;
+}
+
+.scrollAreaScrollbar {
+  /* disable browser handling of all panning and zooming gestures on touch devices */
+  touch-action: none;
+
+  /* ensures no selection */
+  user-select: none;
+
+  display: flex;
+
+  background: var(--color-dark-300);
+  border-radius: var(--scrollbar-size);
+
+  transition: 'background 160ms ease-out';
+
+  &:hover {
+    background: var(--color-dark-300);
+  }
+
+  &[data-orientation='vertical'] {
+    width: var(--scrollbar-size);
+  }
+
+  &[data-orientation='horizontal'] {
+    flex-direction: 'column';
+    height: var(--scrollbar-size);
+  }
+}
+
+.scrollAreaThumb {
+  position: relative;
+  flex: 1;
+  background: var(--color-dark-100);
+  border-radius: var(--scrollbar-size);
+}
+
+.scrollAreaThumb::before {
+  content: '';
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 100%;
+  min-width: 44px;
+  height: 100%;
+  min-height: 44px;
+}
+
+.scrollAreaCorner {
+  background: black;
+}

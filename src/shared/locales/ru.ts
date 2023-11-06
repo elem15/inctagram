@@ -116,4 +116,7 @@ export const ru: LangType = {
     favorites: 'Избранное',
     log_out: 'Выйти',
   },
+  notification_menu: {
+    title: 'Уведомления',
+  },
 }
