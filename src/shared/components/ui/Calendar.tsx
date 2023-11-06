@@ -26,7 +26,12 @@ function Calendar({
       weekStartsOn={1}
       showOutsideDays={showOutsideDays}
       modifiers={{
-        outside: [isWeekendDay],
+        weekend: [isWeekendDay],
+      }}
+      modifiersStyles={{
+        weekend: {
+          color: 'var(--color-danger-300)',
+        },
       }}
       className={cn('p-3', className)}
       classNames={{
@@ -45,14 +50,14 @@ function Calendar({
         head_row: 'flex pb-2',
         head_cell: 'text-dark-100 w-9 font-normal text-1 rounded-full',
         row: 'flex w-full mt-2',
-        cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-primary-900  first:[&:has([aria-selected])]:rounded-full last:[&:has([aria-selected])]:rounded-full focus-within:relative focus-within:z-20 rounded-full',
+        cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-primary-900 first:[&:has([aria-selected])]:rounded-full last:[&:has([aria-selected])]:rounded-full focus-within:relative focus-within:z-20 rounded-full',
         day: cn(
           buttonVariants({ variant: 'ghost' }),
           'h-9 w-9 p-0 font-normal aria-selected:opacity-100 rounded-full hover:bg-primary-900 active:border-primary-500 text-light-100 hover:bg-primary-700'
         ),
         day_selected: 'bg-primary-900 text-light-100 hover:bg-primary-700 rounded-full ',
-        day_today: 'text-primary-500 !font-bold',
-        day_outside: 'text-light-900',
+        day_today: '!text-primary-500 !font-bold',
+        day_outside: '!text-light-900',
         day_disabled: 'text-muted-foreground opacity-50',
         day_range_start: 'opacity-50 rounded-r-none hover:bg-primary-700',
         day_range_middle: 'focus:bg-primary-900 opacity-50 rounded-none bg-primary-900',
