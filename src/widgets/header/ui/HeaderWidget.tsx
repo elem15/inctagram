@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 import Link from 'next/link'
 
-import { NotificationBell } from '@/shared/components/notificatification-bell/NotificationBell'
+import { NotificationBell } from '@/shared/components/notificatification-bell'
 import { DropDownNotification } from '@/widgets/dropDownNotification'
 import { LangSelectWidget } from '@/widgets/langSelect'
 
