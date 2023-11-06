@@ -67,6 +67,7 @@ module.exports = {
           foreground: 'hsl(var(--primary-foreground))',
         },
         danger: {
+          300: '#F23D61',
           500: '#CC1439',
         },
         border: 'hsl(var(--border))',
