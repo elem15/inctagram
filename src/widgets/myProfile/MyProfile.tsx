@@ -21,12 +21,15 @@ export const MyProfile: FC<Props> = () => {
   const [lastName, setLastName] = useState('')
 
   useEffect(() => {
+    isSuccess && refetch()
+  }, [isSuccess, refetch])
+
+  useEffect(() => {
     if (profile?.firstName && profile?.lastName) {
       setFirstName(profile.firstName)
       setLastName(profile.lastName)
     }
-    isSuccess && refetch()
-  }, [profile?.firstName, profile?.lastName, profile, isSuccess, refetch])
+  }, [profile?.firstName, profile?.lastName, profile])
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
