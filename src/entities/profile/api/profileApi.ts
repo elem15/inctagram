@@ -1,11 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { BACKEND_URL } from '@/shared/constants/ext-urls'
-import { axiosBaseQuery } from '@/shared/lib/'
 
 export const profileApi = createApi({
   reducerPath: 'userProfile',
-  baseQuery: axiosBaseQuery({ baseUrl: BACKEND_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
   tagTypes: ['Profile'],
   endpoints: builder => ({
     getProfile: builder.query<Profile, UserAuthData>({
@@ -24,7 +23,7 @@ export const profileApi = createApi({
           url: '/users/profile',
           method: 'PUT',
           credentials: 'include',
-          data: body,
+          body,
           headers: {
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + accessToken,
