@@ -1,0 +1,66 @@
+.userPhotoBlock{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 12rem;
+  height: 12rem;
+  margin-bottom: 24px;
+
+  background-color: var(--color-dark-500);
+  border-radius: 50%;
+}
+
+.box {
+display: flex;
+flex-direction: column;
+align-items:center;
+  justify-content: center;
+
+margin-bottom: 84px;
+  }
+
+.errorText{
+  border:1px solid var(--color-danger-900);
+  background-color: var(--color-danger-500);
+}
+
+.defaultProfilePhotoBlock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 222px;
+  height: 228px;
+  margin-bottom: 60px;
+
+  background-color: var(--color-dark-500);
+  border-radius: 2px;
+}
+
+.cropContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .profilePhotoBlock {
+  position: relative;
+
+  width: 332px;
+  height: 340px;
+  margin-bottom: 36px;
+
+  background-repeat: no-repeat;
+  background-position: center;
+background-size: cover;
+
+
+}
+
+
+}
+
+.buttonBox{
+   display: flex;
+   justify-content: flex-end;
+ }
