@@ -4,7 +4,7 @@ import { JwtPayload, jwtDecode } from 'jwt-decode'
 import { RootState } from '@/app/appStore'
 
 interface IInitialState {
-  userId?: number
+  userId: number | string
   userName?: string
   email?: string
   accessToken?: string
@@ -14,7 +14,7 @@ interface MyJwtPayload extends JwtPayload {
 }
 
 const initialState: IInitialState = {
-  userId: undefined,
+  userId: '',
   userName: '',
   email: '',
   accessToken: '',
@@ -32,7 +32,7 @@ const authSlice = createSlice({
     clearLocalUserData: state => {
       state.accessToken = ''
       state.email = ''
-      state.userId = undefined
+      state.userId = ''
       localStorage.clear()
     },
     setUser: (state, { payload: { userName, email } }) => {

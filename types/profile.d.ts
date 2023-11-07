@@ -10,6 +10,8 @@ type Profile = {
   createdAt: string
 };
 
+type ProfilePut = Omit<Partial<Profile>, 'id' | 'avatars' | 'createdAt | userName'>
+
 type Avatar = {
   url: string,
   width: number,
@@ -19,5 +21,6 @@ type Avatar = {
 
 type UserAuthData = {
   profileId?: number,
-  accessToken?: string
+  accessToken?: string,
+  body?: ProfilePut
 }
