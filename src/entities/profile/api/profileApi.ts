@@ -5,7 +5,7 @@ import { axiosBaseQuery } from '@/shared/lib/'
 
 export const profileApi = createApi({
   reducerPath: 'userProfile',
-  baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
+  baseQuery: axiosBaseQuery({ baseUrl: BACKEND_URL }),
   tagTypes: ['Profile'],
   endpoints: builder => ({
     getProfile: builder.query<Profile, UserAuthData>({
@@ -24,7 +24,7 @@ export const profileApi = createApi({
           url: '/users/profile',
           method: 'PUT',
           credentials: 'include',
-          body,
+          data: body,
           headers: {
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + accessToken,
