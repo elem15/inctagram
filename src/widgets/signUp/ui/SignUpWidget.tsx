@@ -14,7 +14,7 @@ import { useRegistrationMutation } from '@/entities/auth'
 import { setUser } from '@/entities/auth/model/authSlice'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
-import { SuperCheckbox } from '@/shared/components'
+import { Button, SuperCheckbox } from '@/shared/components'
 import { consoleErrors, useTranslation } from '@/shared/lib'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
@@ -54,6 +54,10 @@ export const SignUpWidget: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
+  const googleLogin = () => {
+    window.location.assign(AUTH_URLS.GOOGLE)
+  }
+
   useEffect(() => {
     if (error) {
       consoleErrors(error as Error)
@@ -70,9 +74,9 @@ export const SignUpWidget: FC = () => {
       {(isLoading || socialsLoading) && <Spinner />}
       <h1 className={styles.heading}>{t.signup.title}</h1>
       <div className={styles.icon}>
-        <Link href={AUTH_URLS.GOOGLE} onClick={() => setSocialsLoading(true)}>
+        <Button variant="link" onClick={googleLogin}>
           <GoogleIcon />
-        </Link>
+        </Button>
         <Link href={AUTH_URLS.GITHUB} onClick={() => setSocialsLoading(true)}>
           <GithubIcon className="fill-light-100" />
         </Link>
