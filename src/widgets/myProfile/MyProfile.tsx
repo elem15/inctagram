@@ -16,6 +16,7 @@ import { firstNameValidation } from '@/shared/regex'
 
 export const MyProfile = () => {
   const { t } = useTranslation()
+
   const {
     register,
     handleSubmit,
@@ -33,7 +34,9 @@ export const MyProfile = () => {
     isLoading,
     error,
   } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
-  const [putProfile, { isSuccess, isLoading: putLoading, error: putError }] = usePutProfileMutation()
+
+  const [putProfile, { isSuccess, isLoading: isPutLoading, error: putError }] =
+    usePutProfileMutation()
 
   const [date, setResultDate] = useState<Date | DateRange>()
 
@@ -120,7 +123,7 @@ export const MyProfile = () => {
           errorMessage={errors.dateOfBirth?.message?.toString()}
           lang={t.lg}
           setResultDate={setResultDate}
-          incomingDate={profile && new Date(profile?.dateOfBirth)}
+          defaultMonth={profile && new Date(profile?.dateOfBirth)}
         />
         <Textarea
           label={t.profile.about}

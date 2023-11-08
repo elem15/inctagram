@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 
 // eslint-disable-next-line import/no-duplicates
 import { format } from 'date-fns'
@@ -17,17 +17,24 @@ type Props = {
   errorMessage?: string
   lang?: string
   setResultDate: React.Dispatch<React.SetStateAction<Date | DateRange | undefined>>
-  incomingDate?: Date
+  defaultMonth?: Date
 }
 
-export function DatePicker({ mode, errorMessage, setResultDate, lang, incomingDate }: Props) {
-  const baseDate = incomingDate || new Date()
-  const [date, setDate] = React.useState<Date>()
-  const [range, setRange] = React.useState<DateRange>()
+export function DatePicker({
+  mode,
+  errorMessage,
+  setResultDate,
+  lang,
+  defaultMonth,
+  ...props
+}: Props) {
+  const baseDate = defaultMonth || new Date()
+  const [date, setDate] = useState<Date>()
+  const [range, setRange] = useState<DateRange>()
   const isSelected = date || range
   const locale = lang === 'ru' ? ru : undefined
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (date) {
       setResultDate(date)
     } else if (range && range.to) {
@@ -68,10 +75,12 @@ export function DatePicker({ mode, errorMessage, setResultDate, lang, incomingDa
           <Calendar
             mode={'single'}
             locale={locale}
-            selected={incomingDate}
+            selected={date}
             onSelect={setDate}
             initialFocus
             className="dark bg-dark-500 border-dark-300"
+            defaultMonth={defaultMonth}
+            {...props}
           />
         )}
         {mode === 'range' && (
@@ -82,6 +91,8 @@ export function DatePicker({ mode, errorMessage, setResultDate, lang, incomingDa
             onSelect={setRange}
             initialFocus
             className="dark bg-dark-500 border-dark-300"
+            defaultMonth={defaultMonth}
+            {...props}
           />
         )}
       </PopoverContent>
