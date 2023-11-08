@@ -44,6 +44,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             ref={ref}
             value={value}
+            {...restProps}
           />
           {type === 'password' && (
             <button

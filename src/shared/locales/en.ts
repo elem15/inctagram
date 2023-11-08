@@ -136,6 +136,7 @@ export const en = {
     last_name_required: 'Last name is required',
     first_name_message: 'The first name contain characters, not spaces, not start with numbers',
     last_name_message: 'The last name contain characters, not spaces, not start with numbers',
+    button: 'Save changes',
   },
 }
 export type LangType = typeof en
