@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -19,8 +20,8 @@ export const MyProfile = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    getValues,
     setError,
+    clearErrors,
     setValue,
   } = useForm<ProfilePut>({
     mode: 'onBlur',
@@ -31,9 +32,8 @@ export const MyProfile = () => {
     data: profile,
     isLoading,
     error,
-    refetch,
   } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
-  const [putProfile, { isSuccess }] = usePutProfileMutation()
+  const [putProfile, { isSuccess, isLoading: putLoading, error: putError }] = usePutProfileMutation()
 
   const [date, setResultDate] = useState<Date | DateRange>()
 
@@ -44,9 +44,26 @@ export const MyProfile = () => {
       setValue('aboutMe', profile.aboutMe)
     }
     if (date && date instanceof Date) {
+      const age = differenceInYears(new Date(), date)
+
+      if (age < 13) {
+        setError('dateOfBirth', {
+          type: 'client',
+          message: t.profile.age_error,
+        })
+      } else clearErrors('dateOfBirth')
       setValue('dateOfBirth', date.toISOString())
     }
-  }, [profile?.firstName, profile?.lastName, profile, setValue, date])
+  }, [
+    profile?.firstName,
+    profile?.lastName,
+    profile,
+    setValue,
+    date,
+    t.profile.age_error,
+    clearErrors,
+    setError,
+  ])
 
   const onSubmit: SubmitHandler<ProfilePut> = data => {
     let existData = {}
