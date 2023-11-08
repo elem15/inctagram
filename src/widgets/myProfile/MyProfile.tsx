@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
+import { DateRange } from 'react-day-picker'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import s from './MyProfile.module.scss'
@@ -7,6 +8,7 @@ import s from './MyProfile.module.scss'
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
 import { Button, Input, Textarea } from '@/shared/components'
+import { DatePicker } from '@/shared/components/datePicker'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation } from '@/shared/regex'
@@ -33,16 +35,29 @@ export const MyProfile = () => {
   } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
   const [putProfile, { isSuccess }] = usePutProfileMutation()
 
+  const [date, setResultDate] = useState<Date | DateRange>()
+
   useEffect(() => {
     if (profile?.firstName && profile?.lastName) {
       setValue('firstName', profile.firstName)
       setValue('lastName', profile.lastName)
+      setValue('aboutMe', profile.aboutMe)
     }
-  }, [profile?.firstName, profile?.lastName, profile, setValue])
+    if (date && date instanceof Date) {
+      setValue('dateOfBirth', date.toISOString())
+    }
+  }, [profile?.firstName, profile?.lastName, profile, setValue, date])
 
   const onSubmit: SubmitHandler<ProfilePut> = data => {
+    let existData = {}
+
+    for (const item in data) {
+      if (data[item as keyof typeof data]) {
+        existData = { ...existData, [item]: data[item as keyof typeof data] }
+      }
+    }
     putProfile({
-      body: { ...data },
+      body: { ...existData },
       accessToken,
     })
   }
@@ -82,6 +97,13 @@ export const MyProfile = () => {
             },
           })}
           error={errors.lastName?.message?.toString()}
+        />
+        <DatePicker
+          mode="single"
+          errorMessage={errors.dateOfBirth?.message?.toString()}
+          lang={t.lg}
+          setResultDate={setResultDate}
+          incomingDate={profile && new Date(profile?.dateOfBirth)}
         />
         <Textarea
           label={t.profile.about}

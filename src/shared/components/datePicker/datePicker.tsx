@@ -16,11 +16,12 @@ type Props = {
   mode: 'single' | 'range'
   errorMessage?: string
   lang?: string
-  getDate: (date: Date | DateRange) => typeof date
+  setResultDate: React.Dispatch<React.SetStateAction<Date | DateRange | undefined>>
+  incomingDate?: Date
 }
 
-export function DatePicker({ mode, errorMessage, getDate, lang }: Props) {
-  const today = new Date()
+export function DatePicker({ mode, errorMessage, setResultDate, lang, incomingDate }: Props) {
+  const baseDate = incomingDate || new Date()
   const [date, setDate] = React.useState<Date>()
   const [range, setRange] = React.useState<DateRange>()
   const isSelected = date || range
@@ -28,11 +29,11 @@ export function DatePicker({ mode, errorMessage, getDate, lang }: Props) {
 
   React.useEffect(() => {
     if (date) {
-      getDate(date)
+      setResultDate(date)
     } else if (range && range.to) {
-      getDate(range)
+      setResultDate(range)
     }
-  }, [getDate, date, range])
+  }, [setResultDate, date, range])
 
   return (
     <Popover>
@@ -46,7 +47,7 @@ export function DatePicker({ mode, errorMessage, getDate, lang }: Props) {
               'data-[state=closed]:border-red-500 data-[state=closed]:text-red-500 border-[1px]'
           )}
         >
-          {!isSelected && format(today, 'dd/MM/yyyy')}
+          {!isSelected && format(baseDate, 'dd/MM/yyyy')}
           {date
             ? format(date, 'dd/MM/yyyy')
             : range?.from &&
@@ -67,7 +68,7 @@ export function DatePicker({ mode, errorMessage, getDate, lang }: Props) {
           <Calendar
             mode={'single'}
             locale={locale}
-            selected={date}
+            selected={incomingDate}
             onSelect={setDate}
             initialFocus
             className="dark bg-dark-500 border-dark-300"
