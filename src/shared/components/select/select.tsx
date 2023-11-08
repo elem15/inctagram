@@ -42,37 +42,39 @@ export const SelectCustom = forwardRef<ElementRef<typeof Select.Trigger>, Select
     ))
 
     return (
-      <Select.Root
-        onValueChange={onValueChange}
-        defaultValue={defaultValue}
-        disabled={disabled}
-        value={value}
-        {...restProps}
-      >
-        {label && (
-          <Typography className={s.label} as={'label'}>
-            {label}
-          </Typography>
-        )}
-        <Select.Trigger
+      <div className={s.container}>
+        <Select.Root
+          onValueChange={onValueChange}
           defaultValue={defaultValue}
-          ref={ref}
-          className={clsx(s.trigger, className)}
+          disabled={disabled}
+          value={value}
+          {...restProps}
         >
-          <div className={s.value}>
-            <Select.Value placeholder={placeHolder} />
-          </div>
-          <Select.Icon className={s.icon}>{<Layer2 />}</Select.Icon>
-        </Select.Trigger>
-        <Select.Portal>
-          <Select.Content className={s.content} position="popper">
-            <Select.Viewport>
-              <Select.Group>{mappedOptions}</Select.Group>
-              <Select.Separator />
-            </Select.Viewport>
-          </Select.Content>
-        </Select.Portal>
-      </Select.Root>
+          {label && (
+            <Typography className={s.label} as={'label'}>
+              {label}
+            </Typography>
+          )}
+          <Select.Trigger
+            defaultValue={defaultValue}
+            ref={ref}
+            className={clsx(s.trigger, className)}
+          >
+            <div className={s.value}>
+              <Select.Value placeholder={placeHolder} />
+            </div>
+            <Select.Icon className={s.icon}>{<Layer2 />}</Select.Icon>
+          </Select.Trigger>
+          <Select.Portal>
+            <Select.Content className={s.content} position="popper" side={'bottom'}>
+              <Select.Viewport>
+                <Select.Group>{mappedOptions}</Select.Group>
+                <Select.Separator />
+              </Select.Viewport>
+            </Select.Content>
+          </Select.Portal>
+        </Select.Root>
+      </div>
     )
   }
 )
