@@ -16,20 +16,20 @@ export const profileApi = createApi({
           Authorization: 'Bearer ' + accessToken,
         },
       }),
+      providesTags: ['Profile'],
     }),
     putProfile: builder.mutation<any, UserAuthData>({
-      query: ({ body, accessToken }) => {
-        return {
-          url: '/users/profile',
-          method: 'PUT',
-          credentials: 'include',
-          body,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + accessToken,
-          },
-        }
-      },
+      query: ({ body, accessToken }) => ({
+        url: '/users/profile',
+        method: 'PUT',
+        credentials: 'include',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + accessToken,
+        },
+      }),
+      invalidatesTags: ['Profile'],
     }),
   }),
 })

@@ -119,5 +119,23 @@ export const en = {
   notification_menu: {
     title: 'Notification',
   },
+  profile: {
+    user_name: 'Username*',
+    first_name: 'First name*',
+    last_name: 'Last name*',
+    birth_date: 'Date of birth',
+    country: 'Select your country',
+    countryBlank: 'Country',
+    city: 'Select your city',
+    city_blank: 'City',
+    about: 'About Me',
+    age_error: 'A user under 13 cannot create a profile. ',
+    names_max_length: 'Maximum number of characters 50',
+    about_max_length: 'Maximum number of characters 200',
+    first_name_required: 'First name is required',
+    last_name_required: 'Last name is required',
+    first_name_message: 'The first name contain characters, not spaces, not start with numbers',
+    last_name_message: 'The last name contain characters, not spaces, not start with numbers',
+  },
 }
 export type LangType = typeof en

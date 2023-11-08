@@ -3,3 +3,5 @@ export const passwordValidation = /(^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W])(^\
 export const emailValidation = /^[\SA-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z\S]{2,4}$/i
 
 export const nameValidation = /^[a-zA-Z0-9_-]+( [a-zA-Z0-9_-]+)*$/
+
+export const firstNameValidation = /^[a-zA-Z]+([a-zA-Z]+)*$/

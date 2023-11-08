@@ -92,8 +92,7 @@ export const ru: LangType = {
     user_min_length: 'Минимальное количество символов 6',
     password_min_length: 'Минимальное количество символов 6',
     password_max_length: 'Максимальное количество символов 20',
-    name_format_message:
-      'Имя должно содержать символы, не содержать пробелов, не начинаться с цифр',
+    name_format_message: 'Имя должно содержать буквы, не содержать пробелов, не начинаться с цифр',
     email_format_message: 'Электронная почта должна соответствовать формату example@example.com',
     password_match_message: 'Пароли должны совпадать',
   },
@@ -118,5 +117,24 @@ export const ru: LangType = {
   },
   notification_menu: {
     title: 'Уведомления',
+  },
+  profile: {
+    user_name: 'Имя пользователя*',
+    first_name: 'Имя*',
+    last_name: 'Фамилия*',
+    birth_date: 'Дата рождения',
+    country: 'Выберите страну',
+    countryBlank: 'Страна',
+    city: 'Выберите город',
+    city_blank: 'Город',
+    about: 'Обо мне',
+    age_error: 'Пользователь младше 13 лет не может зарегистрироваться. ',
+    names_max_length: 'Максимальное количество символов 50',
+    about_max_length: 'Максимальное количество символов 200',
+    first_name_required: 'Имя обязательно',
+    last_name_required: 'Фамилия обязательна',
+    first_name_message: 'Имя должно содержать буквы, не содержать пробелов, не начинаться с цифр',
+    last_name_message:
+      'Фамилия должна содержать буквы, не содержать пробелов, не начинаться с цифр',
   },
 }
