@@ -6,7 +6,7 @@ import s from './MyProfile.module.scss'
 
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
-import { Button, Input } from '@/shared/components'
+import { Button, Input, Textarea } from '@/shared/components'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation } from '@/shared/regex'
@@ -36,19 +36,19 @@ export const MyProfile = () => {
   useEffect(() => {
     if (profile?.firstName && profile?.lastName) {
       setValue('firstName', profile.firstName)
+      setValue('lastName', profile.lastName)
     }
   }, [profile?.firstName, profile?.lastName, profile, setValue])
 
   const onSubmit: SubmitHandler<ProfilePut> = data => {
     putProfile({
-      body: { firstName: data.firstName },
+      body: { ...data },
       accessToken,
     })
   }
 
   return (
     <div className={s.container}>
-      <h1>Profile</h1>
       <div>{profile?.userName}</div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -56,10 +56,6 @@ export const MyProfile = () => {
           type="text"
           {...register('firstName', {
             required: t.profile.first_name_required,
-            minLength: {
-              value: 1,
-              message: t.profile.first_name_required,
-            },
             maxLength: {
               value: 50,
               message: t.profile.names_max_length,
@@ -69,8 +65,33 @@ export const MyProfile = () => {
               message: t.profile.first_name_message,
             },
           })}
-          placeholder=""
           error={errors.firstName?.message?.toString()}
+        />
+        <Input
+          label={t.profile.last_name}
+          type="text"
+          {...register('lastName', {
+            required: t.profile.last_name_required,
+            maxLength: {
+              value: 50,
+              message: t.profile.names_max_length,
+            },
+            pattern: {
+              value: firstNameValidation,
+              message: t.profile.last_name_message,
+            },
+          })}
+          error={errors.lastName?.message?.toString()}
+        />
+        <Textarea
+          label={t.profile.about}
+          {...register('aboutMe', {
+            maxLength: {
+              value: 200,
+              message: t.profile.about_max_length,
+            },
+          })}
+          errorMessage={errors.aboutMe?.message?.toString()}
         />
         <Button type="submit" disabled={!isValid}>
           {t.profile.button}
