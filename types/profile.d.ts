@@ -24,3 +24,20 @@ type UserAuthData = {
   accessToken?: string,
   body?: ProfilePut
 }
+
+type Countries = {
+  iso3: string
+  country: string
+  cities: string[]
+}
+type City = {
+  label: string
+  value: string 
+}
+
+type SelectOptions = {
+  key?: string
+  label: string
+  value: string
+  cities: string[]
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
@@ -13,17 +13,6 @@ import { DatePicker } from '@/shared/components/datePicker'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation } from '@/shared/regex'
-
-type Countries = {
-  country: string
-  cities: string[]
-}
-type SelectOptions = {
-  key?: string
-  label: string
-  value: string
-  cities: string[]
-}
 
 export const GeneralInformation = () => {
   const { t } = useTranslation()
@@ -93,49 +82,51 @@ export const GeneralInformation = () => {
     })
   }
   const [countries, setCountries] = useState<SelectOptions[]>([])
+  const [countriesOptions, setCountriesValues] = useState<Omit<SelectOptions, 'cities'>[]>([])
   const [country, setCountry] = useState('')
-  const [city, setCity] = useState([])
+  const [city, setCity] = useState<City[]>([])
 
   useEffect(() => {
     const getCities = async () => {
       const response = await fetch('https://countriesnow.space/api/v0.1/countries')
-      const countries = await response.json()
+      const data = await response.json()
+      const receivedCountries: SelectOptions[] = data.data.map((el: Countries): SelectOptions => {
+        return {
+          key: el.iso3,
+          label: el.country,
+          value: el.country,
+          cities: el.cities,
+        }
+      })
 
-      setCountries(
-        countries.data.map((el: Countries): SelectOptions => {
-          return {
-            label: el.country,
-            value: el.country,
-            cities: el.cities,
-          }
+      setCountries(receivedCountries)
+      setCountriesValues(
+        receivedCountries.filter(el => {
+          if (el.label !== 'Jordan' && el.label !== 'Myanmar')
+            return { key: el.key, label: el.label, value: el.value }
         })
       )
     }
 
-    getCities()
+    if (!countries.length) getCities()
   }, [])
 
   const onChangeCountryHandler = (value: string) => {
     setCountry(value)
 
     const citiesOfCountry = countries
-      .filter(el => value === el.label)
-      .map(el =>
-        el.cities.map(el => {
-          return {
-            label: el,
-            value: el,
-          }
-        })
-      )
+      .filter(el => value === el.label)[0]
+      .cities.map(el => {
+        return {
+          label: el,
+          value: el,
+        }
+      })
 
-    // @ts-ignore
     setCity(citiesOfCountry)
   }
   const onChangeCityHandler = (value: any) => {
-    const obj = { Country: country, City: value }
-
-    console.log(obj)
+    setValue('city', value)
   }
 
   return (
@@ -191,14 +182,16 @@ export const GeneralInformation = () => {
             />
             <div className={s.selects}>
               <SelectCustom
-                options={countries}
+                options={countriesOptions}
+                // options={[{ value: 'fda', label: 'fdsaf' }]}
                 label={t.profile.country}
                 placeHolder={t.profile.country_blank}
                 value={country}
                 onValueChange={onChangeCountryHandler}
               />
               <SelectCustom
-                options={city?.[0]}
+                {...register('city')}
+                options={city}
                 label={t.profile.city}
                 placeHolder={t.profile.city_blank}
                 onValueChange={onChangeCityHandler}
