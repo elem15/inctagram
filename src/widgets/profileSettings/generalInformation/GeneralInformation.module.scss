@@ -1,0 +1,15 @@
+.container {
+
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 25px;
+  margin-left: 5px;
+}
+
+.selects {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  /*  width: 484px;*/
+}
