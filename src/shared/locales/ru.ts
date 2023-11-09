@@ -116,4 +116,17 @@ export const ru: LangType = {
     favorites: 'Избранное',
     log_out: 'Выйти',
   },
+  add_profile_photo: {
+    add_profile_photo_text: 'Добавить фотографию профиля',
+    text_of_button_select_from_comp: 'Выбрать с компьютера',
+    error_typy_of_photo: 'Ошибка! Формат загружаемой фотографии должен быть\n' + 'PNG или JPEG',
+    error_size_photo: 'Ошибка! Размер фотографии должен быть меньше 10 МБ!',
+    save_button: 'Сохранить',
+  },
+  delete_photo_of_profile: {
+    text: 'Вы уверены, что хотите удалить фотографию?',
+    title_of_modal: 'Удалить фото',
+    button_yes: 'Да',
+    button_no: 'Нет',
+  },
 }

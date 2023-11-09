@@ -1,66 +1,41 @@
-.userPhotoBlock{
+.profileBox {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
 
-  width: 12rem;
-  height: 12rem;
-  margin-bottom: 24px;
-
-  background-color: var(--color-dark-500);
-  border-radius: 50%;
-}
-
-.box {
-display: flex;
-flex-direction: column;
-align-items:center;
+.ruBox {
+  display: flex;
   justify-content: center;
 
-margin-bottom: 84px;
+
+
+  .userPhotoBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 12rem;
+    height: 12rem;
+    margin-bottom: 24px;
+
+    background-color: var(--color-dark-500);
+    border-radius: 50%;
   }
-
-.errorText{
-  border:1px solid var(--color-danger-900);
-  background-color: var(--color-danger-500);
+}
 }
 
-.defaultProfilePhotoBlock {
+.deleteButtonBox {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 222px;
-  height: 228px;
-  margin-bottom: 60px;
+  width: 24px;
+  height: 24px;
 
-  background-color: var(--color-dark-500);
-  border-radius: 2px;
+  .deleteButton {
+    width: 16px;
+    height: 16px;
+    background-color: var(--color-danger-500);
+    border-radius: 50%;
+  }
 }
-
-.cropContainer{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .profilePhotoBlock {
-  position: relative;
-
-  width: 332px;
-  height: 340px;
-  margin-bottom: 36px;
-
-  background-repeat: no-repeat;
-  background-position: center;
-background-size: cover;
-
-
-}
-
-
-}
-
-.buttonBox{
-   display: flex;
-   justify-content: flex-end;
- }
