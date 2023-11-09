@@ -107,8 +107,6 @@ export const GeneralInformation = () => {
         })
       )
     }
-
-    if (!countries.length) getCities()
   }, [])
 
   const onChangeCountryHandler = (value: string) => {

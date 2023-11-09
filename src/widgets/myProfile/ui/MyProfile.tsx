@@ -4,8 +4,6 @@ import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import s from './MyProfile.module.scss'
-
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
 import { Button, Input, Textarea } from '@/shared/components'
@@ -83,7 +81,7 @@ export const MyProfile = () => {
   }
 
   return (
-    <div className={s.container}>
+    <div>
       <div>{profile?.userName}</div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
