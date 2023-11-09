@@ -1,24 +1,23 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   flex-grow: 0;
+  gap: 10px;
 }
 
 .mainContainer {
   display: flex;
   align-content: space-between;
-
 }
 
 .imagePicker {
-  padding: 0px 20px;
   max-width: 40%;
+  padding: 0 20px;
 }
 
 .footerContainer {
-  padding: 25px 0px;
-  border-top: 2px solid var(--color-dark-300);
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
+  padding: 25px 0;
+  border-top: 2px solid var(--color-dark-300);
 }

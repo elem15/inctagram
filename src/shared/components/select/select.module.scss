@@ -11,7 +11,6 @@
 }
 
 .trigger {
-  width: 100%;
   cursor: pointer;
 
   display: flex;
@@ -19,6 +18,7 @@
   align-items: center;
   justify-content: space-between;
 
+  width: 100%;
   margin-bottom: -4px;
   padding: 5px;
 
@@ -58,6 +58,7 @@
 
 .content {
   z-index: 4;
+
   width: var(--radix-select-trigger-width);
   max-height: var(--radix-select-content-available-height);
 
