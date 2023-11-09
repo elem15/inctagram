@@ -33,9 +33,11 @@
       height: 24px;
       padding: 6px 30px 6px 10px;
 
+      color: var(--color-light-100);
+
       border: var(--color-dark-100) solid 1px;
       border-radius: 2px;
-      color: var(--color-light-100);
+
       &[type='search'] {
         padding: 6px 10px 6px 40px;
       }
@@ -49,9 +51,9 @@
       }
 
       &:active {
+        color: var(--color-light-100);
         background-color: var(--color-dark-500);
         border: var(--color-light-100) solid 1px;
-        color: var(--color-light-100);
       }
 
       &:disabled {
@@ -71,9 +73,11 @@
       height: 24px;
       padding: 6px 30px 6px 10px;
 
+      color: var(--color-light-100);
+
       border: var(--color-danger-500) solid 1px;
       border-radius: 2px;
-      color: var(--color-light-100);
+
       &[type='search'] {
         padding: 6px 10px 6px 40px;
       }

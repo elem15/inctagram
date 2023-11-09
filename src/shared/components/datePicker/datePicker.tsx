@@ -18,6 +18,7 @@ type Props = {
   lang?: string
   setResultDate: React.Dispatch<React.SetStateAction<Date | DateRange | undefined>>
   defaultMonth?: Date
+  label?: string
 }
 
 export function DatePicker({
@@ -26,6 +27,7 @@ export function DatePicker({
   setResultDate,
   lang,
   defaultMonth,
+  label,
   ...props
 }: Props) {
   const baseDate = defaultMonth || new Date()
@@ -44,6 +46,7 @@ export function DatePicker({
 
   return (
     <Popover>
+      <label className="text-sm text-light-900 leading-relaxed">{label}</label>
       <PopoverTrigger asChild>
         <CalendarButton
           variant={'default'}

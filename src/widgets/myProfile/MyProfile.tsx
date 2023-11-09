@@ -124,6 +124,7 @@ export const MyProfile = () => {
           lang={t.lg}
           setResultDate={setResultDate}
           defaultMonth={profile && new Date(profile?.dateOfBirth)}
+          label={t.profile.birth_date}
         />
         <Textarea
           label={t.profile.about}
