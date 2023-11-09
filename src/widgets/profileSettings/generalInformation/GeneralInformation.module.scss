@@ -14,3 +14,27 @@
 
   /*  width: 484px; */
 }
+
+.footerContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 25px 0;
+  border-top: 2px solid var(--color-dark-300);
+}
+
+.mainContainer {
+  display: flex;
+  align-content: space-between;
+}
+
+.imagePicker {
+  max-width: 40%;
+  padding-right: 40px;
+}
+
+.textFormContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  row-gap: 1rem;
+}

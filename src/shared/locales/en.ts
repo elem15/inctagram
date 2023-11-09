@@ -125,7 +125,7 @@ export const en = {
     last_name: 'Last name*',
     birth_date: 'Date of birth',
     country: 'Select your country',
-    countryBlank: 'Country',
+    country_blank: 'Country',
     city: 'Select your city',
     city_blank: 'City',
     about: 'About Me',

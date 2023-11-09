@@ -5,23 +5,7 @@
   gap: 10px;
 }
 
-.mainContainer {
-  display: flex;
-  align-content: space-between;
-}
 
 .tabsContainer {
   margin-bottom: 12px;
-}
-
-.imagePicker {
-  max-width: 40%;
-  padding-right: 40px;
-}
-
-.footerContainer {
-  display: flex;
-  justify-content: flex-end;
-  padding: 25px 0;
-  border-top: 2px solid var(--color-dark-300);
 }

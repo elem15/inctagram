@@ -124,7 +124,7 @@ export const ru: LangType = {
     last_name: 'Фамилия*',
     birth_date: 'Дата рождения',
     country: 'Выберите страну',
-    countryBlank: 'Страна',
+    country_blank: 'Страна',
     city: 'Выберите город',
     city_blank: 'Город',
     about: 'Обо мне',
