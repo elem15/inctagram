@@ -6,6 +6,7 @@ import { Textarea } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
 import { useTranslation } from '@/shared/lib'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
+import { ProfileSettings } from '@/widgets/profileSettings/ProfileSettings'
 
 const TestPage = () => {
   const [errorMessage, setErrorMessage] = useState('')
@@ -25,6 +26,7 @@ const TestPage = () => {
         setResultDate={setResultDate}
         lang={t.lg}
       />
+      <ProfileSettings></ProfileSettings>
     </div>
   )
 }
