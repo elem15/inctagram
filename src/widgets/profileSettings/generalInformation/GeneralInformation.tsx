@@ -78,7 +78,7 @@ export const GeneralInformation: FC<Props> = () => {
       <Input label={'Username'} type={'text'} />
       <Input label={'First name'} type={'text'} />
       <Input label={'Last name'} type={'text'} />
-      <DatePicker mode={'single'} getDate={getDate} />
+      <DatePicker mode={'single'} />
       <div className={s.selects}>
         <SelectCustom
           options={countries}
