@@ -137,6 +137,10 @@ export const en = {
     first_name_message: 'The first name contain characters, not spaces, not start with numbers',
     last_name_message: 'The last name contain characters, not spaces, not start with numbers',
     button: 'Save changes',
+    general_information: 'General Information',
+    devices: 'Devices',
+    account_management: 'Account Management',
+    my_payments: 'My Payments',
   },
 }
 export type LangType = typeof en

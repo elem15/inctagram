@@ -4,7 +4,12 @@ export const BASE_URL = 'https://incta.online'
 export const BACKEND_URL = `${BASE_URL}/api/v1`
 export const FRONTEND_URL =
   process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : BASE_URL
-const GOOGLE_REDIRECT_URI = FRONTEND_URL + '/auth/oauth-callback-google'
+
+// 2 different REDIRECT_URL used on deploy end develop
+const GOOGLE_REDIRECT_URI =
+  process.env.NODE_ENV === 'development'
+    ? FRONTEND_URL
+    : FRONTEND_URL + '/auth/oauth-callback-google'
 
 export const AUTH_URLS = {
   GITHUB: `${BASE_URL}/api/v1/auth/github/login`,

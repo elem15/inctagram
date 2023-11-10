@@ -137,5 +137,9 @@ export const ru: LangType = {
     last_name_message:
       'Фамилия должна содержать буквы, не содержать пробелов, не начинаться с цифр',
     button: 'Сохранить изменения',
+    general_information: 'Основная информация',
+    devices: 'Устройства',
+    account_management: 'Управление аккаунтом',
+    my_payments: 'Мои платежи',
   },
 }
