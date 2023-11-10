@@ -82,7 +82,7 @@ export const GeneralInformation = () => {
     })
   }
   const [countries, setCountries] = useState<SelectOptions[]>([])
-  const [countriesOptions, setCountriesValues] = useState<Omit<SelectOptions, 'cities'>[]>([])
+  const [countriesOptions, setCountriesOptions] = useState<Omit<SelectOptions, 'cities'>[]>([])
   const [country, setCountry] = useState('')
   const [city, setCity] = useState<City[]>([])
 
@@ -100,7 +100,7 @@ export const GeneralInformation = () => {
       })
 
       setCountries(receivedCountries)
-      setCountriesValues(
+      setCountriesOptions(
         receivedCountries.filter(el => {
           if (el.label !== 'Jordan' && el.label !== 'Myanmar')
             return { key: el.key, label: el.label, value: el.value }
@@ -141,7 +141,15 @@ export const GeneralInformation = () => {
           </div>
           <div className={s.textFormContainer}>
             <Input
+              label={t.profile.user_name}
+              labelClass="asterisk"
+              type="text"
+              value={profile?.userName}
+              disabled
+            />
+            <Input
               label={t.profile.first_name}
+              labelClass="asterisk"
               type="text"
               {...register('firstName', {
                 required: t.profile.first_name_required,
@@ -158,6 +166,7 @@ export const GeneralInformation = () => {
             />
             <Input
               label={t.profile.last_name}
+              labelClass="asterisk"
               type="text"
               {...register('lastName', {
                 required: t.profile.last_name_required,

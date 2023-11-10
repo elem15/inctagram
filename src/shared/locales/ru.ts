@@ -119,9 +119,9 @@ export const ru: LangType = {
     title: 'Уведомления',
   },
   profile: {
-    user_name: 'Имя пользователя*',
-    first_name: 'Имя*',
-    last_name: 'Фамилия*',
+    user_name: 'Имя пользователя',
+    first_name: 'Имя',
+    last_name: 'Фамилия',
     birth_date: 'Дата рождения',
     country: 'Выберите страну',
     country_blank: 'Страна',

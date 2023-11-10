@@ -120,9 +120,9 @@ export const en = {
     title: 'Notification',
   },
   profile: {
-    user_name: 'Username*',
-    first_name: 'First name*',
-    last_name: 'Last name*',
+    user_name: 'Username',
+    first_name: 'First name',
+    last_name: 'Last name',
     birth_date: 'Date of birth',
     country: 'Select your country',
     country_blank: 'Country',

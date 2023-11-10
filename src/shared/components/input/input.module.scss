@@ -109,4 +109,9 @@
 
     color: var(--color-light-900);
   }
+
+  .asterisk::after {
+    content: '*';
+    color: var(--color-danger-500);
+  }
 }
