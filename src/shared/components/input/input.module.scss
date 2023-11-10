@@ -1,0 +1,111 @@
+@mixin typography($fS, $fW, $lH) {
+  font-family: var(--font-family-primary);
+  font-size: $fS;
+  font-weight: $fW;
+  line-height: $lH;
+}
+
+.inputWrapper {
+  @include typography(var(--font-size-m), var(--font-weight-regular), var(--line-height-m));
+
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+
+  .inputContainer {
+    position: relative;
+
+    .searchIcon {
+      position: absolute;
+      top: 8px;
+      left: 12px;
+
+      width: 21px;
+      height: 21px;
+
+      color: var(--color-dark-100);
+    }
+
+    .input {
+      all: unset;
+      width: 90%;
+      /*width: 284px;*/
+      height: 24px;
+      padding: 6px 30px 6px 10px;
+
+      border: var(--color-dark-100) solid 1px;
+      border-radius: 2px;
+      color: var(--color-light-100);
+
+      &[type='search'] {
+        padding: 6px 10px 6px 40px;
+      }
+
+      &:hover {
+        background-color: var(--color-dark-700);
+      }
+
+      &:focus {
+        outline: var(--color-accent-500) solid 2px;
+      }
+
+      &:active {
+        background-color: var(--color-dark-500);
+        border: var(--color-light-100) solid 1px;
+        color: var(--color-light-100);
+      }
+
+      &:disabled {
+        color: var(--color-dark-100);
+        border: var(--color-dark-100) solid 2px;
+      }
+
+      &:disabled::placeholder {
+        color: var(--color-dark-100);
+      }
+    }
+
+    .error {
+      all: unset;
+
+      width: 284px;
+      height: 24px;
+      padding: 6px 30px 6px 10px;
+
+      border: var(--color-danger-500) solid 1px;
+      border-radius: 2px;
+      color: var(--color-light-100);
+
+      &[type='search'] {
+        padding: 6px 10px 6px 40px;
+      }
+
+    }
+
+    .passwordControl {
+      cursor: pointer;
+
+      position: absolute;
+      top: 7px;
+      left: 290px;
+
+      display: inline-block;
+
+      width: 22px;
+      height: 19px;
+
+      background-color: inherit;
+      border: none;
+    }
+
+    .errorMessage {
+      color: var(--color-danger-500);
+    }
+  }
+
+  .label {
+    @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-m));
+
+    color: var(--color-light-900);
+  }
+}

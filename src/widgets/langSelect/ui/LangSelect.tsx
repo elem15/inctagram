@@ -111,9 +111,6 @@ function LangSelectWidget() {
   const { isClient } = useClient()
   const changeLangHandler = (selectedOption: { value: string; label: string }) => {
     push({ pathname, query }, asPath, { locale: selectedOption.value })
-    events.on('routeChangeComplete', () => {
-      reload()
-    })
   }
 
   return (

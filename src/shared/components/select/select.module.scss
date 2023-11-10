@@ -1,3 +1,7 @@
+.container {
+  width: 100%;
+}
+
 .label {
   color: var(--color-light-900);
 }
@@ -7,6 +11,7 @@
 }
 
 .trigger {
+  width: 100%;
   cursor: pointer;
 
   display: flex;
@@ -53,8 +58,8 @@
 
 .content {
   z-index: 4;
-
   width: var(--radix-select-trigger-width);
+  max-height: var(--radix-select-content-available-height);
 
   text-transform: capitalize;
 
@@ -82,6 +87,16 @@
 .item:hover {
   color: var(--color-accent-500);
   background: var(--color-dark-300);
+}
+
+.pagination:hover {
+  color: var(--color-light-100);
+  background: var(--color-dark-100);
+}
+
+.pagination:focus-visible {
+  color: var(--color-light-100);
+  background: var(--color-dark-100);
 }
 
 @keyframes fadein {

@@ -2,6 +2,7 @@ import { enTextsPrivacyPolicy } from '@/shared/locales/en-texts-privacy-policy'
 import { enTextsTermsOfService } from '@/shared/locales/en-texts-terms-of-service'
 
 export const en = {
+  lg: 'en',
   home: {
     home: 'Home',
     create: 'Create',
@@ -104,6 +105,19 @@ export const en = {
   privacy_policy: {
     title: 'Privacy Policy',
     text: enTextsPrivacyPolicy,
+  },
+  sidebar: {
+    home: 'Home',
+    create: 'Create',
+    my_profile: 'My Profile',
+    messenger: 'Messenger',
+    search: 'Search',
+    statistics: 'Statistics',
+    favorites: 'Favorites',
+    log_out: 'Log Out',
+  },
+  notification_menu: {
+    title: 'Notification',
   },
 }
 export type LangType = typeof en

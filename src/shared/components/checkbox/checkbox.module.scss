@@ -1,93 +1,85 @@
-.checkBoxBlock {
+.label {
+  cursor: pointer;
   display: flex;
+  gap: 2px;
   align-items: center;
 
-  .checkboxRoot {
-    cursor: pointer;
+  &.disabled {
+    cursor: initial;
+    color: var(--color-dark-100);
+  }
 
-    position: relative;
+  .root {
+    cursor: pointer;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    width: 25px;
-    height: 25px;
+    width: 1.2rem;
+    height: 1.2rem;
 
-    background: none;
-    border-radius: 0.25rem;
+    background-color: transparent;
+    border-radius: 2px;
 
-    &[data-state='unchecked'] {
-      border: 2px solid var(--color-dark-100);
+    &:not([data-state='checked']) {
+      border: 2px solid var(--color-light-500);
     }
 
     &[data-state='checked'] {
-      border: none;
+      background-color: var(--color-dark-900);
     }
 
-    &:focus {
-      &::before {
-        content: '';
-
-        position: absolute;
-        z-index: -1;
-
-        width: calc(100% + 25px);
-        height: calc(100% + 25px);
-
-        background-color: var(--color-dark-100);
-        border-radius: 50%;
-      }
+    &[data-disabled] {
+      pointer-events: none;
+      cursor: initial;
+      border: 2px solid var(--color-dark-100);
     }
 
-    &:disabled {
+    &:hover:active([data-state='checked']) {
+      color: var(--color-light-500);
+      background-color: var(--color-dark-300);
+    }
+
+    &:hover:active:not([data-disabled]) {
+      background-color: var(--color-dark-900);
+      border: 2px solid var(--color-light-100);
+    }
+
+    &:hover:active:not([data-state='checked'], [data-disabled]) {
       background-color: var(--color-dark-100);
     }
 
-    &:hover {
-      &::before {
-        content: '';
-
-        position: absolute;
-        z-index: -1;
-
-        width: calc(100% + 25px);
-        height: calc(100% + 25px);
-
-        border-radius: 50%;
-      }
+    &[data-state='checked'][data-disabled] {
+      background-color: var(--color-light-700);
     }
   }
 
-  .active {
-    background-color: var(--color-light-100);
+  .checkboxWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    .checkboxIndicator {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-dark-900);
+    width: 2.6rem;
+    height: 2.6rem;
 
-      .icon {
-        width: 25px;
-        height: 25px;
-      }
+    border-radius: 50%;
+
+    &:hover:not(.disabled) {
+      background-color: var(--color-dark-300);
     }
-  }
 
-  .checkboxRoot:disabled .checkboxIndicator {
-    color: var(--color-light-700);
-  }
+    &:hover:active:not(.disabled) {
+      background-color: var(--color-dark-100);
+    }
 
-  .label {
-    cursor: pointer;
-    user-select: none;
-    margin-left: 0.75rem;
-  }
+    &.left {
+      margin-left: -0.9rem;
+    }
 
-  .labelDisabled {
-    p {
-      color: var(--color-light-900);
+    .indicator {
+      width: 1.2rem;
+      height: 1.2rem;
     }
   }
 }

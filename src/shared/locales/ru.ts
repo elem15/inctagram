@@ -3,6 +3,7 @@ import { LangType } from './en'
 import { ruTextsTermsOfService } from '@/shared/locales/ru-terms-of-service'
 import { ruTextsPrivacyPolicy } from '@/shared/locales/ru-texts-privacy-policy'
 export const ru: LangType = {
+  lg: 'ru',
   home: {
     home: 'Главная',
     create: 'Создать',
@@ -104,5 +105,18 @@ export const ru: LangType = {
   privacy_policy: {
     title: 'Политика конфиденциальности',
     text: ruTextsPrivacyPolicy,
+  },
+  sidebar: {
+    home: 'Главная',
+    create: 'Создать',
+    my_profile: 'Профиль',
+    messenger: 'Сообщения',
+    search: 'Поиск',
+    statistics: 'Статистика',
+    favorites: 'Избранное',
+    log_out: 'Выйти',
+  },
+  notification_menu: {
+    title: 'Уведомления',
   },
 }

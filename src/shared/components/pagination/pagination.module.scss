@@ -1,0 +1,87 @@
+@mixin paginationBorder($border, $borderRadius) {
+  border: 1px solid $border;
+  border-radius: $borderRadius;
+}
+
+@mixin paginationColor($color, $backGroundColor) {
+  color: var($color);
+  background-color: $backGroundColor;
+}
+
+@mixin paginationTextAlign($margin-inline, $text-align) {
+  margin-inline: $margin-inline;
+  text-align: $text-align;
+}
+
+@mixin pagination($all, $width, $height) {
+  all: $all;
+  min-width: $width;
+  height: $height;
+}
+
+.pageStyle {
+  @include pagination(unset, 24px, 24px);
+  @include paginationTextAlign(5px, center);
+  @include paginationColor(--color-light-100, rgb(255 255 255 / 0%));
+  @include paginationBorder(rgb(255 255 255 / 0%), 2px);
+
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-light-100);
+    background-color: var(--color-dark-500);
+    border-radius: 2px;
+  }
+
+  &:focus-visible {
+    border: 2px solid var(--color-accent-700);
+    border-radius: 20%;
+  }
+}
+
+.activePageStyle {
+  @include pagination(unset, 24px, 24px);
+  @include pagination(unset, 24px, 24px);
+  @include paginationTextAlign(0, center);
+  @include paginationColor(--color-dark-900, var(--color-light-100));
+  @include paginationBorder(var(--color-light-100), 2px);
+
+  &:hover {
+    color: var(--color-dark-900);
+    background-color: var(--color-light-100);
+  }
+}
+
+.dotsStyle {
+  all: unset;
+  margin-inline: 12px;
+}
+
+.arrowButtonsStyle {
+  position: relative;
+  text-align: center;
+}
+
+.arrowStyle {
+  position: relative;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+}
+
+.paginationWrapper {
+  all: unset;
+
+  display: flex;
+  gap: 5px;
+
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.selectWrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
