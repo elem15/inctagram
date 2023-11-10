@@ -10,19 +10,22 @@ import { ProfileSettings } from '@/widgets/profileSettings/ProfileSettings'
 
 const TestPage = () => {
   const [errorMessage, setErrorMessage] = useState('')
-  const getDate = (date: Date | DateRange) => {
-    setErrorMessage('')
 
-    return date
-  }
+  const [date, setResultDate] = useState<Date | DateRange>()
   const { t } = useTranslation()
 
   return (
     <div className="flex flex-col justify-start items-start bg-dark-700">
       <Textarea value={'content'} />
       <hr />
+      <div>{date?.toLocaleString()}</div>
       <br />
-      <DatePicker mode="range" errorMessage={errorMessage} getDate={getDate} lang={t.lg} />
+      <DatePicker
+        mode="single"
+        errorMessage={errorMessage}
+        setResultDate={setResultDate}
+        lang={t.lg}
+      />
       <ProfileSettings></ProfileSettings>
     </div>
   )

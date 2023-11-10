@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 
 // eslint-disable-next-line import/no-duplicates
 import { format } from 'date-fns'
@@ -16,74 +16,91 @@ type Props = {
   mode: 'single' | 'range'
   errorMessage?: string
   lang?: string
-  getDate: (date: Date | DateRange) => typeof date
+  setResultDate: React.Dispatch<React.SetStateAction<Date | DateRange | undefined>>
+  defaultMonth?: Date
+  label?: string
 }
 
-export function DatePicker({ mode, errorMessage, getDate, lang }: Props) {
-  const today = new Date()
-  const [date, setDate] = React.useState<Date>()
-  const [range, setRange] = React.useState<DateRange>()
+export function DatePicker({
+  mode,
+  errorMessage,
+  setResultDate,
+  lang,
+  defaultMonth,
+  label,
+  ...props
+}: Props) {
+  const baseDate = defaultMonth || new Date()
+  const [date, setDate] = useState<Date>()
+  const [range, setRange] = useState<DateRange>()
   const isSelected = date || range
   const locale = lang === 'ru' ? ru : undefined
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (date) {
-      getDate(date)
+      setResultDate(date)
     } else if (range && range.to) {
-      getDate(range)
+      setResultDate(range)
     }
-  }, [getDate, date, range])
+  }, [setResultDate, date, range])
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <CalendarButton
-          variant={'default'}
-          className={cn(
-            'min-w-[160px] w-full justify-between text-left gap-10 font-normal bg-dark-500 border-dark-300 rounded-none hover:text-light-100 group',
-            !isSelected && 'text-light-900',
-            errorMessage &&
-              'data-[state=closed]:border-red-500 data-[state=closed]:text-red-500 border-[1px]'
+    <div>
+      <label className="text-sm text-light-900 leading-relaxed">{label}</label>
+      <Popover>
+        <PopoverTrigger asChild>
+          <CalendarButton
+            variant={'default'}
+            className={cn(
+              'min-w-[160px] w-full justify-between text-left gap-10 font-normal bg-dark-500 border-dark-300 rounded-none hover:text-light-100 group',
+              !isSelected && 'text-light-900',
+              errorMessage &&
+                'data-[state=closed]:border-red-500 data-[state=closed]:text-red-500 border-[1px]'
+            )}
+          >
+            {!isSelected && format(baseDate, 'dd/MM/yyyy')}
+            {date
+              ? format(date, 'dd/MM/yyyy')
+              : range?.from &&
+                `${format(range.from, 'dd/MM/yyyy')} ${
+                  range.to ? '- ' + format(range.to, 'dd/MM/yyyy') : ''
+                }`}
+            <CalendarDark className="group-data-[state=closed]:hidden" />
+            <CalendarLight className="group-data-[state=open]:hidden" />
+          </CalendarButton>
+        </PopoverTrigger>
+        {errorMessage && (
+          <Typography variant="small_text" className="text-red-500 left-0">
+            {errorMessage}
+          </Typography>
+        )}
+        <PopoverContent className="w-auto p-0 dark">
+          {mode === 'single' && (
+            <Calendar
+              mode={'single'}
+              locale={locale}
+              selected={date}
+              onSelect={setDate}
+              initialFocus
+              className="dark bg-dark-500 border-dark-300"
+              defaultMonth={defaultMonth}
+              {...props}
+            />
           )}
-        >
-          {!isSelected && format(today, 'dd/MM/yyyy')}
-          {date
-            ? format(date, 'dd/MM/yyyy')
-            : range?.from &&
-              `${format(range.from, 'dd/MM/yyyy')} ${
-                range.to ? '- ' + format(range.to, 'dd/MM/yyyy') : ''
-              }`}
-          <CalendarDark className="group-data-[state=closed]:hidden" />
-          <CalendarLight className="group-data-[state=open]:hidden" />
-        </CalendarButton>
-      </PopoverTrigger>
-      {errorMessage && (
-        <Typography variant="small_text" className="text-red-500 left-0">
-          {errorMessage}
-        </Typography>
-      )}
-      <PopoverContent className="w-auto p-0 dark">
-        {mode === 'single' && (
-          <Calendar
-            mode={'single'}
-            locale={locale}
-            selected={date}
-            onSelect={setDate}
-            initialFocus
-            className="dark bg-dark-500 border-dark-300"
-          />
-        )}
-        {mode === 'range' && (
-          <Calendar
-            mode={'range'}
-            locale={locale}
-            selected={range}
-            onSelect={setRange}
-            initialFocus
-            className="dark bg-dark-500 border-dark-300"
-          />
-        )}
-      </PopoverContent>
-    </Popover>
+          {mode === 'range' && (
+            <Calendar
+              mode={'range'}
+              locale={locale}
+              selected={range}
+              onSelect={setRange}
+              initialFocus
+              className="dark bg-dark-500 border-dark-300"
+              defaultMonth={defaultMonth}
+              {...props}
+            />
+          )}
+        </PopoverContent>
+      </Popover>
+    </div>
   )
 }

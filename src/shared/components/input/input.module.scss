@@ -28,14 +28,15 @@
 
     .input {
       all: unset;
-      width: 90%;
-      /*width: 284px;*/
+
+      width: calc(100% - 20px);
       height: 24px;
-      padding: 6px 30px 6px 10px;
+      padding: 6px 10px;
+
+      color: var(--color-light-100);
 
       border: var(--color-dark-100) solid 1px;
       border-radius: 2px;
-      color: var(--color-light-100);
 
       &[type='search'] {
         padding: 6px 10px 6px 40px;
@@ -50,9 +51,9 @@
       }
 
       &:active {
+        color: var(--color-light-100);
         background-color: var(--color-dark-500);
         border: var(--color-light-100) solid 1px;
-        color: var(--color-light-100);
       }
 
       &:disabled {
@@ -72,14 +73,14 @@
       height: 24px;
       padding: 6px 30px 6px 10px;
 
+      color: var(--color-light-100);
+
       border: var(--color-danger-500) solid 1px;
       border-radius: 2px;
-      color: var(--color-light-100);
 
       &[type='search'] {
         padding: 6px 10px 6px 40px;
       }
-
     }
 
     .passwordControl {
@@ -107,5 +108,10 @@
     @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-m));
 
     color: var(--color-light-900);
+  }
+
+  .asterisk::after {
+    content: '*';
+    color: var(--color-danger-500);
   }
 }
