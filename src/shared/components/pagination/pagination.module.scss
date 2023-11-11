@@ -1,14 +1,14 @@
-@mixin paginationBorder($border, $borderRadius) {
+@mixin pagination-border($border, $border-radius) {
   border: 1px solid $border;
-  border-radius: $borderRadius;
+  border-radius: $border-radius;
 }
 
-@mixin paginationColor($color, $backGroundColor) {
+@mixin pagination-color($color, $back-ground-color) {
   color: var($color);
-  background-color: $backGroundColor;
+  background-color: $back-ground-color;
 }
 
-@mixin paginationTextAlign($margin-inline, $text-align) {
+@mixin pagination-text-align($margin-inline, $text-align) {
   margin-inline: $margin-inline;
   text-align: $text-align;
 }
@@ -21,9 +21,9 @@
 
 .pageStyle {
   @include pagination(unset, 24px, 24px);
-  @include paginationTextAlign(5px, center);
-  @include paginationColor(--color-light-100, rgb(255 255 255 / 0%));
-  @include paginationBorder(rgb(255 255 255 / 0%), 2px);
+  @include pagination-text-align(5px, center);
+  @include pagination-color(--color-light-100, rgb(255 255 255 / 0%));
+  @include pagination-border(rgb(255 255 255 / 0%), 2px);
 
   cursor: pointer;
 
@@ -42,9 +42,9 @@
 .activePageStyle {
   @include pagination(unset, 24px, 24px);
   @include pagination(unset, 24px, 24px);
-  @include paginationTextAlign(0, center);
-  @include paginationColor(--color-dark-900, var(--color-light-100));
-  @include paginationBorder(var(--color-light-100), 2px);
+  @include pagination-text-align(0, center);
+  @include pagination-color(--color-dark-900, var(--color-light-100));
+  @include pagination-border(var(--color-light-100), 2px);
 
   &:hover {
     color: var(--color-dark-900);

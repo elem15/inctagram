@@ -11,6 +11,7 @@ import styles from './SignInWidget.module.scss'
 import { useLoginMutation } from '@/entities/auth'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
+import { Button } from '@/shared/components'
 import { useTranslation } from '@/shared/lib'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
@@ -37,6 +38,11 @@ export const SignInWidget: FC = () => {
     Login({ email: data.email, password: data.password })
   }
 
+  const googleLogin = () => {
+    setSocialsLoading(true)
+    window.location.assign(AUTH_URLS.GOOGLE)
+  }
+
   useEffect(() => {
     isSuccess && router.push('/')
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,9 +62,9 @@ export const SignInWidget: FC = () => {
       {(isLoading || socialsLoading) && <Spinner />}
       <h1 className={styles.heading}>{t.signin.title}</h1>
       <div className={styles.icon}>
-        <Link href={AUTH_URLS.GOOGLE} onClick={() => setSocialsLoading(true)}>
+        <Button variant="link" onClick={googleLogin}>
           <GoogleIcon />
-        </Link>
+        </Button>
         <Link href={AUTH_URLS.GITHUB} onClick={() => setSocialsLoading(true)}>
           <GithubIcon className="fill-light-100" />
         </Link>
