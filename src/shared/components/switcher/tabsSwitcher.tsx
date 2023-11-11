@@ -35,7 +35,7 @@ export const TabsSwitcher = forwardRef<ElementRef<typeof Tabs.Root>, TabsProps>(
 
     return (
       <Tabs.Root defaultValue={defaultValue} ref={ref} {...restProps} onValueChange={onValueChange}>
-        <Tabs.List>{mappedTabs}</Tabs.List>
+        <Tabs.List className={s.tabList}>{mappedTabs}</Tabs.List>
       </Tabs.Root>
     )
   }

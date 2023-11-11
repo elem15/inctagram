@@ -1,3 +1,7 @@
+.container {
+  width: 100%;
+}
+
 .label {
   color: var(--color-light-900);
 }
@@ -14,6 +18,7 @@
   align-items: center;
   justify-content: space-between;
 
+  width: 100%;
   margin-bottom: -4px;
   padding: 5px;
 
@@ -55,6 +60,7 @@
   z-index: 4;
 
   width: var(--radix-select-trigger-width);
+  max-height: var(--radix-select-content-available-height);
 
   text-transform: capitalize;
 

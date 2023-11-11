@@ -5,12 +5,7 @@ import { useTranslation } from '@/shared/lib'
 import { emailValidation, nameValidation, passwordValidation } from '@/shared/regex'
 import { IAuthFields } from '@/shared/types'
 
-export const SignUpAuth: FC<IAuthFields> = ({
-  register,
-  formState: { errors },
-  isPasswordRequired = false,
-  getValues,
-}) => {
+export const SignUpAuth: FC<IAuthFields> = ({ register, formState: { errors }, getValues }) => {
   const { t } = useTranslation()
 
   return (

@@ -8,17 +8,20 @@ import s from './input.module.scss'
 
 import { EyeOffOutline, EyeOutline, SearchIcon } from '@/shared/assets'
 
-
 export type InputProps = {
   onChangeValue?: (value: string) => void
   error?: string
   disabled?: boolean
   label?: string
+  labelClass?: string
   type?: 'text' | 'password' | 'search'
 } & ComponentPropsWithoutRef<'input'>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ onChangeValue, value, error, disabled, onChange, label, type, ...restProps }, ref) => {
+  (
+    { onChangeValue, value, error, disabled, onChange, label, labelClass, type, ...restProps },
+    ref
+  ) => {
     const [visiblePassword, setVisiblePassword] = useState<boolean>(false)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +35,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={s.inputWrapper}>
-        <label className={s.label}>{label}</label>
+        <label className={clsx(s.label, labelClass && s[labelClass])}>{label}</label>
 
         <div className={s.inputContainer}>
           {type === 'search' && <SearchIcon className={s.searchIcon} />}
@@ -45,6 +48,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             ref={ref}
             value={value}
+            {...restProps}
           />
           {type === 'password' && (
             <button

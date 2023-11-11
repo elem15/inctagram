@@ -14,6 +14,7 @@ import { useRegistrationMutation } from '@/entities/auth'
 import { setUser } from '@/entities/auth/model/authSlice'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
+import { Button, SuperCheckbox } from '@/shared/components'
 import { consoleErrors, useTranslation } from '@/shared/lib'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
@@ -43,7 +44,7 @@ export const SignUpWidget: FC = () => {
   const [registration, { isLoading, isSuccess, error }] = useRegistrationMutation()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
-    dispatch(setUser({ user: data.username, email: data.email }))
+    dispatch(setUser({ userName: data.username, email: data.email }))
 
     registration({ email: data.email, userName: data.username, password: data.password })
   }
@@ -52,6 +53,10 @@ export const SignUpWidget: FC = () => {
     isSuccess && router.push('/email-sent')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
+
+  const googleLogin = () => {
+    window.location.assign(AUTH_URLS.GOOGLE)
+  }
 
   useEffect(() => {
     if (error) {
@@ -69,9 +74,9 @@ export const SignUpWidget: FC = () => {
       {(isLoading || socialsLoading) && <Spinner />}
       <h1 className={styles.heading}>{t.signup.title}</h1>
       <div className={styles.icon}>
-        <Link href={AUTH_URLS.GOOGLE} onClick={() => setSocialsLoading(true)}>
+        <Button variant="link" onClick={googleLogin}>
           <GoogleIcon />
-        </Link>
+        </Button>
         <Link href={AUTH_URLS.GITHUB} onClick={() => setSocialsLoading(true)}>
           <GithubIcon className="fill-light-100" />
         </Link>
@@ -85,16 +90,8 @@ export const SignUpWidget: FC = () => {
         />
 
         <div className={styles.checkbox}>
-          <div className="h-6 w-6 flex justify-end items-center">
-            <input
-              type="checkbox"
-              id="agree"
-              checked={agree}
-              onChange={() => setAgree(agree => !agree)}
-              className="border-gray-400 rounded accent-white h-5.5 w-5.5"
-            />
-          </div>
-          <label htmlFor="agree" className="text-xs text-light-100 ml-2">
+          <SuperCheckbox checked={agree} onCheckedChange={() => setAgree(agree => !agree)} />
+          <label htmlFor="agree" className="text-xs text-light-100">
             <span>{t.signup.agreement} </span>
             <Link href="auth/terms-of-service">{t.signup.terms_service}</Link>
             <span> {t.signup.and} </span>

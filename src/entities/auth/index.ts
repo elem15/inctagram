@@ -12,7 +12,6 @@ export {
 } from './api/authApi'
 
 export {
-  addToken,
   addUser,
   clearLocalUserData,
   setUser,

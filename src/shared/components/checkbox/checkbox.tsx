@@ -55,7 +55,7 @@ export const SuperCheckbox = forwardRef<ElementRef<typeof RadixCheckbox.Root>, C
           >
             {checked && (
               <RadixCheckbox.Indicator className={classNames.indicator} forceMount>
-                <Check size={1.8} />
+                <Check size={1.2} />
               </RadixCheckbox.Indicator>
             )}
           </RadixCheckbox.Root>

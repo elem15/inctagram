@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import type { Meta, StoryObj } from '@storybook/react'
 import { DateRange } from 'react-day-picker'
 
@@ -16,9 +18,6 @@ export const DatePickerRange: Story = {
   args: {
     mode: 'range',
     errorMessage: '',
-    getDate: (date: Date | DateRange) => {
-      return date
-    },
   },
 }
 
@@ -26,8 +25,5 @@ export const DatePickerSingle: Story = {
   args: {
     mode: 'single',
     errorMessage: '',
-    getDate: (date: Date | DateRange) => {
-      return date
-    },
   },
 }
