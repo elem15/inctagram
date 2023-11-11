@@ -1,15 +1,14 @@
 .box {
   position: fixed;
-  z-index: 100;
+  z-index: 200;
   inset: 0;
-  background-color: rgb(0 0 0 / 30%);
 }
 
 .error {
   position: fixed;
-  z-index: 101;
-  top: 30%;
-  left: 50%;
+  z-index: 201;
+  top: 90%;
+  left: 20%;
   transform: translate(-50%, -50%);
 
   display: flex;
@@ -20,15 +19,29 @@
   width: 24.1875rem;
   padding: 12px 24px;
 
+color: #fff;
+
   background: var(--color-danger-900);
   border: 1px solid var(--color-danger-500);
+
+  @media screen and (width <= 1100px) {
+    top: 76%;
+    left: 30%;
+    width: calc(50% - 32px);
+  }
+
+  @media screen and (width <= 640px) {
+    top: 50%;
+    left: 50%;
+    width: calc(100% - 32px);
+  }
 }
 
 .info {
   position: fixed;
-  z-index: 101;
-  top: 30%;
-  left: 50%;
+  z-index: 202;
+  top: 90%;
+  left: 20%;
   transform: translate(-50%, -50%);
 
   display: flex;
@@ -39,8 +52,23 @@
   width: 24.1875rem;
   padding: 12px 24px;
 
+color: #fff;
+
   background: var(--color-success-900);
   border: 1px solid var(--color-success-500);
+
+  @media screen and (width <= 1100px) {
+    top: 76%;
+    left: 30%;
+    width: calc(50% - 32px);
+  }
+
+  @media screen and (width <= 640px) {
+    top: 50%;
+    left: 50%;
+    width: calc(100% - 32px);
+  }
+
 }
 
 .content {
