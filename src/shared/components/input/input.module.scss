@@ -69,9 +69,9 @@
     .error {
       all: unset;
 
-      width: 284px;
+      width: calc(100% - 20px);
       height: 24px;
-      padding: 6px 30px 6px 10px;
+      padding: 6px 10px;
 
       color: var(--color-light-100);
 
