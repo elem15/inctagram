@@ -4,6 +4,7 @@ import Cropper from 'react-easy-crop'
 
 import s from './AddProfilePhotoModal.module.scss'
 
+import { useSavePhotoMutation } from '@/entities/profile/api/profileApi'
 import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
@@ -20,7 +21,7 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
   const [zoom, setZoom] = useState(1)
   const [errorText, setErrorText] = useState<string | undefined>()
   const { t } = useTranslation()
-
+  const [savePhoto] = useSavePhotoMutation()
   const onCropChange = (crop: any) => {
     setCrop(crop)
   }
@@ -59,7 +60,21 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
       setErrorText(undefined)
     }
   }
+  const handleSavePhoto = () => {
+    const formData = new FormData()
 
+    if (profilePhoto) {
+      formData.append('cover', profilePhoto)
+    }
+    savePhoto(formData)
+    // .unwrap()
+    // .catch(err => {
+    //
+    // })
+
+    closeModal()
+    setProfilePhoto(profilePhoto)
+  }
   const handleCloseModal = () => {
     closeModal()
     setProfilePhoto(undefined)
@@ -112,7 +127,7 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
                 </div>
               </div>
               <div className={s.buttonBox}>
-                <Button variant={'primary'} className={s.buttons}>
+                <Button variant={'primary'} className={s.buttons} onClick={handleSavePhoto}>
                   {t.add_profile_photo.save_button}
                 </Button>
               </div>
