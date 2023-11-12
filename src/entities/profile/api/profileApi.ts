@@ -13,7 +13,7 @@ export const profileApi = createApi({
         url: `/users/profile/${profileId}`,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: 'Nelly92 ' + accessToken,
+          Authorization: 'Bearer ' + accessToken,
         },
       }),
       providesTags: ['Profile'],
@@ -26,22 +26,26 @@ export const profileApi = createApi({
         body,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: 'Nelly92 ' + accessToken,
+          Authorization: 'Bearer ' + accessToken,
         },
       }),
       invalidatesTags: ['Profile'],
     }),
-    savePhoto: builder.mutation<any, { FormData: any; accessToken?: string }>({
-      query: ({ FormData, accessToken }) => ({
-        url: '/users/profile/avatar',
-        body: FormData,
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Nelly92' + accessToken,
-        },
-      }),
+    savePhoto: builder.mutation<any, FormData>({
+      query: ({ formData, accessToken }) => {
+        console.log({ formData })
+
+        return {
+          url: '/users/profile/avatar',
+          body: JSON.stringify(formData),
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            // 'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + accessToken,
+          },
+        }
+      },
       invalidatesTags: ['Profile'],
     }),
   }),

@@ -18,11 +18,7 @@ export const ProfilePhoto = ({ photo }: Props) => {
   return (
     <div className={s.profileBox}>
       <div className={s.ruBox}>
-        <span className={s.deleteButtonBox}>
-          <Button variant={'link'} className={s.deleteButton}>
-            <CloseIcon />
-          </Button>
-        </span>
+        <DeleteProfilePhoto />
         <div className={s.userPhotoBlock}>
           {photo ? (
             <img

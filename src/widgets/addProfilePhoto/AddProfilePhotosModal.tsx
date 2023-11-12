@@ -9,6 +9,7 @@ import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { useTranslation } from '@/shared/lib'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 type Propss = {
   isOpen: boolean
@@ -21,14 +22,20 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
   const [zoom, setZoom] = useState(1)
   const [errorText, setErrorText] = useState<string | undefined>()
   const { t } = useTranslation()
+  const { userId, accessToken } = useAuth()
+
   const [savePhoto] = useSavePhotoMutation()
   const onCropChange = (crop: any) => {
     setCrop(crop)
   }
 
-  const onCropComplete = (croppedArea: any, croppedAreaPixels: any) => {
-    console.log(croppedAreaPixels.width / croppedAreaPixels.height)
-  }
+  console.log(profilePhoto)
+  // const onCropComplete = (croppedAreaPixels: any) => {
+  //   if (croppedAreaPixels.width !== 0 && croppedAreaPixels.height !== 0) {
+  //     console.log(croppedAreaPixels.width / croppedAreaPixels.height)
+  //   }
+  //   // console.log(croppedAreaPixels.width / croppedAreaPixels.height)
+  // }
 
   const onZoomChange = (zoom: any) => {
     setZoom(zoom)
@@ -42,7 +49,7 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
 
     if (selectedFile) {
       const acceptedTypes = ['image/jpeg', 'image/png']
-      const maxSizeBytes = 10 * 1024 * 1024 // 10MB
+      const maxSizeBytes = 1.5 * 1024 * 1024
 
       if (!acceptedTypes.includes(selectedFile.type)) {
         setErrorText(t.add_profile_photo.error_typy_of_photo)
@@ -61,12 +68,17 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
     }
   }
   const handleSavePhoto = () => {
-    const formData = new FormData()
+    const onCropChange = (crop: any) => {
+      setCrop(crop)
+    }
 
     if (profilePhoto) {
-      formData.append('cover', profilePhoto)
+      const formData = new FormData()
+
+      formData.append('file', profilePhoto)
+      savePhoto({ formData, accessToken })
     }
-    savePhoto(formData)
+
     // .unwrap()
     // .catch(err => {
     //
@@ -119,7 +131,7 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
                     cropShape="round"
                     showGrid={false}
                     onCropChange={onCropChange}
-                    onCropComplete={onCropComplete}
+                    // onCropComplete={onCropComplete}
                     onZoomChange={onZoomChange}
                     cropSize={size}
                     {...customStyles}
