@@ -192,7 +192,6 @@ export const GeneralInformation = () => {
             <div className={s.selects}>
               <SelectCustom
                 options={countriesOptions}
-                // options={[{ value: 'fda', label: 'fdsaf' }]}
                 label={t.profile.country}
                 placeHolder={t.profile.country_blank}
                 value={country}
