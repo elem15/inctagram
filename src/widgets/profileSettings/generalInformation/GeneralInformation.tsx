@@ -14,7 +14,7 @@ import { DatePicker } from '@/shared/components/datePicker'
 import { useAppDispatch, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation } from '@/shared/regex'
-import {Spinner} from '@/widgets/spinner';
+import { Spinner } from '@/widgets/spinner'
 
 export const GeneralInformation = () => {
   const { t } = useTranslation()

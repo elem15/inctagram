@@ -28,10 +28,16 @@ export function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? (page => page)
 
-  return getLayout(
+  return (
     <ReduxProvider>
-      <Component {...pageProps} />
-      <NotificationContainer />
+      <>
+        {getLayout(
+          <>
+            <Component {...pageProps} />
+            <NotificationContainer />
+          </>
+        )}
+      </>
     </ReduxProvider>
   )
 }

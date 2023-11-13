@@ -3,12 +3,13 @@ import { FC, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 
 import { NotificationBell } from '@/shared/components/notificatification-bell'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { DropDownNotification } from '@/widgets/dropDownNotification'
 import { LangSelectWidget } from '@/widgets/langSelect'
 
-export const HeaderWidget: FC = () => {
+export const HeaderWidget = () => {
+  const { isAuth } = useAuth()
   const [toggle, setToggle] = useState(false)
-
   const menuRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -29,10 +30,12 @@ export const HeaderWidget: FC = () => {
         Inctagram
       </Link>
       <div className="flex justify-center items-center space-x-6">
-        <div className="relative" ref={menuRef}>
-          <NotificationBell toggle={toggle} setToggle={setToggle} />
-          <DropDownNotification toggle={toggle} />
-        </div>
+        {isAuth && (
+          <div className="relative" ref={menuRef}>
+            <NotificationBell toggle={toggle} setToggle={setToggle} />
+            <DropDownNotification toggle={toggle} />
+          </div>
+        )}
         <LangSelectWidget />
       </div>
     </div>
