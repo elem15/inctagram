@@ -130,7 +130,7 @@ export const GeneralInformation = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <div className={s.container}>
         <main className={s.mainContainer}>
           <div className={s.imagePicker}>
@@ -151,6 +151,7 @@ export const GeneralInformation = () => {
               label={t.profile.first_name}
               labelClass="asterisk"
               type="text"
+              autoComplete="off"
               {...register('firstName', {
                 required: t.profile.first_name_required,
                 maxLength: {
@@ -168,6 +169,7 @@ export const GeneralInformation = () => {
               label={t.profile.last_name}
               labelClass="asterisk"
               type="text"
+              autoComplete="off"
               {...register('lastName', {
                 required: t.profile.last_name_required,
                 maxLength: {
@@ -184,6 +186,8 @@ export const GeneralInformation = () => {
             <DatePicker
               mode="single"
               errorMessage={errors.dateOfBirth?.message?.toString()}
+              errorLinkHref="auth/privacy"
+              errorLinkMessage={t.privacy_policy.title}
               lang={t.lg}
               setResultDate={setResultDate}
               defaultMonth={profile && new Date(profile?.dateOfBirth)}
@@ -199,6 +203,7 @@ export const GeneralInformation = () => {
               />
               <SelectCustom
                 {...register('city')}
+                disabled={!country}
                 options={city}
                 label={t.profile.city}
                 placeHolder={t.profile.city_blank}

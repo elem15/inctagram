@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { format } from 'date-fns'
 // eslint-disable-next-line import/no-duplicates
 import ru from 'date-fns/locale/ru'
+import Link from 'next/link'
 import { DateRange } from 'react-day-picker'
 
 import { Typography } from '..'
@@ -15,6 +16,8 @@ import { CalendarDark, CalendarLight } from '@/shared/assets'
 type Props = {
   mode: 'single' | 'range'
   errorMessage?: string
+  errorLinkHref?: string
+  errorLinkMessage?: string
   lang?: string
   setResultDate: React.Dispatch<React.SetStateAction<Date | DateRange | undefined>>
   defaultMonth?: Date
@@ -24,6 +27,8 @@ type Props = {
 export function DatePicker({
   mode,
   errorMessage,
+  errorLinkHref = '#',
+  errorLinkMessage,
   setResultDate,
   lang,
   defaultMonth,
@@ -55,7 +60,7 @@ export function DatePicker({
               'min-w-[160px] w-full justify-between text-left gap-10 font-normal bg-dark-500 border-dark-300 rounded-none hover:text-light-100 group',
               !isSelected && 'text-light-900',
               errorMessage &&
-                'data-[state=closed]:border-red-500 data-[state=closed]:text-red-500 border-[1px]'
+                'data-[state=closed]:border-danger-500 data-[state=closed]:text-danger-500 border-[1px]'
             )}
           >
             {!isSelected && format(baseDate, 'dd/MM/yyyy')}
@@ -70,8 +75,13 @@ export function DatePicker({
           </CalendarButton>
         </PopoverTrigger>
         {errorMessage && (
-          <Typography variant="small_text" className="text-red-500 left-0">
+          <Typography variant="small_text" className="text-danger-500 left-0">
             {errorMessage}
+            {errorLinkMessage && (
+              <Link className="underline" href={errorLinkHref}>
+                {errorLinkMessage}
+              </Link>
+            )}
           </Typography>
         )}
         <PopoverContent className="w-auto p-0 dark">
