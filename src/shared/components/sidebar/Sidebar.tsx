@@ -29,6 +29,7 @@ export const Sidebar = () => {
   return (
     <div className={s.box}>
       <div className={s.contentBox}>
+        <div className={s.marginTop}></div>
         <ul>
           <li>
             <Link href={'#'} className={s.content}>
@@ -66,15 +67,16 @@ export const Sidebar = () => {
             <Link
               href={'#'}
               className={
-                router.pathname === '/search'
-                  ? clsx(s.activeLink, s.content, s.marginBox)
-                  : clsx(s.content, s.marginBox)
+                router.pathname === '/search' ? clsx(s.activeLink, s.content) : clsx(s.content)
               }
             >
               <SearchIcon />
               {t.sidebar.search}
             </Link>
           </li>
+        </ul>
+        <div className={s.marginBox}></div>
+        <ul>
           <li>
             <Link
               href={'#'}
@@ -86,14 +88,16 @@ export const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link href={'#'} className={clsx(s.content, s.largeMargin)}>
+            <Link href={'#'} className={clsx(s.content)}>
               {router.pathname === '/favorite' ? <BookMarkIcon /> : <FavoritesIcon />}
               <span className={router.pathname === '/favorite' ? s.activeLink : ''}>
                 {t.sidebar.favorites}
               </span>
             </Link>
           </li>
-
+        </ul>
+        <div className={s.largeMargin}></div>
+        <ul>
           <li className={s.content}>
             <Link href={'signin'} className={s.content}>
               <LogOutIcon /> {t.sidebar.log_out}

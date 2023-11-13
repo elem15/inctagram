@@ -8,8 +8,6 @@ type Props = {
   children: ReactNode
 }
 export const HeaderLayout: FC<Props> = ({ children }) => {
-  const { isAuth } = useAuth()
-
   return (
     <div className="min-h-screen flex flex-col bg-dark-700">
       <HeaderWidget />

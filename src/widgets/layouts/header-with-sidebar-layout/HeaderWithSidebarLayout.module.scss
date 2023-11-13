@@ -1,19 +1,29 @@
 .wrapper {
-  display: grid;
-  grid-template-areas:
-    'h h'
-    's c';
-  grid-template-columns: 220px 9fr;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--color-dark-700);
 
-  .header {
-    grid-area: h;
+  .main {
+    display: flex;
+    flex-grow: 1;
+    max-height: calc(100vh - 4rem);
   }
 
   .sidebar {
-    grid-area: s;
+    @media (width <= 640px) {
+      display: none;   
+    };
+  }
+
+  .header {
+    position: relative;
+    z-index: 90;
   }
 
   .wrapperContent {
-    grid-area: c;
-  }
+    overflow: auto;
+    width: 100%;
+
+  } 
 }

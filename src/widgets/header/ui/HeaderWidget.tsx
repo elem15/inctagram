@@ -25,7 +25,7 @@ export const HeaderWidget = () => {
   }, [])
 
   return (
-    <div className="h-16 max-sm:px-6 sm:px-16 py-3 border-b border-dark-300 flex justify-between items-center">
+    <div className="h-16 max-sm:px-6 sm:px-16 py-3 border-b border-dark-300 flex justify-between items-center w-full bg-dark-700">
       <Link href="/" className="text-light-100 text-[26px] font-semibold">
         Inctagram
       </Link>
