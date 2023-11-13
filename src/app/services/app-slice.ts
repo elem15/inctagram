@@ -1,4 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+
+import { RootState } from '../appStore'
 type InitType = {
   message: string
   variant: 'error' | 'info'
@@ -24,3 +26,4 @@ export const appSlice = createSlice({
   },
 })
 export const { clearAlert, setAlert } = appSlice.actions
+export const selectAlert = (state: RootState) => state.appSlice

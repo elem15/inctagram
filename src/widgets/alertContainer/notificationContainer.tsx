@@ -1,12 +1,11 @@
 import { useEffect } from 'react'
 
-import { clearAlert } from '@/app/services'
+import { clearAlert, selectAlert } from '@/app/services'
 import { Alert } from '@/shared/components/alert/Alert'
 import { useAppDispatch, useAppSelector } from '@/shared/lib'
 
 export const NotificationContainer = () => {
-  const message = useAppSelector(state => state.appSlice.message)
-  const variant = useAppSelector(state => state.appSlice.variant)
+  const { message, variant } = useAppSelector(selectAlert)
   const dispatch = useAppDispatch()
   const onClose = () => {
     dispatch(clearAlert())

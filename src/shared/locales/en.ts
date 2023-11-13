@@ -141,6 +141,7 @@ export const en = {
     devices: 'Devices',
     account_management: 'Account Management',
     my_payments: 'My Payments',
+    authError: 'Auth error. Signin again',
   },
 }
 export type LangType = typeof en

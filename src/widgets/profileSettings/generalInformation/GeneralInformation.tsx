@@ -6,17 +6,19 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import s from './GeneralInformation.module.scss'
 
+import { setAlert } from '@/app/services'
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
 import { Button, Input, Textarea, SelectCustom, Typography } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
-import { useTranslation } from '@/shared/lib'
+import { useAppDispatch, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation } from '@/shared/regex'
+import {Spinner} from '@/widgets/spinner';
 
 export const GeneralInformation = () => {
   const { t } = useTranslation()
-
+  const dispatch = useAppDispatch()
   const {
     register,
     handleSubmit,
@@ -40,6 +42,11 @@ export const GeneralInformation = () => {
 
   const [date, setResultDate] = useState<Date | DateRange>()
 
+  useEffect(() => {
+    if (error || putError) {
+      dispatch(setAlert({ message: t.profile.authError, variant: 'error' }))
+    }
+  }, [dispatch, error, putError, t.profile.authError])
   useEffect(() => {
     if (profile?.firstName && profile?.lastName) {
       setValue('firstName', profile.firstName)
@@ -131,6 +138,7 @@ export const GeneralInformation = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      {(isLoading || isPutLoading) && <Spinner />}
       <div className={s.container}>
         <main className={s.mainContainer}>
           <div className={s.imagePicker}>
@@ -144,7 +152,7 @@ export const GeneralInformation = () => {
               label={t.profile.user_name}
               labelClass="asterisk"
               type="text"
-              value={profile?.userName}
+              defaultValue={profile?.userName}
               disabled
             />
             <Input
