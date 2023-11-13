@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { createRef, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
@@ -41,6 +41,7 @@ export const GeneralInformation = () => {
     usePutProfileMutation()
 
   const [date, setResultDate] = useState<Date | DateRange>()
+  const inputRef = useRef({ value: '' })
 
   useEffect(() => {
     if (error || putError) {
@@ -48,7 +49,9 @@ export const GeneralInformation = () => {
     }
   }, [dispatch, error, putError, t.profile.authError])
   useEffect(() => {
-    if (profile?.firstName && profile?.lastName) {
+    if (profile?.firstName && profile?.lastName && profile?.userName) {
+      inputRef.current.value = profile?.userName
+
       setValue('firstName', profile.firstName)
       setValue('lastName', profile.lastName)
       setValue('aboutMe', profile.aboutMe)
@@ -152,8 +155,8 @@ export const GeneralInformation = () => {
               label={t.profile.user_name}
               labelClass="asterisk"
               type="text"
-              defaultValue={profile?.userName}
               disabled
+              ref={inputRef}
             />
             <Input
               label={t.profile.first_name}
