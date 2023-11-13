@@ -14,14 +14,7 @@ export default {
 
 export const Error = {
   args: {
-    children: 'Password must contain more than 8 characters',
+    message: 'Password must contain more than 8 characters',
     variant: 'error',
-  },
-}
-
-export const Info = {
-  args: {
-    children: 'You have successfully registered',
-    variant: 'info',
   },
 }
