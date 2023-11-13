@@ -1,7 +1,5 @@
 import { ChangeEvent, useRef, useState } from 'react'
 
-import Cropper from 'react-easy-crop'
-
 import s from './AddProfilePhotoModal.module.scss'
 
 import { useSavePhotoMutation } from '@/entities/profile/api/profileApi'
@@ -24,12 +22,12 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
   const { t } = useTranslation()
   const { userId, accessToken } = useAuth()
 
-  const [savePhoto] = useSavePhotoMutation()
+  const [savePhoto, { data }] = useSavePhotoMutation()
   const onCropChange = (crop: any) => {
     setCrop(crop)
   }
 
-  console.log(profilePhoto)
+  console.log(data)
   // const onCropComplete = (croppedAreaPixels: any) => {
   //   if (croppedAreaPixels.width !== 0 && croppedAreaPixels.height !== 0) {
   //     console.log(croppedAreaPixels.width / croppedAreaPixels.height)
@@ -68,15 +66,8 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
     }
   }
   const handleSavePhoto = () => {
-    const onCropChange = (crop: any) => {
-      setCrop(crop)
-    }
-
     if (profilePhoto) {
-      const formData = new FormData()
-
-      formData.append('file', profilePhoto)
-      savePhoto({ formData, accessToken })
+      savePhoto({ profilePhoto, accessToken })
     }
 
     // .unwrap()
@@ -85,7 +76,7 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
     // })
 
     closeModal()
-    setProfilePhoto(profilePhoto)
+    //setProfilePhoto(profilePhoto)
   }
   const handleCloseModal = () => {
     closeModal()
@@ -123,19 +114,19 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
             <>
               <div className={s.cropContainer}>
                 <div className={s.profilePhotoBlock}>
-                  <Cropper
-                    image={URL.createObjectURL(profilePhoto)}
-                    crop={crop}
-                    zoom={zoom}
-                    aspect={1}
-                    cropShape="round"
-                    showGrid={false}
-                    onCropChange={onCropChange}
-                    // onCropComplete={onCropComplete}
-                    onZoomChange={onZoomChange}
-                    cropSize={size}
-                    {...customStyles}
-                  />
+                  {/*<Cropper*/}
+                  {/*  image={URL.createObjectURL(profilePhoto)}*/}
+                  {/*  crop={crop}*/}
+                  {/*  zoom={zoom}*/}
+                  {/*  aspect={1}*/}
+                  {/*  cropShape="round"*/}
+                  {/*  showGrid={false}*/}
+                  {/*  onCropChange={onCropChange}*/}
+                  {/*  // onCropComplete={onCropComplete}*/}
+                  {/*  // onZoomChange={onZoomChange}*/}
+                  {/*  cropSize={size}*/}
+                  {/*  {...customStyles}*/}
+                  {/*/>*/}
                 </div>
               </div>
               <div className={s.buttonBox}>

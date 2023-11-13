@@ -31,17 +31,18 @@ export const profileApi = createApi({
       }),
       invalidatesTags: ['Profile'],
     }),
-    savePhoto: builder.mutation<any, FormData>({
-      query: ({ formData, accessToken }) => {
-        console.log({ formData })
+    savePhoto: builder.mutation<any, { profilePhoto: File; accessToken: string }>({
+      query: ({ profilePhoto, accessToken }) => {
+        const formData = new FormData()
+
+        formData.append('file', profilePhoto)
 
         return {
           url: '/users/profile/avatar',
-          body: JSON.stringify(formData),
+          body: formData,
           method: 'POST',
           credentials: 'include',
           headers: {
-            // 'Content-Type': 'application/json',
             Authorization: 'Bearer ' + accessToken,
           },
         }
