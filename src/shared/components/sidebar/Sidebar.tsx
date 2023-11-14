@@ -35,7 +35,9 @@ export const Sidebar = () => {
           <li>
             <Link href={'/home'} className={s.content}>
               {router.pathname == '/home' ? <HomesIcon /> : <IconBxHomeAlt />}
-              <span className={router.pathname === '/home' ? s.activeLink : ''}>{t.sidebar.home}</span>
+              <span className={router.pathname === '/home' ? s.activeLink : ''}>
+                {t.sidebar.home}
+              </span>
             </Link>
           </li>
           <li>

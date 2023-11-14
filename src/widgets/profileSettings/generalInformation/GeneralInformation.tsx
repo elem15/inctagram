@@ -1,4 +1,4 @@
-import { Ref, createRef, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
@@ -13,7 +13,7 @@ import { Button, Input, Textarea, SelectCustom, Typography } from '@/shared/comp
 import { DatePicker } from '@/shared/components/datePicker'
 import { useAppDispatch, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
-import { firstNameValidation } from '@/shared/regex'
+import { firstNameValidation, nameValidation } from '@/shared/regex'
 import { Spinner } from '@/widgets/spinner'
 
 export const GeneralInformation = () => {
@@ -37,21 +37,27 @@ export const GeneralInformation = () => {
     error,
   } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
 
-  const [putProfile, { isSuccess, isLoading: isPutLoading, error: putError }] =
-    usePutProfileMutation()
+  const [putProfile, { isLoading: isPutLoading, error: putError }] = usePutProfileMutation()
 
   const [date, setResultDate] = useState<Date | DateRange>()
-  const inputRef = useRef(null) as any
 
   useEffect(() => {
-    if (error || putError) {
-      dispatch(setAlert({ message: t.profile.authError, variant: 'error' }))
+    if (putError) {
+      const e = putError as CustomerError
+
+      if (e.status === 400) {
+        setError('userName', { type: 'server', message: t.profile.user_name_error })
+      } else {
+        dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+      }
+    } else if (error) {
+      dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
     }
-  }, [dispatch, error, putError, t.profile.authError])
-  useEffect(() => {
-    if (profile?.firstName && profile?.lastName && profile?.userName && inputRef.current) {
-      inputRef.current.value = profile.userName
+  }, [dispatch, error, putError, setError, t.profile.auth_error, t.profile.user_name_error])
 
+  useEffect(() => {
+    if (profile?.firstName && profile?.lastName && profile?.userName) {
+      setValue('userName', profile.userName)
       setValue('firstName', profile.firstName)
       setValue('lastName', profile.lastName)
       setValue('aboutMe', profile.aboutMe)
@@ -155,8 +161,22 @@ export const GeneralInformation = () => {
               label={t.profile.user_name}
               labelClass="asterisk"
               type="text"
-              disabled
-              ref={inputRef}
+              {...register('userName', {
+                required: t.signup.username_required,
+                maxLength: {
+                  value: 30,
+                  message: t.messages.user_max_length,
+                },
+                minLength: {
+                  value: 6,
+                  message: t.messages.user_min_length,
+                },
+                pattern: {
+                  value: nameValidation,
+                  message: t.messages.name_format_message,
+                },
+              })}
+              error={errors.userName?.message?.toString()}
             />
             <Input
               label={t.profile.first_name}

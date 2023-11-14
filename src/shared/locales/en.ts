@@ -142,7 +142,8 @@ export const en = {
     devices: 'Devices',
     account_management: 'Account Management',
     my_payments: 'My Payments',
-    authError: 'Auth error. Signin again',
+    auth_error: 'Auth error. Signin again',
+    user_name_error: 'User with this name already exist',
   },
 }
 export type LangType = typeof en

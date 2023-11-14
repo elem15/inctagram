@@ -141,6 +141,7 @@ export const ru: LangType = {
     devices: 'Устройства',
     account_management: 'Управление аккаунтом',
     my_payments: 'Мои платежи',
-    authError: 'Ошибка авторизации. Войдите еще раз',
+    auth_error: 'Ошибка авторизации. Войдите еще раз',
+    user_name_error: 'Пользователь с таким именем уже существует',
   },
 }
