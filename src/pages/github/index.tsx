@@ -22,7 +22,7 @@ export function Github() {
     if (email && accessToken) {
       dispatch(setLoginUser({ email, accessToken }))
     }
-    router.push('/')
+    router.push('/home')
   }, [accessToken, dispatch, email, router])
 
   return (

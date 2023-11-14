@@ -33,9 +33,9 @@ export const Sidebar = () => {
         <div className={s.marginTop}></div>
         <ul>
           <li>
-            <Link href={'/'} className={s.content}>
-              {router.pathname == '/' ? <HomesIcon /> : <IconBxHomeAlt />}
-              <span className={router.pathname === '/' ? s.activeLink : ''}>{t.sidebar.home}</span>
+            <Link href={'/home'} className={s.content}>
+              {router.pathname == '/home' ? <HomesIcon /> : <IconBxHomeAlt />}
+              <span className={router.pathname === '/home' ? s.activeLink : ''}>{t.sidebar.home}</span>
             </Link>
           </li>
           <li>

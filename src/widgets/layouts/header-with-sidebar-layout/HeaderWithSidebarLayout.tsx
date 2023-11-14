@@ -17,13 +17,13 @@ type Props = {
 export const HeaderWithSidebarLayout: FC<Props> = ({ children }) => {
   const router = useRouter()
   const { isClient } = useClient()
-  const isAuth = isClient && !localStorage.getItem('token')
+  const { isAuth } = useAuth()
 
   useEffect(() => {
-    isAuth && router.push('/signin')
+    !isAuth && isClient && router.push('/signin')
   }, [isAuth, isClient, router])
 
-  if (isAuth) return null
+  if (!isAuth) return null
 
   return (
     <div className={s.wrapper}>

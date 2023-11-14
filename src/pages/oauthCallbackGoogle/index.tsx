@@ -11,16 +11,26 @@ export function OauthCallbackGoogle() {
 
   const code = searchParams?.get('code') as string | undefined
 
+  const router = useRouter()
   const { isLoading, error, data } = useGoogleLogin(code)
 
-  const router = useRouter()
+  useEffect(() => {
+    if (!code && !data && !isLoading) {
+      setTimeout(() => {
+        router.push('/home')
+      }, 2000)
+    }
+  }, [code, data, isLoading, router])
+
   const { isClient } = useClient()
 
   useEffect(() => {
     const success = data && !error && !isLoading
 
     if (success) {
-      router.push('/')
+      setTimeout(() => {
+        router.push('/home')
+      }, 3000)
     }
   }, [isLoading, error, router, data])
 

@@ -44,7 +44,7 @@ export const SignInWidget: FC = () => {
   }
 
   useEffect(() => {
-    isSuccess && router.push('/')
+    isSuccess && router.push('/home')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
