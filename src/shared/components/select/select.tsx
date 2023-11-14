@@ -3,10 +3,10 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 import * as Select from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 
-import { Layer2 } from '../../assets/icons/Layer2'
-import { Typography } from '../typography/typography'
-
 import s from './select.module.scss'
+
+import { Layer2 } from '@/shared/assets/icons/Layer2'
+import { Typography } from '@/shared/components'
 
 export type OptionsType = {
   label: string

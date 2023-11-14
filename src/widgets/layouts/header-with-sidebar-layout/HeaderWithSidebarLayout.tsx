@@ -1,27 +1,27 @@
 import { FC, ReactElement, ReactNode } from 'react'
 
-import { HeaderWidget } from '../../header'
+import MobileNavigation from '@/layouts/mobile-navigation/mobile-navigation'
+import Container from '@/shared/components/container/container'
+import { HeaderWidget } from '@/widgets/header'
 
-import s from './HeaderWithSidebarLayout.module.scss'
-
-import { Sidebar } from '@/shared/components/sidebar'
 type Props = {
   children: ReactNode
 }
 
 export const HeaderWithSidebarLayout: FC<Props> = ({ children }) => {
   return (
-    <div className={s.wrapper}>
-      <div className={s.header}>
-        <HeaderWidget />
-      </div>
-
-      <div className={s.sidebar}>
-        <Sidebar />
-      </div>
-
-      <div className={s.wrapperContent}>{children}</div>
-    </div>
+    <Container className="flex flex-col min-h-screen">
+      <HeaderWidget />
+      <main
+        className="relative flex-grow"
+        style={{
+          WebkitOverflowScrolling: 'touch',
+        }}
+      >
+        {children}
+      </main>
+      <MobileNavigation />
+    </Container>
   )
 }
 

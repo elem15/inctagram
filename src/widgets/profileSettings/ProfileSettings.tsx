@@ -23,7 +23,6 @@ export const ProfileSettings: FC<Props> = () => {
       <div className={s.tabsContainer}>
         <TabsSwitcher tabs={tabsArgs.tabs} />
       </div>
-
       <GeneralInformation />
     </div>
   )

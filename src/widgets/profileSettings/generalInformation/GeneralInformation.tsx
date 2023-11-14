@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
@@ -9,12 +9,12 @@ import s from './GeneralInformation.module.scss'
 import { setAlert } from '@/app/services'
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
-import { Button, Input, Textarea, SelectCustom, Typography } from '@/shared/components'
+import { Button, Input, SelectCustom, Textarea, Typography } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
 import { useAppDispatch, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation } from '@/shared/regex'
-import {Spinner} from '@/widgets/spinner';
+import { Spinner } from '@/widgets/spinner'
 
 export const GeneralInformation = () => {
   const { t } = useTranslation()

@@ -113,6 +113,7 @@ export const ru: LangType = {
     search: 'Поиск',
     statistics: 'Статистика',
     favorites: 'Избранное',
+    settings: 'Настройки профиля',
     log_out: 'Выйти',
   },
   notification_menu: {

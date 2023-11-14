@@ -1,45 +1,9 @@
-.box {
-  position: relative;
-  z-index: auto;
-  top: 0;
-  left: 0;
-
-  display: inline-flex;
-  justify-content: space-between;
-
-  width: 220px;
-  height: 100vh;
-  margin-top: 64px;
-  padding: 72px 60px 10px;
-
-  color: var(--color-text-primary);
-
-  background-color: transparent;
-  border-right: 1px solid var(--color-dark-300);
-}
-
-.contentBox {
-  flex-grow: 1;
-
-  li {
-    list-style: none;
-  }
-}
-
 .content {
   display: flex;
   gap: 12px;
   align-items: center;
   justify-content: flex-start;
-
-  margin-bottom: 24px;
-
-  font-size: 14px;
-  font-weight: 500;
-  font-style: normal;
-  line-height: 24px;
-  color: #fff;
-  text-decoration: none;
+  cursor: pointer;
 
   &:active {
     color: var(--color-accent-500);
@@ -65,10 +29,6 @@
 
 .marginBox {
   margin-bottom: 60px;
-}
-
-.largeMargin {
-  margin-bottom: 180px;
 }
 
 .activeLink {
