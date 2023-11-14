@@ -1,4 +1,4 @@
-import { createRef, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Ref, createRef, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
@@ -41,7 +41,7 @@ export const GeneralInformation = () => {
     usePutProfileMutation()
 
   const [date, setResultDate] = useState<Date | DateRange>()
-  const inputRef = useRef({ value: '' })
+  const inputRef = useRef(null) as any
 
   useEffect(() => {
     if (error || putError) {
@@ -49,8 +49,8 @@ export const GeneralInformation = () => {
     }
   }, [dispatch, error, putError, t.profile.authError])
   useEffect(() => {
-    if (profile?.firstName && profile?.lastName && profile?.userName) {
-      inputRef.current.value = profile?.userName
+    if (profile?.firstName && profile?.lastName && profile?.userName && inputRef.current) {
+      inputRef.current.value = profile.userName
 
       setValue('firstName', profile.firstName)
       setValue('lastName', profile.lastName)
@@ -140,7 +140,7 @@ export const GeneralInformation = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+    <form onSubmit={handleSubmit(onSubmit)}>
       {(isLoading || isPutLoading) && <Spinner />}
       <div className={s.container}>
         <main className={s.mainContainer}>
@@ -162,7 +162,7 @@ export const GeneralInformation = () => {
               label={t.profile.first_name}
               labelClass="asterisk"
               type="text"
-              autoComplete="off"
+              placeholder="first name"
               {...register('firstName', {
                 required: t.profile.first_name_required,
                 maxLength: {
@@ -180,7 +180,6 @@ export const GeneralInformation = () => {
               label={t.profile.last_name}
               labelClass="asterisk"
               type="text"
-              autoComplete="off"
               {...register('lastName', {
                 required: t.profile.last_name_required,
                 maxLength: {

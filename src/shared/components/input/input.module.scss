@@ -5,15 +5,6 @@
   line-height: $lH;
 }
 
-// fix auto-fill white background
-.input:-webkit-autofill,
-.input:-webkit-autofill:hover, 
-.input:-webkit-autofill:focus {
-  box-shadow: 0 0 0 1000px var(--color-dark-700) inset !important;
-
-  -webkit-text-fill-color: #fff !important;
-}
-
 .inputWrapper {
   @include typography(var(--font-size-m), var(--font-weight-regular), var(--line-height-m));
 
@@ -48,16 +39,16 @@
       border: var(--color-dark-100) solid 1px;
       border-radius: 2px;
 
-   
       &[type='search'] {
         padding: 6px 10px 6px 40px;
       }
 
       &:hover {
-        background-color: var(--color-dark-700);
+        background-color: var(--color-dark-500);
       }
 
       &:focus {
+        background-color: var(--color-dark-500);
         outline: var(--color-accent-500) solid 2px;
       }
 

@@ -12,8 +12,8 @@
 
   .sidebar {
     @media (width <= 640px) {
-      display: none;   
-    };
+      display: none;
+    }
   }
 
   .header {
@@ -24,6 +24,5 @@
   .wrapperContent {
     overflow: auto;
     width: 100%;
-
-  } 
+  }
 }
