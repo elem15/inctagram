@@ -9,19 +9,21 @@ import s from './HeaderWithSidebarLayout.module.scss'
 import { Scroller } from '@/shared/components/scroller/Scroller'
 import { Sidebar } from '@/shared/components/sidebar'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
+import { useClient } from '@/shared/lib/hooks/useClient'
 type Props = {
   children: ReactNode
 }
 
 export const HeaderWithSidebarLayout: FC<Props> = ({ children }) => {
-  const { isAuth } = useAuth()
   const router = useRouter()
+  const { isClient } = useClient()
+  const isAuth = isClient && !localStorage.getItem('token')
 
   useEffect(() => {
-    !isAuth && router.push('/signin')
-  }, [isAuth, router])
+    isAuth && router.push('/signin')
+  }, [isAuth, isClient, router])
 
-  if (!isAuth) return null
+  if (isAuth) return null
 
   return (
     <div className={s.wrapper}>

@@ -162,7 +162,6 @@ export const GeneralInformation = () => {
               label={t.profile.first_name}
               labelClass="asterisk"
               type="text"
-              placeholder="first name"
               {...register('firstName', {
                 required: t.profile.first_name_required,
                 maxLength: {

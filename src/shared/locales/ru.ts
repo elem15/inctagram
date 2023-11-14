@@ -12,6 +12,7 @@ export const ru: LangType = {
     search: 'Поиск',
     statistics: 'Статистика',
     favorites: 'Избранное',
+    profile_btn: 'Настройки профиля',
   },
   resend: {
     title: 'Срок действия ссылки для подтверждения электронной почты истек',

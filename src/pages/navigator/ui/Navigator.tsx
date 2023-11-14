@@ -1,11 +1,8 @@
 import Link from 'next/link'
 
 import { useAuth } from '@/shared/lib/hooks/useAuth'
-import { LogOutButton } from '@/widgets/logOut'
 
 export function Navigator() {
-  const { isAuth, email } = useAuth()
-
   return (
     <div>
       <ul>
@@ -49,11 +46,6 @@ export function Navigator() {
           <Link href="my-profile">My Profile</Link>
         </li>
       </ul>
-      {isAuth && (
-        <>
-          <LogOutButton /> <span>{email}</span>
-        </>
-      )}
     </div>
   )
 }

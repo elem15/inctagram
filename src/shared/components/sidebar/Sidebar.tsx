@@ -21,6 +21,7 @@ import {
 import s from './Sidebar.module.scss'
 
 import { useTranslation } from '@/shared/lib'
+import { LogOutButton } from '@/widgets/logOut'
 
 export const Sidebar = () => {
   const router = useRouter()
@@ -32,11 +33,9 @@ export const Sidebar = () => {
         <div className={s.marginTop}></div>
         <ul>
           <li>
-            <Link href={'#'} className={s.content}>
-              {router.pathname == '/home' ? <HomesIcon /> : <IconBxHomeAlt />}
-              <span className={router.pathname === '/home' ? s.activeLink : ''}>
-                {t.sidebar.home}
-              </span>
+            <Link href={'/'} className={s.content}>
+              {router.pathname == '/' ? <HomesIcon /> : <IconBxHomeAlt />}
+              <span className={router.pathname === '/' ? s.activeLink : ''}>{t.sidebar.home}</span>
             </Link>
           </li>
           <li>
@@ -98,11 +97,11 @@ export const Sidebar = () => {
         </ul>
         <div className={s.largeMargin}></div>
         <ul>
-          <li className={s.content}>
-            <Link href={'signin'} className={s.content}>
+          <LogOutButton>
+            <li className={s.content}>
               <LogOutIcon /> {t.sidebar.log_out}
-            </Link>
-          </li>
+            </li>
+          </LogOutButton>
         </ul>
       </div>
     </div>

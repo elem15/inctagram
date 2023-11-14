@@ -11,6 +11,7 @@ export const en = {
     search: 'Search',
     statistics: 'Statistics',
     favorites: 'Favorites',
+    profile_btn: 'Profile Settings',
   },
   resend: {
     title: 'Email verification link expired',
