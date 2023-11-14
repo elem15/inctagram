@@ -3,6 +3,7 @@
   flex-direction: column;
   flex-grow: 1;
   gap: 25px;
+
   margin-left: 5px;
 }
 
@@ -24,7 +25,8 @@
 .mainContainer {
   display: flex;
   align-content: space-between;
-  @media (max-width: 1024px) {
+
+  @media (width <= 1024px) {
     flex-direction: column;
     align-items: center;
   }

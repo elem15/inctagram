@@ -1,9 +1,10 @@
 .content {
+  cursor: pointer;
+
   display: flex;
   gap: 12px;
   align-items: center;
   justify-content: flex-start;
-  cursor: pointer;
 
   &:active {
     color: var(--color-accent-500);

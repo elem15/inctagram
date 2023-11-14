@@ -1,6 +1,6 @@
-
 .iconButton {
   cursor: pointer;
+
   width: 24px;
   height: 24px;
   padding: 0;
@@ -20,14 +20,12 @@
   background-color: var(--color-dark-700);
   border: 1px solid var(--color-dark-300);
   border-radius: 6px;
-  box-shadow: 0 10px 38px -10px rgb(22 23 24 / 35%),
-  0 10px 20px -15px rgb(22 23 24 / 20%);
+  box-shadow:
+    0 10px 38px -10px rgb(22 23 24 / 35%),
+    0 10px 20px -15px rgb(22 23 24 / 20%);
 }
 
 .arrowWrap {
-  fill: var(--color-dark-700);
-  stroke: var(--color-dark-500);
-  stroke-width: 2px;
   position: absolute;
   top: -3px;
   right: -1px;
@@ -40,6 +38,10 @@
   border: 1px solid var(--color-dark-300);
   border-top: none;
   border-left: none;
+
+  fill: var(--color-dark-700);
+  stroke: var(--color-dark-500);
+  stroke-width: 2px;
 }
 
 .dropdownMenuItem {
