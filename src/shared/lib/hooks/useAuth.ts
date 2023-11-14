@@ -1,4 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect, useMemo } from 'react'
+
+import { useRouter } from 'next/router'
 
 import { useAppDispatch, useAppSelector } from './index'
 
@@ -7,6 +9,7 @@ import { addUser, selectAuthUser } from '@/entities/auth/model/authSlice'
 export const useAuth = () => {
   const dispatch = useAppDispatch()
   const { email, accessToken, userId } = useAppSelector(selectAuthUser)
+  const router = useRouter()
 
   useEffect(() => {
     if (!email || !accessToken) {
