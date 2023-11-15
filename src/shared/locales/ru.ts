@@ -126,7 +126,7 @@ export const ru: LangType = {
     birth_date: 'Дата рождения',
     country: 'Выберите страну',
     country_blank: 'Страна',
-    city: 'Выберите город',
+    cities: 'Выберите город',
     city_blank: 'Город',
     about: 'Обо мне',
     age_error: 'Пользователь младше 13 лет не может зарегистрироваться. ',

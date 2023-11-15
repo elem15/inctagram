@@ -127,7 +127,7 @@ export const en = {
     birth_date: 'Date of birth',
     country: 'Select your country',
     country_blank: 'Country',
-    city: 'Select your city',
+    cities: 'Select your city',
     city_blank: 'City',
     about: 'About Me',
     age_error: 'A user under 13 cannot create a profile. ',

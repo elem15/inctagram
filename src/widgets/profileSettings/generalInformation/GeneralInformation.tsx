@@ -100,7 +100,7 @@ export const GeneralInformation = () => {
   const [countries, setCountries] = useState<SelectOptions[]>([])
   const [countriesOptions, setCountriesOptions] = useState<Omit<SelectOptions, 'cities'>[]>([])
   const [country, setCountry] = useState('')
-  const [city, setCity] = useState<City[]>([])
+  const [cities, setCity] = useState<City[]>([])
 
   useEffect(() => {
     const getCities = async () => {
@@ -233,9 +233,9 @@ export const GeneralInformation = () => {
               <SelectCustom
                 {...register('city')}
                 disabled={!country}
-                options={city}
-                label={t.profile.city}
-                placeHolder={t.profile.city_blank}
+                label={t.profile.cities}
+                options={cities}
+                placeHolder={profile?.city || t.profile.city_blank}
                 onValueChange={onChangeCityHandler}
               />
             </div>
