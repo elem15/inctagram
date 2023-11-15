@@ -37,7 +37,7 @@ export function Navigator() {
           <Link href="auth/terms-of-service">Terms of Service</Link>
         </li>
         <li>
-          <Link href="auth/privacy">Privacy Policy</Link>
+          <Link href="/auth/privacy">Privacy Policy</Link>
         </li>
         <li>
           <Link href="test">Component`s test page</Link>

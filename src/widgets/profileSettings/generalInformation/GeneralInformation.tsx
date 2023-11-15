@@ -216,7 +216,7 @@ const Information = () => {
             <DatePicker
               mode="single"
               errorMessage={errors.dateOfBirth?.message?.toString()}
-              errorLinkHref="auth/privacy"
+              errorLinkHref="/auth/privacy"
               errorLinkMessage={t.privacy_policy.title}
               lang={t.lg}
               setResultDate={setResultDate}

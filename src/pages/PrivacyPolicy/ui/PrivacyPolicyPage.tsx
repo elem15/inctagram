@@ -6,7 +6,7 @@ import { PrivacyPolicy } from '@/widgets/privacyPolicy/PrivacyPolicy'
 const PrivacyPolicyPage = () => {
   const router = useRouter()
   const handleBackToSignUpClick = () => {
-    router.push('/signup')
+    router.back()
   }
 
   return (

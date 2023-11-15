@@ -95,7 +95,7 @@ export const SignUpWidget: FC = () => {
             <span>{t.signup.agreement} </span>
             <Link href="auth/terms-of-service">{t.signup.terms_service}</Link>
             <span> {t.signup.and} </span>
-            <Link href="auth/privacy">{t.signup.privacy_policy}</Link>
+            <Link href="/auth/privacy">{t.signup.privacy_policy}</Link>
           </label>
         </div>
         <button
