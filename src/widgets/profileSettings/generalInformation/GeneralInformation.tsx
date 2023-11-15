@@ -56,12 +56,10 @@ export const GeneralInformation = () => {
   }, [dispatch, error, putError, setError, t.profile.auth_error, t.profile.user_name_error])
 
   useEffect(() => {
-    if (profile?.firstName && profile?.lastName && profile?.userName) {
-      setValue('userName', profile.userName)
-      setValue('firstName', profile.firstName)
-      setValue('lastName', profile.lastName)
-      setValue('aboutMe', profile.aboutMe)
-    }
+    profile?.firstName && setValue('firstName', profile.firstName)
+    profile?.lastName && setValue('lastName', profile.lastName)
+    profile?.userName && setValue('userName', profile.userName)
+    profile?.aboutMe && setValue('aboutMe', profile.aboutMe)
     if (date && date instanceof Date) {
       const age = differenceInYears(new Date(), date)
 
@@ -76,6 +74,8 @@ export const GeneralInformation = () => {
   }, [
     profile?.firstName,
     profile?.lastName,
+    profile?.userName,
+    profile?.aboutMe,
     profile,
     setValue,
     date,

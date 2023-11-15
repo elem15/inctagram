@@ -14,23 +14,13 @@ export function OauthCallbackGoogle() {
   const router = useRouter()
   const { isLoading, error, data } = useGoogleLogin(code)
 
-  useEffect(() => {
-    if (!code && !data && !isLoading) {
-      setTimeout(() => {
-        router.push('/home')
-      }, 2000)
-    }
-  }, [code, data, isLoading, router])
-
   const { isClient } = useClient()
 
   useEffect(() => {
     const success = data && !error && !isLoading
 
     if (success) {
-      setTimeout(() => {
-        router.push('/home')
-      }, 3000)
+      router.push('/')
     }
   }, [isLoading, error, router, data])
 

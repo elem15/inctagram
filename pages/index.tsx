@@ -1,1 +1,1 @@
-export { OauthCallbackGoogle as default } from '@/pages/oauthCallbackGoogle'
+export { Home as default } from '@/pages/home'

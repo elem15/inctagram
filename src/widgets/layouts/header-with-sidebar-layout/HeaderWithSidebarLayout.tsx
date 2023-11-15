@@ -1,5 +1,6 @@
-import { FC, ReactElement, ReactNode, useEffect, useLayoutEffect, useMemo } from 'react'
+import { FC, ReactElement, ReactNode, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 
+import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 
 import { HeaderWidget } from '../../header'
@@ -8,20 +9,23 @@ import s from './HeaderWithSidebarLayout.module.scss'
 
 import { Scroller } from '@/shared/components/scroller/Scroller'
 import { Sidebar } from '@/shared/components/sidebar'
+import { useGoogleLogin } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
-import { useClient } from '@/shared/lib/hooks/useClient'
 type Props = {
   children: ReactNode
 }
 
 export const HeaderWithSidebarLayout: FC<Props> = ({ children }) => {
   const router = useRouter()
-  const { isClient } = useClient()
   const { isAuth } = useAuth()
+  const searchParams = useSearchParams()
+  const code = searchParams?.get('code') as string | undefined
+
+  useGoogleLogin(code)
 
   useEffect(() => {
-    !isAuth && isClient && router.push('/signin')
-  }, [isAuth, isClient, router])
+    if (!isAuth) router.push('/signin')
+  }, [code, isAuth, router])
 
   if (!isAuth) return null
 
