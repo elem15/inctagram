@@ -1,1 +1,1 @@
-export { MyProfilePage as default } from '@/pages/myProfile'
+export { MyPaymentsPage as default } from '@/pages/myPayments'

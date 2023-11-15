@@ -1,1 +1,1 @@
-export { MyProfilePage as default } from '@/pages/myProfile'
+export { AccountManagementPage as default } from '@/pages/accountManagement'

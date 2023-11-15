@@ -14,9 +14,10 @@ import { DatePicker } from '@/shared/components/datePicker'
 import { useAppDispatch, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation, nameValidation } from '@/shared/regex'
+import { TabsLayout, getTabsLayout } from '@/widgets/layouts'
 import { Spinner } from '@/widgets/spinner'
 
-export const GeneralInformation = () => {
+const Information = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const {
@@ -258,5 +259,13 @@ export const GeneralInformation = () => {
         </div>
       </div>
     </form>
+  )
+}
+
+export const GeneralInformation = () => {
+  return (
+    <TabsLayout>
+      <Information />
+    </TabsLayout>
   )
 }

@@ -1,7 +1,8 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import * as Tabs from '@radix-ui/react-tabs'
-import Link from 'next/link'
+import { clsx } from 'clsx'
+import { useRouter } from 'next/router'
 
 import s from './tabsSwitcher.module.scss'
 
@@ -22,15 +23,18 @@ type TabsProps = {
 
 export const TabsSwitcher = forwardRef<ElementRef<typeof Tabs.Root>, TabsProps>(
   ({ tabs, disabled = false, onValueChange, className, defaultValue, ...restProps }, ref) => {
+    const { pathname, push } = useRouter()
+
     const mappedTabs = tabs.map(t => {
       return (
         <Tabs.Trigger
           key={t.label}
           value={t.value}
-          className={`${s.default} ${className}`}
+          className={clsx(s.default, className, pathname.endsWith(t.href as string) && s.active)}
           disabled={disabled || t.disabled}
+          onClick={() => push(t.href || '#')}
         >
-          <Link href={t.href || '#'}>{t.label}</Link>
+          {t.label}
         </Tabs.Trigger>
       )
     })

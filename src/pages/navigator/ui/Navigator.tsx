@@ -43,7 +43,7 @@ export function Navigator() {
           <Link href="test">Component`s test page</Link>
         </li>
         <li>
-          <Link href="my-profile">My Profile</Link>
+          <Link href="/my-profile/general-information">My Profile</Link>
         </li>
       </ul>
     </div>

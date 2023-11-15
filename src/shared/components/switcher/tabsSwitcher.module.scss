@@ -41,6 +41,12 @@
     border-bottom: 2px solid var(--color-accent-500);
   }
 
+  &.active {
+    color: var(--color-accent-500);
+    background-color: rgb(115 165 255 / 15%);
+    border-bottom: 2px solid var(--color-accent-500);
+  }
+
   &:focus-visible {
     position: relative;
     border: 2px solid var(--color-accent-700);

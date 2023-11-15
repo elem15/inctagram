@@ -1,13 +1,13 @@
-import { FC } from 'react'
+import { FC, ReactElement, ReactNode } from 'react'
 
-import s from './ProfileSettings.module.scss'
+import s from './TabsLayout.module.scss'
 
 import { TabsSwitcher } from '@/shared/components'
 import { useTranslation } from '@/shared/lib'
-import { GeneralInformation } from '@/widgets/profileSettings/generalInformation/GeneralInformation'
 
-type Props = {}
-export const ProfileSettings: FC<Props> = () => {
+type Props = { children: ReactNode }
+
+export const TabsLayout: FC<Props> = ({ children }) => {
   const { t } = useTranslation()
   const tabsArgs = {
     tabs: [
@@ -24,7 +24,11 @@ export const ProfileSettings: FC<Props> = () => {
         <TabsSwitcher tabs={tabsArgs.tabs} />
       </div>
 
-      <GeneralInformation />
+      {children}
     </div>
   )
+}
+
+export const getTabsLayout = (page: ReactElement) => {
+  return <TabsLayout>{page}</TabsLayout>
 }

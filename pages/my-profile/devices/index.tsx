@@ -1,1 +1,1 @@
-export { MyProfilePage as default } from '@/pages/myProfile'
+export { DevicesPage as default } from '@/pages/devices'
