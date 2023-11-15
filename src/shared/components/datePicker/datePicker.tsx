@@ -58,9 +58,8 @@ export function DatePicker({
   }, [dateValue])
 
   useEffect(() => {
-    defaultMonth && setDateValue(format(defaultMonth, 'yyyy-MM-dd'))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    !date && defaultMonth && setDateValue(format(defaultMonth, 'yyyy-MM-dd'))
+  }, [date, defaultMonth])
 
   return (
     <div>
