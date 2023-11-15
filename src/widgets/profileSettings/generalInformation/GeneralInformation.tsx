@@ -220,7 +220,7 @@ const Information = () => {
               errorLinkMessage={t.privacy_policy.title}
               lang={t.lg}
               setResultDate={setResultDate}
-              defaultMonth={profile?.dateOfBirth ? new Date(profile?.dateOfBirth) : new Date()}
+              defaultMonth={profile?.dateOfBirth ? new Date(profile?.dateOfBirth) : undefined}
               label={t.profile.birth_date}
             />
             <div className={s.selects}>

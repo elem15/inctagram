@@ -68,3 +68,17 @@ input:-webkit-autofill:focus {
 
   -webkit-text-fill-color: #fff !important;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+
+  position: absolute;
+  inset: 0;
+
+  width: 0;
+  height: 0;
+
+  color: transparent;
+
+  background: transparent;
+}
