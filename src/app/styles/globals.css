@@ -69,7 +69,7 @@ input:-webkit-autofill:focus {
   -webkit-text-fill-color: #fff !important;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+input[type='date']::-webkit-calendar-picker-indicator {
   cursor: pointer;
 
   position: absolute;
