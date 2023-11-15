@@ -7,7 +7,7 @@ function Home() {
   return (
     <div>
       <Button variant="secondary">
-        <Link href="/my-profile/general-information">Profile Settings</Link>
+        <Link href="/my-profile">Profile Settings</Link>
       </Button>
     </div>
   )
