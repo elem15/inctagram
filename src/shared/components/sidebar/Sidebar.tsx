@@ -39,7 +39,7 @@ export const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link href={'#'} className={s.content}>
+            <Link href={'/create'} className={s.content}>
               {router.pathname === '/create' ? <CreatesIcon /> : <CreateIcon />}
               <span className={router.pathname === '/create' ? s.activeLink : ''}>
                 {t.sidebar.create}
@@ -55,7 +55,7 @@ export const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link href={'#'} className={s.content}>
+            <Link href={'/messenger'} className={s.content}>
               {router.pathname === '/messenger' ? <MessangersIcon /> : <MessengerIcon />}
               <span className={router.pathname === '/messenger' ? s.activeLink : ''}>
                 {t.sidebar.messenger}
@@ -64,7 +64,7 @@ export const Sidebar = () => {
           </li>
           <li>
             <Link
-              href={'#'}
+              href={'/search'}
               className={
                 router.pathname === '/search' ? clsx(s.activeLink, s.content) : clsx(s.content)
               }
@@ -78,7 +78,7 @@ export const Sidebar = () => {
         <ul>
           <li>
             <Link
-              href={'#'}
+              href={'/statistics'}
               className={
                 router.pathname === '/statistics' ? clsx(s.activeLink, s.content) : s.content
               }
@@ -87,7 +87,7 @@ export const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link href={'#'} className={clsx(s.content)}>
+            <Link href={'/favorites'} className={clsx(s.content)}>
               {router.pathname === '/favorite' ? <BookMarkIcon /> : <FavoritesIcon />}
               <span className={router.pathname === '/favorite' ? s.activeLink : ''}>
                 {t.sidebar.favorites}
