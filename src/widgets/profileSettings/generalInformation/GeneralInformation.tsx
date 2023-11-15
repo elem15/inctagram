@@ -219,7 +219,7 @@ export const GeneralInformation = () => {
               errorLinkMessage={t.privacy_policy.title}
               lang={t.lg}
               setResultDate={setResultDate}
-              defaultMonth={profile && new Date(profile?.dateOfBirth)}
+              defaultMonth={profile?.dateOfBirth ? new Date(profile?.dateOfBirth) : new Date()}
               label={t.profile.birth_date}
             />
             <div className={s.selects}>
