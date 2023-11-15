@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import * as Tabs from '@radix-ui/react-tabs'
+import Link from 'next/link'
 
 import s from './tabsSwitcher.module.scss'
 
@@ -9,6 +10,7 @@ export type SwitcherOptions = {
   label: string
   value: string
   disabled?: boolean
+  href?: string
 }
 
 //Тут изменил onChange на onValueChange так как ругался TS когда передавал в onChange свою функцию
@@ -28,7 +30,7 @@ export const TabsSwitcher = forwardRef<ElementRef<typeof Tabs.Root>, TabsProps>(
           className={`${s.default} ${className}`}
           disabled={disabled || t.disabled}
         >
-          {t.label}
+          <Link href={t.href || '#'}>{t.label}</Link>
         </Tabs.Trigger>
       )
     })
