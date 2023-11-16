@@ -1,4 +1,8 @@
-import { ChangeEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, useCallback, useRef, useState } from 'react'
+
+import { getOrientation } from 'get-orientation/browser'
+import Avatar from 'react-avatar-edit'
+import Cropper from 'react-easy-crop'
 
 import s from './AddProfilePhotoModal.module.scss'
 
@@ -9,35 +13,44 @@ import { Modal } from '@/shared/components/modals'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 
+const MAX_SIZE = 10 * 1024 * 1024
+const PROFILE_PHOTO_SIZE = 316
+
 type Propss = {
   isOpen: boolean
   closeModal: () => void
 }
 export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
-  const [profilePhoto, setProfilePhoto] = useState<Blob | undefined>()
+  const [profilePhoto, setProfilePhoto] = useState<File | undefined>()
   const inputRef = useRef<HTMLInputElement>(null)
-  const [crop, setCrop] = useState({ x: 0, y: 0 })
-  const [zoom, setZoom] = useState(1)
+
   const [errorText, setErrorText] = useState<string | undefined>()
   const { t } = useTranslation()
-  const { userId, accessToken } = useAuth()
+  const { accessToken } = useAuth()
 
   const [savePhoto, { data }] = useSavePhotoMutation()
-  const onCropChange = (crop: any) => {
-    setCrop(crop)
+  const EditorRef = useRef(null)
+
+  const convertDataUrlToFile = (dataUrl: string, fileName: string): File => {
+    const base64String = dataUrl.split(',')[1]
+    const byteCharacters = atob(base64String)
+    const byteNumbers = new Array(byteCharacters.length)
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i)
+    }
+    const byteArray = new Uint8Array(byteNumbers)
+    const fileType = dataUrl.split(',')[0].split(':')[1].split(';')[0]
+
+    return new File([byteArray], fileName, { type: fileType })
   }
 
-  console.log(data)
-  // const onCropComplete = (croppedAreaPixels: any) => {
-  //   if (croppedAreaPixels.width !== 0 && croppedAreaPixels.height !== 0) {
-  //     console.log(croppedAreaPixels.width / croppedAreaPixels.height)
-  //   }
-  //   // console.log(croppedAreaPixels.width / croppedAreaPixels.height)
-  // }
+  const onCrop = (view: string) => {
+    const file = convertDataUrlToFile(view, 'hello.txt')
 
-  const onZoomChange = (zoom: any) => {
-    setZoom(zoom)
+    setProfilePhoto(file)
   }
+
   const selectPhotoHandler = () => {
     inputRef && inputRef.current?.click()
   }
@@ -47,7 +60,6 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
 
     if (selectedFile) {
       const acceptedTypes = ['image/jpeg', 'image/png']
-      const maxSizeBytes = 1.5 * 1024 * 1024
 
       if (!acceptedTypes.includes(selectedFile.type)) {
         setErrorText(t.add_profile_photo.error_typy_of_photo)
@@ -55,7 +67,7 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
         return
       }
 
-      if (selectedFile.size > maxSizeBytes) {
+      if (selectedFile.size > MAX_SIZE) {
         setErrorText(t.add_profile_photo.error_size_photo)
 
         return
@@ -76,29 +88,11 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
     // })
 
     closeModal()
-    //setProfilePhoto(profilePhoto)
+    setProfilePhoto(undefined)
   }
   const handleCloseModal = () => {
     closeModal()
     setProfilePhoto(undefined)
-  }
-
-  const size = {
-    width: 316,
-    height: 316,
-  }
-
-  const customStyles = {
-    style: {
-      containerStyle: {
-        backgroundColor: '#171717',
-        backgroundPosition: 'center',
-      },
-
-      cropAreaStyle: {
-        border: 'none',
-      },
-    },
   }
 
   return (
@@ -109,53 +103,30 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
       onClose={handleCloseModal}
     >
       <div>
-        <div>
-          {profilePhoto ? (
-            <>
-              <div className={s.cropContainer}>
-                <div className={s.profilePhotoBlock}>
-                  {/*<Cropper*/}
-                  {/*  image={URL.createObjectURL(profilePhoto)}*/}
-                  {/*  crop={crop}*/}
-                  {/*  zoom={zoom}*/}
-                  {/*  aspect={1}*/}
-                  {/*  cropShape="round"*/}
-                  {/*  showGrid={false}*/}
-                  {/*  onCropChange={onCropChange}*/}
-                  {/*  // onCropComplete={onCropComplete}*/}
-                  {/*  // onZoomChange={onZoomChange}*/}
-                  {/*  cropSize={size}*/}
-                  {/*  {...customStyles}*/}
-                  {/*/>*/}
-                </div>
-              </div>
-              <div className={s.buttonBox}>
-                <Button variant={'primary'} className={s.buttons} onClick={handleSavePhoto}>
-                  {t.add_profile_photo.save_button}
-                </Button>
-              </div>
-            </>
-          ) : (
-            <div className={s.box}>
-              {errorText && <div className={s.errorText}>{errorText}</div>}
-              <div className={s.defaultProfilePhotoBlock}>
-                <DefaultProfileImg style={{ width: '3rem', height: '3rem' }} />
-              </div>
+        <div className={s.cropContainer}>
+          <div className={s.profilePhotoBlock}>
+            <Avatar
+              ref={EditorRef}
+              width={332}
+              height={340}
+              onBeforeFileLoad={onMainFileSelected}
+              onCrop={onCrop}
+              imageHeight={340}
+              imageWidth={332}
+              cropColor={'#171717'}
+              shadingColor={'#171717'}
+              minCropRadius={50}
 
-              <Button variant={'primary'} className={s.buttonPhoto} onClick={selectPhotoHandler}>
-                {t.add_profile_photo.text_of_button_select_from_comp}
-              </Button>
-            </div>
-          )}
+              // src={profilePhoto ? URL.createObjectURL(profilePhoto) : undefined}
+            />
+          </div>
         </div>
 
-        <input
-          accept={'image/jpeg, image/png'}
-          onChange={onMainFileSelected}
-          ref={inputRef}
-          style={{ display: 'none' }}
-          type={'file'}
-        />
+        <div className={s.buttonBox}>
+          <Button variant={'primary'} className={s.buttons} onClick={handleSavePhoto}>
+            {t.add_profile_photo.save_button}
+          </Button>
+        </div>
       </div>
     </Modal>
   )

@@ -1,3 +1,5 @@
+import { access } from 'fs'
+
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { BACKEND_URL } from '@/shared/constants/ext-urls'
@@ -49,7 +51,27 @@ export const profileApi = createApi({
       },
       invalidatesTags: ['Profile'],
     }),
+
+    deletePhoto: builder.mutation<void, { accessToken: string }>({
+      query: accessToken => {
+        return {
+          url: '/users/profile/avatar',
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + accessToken,
+          },
+        }
+      },
+      invalidatesTags: ['Profile'],
+    }),
   }),
 })
 
-export const { useGetProfileQuery, usePutProfileMutation, useSavePhotoMutation } = profileApi
+export const {
+  useGetProfileQuery,
+  useDeletePhotoMutation,
+  usePutProfileMutation,
+  useSavePhotoMutation,
+} = profileApi
