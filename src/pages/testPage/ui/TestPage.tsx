@@ -20,7 +20,7 @@ const TestPage = () => {
       <div>{date?.toLocaleString()}</div>
       <br />
       <DatePicker
-        mode="single"
+        mode="range"
         errorMessage={errorMessage}
         setResultDate={setResultDate}
         lang={t.lg}
