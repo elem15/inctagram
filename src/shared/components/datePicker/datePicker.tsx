@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 // eslint-disable-next-line import/no-duplicates
-import { format } from 'date-fns'
+import { format, isValid } from 'date-fns'
 // eslint-disable-next-line import/no-duplicates
 import ru from 'date-fns/locale/ru'
 import Link from 'next/link'
@@ -35,19 +35,31 @@ export function DatePicker({
   label,
   ...props
 }: Props) {
-  const baseDate = defaultMonth || new Date()
   const [date, setDate] = useState<Date>()
   const [range, setRange] = useState<DateRange>()
+  const baseDate = date || defaultMonth || new Date()
+  const [dateValue, setDateValue] = useState('')
   const isSelected = date || range
   const locale = lang === 'ru' ? ru : undefined
 
   useEffect(() => {
     if (date) {
       setResultDate(date)
+      setDateValue(format(date, 'yyyy-MM-dd'))
     } else if (range && range.to) {
       setResultDate(range)
     }
   }, [setResultDate, date, range])
+
+  useEffect(() => {
+    const date = new Date(dateValue)
+
+    isValid(date) && setDate(date)
+  }, [dateValue])
+
+  useEffect(() => {
+    !date && defaultMonth && setDateValue(format(defaultMonth, 'yyyy-MM-dd'))
+  }, [date, defaultMonth])
 
   return (
     <div>
@@ -63,13 +75,25 @@ export function DatePicker({
                 'data-[state=closed]:border-danger-500 data-[state=closed]:text-danger-500 border-[1px]'
             )}
           >
-            {!isSelected && format(baseDate, 'dd/MM/yyyy')}
-            {date
-              ? format(date, 'dd/MM/yyyy')
-              : range?.from &&
-                `${format(range.from, 'dd/MM/yyyy')} ${
-                  range.to ? '- ' + format(range.to, 'dd/MM/yyyy') : ''
-                }`}
+            {/* {mode === 'single' && (
+              <span className="md:hidden">
+                {!isSelected && format(baseDate, 'dd/MM/yyyy')}
+                {date && format(date, 'dd/MM/yyyy')}
+              </span>
+            )} */}
+            {mode === 'single' && baseDate && (
+              <input
+                type="date"
+                placeholder="yyyy-dd-mm"
+                value={dateValue}
+                onChange={e => setDateValue(e.target.value)}
+                className="bg-dark-500 border-dark-500 text-base outline-none"
+              />
+            )}
+            {range?.from &&
+              `${format(range.from, 'dd/MM/yyyy')} ${
+                range.to ? '- ' + format(range.to, 'dd/MM/yyyy') : ''
+              }`}
             <CalendarDark className="group-data-[state=closed]:hidden" />
             <CalendarLight className="group-data-[state=open]:hidden" />
           </CalendarButton>
@@ -92,8 +116,8 @@ export function DatePicker({
               selected={date}
               onSelect={setDate}
               initialFocus
-              className="dark bg-dark-500 border-dark-300"
-              defaultMonth={defaultMonth}
+              className="dark bg-dark-500 border-dark-300 hidden md:block"
+              defaultMonth={date}
               {...props}
             />
           )}

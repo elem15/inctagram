@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
@@ -13,10 +13,11 @@ import { Button, Input, Textarea, SelectCustom, Typography } from '@/shared/comp
 import { DatePicker } from '@/shared/components/datePicker'
 import { useAppDispatch, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
-import { firstNameValidation } from '@/shared/regex'
-import {Spinner} from '@/widgets/spinner';
+import { firstNameValidation, nameValidation } from '@/shared/regex'
+import { TabsLayout, getTabsLayout } from '@/widgets/layouts'
+import { Spinner } from '@/widgets/spinner'
 
-export const GeneralInformation = () => {
+const Information = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const {
@@ -37,22 +38,29 @@ export const GeneralInformation = () => {
     error,
   } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
 
-  const [putProfile, { isSuccess, isLoading: isPutLoading, error: putError }] =
-    usePutProfileMutation()
+  const [putProfile, { isLoading: isPutLoading, error: putError }] = usePutProfileMutation()
 
   const [date, setResultDate] = useState<Date | DateRange>()
 
   useEffect(() => {
-    if (error || putError) {
-      dispatch(setAlert({ message: t.profile.authError, variant: 'error' }))
+    if (putError) {
+      const e = putError as CustomerError
+
+      if (e.status === 400) {
+        setError('userName', { type: 'server', message: t.profile.user_name_error })
+      } else {
+        dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+      }
+    } else if (error) {
+      dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
     }
-  }, [dispatch, error, putError, t.profile.authError])
+  }, [dispatch, error, putError, setError, t.profile.auth_error, t.profile.user_name_error])
+
   useEffect(() => {
-    if (profile?.firstName && profile?.lastName) {
-      setValue('firstName', profile.firstName)
-      setValue('lastName', profile.lastName)
-      setValue('aboutMe', profile.aboutMe)
-    }
+    profile?.firstName && setValue('firstName', profile.firstName)
+    profile?.lastName && setValue('lastName', profile.lastName)
+    profile?.userName && setValue('userName', profile.userName)
+    profile?.aboutMe && setValue('aboutMe', profile.aboutMe)
     if (date && date instanceof Date) {
       const age = differenceInYears(new Date(), date)
 
@@ -62,11 +70,16 @@ export const GeneralInformation = () => {
           message: t.profile.age_error,
         })
       } else clearErrors('dateOfBirth')
-      setValue('dateOfBirth', date.toLocaleDateString())
+      const offset = new Date().getTimezoneOffset()
+
+      date.setMinutes(date.getMinutes() + offset)
+      setValue('dateOfBirth', date.toISOString())
     }
   }, [
     profile?.firstName,
     profile?.lastName,
+    profile?.userName,
+    profile?.aboutMe,
     profile,
     setValue,
     date,
@@ -91,7 +104,7 @@ export const GeneralInformation = () => {
   const [countries, setCountries] = useState<SelectOptions[]>([])
   const [countriesOptions, setCountriesOptions] = useState<Omit<SelectOptions, 'cities'>[]>([])
   const [country, setCountry] = useState('')
-  const [city, setCity] = useState<City[]>([])
+  const [cities, setCity] = useState<City[]>([])
 
   useEffect(() => {
     const getCities = async () => {
@@ -137,7 +150,7 @@ export const GeneralInformation = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+    <form onSubmit={handleSubmit(onSubmit)}>
       {(isLoading || isPutLoading) && <Spinner />}
       <div className={s.container}>
         <main className={s.mainContainer}>
@@ -152,14 +165,27 @@ export const GeneralInformation = () => {
               label={t.profile.user_name}
               labelClass="asterisk"
               type="text"
-              defaultValue={profile?.userName}
-              disabled
+              {...register('userName', {
+                required: t.signup.username_required,
+                maxLength: {
+                  value: 30,
+                  message: t.messages.user_max_length,
+                },
+                minLength: {
+                  value: 6,
+                  message: t.messages.user_min_length,
+                },
+                pattern: {
+                  value: nameValidation,
+                  message: t.messages.name_format_message,
+                },
+              })}
+              error={errors.userName?.message?.toString()}
             />
             <Input
               label={t.profile.first_name}
               labelClass="asterisk"
               type="text"
-              autoComplete="off"
               {...register('firstName', {
                 required: t.profile.first_name_required,
                 maxLength: {
@@ -177,7 +203,6 @@ export const GeneralInformation = () => {
               label={t.profile.last_name}
               labelClass="asterisk"
               type="text"
-              autoComplete="off"
               {...register('lastName', {
                 required: t.profile.last_name_required,
                 maxLength: {
@@ -194,11 +219,11 @@ export const GeneralInformation = () => {
             <DatePicker
               mode="single"
               errorMessage={errors.dateOfBirth?.message?.toString()}
-              errorLinkHref="auth/privacy"
+              errorLinkHref="/auth/privacy"
               errorLinkMessage={t.privacy_policy.title}
               lang={t.lg}
               setResultDate={setResultDate}
-              defaultMonth={profile && new Date(profile?.dateOfBirth)}
+              defaultMonth={profile?.dateOfBirth ? new Date(profile?.dateOfBirth) : undefined}
               label={t.profile.birth_date}
             />
             <div className={s.selects}>
@@ -212,9 +237,9 @@ export const GeneralInformation = () => {
               <SelectCustom
                 {...register('city')}
                 disabled={!country}
-                options={city}
-                label={t.profile.city}
-                placeHolder={t.profile.city_blank}
+                label={t.profile.cities}
+                options={cities}
+                placeHolder={profile?.city || t.profile.city_blank}
                 onValueChange={onChangeCityHandler}
               />
             </div>
@@ -237,5 +262,13 @@ export const GeneralInformation = () => {
         </div>
       </div>
     </form>
+  )
+}
+
+export const GeneralInformation = () => {
+  return (
+    <TabsLayout>
+      <Information />
+    </TabsLayout>
   )
 }
