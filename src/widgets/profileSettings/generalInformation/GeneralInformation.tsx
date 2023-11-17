@@ -48,7 +48,6 @@ const Information = () => {
 
       if (e.status === 400) {
         setError('userName', { type: 'server', message: t.profile.user_name_error })
-        dispatch(setAlert({ message: JSON.stringify(e.data.messages), variant: 'error' }))
       } else {
         dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
       }
@@ -71,7 +70,9 @@ const Information = () => {
           message: t.profile.age_error,
         })
       } else clearErrors('dateOfBirth')
-      date.setHours(date.getHours() + 4)
+      const offset = new Date().getTimezoneOffset()
+
+      date.setMinutes(date.getMinutes() + offset)
       setValue('dateOfBirth', date.toISOString())
     }
   }, [
