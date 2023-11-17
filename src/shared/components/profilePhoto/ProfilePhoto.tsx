@@ -45,8 +45,8 @@ export const ProfilePhoto = ({ photo }: Props) => {
       <Button variant={'outline'} onClick={openModal}>
         {t.add_profile_photo.add_profile_photo_text}
       </Button>
-      <AddAvatarModal isOpen={isOpen} closeModal={closeModal} />
-      {/*<AddProfilePhotoModal isOpen={isOpen} closeModal={closeModal} />*/}
+      {/*<AddAvatarModal isOpen={isOpen} closeModal={closeModal} />*/}
+      <AddProfilePhotoModal isOpen={isOpen} closeModal={closeModal} />
     </div>
   )
 }

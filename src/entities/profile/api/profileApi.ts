@@ -51,15 +51,32 @@ export const profileApi = createApi({
       },
       invalidatesTags: ['Profile'],
     }),
-
-    deletePhoto: builder.mutation<void, { accessToken: string }>({
-      query: accessToken => {
+    // savePhoto: builder.mutation<any, FormData>({
+    //   query: ({ formData, accessToken }) => {
+    //     // console.log('RTK: ', formData)
+    //     // console.log(formData.get('file'))
+    //
+    //     return {
+    //       url: '/users/profile/avatar',
+    //       body: formData,
+    //       method: 'POST',
+    //       credentials: 'include',
+    //       headers: {
+    //         // 'Content-Type': 'application/json',
+    //         Authorization: 'Bearer ' + accessToken,
+    //       },
+    //     }
+    //   },
+    //   // invalidatesTags: ['Profile'],
+    // }),
+    deletePhoto: builder.mutation<void, void>({
+      query: () => {
         return {
           url: '/users/profile/avatar',
           method: 'DELETE',
-          credentials: 'include',
+          // credentials: 'include',
           headers: {
-            'Content-Type': 'application/json',
+            //  'Content-Type': 'application/json',
             Authorization: 'Bearer ' + accessToken,
           },
         }

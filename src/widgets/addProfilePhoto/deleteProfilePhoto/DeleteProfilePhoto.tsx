@@ -19,7 +19,7 @@ export const DeleteProfilePhoto = () => {
 
   const [deleteAvatar] = useDeletePhotoMutation()
   const handlerDeleteAvatar = () => {
-    deleteAvatar({ accessToken })
+    deleteAvatar()
   }
 
   return (

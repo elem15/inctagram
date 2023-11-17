@@ -7,7 +7,7 @@ import { getCroppedImg, getRotatedImage } from './cropperUtils'
 
 import { useSavePhotoMutation } from '@/entities/profile/api/profileApi'
 import { DefaultProfileImg } from '@/shared/assets'
-import { Button, Typography } from '@/shared/components'
+import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
@@ -39,7 +39,7 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
   const { t } = useTranslation()
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const [savePhoto, { data }] = useSavePhotoMutation()
+  const [savePhoto] = useSavePhotoMutation()
   const onCropComplete = useCallback((_croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels)
   }, [])
@@ -52,7 +52,7 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
         const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels, rotation)
 
         console.log('donee', { croppedImage })
-        const newImg = setCroppedImage(croppedImage)
+        setCroppedImage(croppedImage)
 
         console.log(croppedImage)
       }
@@ -141,7 +141,7 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
   }
   const handleCloseModal = () => {
     closeModal()
-    // setProfilePhoto(undefined)
+    //set
   }
 
   return (
@@ -209,6 +209,7 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
             borderRadius: '50%',
             border: '1px solid, #fff',
           }}
+          alt="ava"
         />
       </div>
     </Modal>

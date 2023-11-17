@@ -111,12 +111,11 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
               height={340}
               onBeforeFileLoad={onMainFileSelected}
               onCrop={onCrop}
-              imageHeight={340}
-              imageWidth={332}
+              imageHeight={300}
+              imageWidth={350}
               cropColor={'#171717'}
               shadingColor={'#171717'}
-              minCropRadius={50}
-
+              cropRadius={70}
               // src={profilePhoto ? URL.createObjectURL(profilePhoto) : undefined}
             />
           </div>
