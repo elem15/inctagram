@@ -71,7 +71,8 @@ const Information = () => {
           message: t.profile.age_error,
         })
       } else clearErrors('dateOfBirth')
-      setValue('dateOfBirth', date.toLocaleDateString())
+      date.setHours(date.getHours() + 4)
+      setValue('dateOfBirth', date.toISOString())
     }
   }, [
     profile?.firstName,
