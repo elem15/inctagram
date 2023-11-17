@@ -48,6 +48,7 @@ const Information = () => {
 
       if (e.status === 400) {
         setError('userName', { type: 'server', message: t.profile.user_name_error })
+        dispatch(setAlert({ message: JSON.stringify(e.data.messages), variant: 'error' }))
       } else {
         dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
       }

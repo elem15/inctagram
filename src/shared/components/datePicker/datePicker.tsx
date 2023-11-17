@@ -75,19 +75,19 @@ export function DatePicker({
                 'data-[state=closed]:border-danger-500 data-[state=closed]:text-danger-500 border-[1px]'
             )}
           >
-            {mode === 'single' && (
-              <span className="sm:hidden">
+            {/* {mode === 'single' && (
+              <span className="md:hidden">
                 {!isSelected && format(baseDate, 'dd/MM/yyyy')}
                 {date && format(date, 'dd/MM/yyyy')}
               </span>
-            )}
+            )} */}
             {mode === 'single' && baseDate && (
               <input
                 type="date"
                 placeholder="yyyy-dd-mm"
                 value={dateValue}
                 onChange={e => setDateValue(e.target.value)}
-                className="hidden sm:block bg-dark-500 border-dark-500 text-base outline-none"
+                className="bg-dark-500 border-dark-500 text-base outline-none"
               />
             )}
             {range?.from &&
@@ -116,7 +116,7 @@ export function DatePicker({
               selected={date}
               onSelect={setDate}
               initialFocus
-              className="dark bg-dark-500 border-dark-300"
+              className="dark bg-dark-500 border-dark-300 hidden md:block"
               defaultMonth={date}
               {...props}
             />
