@@ -15,3 +15,16 @@ align-items: center;
 .buttonn{
  width: 35px;
   }
+.deleteButtonBox{
+
+
+  .deleteButton{
+color: var(--color-danger-500);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-position: center;
+  text-align: center;
+
+  }
+}

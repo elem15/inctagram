@@ -41,9 +41,8 @@ type SelectOptions = {
   value: string
   cities: string[]
 }
-type SaveAva={
-  profileId?: number,
-  file:FormData;
- // accessToken?: string,
 
+
+export type SaveAvatarsResponse = {
+  avatars: Avatar[];
 }

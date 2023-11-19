@@ -23,44 +23,35 @@ type Props = {
   isOpen: boolean
   closeModal: () => void
 }
+export type CroppedAreaPixel = {
+  x: number
+  y: number
+  width: number
+  height: number
+} | null
 export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null)
   const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
   const [rotation, setRotation] = useState<number>(0)
   const [zoom, setZoom] = useState<number>(1)
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<{
-    width: number
-    height: number
-  } | null>(null)
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<CroppedAreaPixel>(null)
   const [errorText, setErrorText] = useState<string | undefined>()
 
-  const [croppedImage, setCroppedImage] = useState<string | null>(null)
   const { accessToken } = useAuth()
   const { t } = useTranslation()
   const inputRef = useRef<HTMLInputElement>(null)
 
   const [savePhoto] = useSavePhotoMutation()
-  const onCropComplete = useCallback((_croppedArea, croppedAreaPixels) => {
+  const onCropComplete = useCallback((_croppedArea: any, croppedAreaPixels: CroppedAreaPixel) => {
     setCroppedAreaPixels(croppedAreaPixels)
   }, [])
   const selectPhotoHandler = () => {
     inputRef && inputRef.current?.click()
   }
-  const showCroppedImage = async () => {
-    try {
-      if (imageSrc && croppedAreaPixels) {
-        const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels, rotation)
 
-        console.log('donee', { croppedImage })
-        setCroppedImage(croppedImage)
-
-        console.log(croppedImage)
-      }
-    } catch (e) {
-      console.error(e)
-    }
-  }
   const saveP = async () => {
+    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels, rotation)
+
     if (croppedImage) {
       try {
         const response = await fetch(croppedImage)
@@ -72,13 +63,14 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
         const blob = await response.blob()
         const croppedFile = new File([blob], 'cropped-image.jpg', { type: blob.type })
 
-        savePhoto({ croppedImage: croppedFile, accessToken })
+        savePhoto({ profilePhoto: croppedFile, accessToken })
       } catch (error) {
         console.error('Error converting and sending the cropped image:', error)
       }
     }
     closeModal()
     setImageSrc(null)
+    setErrorText(undefined)
   }
 
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +90,7 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
 
         return
       }
-      let imageDataUrl = await readFile(file)
+      let imageDataUrl: any = await readFile(file)
 
       try {
         const orientation = await getOrientation(file)
@@ -141,7 +133,8 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
   }
   const handleCloseModal = () => {
     closeModal()
-    //set
+    setImageSrc(null)
+    setErrorText(undefined)
   }
 
   return (
@@ -182,7 +175,12 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
             </>
           ) : (
             <div className={s.box}>
-              {errorText && <div className={s.errorText}>{errorText}</div>}
+              {errorText && (
+                <div className={s.errorText}>
+                  <strong>{t.add_profile_photo.error}</strong>
+                  {errorText}
+                </div>
+              )}
               <div className={s.defaultProfilePhotoBlock}>
                 <DefaultProfileImg style={{ width: '3rem', height: '3rem' }} />
               </div>
@@ -198,18 +196,6 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
           ref={inputRef}
           style={{ display: 'none' }}
           type={'file'}
-        />
-        <Button onClick={showCroppedImage}>Show Result</Button>
-
-        <img
-          src={croppedImage}
-          style={{
-            width: '200px',
-            height: '200px',
-            borderRadius: '50%',
-            border: '1px solid, #fff',
-          }}
-          alt="ava"
         />
       </div>
     </Modal>

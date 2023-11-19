@@ -1,20 +1,16 @@
-import React, { ChangeEvent, useCallback, useRef, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 
-import { getOrientation } from 'get-orientation/browser'
 import Avatar from 'react-avatar-edit'
-import Cropper from 'react-easy-crop'
 
 import s from './AddProfilePhotoModal.module.scss'
 
 import { useSavePhotoMutation } from '@/entities/profile/api/profileApi'
-import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 const MAX_SIZE = 10 * 1024 * 1024
-const PROFILE_PHOTO_SIZE = 316
 
 type Propss = {
   isOpen: boolean

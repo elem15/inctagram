@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import s from './GeneralInformation.module.scss'
 
+import { City, Countries, ProfilePut, SelectOptions, UserAuthData } from '@/../types'
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
 import { Button, Input, Textarea, SelectCustom, Typography } from '@/shared/components'
@@ -13,6 +14,7 @@ import { DatePicker } from '@/shared/components/datePicker'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation } from '@/shared/regex'
+import { ProfilePhotoForGeneralInfo } from '@/widgets/addProfilePhoto'
 
 export const GeneralInformation = () => {
   const { t } = useTranslation()
@@ -134,10 +136,11 @@ export const GeneralInformation = () => {
       <div className={s.container}>
         <main className={s.mainContainer}>
           <div className={s.imagePicker}>
-            <div>img</div>
-            <Button variant={'outline'}>
-              <Typography variant={'bold_text_14'}> Add a Profile Photo</Typography>
-            </Button>
+            <ProfilePhotoForGeneralInfo />
+            {/*<div>img</div>*/}
+            {/*<Button variant={'outline'}>*/}
+            {/*  <Typography variant={'bold_text_14'}> Add a Profile Photo</Typography>*/}
+            {/*</Button>*/}
           </div>
           <div className={s.textFormContainer}>
             <Input
@@ -201,8 +204,8 @@ export const GeneralInformation = () => {
               <SelectCustom
                 {...register('city')}
                 options={city}
-                label={t.profile.city}
-                placeHolder={t.profile.city_blank}
+                label={t.profile.city_blank}
+                placeHolder={t.profile.cities}
                 onValueChange={onChangeCityHandler}
               />
             </div>

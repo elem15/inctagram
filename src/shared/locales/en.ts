@@ -11,7 +11,6 @@ export const en = {
     search: 'Search',
     statistics: 'Statistics',
     favorites: 'Favorites',
-    profile_btn: 'Profile Settings',
   },
   resend: {
     title: 'Email verification link expired',
@@ -120,8 +119,9 @@ export const en = {
   add_profile_photo: {
     add_profile_photo_text: 'Add a Profile Photo',
     text_of_button_select_from_comp: 'Select from Computer',
-    error_typy_of_photo: 'Error! The format of the uploaded photo must be PNG and JPEG.',
-    error_size_photo: 'Error! Photo size must be less than 10 MB!',
+    error_typy_of_photo: 'The format of the uploaded photo must be PNG and JPEG.',
+    error: 'Error! ',
+    error_size_photo: 'Photo size must be less than 10 MB!',
     save_button: ' Save',
   },
   delete_photo_of_profile: {
@@ -140,7 +140,7 @@ export const en = {
     birth_date: 'Date of birth',
     country: 'Select your country',
     country_blank: 'Country',
-    cities: 'Select your city',
+    city: 'Select your city',
     city_blank: 'City',
     about: 'About Me',
     age_error: 'A user under 13 cannot create a profile. ',
@@ -148,15 +148,14 @@ export const en = {
     about_max_length: 'Maximum number of characters 200',
     first_name_required: 'First name is required',
     last_name_required: 'Last name is required',
-    first_name_message: 'The first name contain characters, not spaces, not numbers',
-    last_name_message: 'The last name contain characters, not spaces, not numbers',
+    first_name_message: 'The first name contain characters, not spaces, not start with numbers',
+    last_name_message: 'The last name contain characters, not spaces, not start with numbers',
     button: 'Save changes',
     general_information: 'General Information',
     devices: 'Devices',
     account_management: 'Account Management',
     my_payments: 'My Payments',
-    auth_error: 'Auth error. Signin again',
-    user_name_error: 'User with this name already exist',
+    authError: 'Auth error. Signin again',
   },
 }
 
