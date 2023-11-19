@@ -14,6 +14,8 @@ import { AppProps } from 'next/app'
 
 import { ReduxProvider } from './providers'
 
+import { NotificationContainer } from '@/widgets/alertContainer'
+
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
@@ -26,9 +28,16 @@ export function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? (page => page)
 
-  return getLayout(
+  return (
     <ReduxProvider>
-      <Component {...pageProps} />
+      <>
+        {getLayout(
+          <>
+            <Component {...pageProps} />
+            <NotificationContainer />
+          </>
+        )}
+      </>
     </ReduxProvider>
   )
 }

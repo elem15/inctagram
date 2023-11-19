@@ -21,6 +21,7 @@ import {
 import s from './Sidebar.module.scss'
 
 import { useTranslation } from '@/shared/lib'
+import { LogOutButton } from '@/widgets/logOut'
 
 export const Sidebar = () => {
   const router = useRouter()
@@ -29,17 +30,16 @@ export const Sidebar = () => {
   return (
     <div className={s.box}>
       <div className={s.contentBox}>
+        <div className={s.marginTop}></div>
         <ul>
           <li>
-            <Link href={'#'} className={s.content}>
-              {router.pathname == '/home' ? <HomesIcon /> : <IconBxHomeAlt />}
-              <span className={router.pathname === '/home' ? s.activeLink : ''}>
-                {t.sidebar.home}
-              </span>
+            <Link href={'/'} className={s.content}>
+              {router.pathname == '/' ? <HomesIcon /> : <IconBxHomeAlt />}
+              <span className={router.pathname === '/' ? s.activeLink : ''}>{t.sidebar.home}</span>
             </Link>
           </li>
           <li>
-            <Link href={'#'} className={s.content}>
+            <Link href={'/create'} className={s.content}>
               {router.pathname === '/create' ? <CreatesIcon /> : <CreateIcon />}
               <span className={router.pathname === '/create' ? s.activeLink : ''}>
                 {t.sidebar.create}
@@ -47,15 +47,15 @@ export const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link href={'my-profile'} className={s.content}>
-              {router.pathname === '/my-profile' ? <IconUser2 /> : <IconUser />}
-              <span className={router.pathname === '/my-profile' ? s.activeLink : ''}>
+            <Link href={'my-profile/general-information'} className={s.content}>
+              {router.pathname.includes('/my-profile') ? <IconUser2 /> : <IconUser />}
+              <span className={router.pathname.includes('/my-profile') ? s.activeLink : ''}>
                 {t.sidebar.my_profile}
               </span>
             </Link>
           </li>
           <li>
-            <Link href={'#'} className={s.content}>
+            <Link href={'/messenger'} className={s.content}>
               {router.pathname === '/messenger' ? <MessangersIcon /> : <MessengerIcon />}
               <span className={router.pathname === '/messenger' ? s.activeLink : ''}>
                 {t.sidebar.messenger}
@@ -64,20 +64,21 @@ export const Sidebar = () => {
           </li>
           <li>
             <Link
-              href={'#'}
+              href={'/search'}
               className={
-                router.pathname === '/search'
-                  ? clsx(s.activeLink, s.content, s.marginBox)
-                  : clsx(s.content, s.marginBox)
+                router.pathname === '/search' ? clsx(s.activeLink, s.content) : clsx(s.content)
               }
             >
               <SearchIcon />
               {t.sidebar.search}
             </Link>
           </li>
+        </ul>
+        <div className={s.marginBox}></div>
+        <ul>
           <li>
             <Link
-              href={'#'}
+              href={'/statistics'}
               className={
                 router.pathname === '/statistics' ? clsx(s.activeLink, s.content) : s.content
               }
@@ -86,19 +87,21 @@ export const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link href={'#'} className={clsx(s.content, s.largeMargin)}>
+            <Link href={'/favorites'} className={clsx(s.content)}>
               {router.pathname === '/favorite' ? <BookMarkIcon /> : <FavoritesIcon />}
               <span className={router.pathname === '/favorite' ? s.activeLink : ''}>
                 {t.sidebar.favorites}
               </span>
             </Link>
           </li>
-
-          <li className={s.content}>
-            <Link href={'signin'} className={s.content}>
+        </ul>
+        <div className={s.largeMargin}></div>
+        <ul>
+          <LogOutButton>
+            <li className={s.content}>
               <LogOutIcon /> {t.sidebar.log_out}
-            </Link>
-          </li>
+            </li>
+          </LogOutButton>
         </ul>
       </div>
     </div>

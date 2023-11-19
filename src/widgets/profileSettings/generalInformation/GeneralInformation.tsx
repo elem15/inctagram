@@ -13,7 +13,6 @@ import { DatePicker } from '@/shared/components/datePicker'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation } from '@/shared/regex'
-import { ProfilePhotoForGeneralInfo } from '@/widgets/addProfilePhoto'
 
 export const GeneralInformation = () => {
   const { t } = useTranslation()
@@ -135,11 +134,10 @@ export const GeneralInformation = () => {
       <div className={s.container}>
         <main className={s.mainContainer}>
           <div className={s.imagePicker}>
-            <ProfilePhotoForGeneralInfo />
-            {/*<div>img</div>*/}
-            {/*<Button variant={'outline'}>*/}
-            {/*  <Typography variant={'bold_text_14'}> Add a Profile Photo</Typography>*/}
-            {/*</Button>*/}
+            <div>img</div>
+            <Button variant={'outline'}>
+              <Typography variant={'bold_text_14'}> Add a Profile Photo</Typography>
+            </Button>
           </div>
           <div className={s.textFormContainer}>
             <Input

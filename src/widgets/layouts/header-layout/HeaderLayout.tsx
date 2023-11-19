@@ -2,10 +2,11 @@ import { FC, ReactElement, ReactNode } from 'react'
 
 import { HeaderWidget } from '../../header'
 
+import { useAuth } from '@/shared/lib/hooks/useAuth'
+
 type Props = {
   children: ReactNode
 }
-
 export const HeaderLayout: FC<Props> = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col bg-dark-700">

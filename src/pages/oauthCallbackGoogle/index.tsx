@@ -11,9 +11,9 @@ export function OauthCallbackGoogle() {
 
   const code = searchParams?.get('code') as string | undefined
 
+  const router = useRouter()
   const { isLoading, error, data } = useGoogleLogin(code)
 
-  const router = useRouter()
   const { isClient } = useClient()
 
   useEffect(() => {
