@@ -14,6 +14,7 @@ import { DatePicker } from '@/shared/components/datePicker'
 import { useAppDispatch, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation, nameValidation } from '@/shared/regex'
+import { ProfilePhotoForGeneralInfo } from '@/widgets/addProfilePhoto'
 import { TabsLayout, getTabsLayout } from '@/widgets/layouts'
 import { Spinner } from '@/widgets/spinner'
 
@@ -155,10 +156,7 @@ const Information = () => {
       <div className={s.container}>
         <main className={s.mainContainer}>
           <div className={s.imagePicker}>
-            <div>img</div>
-            <Button variant={'outline'}>
-              <Typography variant={'bold_text_14'}> Add a Profile Photo</Typography>
-            </Button>
+            <ProfilePhotoForGeneralInfo />
           </div>
           <div className={s.textFormContainer}>
             <Input

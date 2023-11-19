@@ -144,4 +144,18 @@ export const ru: LangType = {
     auth_error: 'Ошибка авторизации. Войдите еще раз',
     user_name_error: 'Пользователь с таким именем уже существует',
   },
+  add_profile_photo: {
+    add_profile_photo_text: 'Добавить фотографию',
+    text_of_button_select_from_comp: 'Выбрать с компьютера',
+    error_typy_of_photo: 'Формат загружаемой фотографии должен быть\n' + 'PNG или JPEG',
+    error: 'Ошибка! ',
+    error_size_photo: 'Размер фотографии должен быть меньше 10 МБ!',
+    save_button: 'Сохранить',
+  },
+  delete_photo_of_profile: {
+    text: 'Вы уверены, что хотите удалить фотографию?',
+    title_of_modal: 'Удалить фото',
+    button_yes: 'Да',
+    button_no: 'Нет',
+  },
 }

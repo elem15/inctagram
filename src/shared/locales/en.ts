@@ -145,5 +145,19 @@ export const en = {
     auth_error: 'Auth error. Signin again',
     user_name_error: 'User with this name already exist',
   },
+  add_profile_photo: {
+    add_profile_photo_text: 'Add a Profile Photo',
+    text_of_button_select_from_comp: 'Select from Computer',
+    error_typy_of_photo: 'The format of the uploaded photo must be PNG and JPEG.',
+    error: 'Error! ',
+    error_size_photo: 'Photo size must be less than 10 MB!',
+    save_button: ' Save',
+  },
+  delete_photo_of_profile: {
+    title_of_modal: 'Delete Photo',
+    text: 'Are you sure you want to delete the photo?',
+    button_yes: 'Yes',
+    button_no: 'No',
+  },
 }
 export type LangType = typeof en
