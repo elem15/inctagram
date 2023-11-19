@@ -201,7 +201,7 @@ export const GeneralInformation = () => {
                 {...register('city')}
                 options={city}
                 label={t.profile.city_blank}
-                placeHolder={t.profile.cities}
+                placeHolder={t.profile.city}
                 onValueChange={onChangeCityHandler}
               />
             </div>
