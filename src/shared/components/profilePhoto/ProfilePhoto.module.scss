@@ -3,44 +3,45 @@
   flex-direction: column;
   justify-content: center;
 
-.ruBox {
-  display: flex;
-  justify-content: center;
-
-
-
-  .userPhotoBlock {
+  .ruBox {
     display: flex;
-    align-items: center;
     justify-content: center;
 
-    width: 12rem;
-    height: 12rem;
-    margin-bottom: 24px;
+    .userPhotoBlock {
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    background-color: var(--color-dark-500);
-    border-radius: 50%;
+      width: 12rem;
+      height: 12rem;
+      margin-bottom: 24px;
+
+      background-color: var(--color-dark-500);
+      border-radius: 50%;
+    }
   }
 }
-}
-.avatarWithButton{
 
-}
-.avaButtonBox{
+.avaButtonBox {
   position: relative;
   width: 222px;
 }
+
 .deleteButtonBox {
   cursor: pointer;
+
   position: absolute;
   z-index: 1;
   top: 14%;
   left: 86.5%;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: var(--color-dark-700);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 24px;
+  height: 24px;
+
+  background-color: var(--color-dark-700);
+  border-radius: 50%;
 }

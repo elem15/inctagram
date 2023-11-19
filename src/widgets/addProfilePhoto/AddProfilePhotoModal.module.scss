@@ -1,17 +1,16 @@
-
-.errorText{
+.errorText {
   width: 100%;
   margin-bottom: 30px;
   padding: 6px 24px;
 
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-400);
-line-height: var(--line-height-m);
+  line-height: var(--line-height-m);
   text-align: center;
 
   background-color: var(--color-danger-900);
-  border:1px solid var(--color-danger-500);
-  border-radius: 2px
+  border: 1px solid var(--color-danger-500);
+  border-radius: 2px;
 }
 
 .defaultProfilePhotoBlock {
@@ -27,7 +26,7 @@ line-height: var(--line-height-m);
   border-radius: 2px;
 }
 
-.cropContainer{
+.cropContainer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,14 +41,10 @@ line-height: var(--line-height-m);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-
-
   }
-
-
 }
 
-.buttonBox{
+.buttonBox {
   display: flex;
   justify-content: flex-end;
 }
@@ -57,7 +52,7 @@ line-height: var(--line-height-m);
 .box {
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
   justify-content: center;
 
   margin-bottom: 84px;

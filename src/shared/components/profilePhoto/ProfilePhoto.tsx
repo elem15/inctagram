@@ -1,6 +1,7 @@
+import Image from 'next/image'
+
 import s from './ProfilePhoto.module.scss'
 
-import { UserAuthData } from '@/../types/profile'
 import { useGetProfileQuery } from '@/entities/profile/api/profileApi'
 import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
@@ -22,10 +23,12 @@ export const ProfilePhoto = () => {
         <div className={s.userPhotoBlock}>
           {data?.avatars[0]?.url ? (
             <div className={s.avaButtonBox}>
-              <img
+              <Image
                 alt={'ava'}
                 src={data?.avatars[0]?.url}
-                style={{ borderRadius: '50%', height: '12rem', width: '12rem' }}
+                style={{ borderRadius: '50%' }}
+                height="192"
+                width="192"
               />
               <div className={s.deleteButtonBox}>
                 <DeleteProfilePhoto />

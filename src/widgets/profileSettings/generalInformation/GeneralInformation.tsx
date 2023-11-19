@@ -4,8 +4,6 @@ import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-
-
 import s from './GeneralInformation.module.scss'
 
 import { setAlert } from '@/app/services'
@@ -19,8 +17,6 @@ import { firstNameValidation, nameValidation } from '@/shared/regex'
 import { ProfilePhotoForGeneralInfo } from '@/widgets/addProfilePhoto'
 import { TabsLayout, getTabsLayout } from '@/widgets/layouts'
 import { Spinner } from '@/widgets/spinner'
-
-class SelectOptions {}
 
 const Information = () => {
   const { t } = useTranslation()

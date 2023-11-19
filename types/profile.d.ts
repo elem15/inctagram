@@ -43,6 +43,6 @@ type SelectOptions = {
 }
 
 
-export type SaveAvatarsResponse = {
+type SaveAvatarsResponse = {
   avatars: Avatar[];
 }

@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { Profile, SaveAvatarsResponse, UserAuthData } from '@/../types/profile'
 import { BACKEND_URL } from '@/shared/constants/ext-urls'
 
 export const profileApi = createApi({
