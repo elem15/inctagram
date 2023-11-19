@@ -144,4 +144,7 @@ export const ru: LangType = {
     auth_error: 'Ошибка авторизации. Войдите еще раз',
     user_name_error: 'Пользователь с таким именем уже существует',
   },
+  followingsModal: {
+    input_placeholder: 'Поиск',
+  },
 }
