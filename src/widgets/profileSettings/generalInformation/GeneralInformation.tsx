@@ -137,10 +137,6 @@ export const GeneralInformation = () => {
         <main className={s.mainContainer}>
           <div className={s.imagePicker}>
             <ProfilePhotoForGeneralInfo />
-            {/*<div>img</div>*/}
-            {/*<Button variant={'outline'}>*/}
-            {/*  <Typography variant={'bold_text_14'}> Add a Profile Photo</Typography>*/}
-            {/*</Button>*/}
           </div>
           <div className={s.textFormContainer}>
             <Input

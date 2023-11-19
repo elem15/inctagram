@@ -1,7 +1,6 @@
 import s from './Delete.module.scss'
 
 import { useDeletePhotoMutation } from '@/entities/profile/api/profileApi'
-import { CloseIcon } from '@/shared/assets/icons/CloseIcon'
 import { DeleteIcon } from '@/shared/assets/icons/DeleteIcon'
 import { Typography } from '@/shared/components'
 import { Button } from '@/shared/components/button/button'
