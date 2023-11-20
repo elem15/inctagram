@@ -31,7 +31,48 @@ export const profileApi = createApi({
       }),
       invalidatesTags: ['Profile'],
     }),
+    savePhoto: builder.mutation<
+      SaveAvatarsResponse,
+      { profilePhoto: File; accessToken: string | undefined }
+    >({
+      query: ({ profilePhoto, accessToken }) => {
+        const formData = new FormData()
+
+        formData.append('file', profilePhoto)
+
+        return {
+          url: '/users/profile/avatar',
+          body: formData,
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            Authorization: 'Bearer ' + accessToken,
+          },
+        }
+      },
+      invalidatesTags: ['Profile'],
+    }),
+
+    deletePhoto: builder.mutation<void, { body: null; accessToken: string | undefined }>({
+      query: ({ accessToken }) => {
+        return {
+          url: '/users/profile/avatar',
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + accessToken,
+          },
+        }
+      },
+      invalidatesTags: ['Profile'],
+    }),
   }),
 })
 
-export const { useGetProfileQuery, usePutProfileMutation } = profileApi
+export const {
+  useGetProfileQuery,
+  useDeletePhotoMutation,
+  usePutProfileMutation,
+  useSavePhotoMutation,
+} = profileApi

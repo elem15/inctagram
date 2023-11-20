@@ -41,3 +41,8 @@ type SelectOptions = {
   value: string
   cities: string[]
 }
+
+
+type SaveAvatarsResponse = {
+  avatars: Avatar[];
+}
