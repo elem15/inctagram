@@ -150,7 +150,7 @@ export const en = {
     text_of_button_select_from_comp: 'Select from Computer',
     error_typy_of_photo: 'The format of the uploaded photo must be PNG and JPEG.',
     error: 'Error! ',
-    error_size_photo: 'Photo size must be less than 10 MB!',
+    error_size_photo: 'Photo size must be less than 1.5 MB!',
     save_button: ' Save',
   },
   delete_photo_of_profile: {

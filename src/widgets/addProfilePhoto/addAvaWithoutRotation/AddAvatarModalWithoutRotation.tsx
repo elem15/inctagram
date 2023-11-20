@@ -1,9 +1,6 @@
 import React, { useState, useCallback, ChangeEvent, useRef } from 'react'
 
-import { getOrientation } from 'get-orientation/browser'
 import Cropper from 'react-easy-crop'
-
-import { getCroppedImg, getRotatedImage } from './cropperUtils'
 
 import { useSavePhotoMutation } from '@/entities/profile/api/profileApi'
 import { DefaultProfileImg } from '@/shared/assets'
@@ -11,13 +8,8 @@ import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
+import getCroppedImg from '@/widgets/addProfilePhoto/addAvaWithoutRotation/crrop'
 import s from '@/widgets/addProfilePhoto/AddProfilePhotoModal.module.scss'
-
-const ORIENTATION_TO_ANGLE: { [key: string]: number } = {
-  '3': 180,
-  '6': 90,
-  '8': -90,
-}
 
 type Props = {
   isOpen: boolean
@@ -29,10 +21,9 @@ export type CroppedAreaPixel = {
   width: number
   height: number
 } | null
-export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
+export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null)
   const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
-  const [rotation, setRotation] = useState<number>(0)
   const [zoom, setZoom] = useState<number>(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CroppedAreaPixel>(null)
   const [errorText, setErrorText] = useState<string | undefined>()
@@ -50,7 +41,7 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
   }
 
   const saveP = async () => {
-    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels, rotation)
+    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels)
 
     if (croppedImage) {
       try {
@@ -91,17 +82,6 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
         return
       }
       let imageDataUrl: any = await readFile(file)
-
-      try {
-        const orientation = await getOrientation(file)
-        const rotation = ORIENTATION_TO_ANGLE[orientation]
-
-        if (rotation) {
-          imageDataUrl = await getRotatedImage(imageDataUrl, rotation)
-        }
-      } catch (e) {
-        console.warn('failed to detect the orientation')
-      }
 
       setImageSrc(imageDataUrl)
     }
