@@ -76,6 +76,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
       }
     }
     closeModal()
+
     setImageSrc(null)
     setErrorText(undefined)
     setZoom(1)
@@ -171,16 +172,17 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
                       opacity: '0.7',
                     }}
                   >
+                    <Button onClick={handleZoomOut} variant={'link'} style={{ fontSize: '21px' }}>
+                      -
+                    </Button>
+                    <SliderDemo values={[zoom]} onChange={handleZoomChange} />
+
                     <Button
                       onClick={handleZoomIn}
                       variant={'link'}
                       style={{ fontSize: '21px', outline: 'none' }}
                     >
                       +
-                    </Button>
-                    <SliderDemo values={[zoom]} onChange={handleZoomChange} />
-                    <Button onClick={handleZoomOut} variant={'link'} style={{ fontSize: '21px' }}>
-                      -
                     </Button>
                   </div>
                 </div>
