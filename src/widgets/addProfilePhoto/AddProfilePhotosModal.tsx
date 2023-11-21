@@ -12,19 +12,17 @@ import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 const MAX_SIZE = 10 * 1024 * 1024
 
-type Propss = {
+type Props = {
   isOpen: boolean
   closeModal: () => void
 }
-export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
+export const AddProfilePhotoModal = ({ isOpen, closeModal }: Props) => {
   const [profilePhoto, setProfilePhoto] = useState<File | undefined>()
-  const inputRef = useRef<HTMLInputElement>(null)
-
   const [errorText, setErrorText] = useState<string | undefined>()
   const { t } = useTranslation()
   const { accessToken } = useAuth()
 
-  const [savePhoto, { data }] = useSavePhotoMutation()
+  const [savePhoto] = useSavePhotoMutation()
   const EditorRef = useRef(null)
 
   const convertDataUrlToFile = (dataUrl: string, fileName: string): File => {
@@ -47,10 +45,6 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
     setProfilePhoto(file)
   }
 
-  const selectPhotoHandler = () => {
-    inputRef && inputRef.current?.click()
-  }
-  let text
   const onMainFileSelected = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.currentTarget.files?.[0]
 
@@ -77,11 +71,6 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
     if (profilePhoto) {
       savePhoto({ profilePhoto, accessToken })
     }
-
-    // .unwrap()
-    // .catch(err => {
-    //
-    // })
 
     closeModal()
     setProfilePhoto(undefined)
@@ -112,7 +101,6 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Propss) => {
               cropColor={'#171717'}
               shadingColor={'#171717'}
               cropRadius={70}
-              // src={profilePhoto ? URL.createObjectURL(profilePhoto) : undefined}
             />
           </div>
         </div>

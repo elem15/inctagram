@@ -1,23 +1,18 @@
 import React, { useState, useCallback, ChangeEvent, useRef } from 'react'
 
-import { getOrientation } from 'get-orientation/browser'
 import Cropper from 'react-easy-crop'
 
-import { getCroppedImg, getRotatedImage } from './cropperUtils'
+import s from '../AddProfilePhotoModal.module.scss'
+
+import getCroppedImg from './crropUtils'
 
 import { useSavePhotoMutation } from '@/entities/profile/api/profileApi'
 import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
+import { SliderDemo } from '@/shared/components/slider'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
-import s from '@/widgets/addProfilePhoto/AddProfilePhotoModal.module.scss'
-
-const ORIENTATION_TO_ANGLE: { [key: string]: number } = {
-  '3': 180,
-  '6': 90,
-  '8': -90,
-}
 
 type Props = {
   isOpen: boolean
@@ -29,10 +24,10 @@ export type CroppedAreaPixel = {
   width: number
   height: number
 } | null
-export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
+
+export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null)
   const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
-  const [rotation, setRotation] = useState<number>(0)
   const [zoom, setZoom] = useState<number>(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CroppedAreaPixel>(null)
   const [errorText, setErrorText] = useState<string | undefined>()
@@ -49,8 +44,20 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
     inputRef && inputRef.current?.click()
   }
 
+  const handleZoomChange = (value: number[]) => {
+    setZoom(value[0])
+  }
+  const handleZoomIn = () => {
+    setZoom(zoom + 0.1)
+  }
+
+  const handleZoomOut = () => {
+    if (zoom > 1) {
+      setZoom(zoom - 0.1)
+    }
+  }
   const saveP = async () => {
-    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels, rotation)
+    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels)
 
     if (croppedImage) {
       try {
@@ -69,8 +76,10 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
       }
     }
     closeModal()
+
     setImageSrc(null)
     setErrorText(undefined)
+    setZoom(1)
   }
 
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -91,17 +100,6 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
         return
       }
       let imageDataUrl: any = await readFile(file)
-
-      try {
-        const orientation = await getOrientation(file)
-        const rotation = ORIENTATION_TO_ANGLE[orientation]
-
-        if (rotation) {
-          imageDataUrl = await getRotatedImage(imageDataUrl, rotation)
-        }
-      } catch (e) {
-        console.warn('failed to detect the orientation')
-      }
 
       setImageSrc(imageDataUrl)
     }
@@ -128,13 +126,14 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
     },
   }
   const size = {
-    width: 316,
-    height: 316,
+    width: 250,
+    height: 250,
   }
   const handleCloseModal = () => {
     closeModal()
     setImageSrc(null)
     setErrorText(undefined)
+    setZoom(1)
   }
 
   return (
@@ -153,20 +152,42 @@ export const AddAvatarModal = ({ isOpen, closeModal }: Props) => {
                   <Cropper
                     image={imageSrc}
                     crop={crop}
-                    rotation={rotation}
                     zoom={zoom}
                     aspect={1}
                     cropShape="round"
                     showGrid={false}
                     onCropChange={setCrop}
-                    onRotationChange={setRotation}
                     onCropComplete={onCropComplete}
                     onZoomChange={setZoom}
                     {...customStyles}
                     cropSize={size}
                   />
+                  <div
+                    style={{
+                      display: 'flex',
+                      position: 'absolute',
+                      width: '100%',
+                      top: '88%',
+                      padding: '0 1%',
+                      opacity: '0.7',
+                    }}
+                  >
+                    <Button onClick={handleZoomOut} variant={'link'} style={{ fontSize: '21px' }}>
+                      -
+                    </Button>
+                    <SliderDemo values={[zoom]} onChange={handleZoomChange} />
+
+                    <Button
+                      onClick={handleZoomIn}
+                      variant={'link'}
+                      style={{ fontSize: '21px', outline: 'none' }}
+                    >
+                      +
+                    </Button>
+                  </div>
                 </div>
               </div>
+
               <div className={s.buttonBox}>
                 <Button variant={'primary'} className={s.buttons} onClick={saveP}>
                   {t.add_profile_photo.save_button}

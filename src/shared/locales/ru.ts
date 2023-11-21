@@ -149,7 +149,7 @@ export const ru: LangType = {
     text_of_button_select_from_comp: 'Выбрать с компьютера',
     error_typy_of_photo: 'Формат загружаемой фотографии должен быть\n' + 'PNG или JPEG',
     error: 'Ошибка! ',
-    error_size_photo: 'Размер фотографии должен быть меньше 10 МБ!',
+    error_size_photo: 'Размер фотографии должен быть меньше 1.5 МБ!',
     save_button: 'Сохранить',
   },
   delete_photo_of_profile: {
