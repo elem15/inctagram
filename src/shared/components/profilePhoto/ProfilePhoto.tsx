@@ -8,7 +8,6 @@ import { Button } from '@/shared/components'
 import { useTranslation } from '@/shared/lib'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
-import { AddAvatarModal } from '@/widgets/addProfilePhoto/AddAvatarModal'
 import { AddAvatarModalWitOutRotation } from '@/widgets/addProfilePhoto/addAvaWithoutRotation/AddAvatarModalWithoutRotation'
 import { DeleteProfilePhoto } from '@/widgets/addProfilePhoto/deleteProfilePhoto/DeleteProfilePhoto'
 
@@ -43,7 +42,6 @@ export const ProfilePhoto = () => {
       <Button variant={'outline'} onClick={openModal} style={{ width: '148px' }}>
         {t.add_profile_photo.add_profile_photo_text}
       </Button>
-      {/*<AddAvatarModal isOpen={isOpen} closeModal={closeModal} />*/}
       <AddAvatarModalWitOutRotation isOpen={isOpen} closeModal={closeModal} />
     </div>
   )
