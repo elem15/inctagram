@@ -1,6 +1,7 @@
 import s from './ModalOfFollowing.module.scss'
 
 import { InputField } from '@/shared'
+import { IconUser } from '@/shared/assets'
 import { Button, Input } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { useTranslation } from '@/shared/lib'
@@ -29,7 +30,7 @@ export const ModalOfFollowing = () => {
           {followingArray.map(following => {
             return (
               <li key={following.value}>
-                <img src={following.avatar} alt={'ava'} />
+                <img src={following.avatar ? following.avatar : <IconUser />} alt={'ava'} />
                 {following.title}
                 <Button variant={'primary'}>Follow</Button>
                 <Button variant={'link'}>Delete</Button>

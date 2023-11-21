@@ -145,8 +145,5 @@ export const en = {
     auth_error: 'Auth error. Signin again',
     user_name_error: 'User with this name already exist',
   },
-  followingsModal: {
-    input_placeholder: 'Search',
-  },
 }
 export type LangType = typeof en
