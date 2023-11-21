@@ -40,7 +40,7 @@ export const HeaderWithSidebarLayout: FC<Props> = ({ children }) => {
         </div>
 
         <div className={s.wrapperContent}>
-          <Scroller>{children}</Scroller>
+          <Scroller className={s.scrollerWrapper}>{children}</Scroller>
         </div>
       </main>
     </div>

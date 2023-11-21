@@ -1,0 +1,143 @@
+@media (width < 768px) {
+  .container {
+    display: none;
+  }
+}
+
+@media (width >= 1024px) {
+  .container {
+    display: flex;
+    gap: 39px;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 53px;
+
+    .image {
+      display: flex;
+
+      width: 204px;
+      height: 100%;
+      min-height: 200px;
+
+      background-color: var(--color-dark-900);
+      border-radius: 50%;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      height: 36px;
+      margin-bottom: 20px;
+
+      &:focus-visible {
+        border-radius: 2px;
+        outline: 2px solid var(--color-accent-500);
+      }
+    }
+
+    .progressProfile {
+      display: flex;
+      gap: 100px;
+      height: 48px;
+      margin-bottom: 23px;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90px;
+      }
+    }
+
+    .description {
+      margin-bottom: 20px;
+    }
+
+    .text {
+      font-size: 14px;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 24px;
+      color: var(--color-accent-500);
+      text-decoration: underline;
+      text-decoration-color: var(--color-accent-500);
+    }
+  }
+}
+
+@media (1024px > width > 768px) {
+  .container {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .image {
+      display: flex;
+
+      width: 180px;
+      height: 100%;
+      min-height: 180px;
+
+      background-color: var(--color-dark-900);
+      border-radius: 50%;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      height: 36px;
+      margin-bottom: 20px;
+
+      &:focus-visible {
+        border-radius: 2px;
+        outline: 2px solid var(--color-accent-500);
+      }
+    }
+
+    .progressProfile {
+      display: flex;
+      gap: 50px;
+      height: 48px;
+      margin-bottom: 23px;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .progressInfoValue {
+          font-size: 12px;
+          font-weight: 700;
+          font-style: normal;
+          line-height: 20px;
+        }
+
+        .progressInfoText {
+          font-size: 12px;
+          font-weight: 400;
+          font-style: normal;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+
+  .descriptionText {
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 24px;
+  }
+
+  .text {
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 24px;
+    color: var(--color-accent-500);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent-500);
+  }
+}

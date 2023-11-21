@@ -6,7 +6,7 @@ export default function Document() {
   const router = useRouter()
 
   useEffect(() => {
-    router.push('/my-profile/general-information')
+    router.push('/my-profile/main')
   })
 
   return null

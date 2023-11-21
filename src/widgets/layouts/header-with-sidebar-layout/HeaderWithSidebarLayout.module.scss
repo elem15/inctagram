@@ -11,7 +11,7 @@
   }
 
   .sidebar {
-    @media (width <= 640px) {
+    @media (width <= 768px) {
       display: none;
     }
   }
@@ -23,5 +23,10 @@
   .wrapperContent {
     overflow: auto;
     width: 100%;
+  }
+
+  .scrollerWrapper {
+    display: flex;
+    justify-content: center;
   }
 }
