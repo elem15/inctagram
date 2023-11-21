@@ -11,6 +11,7 @@ import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
 import { Button, Input, Textarea, SelectCustom, Typography } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
+import { ModalOfFollowing } from '@/shared/components/following-modal'
 import { useAppDispatch, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation, nameValidation } from '@/shared/regex'
@@ -155,9 +156,7 @@ const Information = () => {
       {(isLoading || isPutLoading) && <Spinner />}
       <div className={s.container}>
         <main className={s.mainContainer}>
-          <div className={s.imagePicker}>
-            <ProfilePhotoForGeneralInfo />
-          </div>
+          <div className={s.imagePicker}>{/*<ProfilePhotoForGeneralInfo />*/}</div>
           <div className={s.textFormContainer}>
             <Input
               label={t.profile.user_name}
@@ -259,6 +258,7 @@ const Information = () => {
           </Button>
         </div>
       </div>
+      <ModalOfFollowing />
     </form>
   )
 }
