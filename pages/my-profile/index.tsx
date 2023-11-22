@@ -1,13 +1,1 @@
-import { useEffect } from 'react'
-
-import { useRouter } from 'next/router'
-
-export default function Document() {
-  const router = useRouter()
-
-  useEffect(() => {
-    router.push('/my-profile/main')
-  })
-
-  return null
-}
+export { MyProfile as default } from '@/pages/mainMyProfile'
