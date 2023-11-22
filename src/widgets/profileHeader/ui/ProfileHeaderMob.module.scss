@@ -19,10 +19,6 @@
     align-items: center;
     margin-bottom: 10px;
 
-    .dataProfile {
-      width: 360px;
-    }
-
     .image {
       display: flex;
 
@@ -36,7 +32,7 @@
 
     .progressProfile {
       display: flex;
-      gap: 30px;
+      gap: 42px;
       height: 48px;
 
       .info {
@@ -53,7 +49,6 @@
   }
 
   .description {
-    max-width: 330px;
     margin-bottom: 20px;
   }
 

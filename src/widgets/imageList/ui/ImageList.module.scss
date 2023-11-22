@@ -23,15 +23,20 @@
   }
 }
 
-@media (width <= 768px) {
+@media (768px >width >=640px) {
   .container {
-    gap: 3px;
-    max-width: 330px;
+    gap: 8px;
   }
 
   .image {
     width: 108px;
     height: 108px;
     border-radius: 3px;
+  }
+}
+
+@media (width < 640px) {
+  .container {
+    gap: 3px;
   }
 }
