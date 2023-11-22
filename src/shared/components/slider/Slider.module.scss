@@ -1,0 +1,79 @@
+
+
+.ranger {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 251px;
+
+  .labelOfRanger {
+    display: flex;
+  }
+
+  .number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    border: 1px solid var(--color-dark-300);
+    border-radius: 2px;
+  }
+
+  .SliderRoot {
+    touch-action: none;
+    user-select: none;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 155px;
+    height: 20px;
+
+    .SliderTrack {
+      position: relative;
+
+      flex-grow: 1;
+
+      height: 3px;
+opacity: 0.6;
+      background-color: var(--color-accent-900);
+      border-radius: 9999px;
+
+      .SliderRange {
+        position: absolute;
+        height: 100%;
+        background-color: var(--color-accent-500);
+        border-radius: 9999px;
+      }
+    }
+
+    .SliderThumb {
+      display: block;
+
+      width: 16px;
+      height: 16px;
+cursor: pointer;
+      background-color: white;
+      border: 5px solid var(--color-accent-500);
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgb(0 0 0 / 60%);
+
+      &:hover {
+        box-shadow:
+                0 2px 10px rgb(140 97 255 / 70%),
+                0 0 10px rgb(140 97 255 / 70%);
+      }
+
+      &:active {
+        box-shadow:
+                0 0 0 5px rgb(140 97 255 / 80%),
+                0 0 10px rgb(140 97 255 / 70%);
+      }
+    }
+  }
+}
