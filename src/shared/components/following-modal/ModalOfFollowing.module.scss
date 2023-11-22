@@ -1,21 +1,30 @@
-.searchTextFieldBox{
-width: 596px;
-}
 .dataBox{
+  margin-top: 22px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 12px;
+
 }
 .avatar{
-  width: 36px;
-  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
   border-radius: 50%;
-  border: 1px solid var(--color-light-900);
+  border: 1px solid var(--color-dark-100);
   background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 12px;
 }
 .text{
-  min-width: 60%;
+  min-width: 55%;
+  @media screen and (width <= 590px) {
+  min-width: 32%
+  }
+}
+.deleteButtonBox{
+  width: 100%;
+  display: flex;
+justify-content: flex-end;
 }
