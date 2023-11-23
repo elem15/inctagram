@@ -6,6 +6,7 @@ import s from './ProfileHeaderWeb.module.scss'
 
 import PersonImg from '@/shared/assets/PersonImg1.png'
 import { Typography, Button } from '@/shared/components'
+import { ModalOfFollowing } from '@/shared/components/following-modal'
 
 export const ProfileHeaderWeb = () => {
   const { push } = useRouter()

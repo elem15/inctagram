@@ -145,7 +145,7 @@ export const ru: LangType = {
     user_name_error: 'Пользователь с таким именем уже существует',
   },
 
-  followingModal: {
+  following_modal: {
     input_placeholder: 'Поиск',
     title: 'Подписки',
     follow_button: 'Подписаться',
@@ -168,5 +168,8 @@ export const ru: LangType = {
     title_of_delete_modal: 'Удалить подписку',
     delete_button: 'Отписаться',
     text: 'Вы действительно хотите отписаться от',
+  },
+  followers_modal: {
+    title: 'Подписчики',
   },
 }

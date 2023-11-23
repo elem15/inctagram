@@ -6,9 +6,12 @@ import s from './ProfileHeaderMob.module.scss'
 
 import PersonImg from '@/shared/assets/PersonImg1.png'
 import { Typography, Button } from '@/shared/components'
+import { ModalOfFollowing, TabOfFollowing } from '@/shared/components/following-modal'
+import { useTranslation } from '@/shared/lib'
 
 export const ProfileHeaderMob = () => {
   const { push } = useRouter()
+  const { t } = useTranslation()
 
   return (
     <>
@@ -17,7 +20,8 @@ export const ProfileHeaderMob = () => {
         <div className={s.progressProfile}>
           <div className={s.info}>
             <Typography variant="semi-bold_small_text">1231</Typography>
-            <Typography variant="small_text">Following</Typography>
+            <TabOfFollowing />
+            {/*<Typography variant="small_text">Following</Typography>*/}
           </div>
           <div className={s.info}>
             <Typography variant="semi-bold_small_text">1231</Typography>

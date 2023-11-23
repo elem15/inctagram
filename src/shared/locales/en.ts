@@ -159,7 +159,7 @@ export const en = {
     button_yes: 'Yes',
     button_no: 'No',
   },
-  followingModal: {
+  following_modal: {
     input_placeholder: 'Search',
     title: 'Following',
     follow_button: 'Follow',
@@ -168,6 +168,9 @@ export const en = {
     title_of_delete_modal: 'Delete Following',
     delete_button: 'Delete',
     text: 'Do you really want to delete a Following',
+  },
+  followers_modal: {
+    title: 'Followers',
   },
 }
 export type LangType = typeof en
