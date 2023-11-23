@@ -23,8 +23,17 @@
   min-width: 32%
   }
 }
+.ruText{
+  min-width: 38%;
+  @media screen and (width <= 610px) {
+    min-width: 25%
+  }
+  @media screen and (width <= 526px) {
+    min-width: 19%
+  }
+}
 .deleteButtonBox{
   width: 100%;
   display: flex;
-justify-content: flex-end;
+  justify-content: flex-end;
 }

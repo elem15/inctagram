@@ -1,4 +1,5 @@
-import { FC } from 'react'
+import { clsx } from 'clsx'
+import { useRouter } from 'next/router'
 
 import s from './ModalOfFollowing.module.scss'
 
@@ -10,32 +11,34 @@ import { useTranslation } from '@/shared/lib'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 
 export const followingArray = [
-  { avatar: '', value: '1', title: 'URLProfiele', isFollow: true },
-  { avatar: '', value: '2', title: 'URLProfiele', isFollow: false },
-  { avatar: '', value: '3', title: 'URLProfiele', isFollow: true },
-  { avatar: '', value: '4', title: 'URLProfiele', isFollow: false },
-  { avatar: '', value: '5', title: 'URLProfiele', isFollow: true },
-  { avatar: '', value: '6', title: 'URLProfiele', isFollow: false },
-  { avatar: '', value: '7', title: 'URLProfiele', isFollow: true },
+  { avatar: '', value: '1', title: 'URLProfile', isFollow: true },
+  { avatar: '', value: '2', title: 'URLProfile', isFollow: false },
+  { avatar: '', value: '3', title: 'URLProfile', isFollow: true },
+  { avatar: '', value: '4', title: 'URLProfile', isFollow: false },
+  { avatar: '', value: '5', title: 'URLProfile', isFollow: true },
+  { avatar: '', value: '6', title: 'URLProfile', isFollow: false },
+  { avatar: '', value: '7', title: 'URLProfile', isFollow: true },
 ]
-type Props = {
-  open: boolean
-}
-export const ModalOfFollowing: FC<Props> = () => {
+
+export const ModalOfFollowing = () => {
   const { t } = useTranslation()
   const { isOpen, openModal, closeModal } = useModal()
+  const router = useRouter()
 
   return (
     <>
+      <Button variant={'link'} onClick={openModal}>
+        Following
+      </Button>
       <Modal
-        open={true}
+        open={isOpen}
         size={'l'}
         showCloseButton={true}
-        title={'500 Following'}
+        title={`500 ${t.followingModal.title}`}
         onClose={closeModal}
       >
         <>
-          <Input type={'search'} placeholder={t.followingsModal.input_placeholder} />
+          <Input type={'search'} placeholder={t.followingModal.input_placeholder} />
 
           <ul>
             {followingArray.map(following => {
@@ -49,13 +52,14 @@ export const ModalOfFollowing: FC<Props> = () => {
                   >
                     {following.avatar ? null : <IconUser />}
                   </p>
-                  <span className={s.text}>{following.title}</span>
-                  {following.isFollow && <Button variant={'primary'}>Follow</Button>}
+                  <span className={clsx(router.locale === 'ru' ? s.ruText : s.text)}>
+                    {following.title}
+                  </span>
+                  {following.isFollow && (
+                    <Button variant={'primary'}>{t.followingModal.follow_button}</Button>
+                  )}
                   <div className={s.deleteButtonBox}>
-                    {/*<Button variant={'link'} style={{ color: '#fff' }} onClick={openModal}>*/}
-                    {/*  Delete*/}
-                    {/*</Button>*/}
-                    <DeleteFollowing avatar={following.avatar} />
+                    <DeleteFollowing avatar={following.avatar} name={following.title} />
                   </div>
                 </li>
               )

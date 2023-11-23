@@ -145,8 +145,10 @@ export const ru: LangType = {
     user_name_error: 'Пользователь с таким именем уже существует',
   },
 
-  followingsModal: {
+  followingModal: {
     input_placeholder: 'Поиск',
+    title: 'Подписки',
+    follow_button: 'Подписаться',
   },
   add_profile_photo: {
     add_profile_photo_text: 'Добавить фотографию',
@@ -161,5 +163,10 @@ export const ru: LangType = {
     title_of_modal: 'Удалить фото',
     button_yes: 'Да',
     button_no: 'Нет',
+  },
+  delete_following: {
+    title_of_delete_modal: 'Удалить подписку',
+    delete_button: 'Отписаться',
+    text: 'Вы действительно хотите отписаться от',
   },
 }

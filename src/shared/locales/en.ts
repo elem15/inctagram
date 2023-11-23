@@ -145,10 +145,6 @@ export const en = {
     auth_error: 'Auth error. Signin again',
     user_name_error: 'User with this name already exist',
   },
-
-  followingsModal: {
-    input_placeholder: 'Search',
-  },
   add_profile_photo: {
     add_profile_photo_text: 'Add a Profile Photo',
     text_of_button_select_from_comp: 'Select from Computer',
@@ -162,6 +158,16 @@ export const en = {
     text: 'Are you sure you want to delete the photo?',
     button_yes: 'Yes',
     button_no: 'No',
+  },
+  followingModal: {
+    input_placeholder: 'Search',
+    title: 'Following',
+    follow_button: 'Follow',
+  },
+  delete_following: {
+    title_of_delete_modal: 'Delete Following',
+    delete_button: 'Delete',
+    text: 'Do you really want to delete a Following',
   },
 }
 export type LangType = typeof en
