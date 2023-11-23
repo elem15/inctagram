@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 13px;
+  justify-content: flex-start;
+}
+
+.image {
+  width: 234px;
+  height: 228px;
+  border-radius: 3px;
+}
+
+@media (1024px >= width > 768px) {
+  .container {
+    gap: 10px;
+  }
+
+  .image {
+    width: 150px;
+    height: 150px;
+    border-radius: 3px;
+  }
+}
+
+@media (768px >width >=640px) {
+  .container {
+    gap: 8px;
+  }
+
+  .image {
+    width: 108px;
+    height: 108px;
+    border-radius: 3px;
+  }
+}
+
+@media (width < 640px) {
+  .container {
+    gap: 3px;
+  }
+}

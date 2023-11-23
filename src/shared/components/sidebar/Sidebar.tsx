@@ -47,7 +47,7 @@ export const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link href={'my-profile/general-information'} className={s.content}>
+            <Link href={'/my-profile'} className={s.content}>
               {router.pathname.includes('/my-profile') ? <IconUser2 /> : <IconUser />}
               <span className={router.pathname.includes('/my-profile') ? s.activeLink : ''}>
                 {t.sidebar.my_profile}
