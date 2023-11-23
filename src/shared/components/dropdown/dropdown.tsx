@@ -74,15 +74,15 @@ export const CustomDropdownItem = ({
   }
 
   return (
-    <div
-      // onSelect={onSelect}
+    <DropdownMenu.Item
+      onSelect={onSelect}
       style={style}
-      // disabled={disabled}
+      disabled={disabled}
       className={classNames.item}
       {...restProps}
     >
       {children}
-    </div>
+    </DropdownMenu.Item>
   )
 }
 

@@ -23,9 +23,9 @@
 .mainContainer {
   display: flex;
   align-content: space-between;
-  
+
   @media (width <= 768px) {
-    flex-direction: column;    
+    flex-direction: column;
   }
 }
 
