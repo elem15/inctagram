@@ -11,6 +11,7 @@ export type ScrollerProps = Readonly<{
   children: ReactNode
   customHeight?: string
   customWidth?: string
+  className?: string
 }>
 
 export const Scroller = (props: ScrollerProps) => {
@@ -24,7 +25,7 @@ export const Scroller = (props: ScrollerProps) => {
       }}
     >
       <ScrollArea.Viewport className={s.scrollAreaViewport}>
-        <div>{props.children}</div>
+        <div className={props.className}>{props.children}</div>
       </ScrollArea.Viewport>
       <ScrollArea.Scrollbar className={s.scrollAreaScrollbar} orientation="vertical">
         <ScrollArea.Thumb className={s.scrollAreaThumb} />

@@ -1,0 +1,45 @@
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+import s from './ProfileHeaderMob.module.scss'
+
+import PersonImg from '@/shared/assets/PersonImg1.png'
+import { Typography, Button } from '@/shared/components'
+
+export const ProfileHeaderMob = () => {
+  const { push } = useRouter()
+
+  return (
+    <>
+      <div className={s.container}>
+        <Image src={PersonImg} className={s.image} alt={''} />
+        <div className={s.progressProfile}>
+          <div className={s.info}>
+            <Typography variant="semi-bold_small_text">1231</Typography>
+            <Typography variant="small_text">Following</Typography>
+          </div>
+          <div className={s.info}>
+            <Typography variant="semi-bold_small_text">1231</Typography>
+            <Typography variant="small_text">Followers</Typography>
+          </div>
+          <div className={s.info}>
+            <Typography variant="semi-bold_small_text">1231</Typography>
+            <Typography variant="small_text">Publications</Typography>
+          </div>
+        </div>
+      </div>
+      <Typography className={s.profileName} variant="bold_text_16">
+        URLProfiele
+      </Typography>
+      <p className={s.description}>
+        <Typography as="span" variant="regular_text_14">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt{' '}
+        </Typography>
+        <Link as="span" className={s.text} href="">
+          laboris nisi ut aliquip ex ea commodo consequat.
+        </Link>
+      </p>
+    </>
+  )
+}
