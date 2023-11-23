@@ -1,16 +1,28 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 
+import { clsx } from 'clsx'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
+import s from './HeaderWidget.module.scss'
+
+import { BookMarkIcon, FavoritesIcon, LogOutIcon, StatisticsIcon } from '@/shared/assets'
+import { ProfileSettings } from '@/shared/assets/icons/ProfileSettings'
+import { CustomDropdown, CustomDropdownItem, Typography } from '@/shared/components'
 import { NotificationBell } from '@/shared/components/notificatification-bell'
+import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { DropDownNotification } from '@/widgets/dropDownNotification'
 import { LangSelectWidget } from '@/widgets/langSelect'
 
-export const HeaderWidget = () => {
-  const { isAuth } = useAuth()
+export const HeaderWidget: FC = () => {
   const [toggle, setToggle] = useState(false)
+
   const menuRef = useRef<HTMLDivElement | null>(null)
+  const { t } = useTranslation()
+
+  const { isAuth } = useAuth()
+  const router = useRouter()
 
   useEffect(() => {
     const handler = (e: MouseEvent): void => {
@@ -25,19 +37,64 @@ export const HeaderWidget = () => {
   }, [])
 
   return (
-    <div className="h-16 max-sm:px-6 sm:px-16 py-3 border-b border-dark-300 flex justify-between items-center w-full bg-dark-700">
-      <Link href="/" className="text-light-100 text-[26px] font-semibold">
-        Inctagram
-      </Link>
-      <div className="flex justify-center items-center space-x-6">
-        {isAuth && (
-          <div className="relative" ref={menuRef}>
-            <NotificationBell toggle={toggle} setToggle={setToggle} />
-            <DropDownNotification toggle={toggle} />
+    <header className={'header-three sticky-header w-full h-16 sticky lg:relative top-0 z-20'}>
+      <div className="flex justify-between items-center h-16 max-sm:px-6 sm:px-16 py-3 border-b border-dark-300">
+        <Link href="/my-profile" className="text-light-100 text-[26px] font-semibold">
+          Inctagram
+        </Link>
+        <div className="flex justify-center items-center space-x-6">
+          {isAuth && (
+            <div className="hidden lg:flex relative" ref={menuRef}>
+              <NotificationBell toggle={toggle} setToggle={setToggle} />
+              <DropDownNotification toggle={toggle} />
+            </div>
+          )}
+          <LangSelectWidget />
+          <div className="flex lg:hidden">
+            <CustomDropdown
+              trigger={
+                <div>
+                  <Typography variant="h1" className={s.content}>
+                    ...
+                  </Typography>
+                </div>
+              }
+              align={'end'}
+            >
+              <CustomDropdownItem>
+                <Link
+                  href={'/my-profile'}
+                  className={clsx(router.pathname === '/my-profile' && s.activeLink, s.content)}
+                >
+                  <ProfileSettings /> {t.sidebar.settings}
+                </Link>
+              </CustomDropdownItem>
+              <CustomDropdownItem>
+                <Link
+                  href={'/statistics'}
+                  className={clsx(router.pathname === '/statistics' && s.activeLink, s.content)}
+                >
+                  <StatisticsIcon />
+                  {t.sidebar.statistics}
+                </Link>
+              </CustomDropdownItem>
+              <CustomDropdownItem>
+                <Link href={'/favorites'} className={clsx(s.content, s.largeMargin)}>
+                  {router.pathname === '/favorites' ? <BookMarkIcon /> : <FavoritesIcon />}
+                  <span className={router.pathname === '/favorites' ? s.activeLink : ''}>
+                    {t.sidebar.favorites}
+                  </span>
+                </Link>
+              </CustomDropdownItem>
+              <CustomDropdownItem>
+                <Link href={'signin'} className={s.content}>
+                  <LogOutIcon /> {t.sidebar.log_out}
+                </Link>
+              </CustomDropdownItem>
+            </CustomDropdown>
           </div>
-        )}
-        <LangSelectWidget />
+        </div>
       </div>
-    </div>
+    </header>
   )
 }
