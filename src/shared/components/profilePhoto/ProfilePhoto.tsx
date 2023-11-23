@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Image from 'next/image'
 
 import s from './ProfilePhoto.module.scss'
@@ -24,7 +23,7 @@ export const ProfilePhoto = () => {
         <div className={s.userPhotoBlock}>
           {data?.avatars[0]?.url ? (
             <div className={s.avaButtonBox}>
-              <img
+              <Image
                 alt={'ava'}
                 src={data?.avatars[0]?.url}
                 style={{ borderRadius: '50%' }}
