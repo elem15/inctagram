@@ -23,7 +23,7 @@ export default function BottomNavigation() {
 
   return (
     <>
-      <div className="lg:hidden fixed z-30 -bottom-0.5 flex items-center justify-between shadow-bottomNavigation body-font bg-brand-light w-full h-20 px-12 text-brand-muted pb-0.5">
+      <div className="lg:hidden fixed z-30 -bottom-0.5 flex items-center justify-between shadow-bottomNavigation body-font bg-brand-light w-full h-20 px-12 text-brand-muted pb-0.5 border-t-2 border-dark-300 bg-dark-700">
         <Link href={'/'} className={s.content}>
           {router.pathname == '/home' ? <HomesIcon /> : <IconBxHomeAlt />}
         </Link>
