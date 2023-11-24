@@ -5,6 +5,7 @@ import s from './ModalOfFollowing.module.scss'
 
 import { IconBack, IconUser } from '@/shared/assets'
 import { Button, Input, TabsSwitcher, Typography } from '@/shared/components'
+import { DataOfFollowing } from '@/shared/components/following-modal/dataOfFollowing/DataOfFollowing'
 import { DeleteFollowing } from '@/shared/components/following-modal/deleteFollowing/DeleteFollowing'
 import { Modal } from '@/shared/components/modals'
 import { useTranslation } from '@/shared/lib'
@@ -26,10 +27,9 @@ export const ModalOfFollowing = () => {
 
   return (
     <>
-      <Button variant={'link'} onClick={openModal}>
+      <Typography variant={'regular_text_14'} onClick={openModal} style={{ cursor: 'pointer' }}>
         Following
-      </Button>
-      <TabOfFollowing />
+      </Typography>
 
       <Modal
         open={isOpen}
@@ -40,68 +40,6 @@ export const ModalOfFollowing = () => {
       >
         <DataOfFollowing />
       </Modal>
-    </>
-  )
-}
-export const DataOfFollowing = () => {
-  const { t } = useTranslation()
-  const router = useRouter()
-
-  return (
-    <>
-      <Input type={'search'} placeholder={t.following_modal.input_placeholder} />
-
-      <ul>
-        {followingArray.map(following => {
-          return (
-            <li key={following.value} className={s.dataBox}>
-              <p
-                className={s.avatar}
-                style={{
-                  backgroundImage: following.avatar ? `${following.avatar}` : 'none',
-                }}
-              >
-                {following.avatar ? null : <IconUser />}
-              </p>
-              <span className={clsx(router.locale === 'ru' ? s.ruText : s.text)}>
-                {following.title}
-              </span>
-              {following.isFollow && (
-                <Button variant={'primary'}>{t.following_modal.follow_button}</Button>
-              )}
-              <div className={s.deleteButtonBox}>
-                <DeleteFollowing avatar={following.avatar} name={following.title} />
-              </div>
-            </li>
-          )
-        })}
-      </ul>
-    </>
-  )
-}
-export const TabOfFollowing = () => {
-  const { t } = useTranslation()
-  const { isOpen, openModal, closeModal } = useModal()
-
-  const ArrayOfActionMenu = [
-    { label: t.following_modal.title, value: '1' },
-    { label: t.followers_modal.title, value: '2' },
-  ]
-
-  return (
-    <>
-      <Typography variant={'small_text'} onClick={openModal}>
-        {t.following_modal.title}
-      </Typography>
-
-      {isOpen && (
-        <>
-          <Typography>
-            <IconBack />
-          </Typography>
-          <TabsSwitcher tabs={ArrayOfActionMenu} />
-        </>
-      )}
     </>
   )
 }

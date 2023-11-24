@@ -28,9 +28,10 @@ export const ProfileHeaderWeb = () => {
               <Typography className={s.progressInfoValue} variant="bold_text_14">
                 1231
               </Typography>
-              <Typography className={s.progressInfoText} variant="regular_text_14">
-                Following
-              </Typography>
+              {/*<Typography className={s.progressInfoText} variant="regular_text_14">*/}
+              {/*  Following*/}
+              {/*</Typography>*/}
+              <ModalOfFollowing />
             </div>
             <div className={s.info}>
               <Typography className={s.progressInfoValue} variant="bold_text_14">
