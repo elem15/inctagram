@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { useRouter } from 'next/router'
 
 import s from './FollowingPage.module.scss'
@@ -7,7 +9,8 @@ import { TabsSwitcher, Typography } from '@/shared/components'
 import { DataOfFollowing } from '@/shared/components/following-modal/dataOfFollowing/DataOfFollowing'
 import { useTranslation } from '@/shared/lib'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
-export const FollowingAndFollowersPage = () => {
+export const FollowingAndFollowersPageMob = () => {
+  const [tabValue, setTabValue] = useState()
   const { t } = useTranslation()
   const { isOpen, openModal, closeModal } = useModal()
   const { push } = useRouter()
@@ -18,6 +21,7 @@ export const FollowingAndFollowersPage = () => {
   const handleBack = () => {
     push('/my-profile')
   }
+  const handleChangeTab = (value: string) => {}
 
   return (
     <div className={s.box}>
@@ -30,7 +34,12 @@ export const FollowingAndFollowersPage = () => {
         </div>
       </div>
 
-      <TabsSwitcher tabs={ArrayOfActionMenu} style={{ marginBottom: '24px' }} />
+      <TabsSwitcher
+        tabs={ArrayOfActionMenu}
+        style={{ marginBottom: '24px' }}
+        value={tabValue}
+        onValueChange={handleChangeTab}
+      />
       <DataOfFollowing />
     </div>
   )
