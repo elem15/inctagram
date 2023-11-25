@@ -145,6 +145,7 @@ export const en = {
     my_payments: 'My Payments',
     auth_error: 'Auth error. Signin again',
     user_name_error: 'User with this name already exist',
+    success: 'Your settings are saved!',
   },
   add_profile_photo: {
     add_profile_photo_text: 'Add a Profile Photo',
