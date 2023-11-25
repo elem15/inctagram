@@ -23,11 +23,17 @@
 .mainContainer {
   display: flex;
   align-content: space-between;
+
+  @media (width <= 768px) {
+    flex-direction: column;
+  }
 }
 
 .imagePicker {
-  max-width: 40%;
-  padding-right: 40px;
+  @media (width > 768px) {
+    max-width: 40%;
+    padding-right: 40px;
+  }
 }
 
 .textFormContainer {

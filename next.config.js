@@ -25,6 +25,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'storage.yandexcloud.net',
         port: '',
+        pathname: '/users-inctagram/**',
       },
     ],
   },
