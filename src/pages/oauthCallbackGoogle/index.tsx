@@ -1,9 +1,11 @@
 import { useEffect } from 'react'
 
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 
 import { useGoogleLogin } from '@/shared/lib'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { useClient } from '@/shared/lib/hooks/useClient'
 
 export function OauthCallbackGoogle() {
@@ -17,17 +19,32 @@ export function OauthCallbackGoogle() {
   const { isClient } = useClient()
 
   useEffect(() => {
+    if (isClient && !code) {
+      setTimeout(() => {
+        router.push('/my-profile')
+      }, 2000)
+    }
+  }, [code, isClient, router])
+
+  useEffect(() => {
     const success = data && !error && !isLoading
 
     if (success) {
-      router.push('/')
+      setTimeout(() => {
+        router.push('/my-profile')
+      })
     }
   }, [isLoading, error, router, data])
 
   return (
     <>
       <div>Google authorization...</div>
-      {error && isClient && <div className="text-red-600">Authorization error!</div>}
+      {error && isClient && (
+        <>
+          <div className="text-red-600">Authorization error!</div>
+          <Link href={'/signin'}>Signin</Link>
+        </>
+      )}
     </>
   )
 }

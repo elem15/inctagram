@@ -115,6 +115,7 @@ export const en = {
     search: 'Search',
     statistics: 'Statistics',
     favorites: 'Favorites',
+    settings: 'Profile Settings',
     log_out: 'Log Out',
   },
   notification_menu: {

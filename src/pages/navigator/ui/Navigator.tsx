@@ -7,7 +7,7 @@ export function Navigator() {
     <div>
       <ul>
         <li>
-          <Link href="/">Home</Link>
+          <Link href="/my-profile">Home</Link>
         </li>
         <li>
           <Link href="email-sent">Email sent</Link>

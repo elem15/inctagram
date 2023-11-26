@@ -1,16 +1,16 @@
-import { FC, ReactElement, ReactNode, useEffect, useLayoutEffect, useMemo, useState } from 'react'
+import { FC, ReactElement, ReactNode, useEffect } from 'react'
 
-import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 
 import { HeaderWidget } from '../../header'
+import BottomNavigation from '../mobile-navigation/mobile-navigation'
 
 import s from './HeaderWithSidebarLayout.module.scss'
 
 import { Scroller } from '@/shared/components/scroller/Scroller'
 import { Sidebar } from '@/shared/components/sidebar'
-import { useGoogleLogin } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
+import { useClient } from '@/shared/lib/hooks/useClient'
 type Props = {
   children: ReactNode
 }
@@ -18,14 +18,11 @@ type Props = {
 export const HeaderWithSidebarLayout: FC<Props> = ({ children }) => {
   const router = useRouter()
   const { isAuth } = useAuth()
-  const searchParams = useSearchParams()
-  const code = searchParams?.get('code') as string | undefined
-
-  useGoogleLogin(code)
+  const { isClient } = useClient()
 
   useEffect(() => {
-    if (!isAuth) router.push('/signin')
-  }, [code, isAuth, router])
+    if (!isAuth && isClient) router.push('/signin')
+  }, [isAuth, isClient, router])
 
   if (!isAuth) return null
 
@@ -43,6 +40,7 @@ export const HeaderWithSidebarLayout: FC<Props> = ({ children }) => {
           <Scroller>{children}</Scroller>
         </div>
       </main>
+      <BottomNavigation />
     </div>
   )
 }
