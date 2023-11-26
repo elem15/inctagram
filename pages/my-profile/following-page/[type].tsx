@@ -1,7 +1,7 @@
 import { FollowingAndFollowersPageMob } from '@/widgets/followingAndFollowersPageMob'
 import { getHeaderWithSidebarLayout } from '@/widgets/layouts'
 
-const FollowingAndFollowersMobileVersion = () => {
+const Type = () => {
   return (
     <>
       <FollowingAndFollowersPageMob />
@@ -9,5 +9,5 @@ const FollowingAndFollowersMobileVersion = () => {
   )
 }
 
-FollowingAndFollowersMobileVersion.getLayout = getHeaderWithSidebarLayout
-export { FollowingAndFollowersMobileVersion }
+Type.getLayout = getHeaderWithSidebarLayout
+export default Type

@@ -12,16 +12,19 @@ import { useTranslation } from '@/shared/lib'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 
 export const FollowingAndFollowersPageMob = () => {
+  const router = useRouter()
   const { t } = useTranslation()
-  const [tabValue, setTabValue] = useState('1')
+  const [tabValue, setTabValue] = useState(router.query.type as string)
   const { isOpen, openModal, closeModal } = useModal()
-  const { push } = useRouter()
+
   const ArrayOfActionMenu = [
-    { label: t.following_modal.title, value: '1' },
-    { label: t.followers_modal.title, value: '2' },
+    { label: t.following_modal.title, value: 'following' },
+    { label: t.followers_modal.title, value: 'followers' },
   ]
+
+  console.log(router)
   const handleBack = () => {
-    push('/my-profile')
+    router.push('/my-profile')
   }
   const handleChangeTab = (value: string) => {
     setTabValue(value)
@@ -44,8 +47,8 @@ export const FollowingAndFollowersPageMob = () => {
         value={tabValue}
         onValueChange={handleChangeTab}
       />
-      {tabValue === '1' && <DataOfFollowing />}
-      {tabValue === '2' && <DataOfFollowers />}
+      {tabValue === 'following' && <DataOfFollowing />}
+      {tabValue === 'followers' && <DataOfFollowers />}
     </div>
   )
 }

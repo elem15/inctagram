@@ -17,11 +17,11 @@ export const ProfileHeaderMob = () => {
         <div className={s.progressProfile}>
           <div className={s.info}>
             <Typography variant="semi-bold_small_text">1231</Typography>
-            <Link href={'/my-profile/following-page'}>Following</Link>
+            <Link href={'/my-profile/following-page/following'}>Following</Link>
           </div>
           <div className={s.info}>
             <Typography variant="semi-bold_small_text">1231</Typography>
-            <Link href={'/my-profile/following-page'}>Followers</Link>
+            <Link href={'/my-profile/following-page/followers'}>Followers</Link>
             {/*<Typography variant="small_text">Followers</Typography>*/}
           </div>
           <div className={s.info}>
