@@ -13,20 +13,22 @@
 
 .dropdownMenuContent {
   position: relative;
+  z-index: 300;
 
   min-width: 80px;
-  padding: 12px;
 
-  background-color: var(--color-dark-700);
-  border: 1px solid var(--color-dark-300);
-  border-radius: 6px;
+  background-color: var(--color-dark-500);
+  border: 1px solid var(--color-dark-100);
+  border-radius: 2px;
   box-shadow:
     0 10px 38px -10px rgb(22 23 24 / 35%),
     0 10px 20px -15px rgb(22 23 24 / 20%);
+   
 }
 
 .arrowWrap {
   position: absolute;
+  z-index: 0;
   top: -3px;
   right: -1px;
   transform: rotate(45deg);
@@ -34,12 +36,12 @@
   width: 7px;
   height: 7px;
 
-  background-color: var(--color-dark-700);
+  background-color: var(--color-dark-500);
   border: 1px solid var(--color-dark-300);
   border-top: none;
   border-left: none;
 
-  fill: var(--color-dark-700);
+  fill: var(--color-dark-500);
   stroke: var(--color-dark-500);
   stroke-width: 2px;
 }
@@ -47,32 +49,35 @@
 .dropdownMenuItem {
   cursor: pointer;
 
+  z-index: 400;
+
   display: flex;
   gap: 6px;
   align-items: center;
 
-  padding: 12px 0;
+  padding: 12px;
 
   font-size: var(--font-size-s);
   line-height: var(--line-height-m);
 
   outline: none;
 
-  &:last-of-type {
-    padding-bottom: 0;
-  }
+  // &:last-of-type {
+  //   padding-bottom: 0;
+  // }
 
-  &:first-of-type {
-    padding-top: 0;
-  }
+  // &:first-of-type {
+  //   padding-top: 0;
+  // }
 
-  &:not(:last-of-type) {
-    border-bottom: 1px solid var(--color-dark-300);
-  }
+  // &:not(:last-of-type) {
+  //   border-bottom: 1px solid var(--color-dark-300);
+  // }
 
   &:hover,
   &:focus {
-    opacity: 0.7;
+    color: var(--color-accent-500);
+    background-color: var(--color-dark-300);
   }
 
   &[data-disabled] {
