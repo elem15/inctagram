@@ -61,7 +61,9 @@ export const SelectCustom = forwardRef<ElementRef<typeof Select.Trigger>, Select
             className={clsx(s.trigger, className)}
           >
             <div className={s.value}>
-              <Select.Value placeholder={placeHolder} />
+              <div className="h-6 overflow-hidden">
+                <Select.Value placeholder={placeHolder} />
+              </div>
             </div>
             <Select.Icon className={s.icon}>{<Layer2 />}</Select.Icon>
           </Select.Trigger>
