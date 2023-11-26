@@ -6,6 +6,7 @@ import s from './ProfileHeaderWeb.module.scss'
 
 import PersonImg from '@/shared/assets/PersonImg1.png'
 import { Typography, Button } from '@/shared/components'
+import { ModalOfFollowers } from '@/shared/components/followers-modal'
 import { ModalOfFollowing } from '@/shared/components/following-modal'
 
 export const ProfileHeaderWeb = () => {
@@ -37,9 +38,10 @@ export const ProfileHeaderWeb = () => {
               <Typography className={s.progressInfoValue} variant="bold_text_14">
                 1231
               </Typography>
-              <Typography className={s.progressInfoText} variant="regular_text_14">
-                Followers
-              </Typography>
+              <ModalOfFollowers />
+              {/*<Typography className={s.progressInfoText} variant="regular_text_14">*/}
+              {/*  Followers*/}
+              {/*</Typography>*/}
             </div>
             <div className={s.info}>
               <Typography className={s.progressInfoValue} variant="bold_text_14">

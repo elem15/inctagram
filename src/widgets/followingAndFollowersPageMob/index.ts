@@ -1,1 +1,1 @@
-export { FollowingAndFollowersPage } from './ui/FollowingPage'
+export { FollowingAndFollowersPageMob } from './ui/FollowingPage'
