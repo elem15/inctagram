@@ -12,7 +12,7 @@ import { clsx } from 'clsx'
 
 import { Typography } from '../typography'
 
-import s from './Dropdown.module.scss'
+import s from './dropdown.module.scss'
 
 type DropdownProps = {
   trigger?: ReactNode

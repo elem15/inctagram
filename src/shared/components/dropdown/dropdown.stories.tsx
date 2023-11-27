@@ -1,7 +1,7 @@
 import { DropdownMenu } from '@radix-ui/react-dropdown-menu'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { CustomDropdown, CustomDropdownItem, CustomDropdownItemWithIcon } from './Dropdown'
+import { CustomDropdown, CustomDropdownItem, CustomDropdownItemWithIcon } from './dropdown'
 
 import { HomesIcon, LogOutIcon, ProfileSettings } from '@/shared/assets'
 

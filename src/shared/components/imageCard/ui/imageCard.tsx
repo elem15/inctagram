@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { clsx } from 'clsx'
 import Image, { type ImageProps } from 'next/image'
 
-import s from './ImageCard.module.scss'
+import s from './imageCard.module.scss'
 
 type Props = ImageProps & {
   cardClassName?: string
