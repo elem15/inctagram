@@ -12,5 +12,9 @@ type Props = ImageProps & {
 export const ImageCard: FC<Props> = props => {
   const { src, alt, cardClassName } = props
 
-  return <Image src={src} className={clsx(s.image, cardClassName)} alt={alt} />
+  return (
+    <>
+      <Image src={src} className={clsx(s.image, cardClassName)} alt={alt} />
+    </>
+  )
 }
