@@ -39,7 +39,8 @@ const Information = () => {
     error,
   } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
 
-  const [putProfile, { isLoading: isPutLoading, error: putError }] = usePutProfileMutation()
+  const [putProfile, { isLoading: isPutLoading, error: putError, isSuccess }] =
+    usePutProfileMutation()
 
   const [date, setResultDate] = useState<Date | DateRange>()
 
@@ -102,6 +103,11 @@ const Information = () => {
       accessToken,
     })
   }
+
+  useEffect(() => {
+    isSuccess && dispatch(setAlert({ message: t.profile.success, variant: 'info' }))
+  }, [dispatch, isSuccess, t.profile.success])
+
   const [countries, setCountries] = useState<SelectOptions[]>([])
   const [countriesOptions, setCountriesOptions] = useState<Omit<SelectOptions, 'cities'>[]>([])
   const [country, setCountry] = useState('')

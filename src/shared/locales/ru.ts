@@ -144,6 +144,7 @@ export const ru: LangType = {
     my_payments: 'Мои платежи',
     auth_error: 'Ошибка авторизации. Войдите еще раз',
     user_name_error: 'Пользователь с таким именем уже существует',
+    success: 'Ваши настройки профиля сохранены!',
   },
 
   following_modal: {
