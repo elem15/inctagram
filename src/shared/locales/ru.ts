@@ -149,6 +149,7 @@ export const ru: LangType = {
   following_modal: {
     input_placeholder: 'Поиск',
     title: 'Подписки',
+    followings_title: 'Подписок',
     follow_button: 'Подписаться',
   },
   add_profile_photo: {
@@ -172,5 +173,11 @@ export const ru: LangType = {
   },
   followers_modal: {
     title: 'Подписчики',
+    modals_title: 'Подписчиков',
+    button_remove: 'Удалить',
+    post: 'Публикации',
+  },
+  delete_followers: {
+    remove_text: 'Вы действительно хотите удалить',
   },
 }

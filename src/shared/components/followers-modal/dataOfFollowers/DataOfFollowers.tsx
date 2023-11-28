@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
 
@@ -5,7 +7,7 @@ import s from './DataOfFollowers.module.scss'
 
 import { IconUser } from '@/shared/assets'
 import { Button, Input } from '@/shared/components'
-import { Unfollow } from '@/shared/components/followers-modal/deleteFollowers'
+import { RemoveFollower } from '@/shared/components/followers-modal/deleteFollowers'
 import { useTranslation } from '@/shared/lib'
 export const followersArray = [
   { avatar: '', value: '1', title: 'URLProfile', isUnfollow: false },
@@ -19,6 +21,15 @@ export const followersArray = [
 export const DataOfFollowers = () => {
   const { t } = useTranslation()
   const router = useRouter()
+  const [shouldTruncate, setShouldTruncate] = useState(false)
+
+  useEffect(() => {
+    if (router.pathname === '/my-profile/following-page/[subscription]') {
+      setShouldTruncate(true)
+    } else {
+      setShouldTruncate(false)
+    }
+  }, [router.pathname])
 
   return (
     <>
@@ -26,6 +37,11 @@ export const DataOfFollowers = () => {
 
       <ul>
         {followersArray.map(follower => {
+          const truncatedTitle =
+            shouldTruncate && follower.title.length >= 5
+              ? `${follower.title.substring(0, 2)}...`
+              : follower.title
+
           return (
             <li key={follower.value} className={s.dataBox}>
               <p
@@ -37,11 +53,26 @@ export const DataOfFollowers = () => {
                 {follower.avatar ? null : <IconUser />}
               </p>
               <span className={clsx(router.locale === 'ru' ? s.ruText : s.text)}>
-                {follower.title}
+                {truncatedTitle}
               </span>
-              {!follower.isUnfollow && <Button variant={'primary'}>Follow</Button>}
+              {!follower.isUnfollow && (
+                <Button
+                  variant={'primary'}
+                  style={
+                    shouldTruncate
+                      ? { fontSize: '14px', padding: '5px 10px', color: '#fff' }
+                      : { fontSize: '16px' }
+                  }
+                >
+                  {t.following_modal.follow_button}
+                </Button>
+              )}
               <div className={s.deleteButtonBox}>
-                <Unfollow avatar={follower.avatar} name={follower.title} />
+                <RemoveFollower
+                  avatar={follower.avatar}
+                  isMob={shouldTruncate}
+                  name={follower.title}
+                />
               </div>
             </li>
           )

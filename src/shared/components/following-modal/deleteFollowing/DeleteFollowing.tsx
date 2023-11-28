@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import s from './DeleteFollowing.module.scss'
 
 import { IconUser } from '@/shared/assets'
@@ -8,17 +10,41 @@ import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 type Props = {
   avatar: string
   name: string
+  isMob: boolean
 }
-export const DeleteFollowing = ({ avatar, name }: Props) => {
+export const DeleteFollowing = ({ avatar, name, isMob }: Props) => {
+  const [confirmedUnfollow, setConfirmedUnfollow] = useState(false)
+
   const { isOpen, openModal, closeModal } = useModal()
   const { t } = useTranslation()
 
+  const handleChangeUnfollow = () => {
+    setConfirmedUnfollow(true)
+    closeModal()
+  }
+
   return (
     <>
-      <Button variant={'link'} style={{ color: '#fff' }} onClick={openModal}>
-        {t.delete_following.delete_button}
-      </Button>
-
+      {confirmedUnfollow ? (
+        <Button
+          variant={'primary'}
+          style={
+            isMob ? { fontSize: '14px', padding: '5px 10px', color: '#fff' } : { fontSize: '16px' }
+          }
+        >
+          {t.following_modal.follow_button}
+        </Button>
+      ) : (
+        <Button
+          variant={'outline'}
+          onClick={openModal}
+          style={
+            isMob ? { fontSize: '14px', padding: '5px 10px', color: '#fff' } : { color: '#fff' }
+          }
+        >
+          {t.delete_following.delete_button}
+        </Button>
+      )}
       <Modal
         open={isOpen}
         size={'sm'}
@@ -34,7 +60,7 @@ export const DeleteFollowing = ({ avatar, name }: Props) => {
           </Typography>
         </div>
         <div className={s.buttonBox}>
-          <Button variant={'outline'} style={{ width: '27px' }}>
+          <Button variant={'outline'} onClick={handleChangeUnfollow}>
             {t.delete_photo_of_profile.button_yes}
           </Button>
           <Button variant={'primary'} onClick={closeModal}>

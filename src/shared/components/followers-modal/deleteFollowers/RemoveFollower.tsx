@@ -1,4 +1,4 @@
-import s from './DeleteFollowing.module.scss'
+import s from './RemoveFollower.module.scss'
 
 import { IconUser } from '@/shared/assets'
 import { Button, Typography } from '@/shared/components'
@@ -8,23 +8,30 @@ import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 type Props = {
   avatar: string
   name: string
+  isMob: boolean
 }
-export const Unfollow = ({ avatar, name }: Props) => {
+export const RemoveFollower = ({ avatar, name, isMob }: Props) => {
   const { isOpen, openModal, closeModal } = useModal()
   const { t } = useTranslation()
 
   return (
     <>
-      <Button variant={'outline'} onClick={openModal}>
-        Unfollow
+      <Button
+        variant={'link'}
+        onClick={openModal}
+        style={isMob ? { fontSize: '14px', padding: '5px 10px', color: '#fff' } : { color: '#fff' }}
+      >
+        {t.followers_modal.button_remove}
       </Button>
 
-      <Modal open={isOpen} size={'sm'} title={'Unfollow'} onClose={closeModal}>
+      <Modal open={isOpen} size={'sm'} title={t.followers_modal.button_remove} onClose={closeModal}>
         <div className={s.avaAndText}>
           <div className={s.avatar} style={{ backgroundImage: avatar ? `${avatar}` : 'none' }}>
             {!avatar && <IconUser />}
           </div>
-          <Typography>Do you really want to delete a Unfollow {name}?</Typography>
+          <Typography>
+            {t.delete_followers.remove_text} {name}?
+          </Typography>
         </div>
         <div className={s.buttonBox}>
           <Button variant={'outline'} style={{ width: '27px' }}>

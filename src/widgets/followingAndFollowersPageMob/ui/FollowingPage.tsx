@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -9,20 +9,17 @@ import { TabsSwitcher, Typography } from '@/shared/components'
 import { DataOfFollowers } from '@/shared/components/followers-modal/dataOfFollowers/DataOfFollowers'
 import { DataOfFollowing } from '@/shared/components/following-modal/dataOfFollowing/DataOfFollowing'
 import { useTranslation } from '@/shared/lib'
-import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 
 export const FollowingAndFollowersPageMob = () => {
   const router = useRouter()
   const { t } = useTranslation()
-  const [tabValue, setTabValue] = useState(router.query.type as string)
-  const { isOpen, openModal, closeModal } = useModal()
+  const [tabValue, setTabValue] = useState(router.query.subscription as string)
 
   const ArrayOfActionMenu = [
     { label: t.following_modal.title, value: 'following' },
     { label: t.followers_modal.title, value: 'followers' },
   ]
 
-  console.log(router)
   const handleBack = () => {
     router.push('/my-profile')
   }

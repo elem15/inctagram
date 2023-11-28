@@ -43,7 +43,11 @@
       }
     }
   }
-
+.follow{
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-s);
+}
   .profileName {
     margin-bottom: 15px;
   }

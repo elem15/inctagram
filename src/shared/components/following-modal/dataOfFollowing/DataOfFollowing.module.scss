@@ -29,11 +29,12 @@
     min-width: 25%
   }
   @media screen and (width <= 526px) {
-    min-width: 19%
+    min-width: 16%
   }
 }
 .deleteButtonBox{
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  margin-right: 5px;
 }

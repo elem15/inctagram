@@ -163,15 +163,22 @@ export const en = {
   following_modal: {
     input_placeholder: 'Search',
     title: 'Following',
+    followings_title: 'Following',
     follow_button: 'Follow',
   },
   delete_following: {
     title_of_delete_modal: 'Delete Following',
-    delete_button: 'Delete',
-    text: 'Do you really want to delete a Following',
+    delete_button: 'Unfollow',
+    text: 'Do you really want to Unfollow from this user ',
   },
   followers_modal: {
     title: 'Followers',
+    modals_title: 'Followers',
+    button_remove: 'Remove',
+    post: 'Publications',
+  },
+  delete_followers: {
+    remove_text: 'Do you really want to remove',
   },
 }
 export type LangType = typeof en
