@@ -12,7 +12,7 @@ import { clsx } from 'clsx'
 
 import { Typography } from '../typography'
 
-import s from './Dropdown.module.scss'
+import s from './dropdown.module.scss'
 
 type DropdownProps = {
   trigger?: ReactNode
@@ -43,7 +43,10 @@ export const CustomDropdown = forwardRef<ElementRef<typeof DropdownMenu.Trigger>
             className={classNames.content}
             sideOffset={8}
             style={style}
-            onClick={event => event.stopPropagation()}
+            onClick={event => {
+              event.stopPropagation()
+              setOpen(false)
+            }}
             align={align}
           >
             <div className={classNames.itemsWrap}>{children}</div>

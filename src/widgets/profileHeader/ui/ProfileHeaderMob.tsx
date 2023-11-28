@@ -16,16 +16,28 @@ export const ProfileHeaderMob = () => {
         <Image src={PersonImg} className={s.image} alt={''} />
         <div className={s.progressProfile}>
           <div className={s.info}>
-            <Typography variant="semi-bold_small_text">1231</Typography>
-            <Typography variant="small_text">Following</Typography>
+            <Typography className={s.progressInfoValue} variant="semi-bold_small_text">
+              1231
+            </Typography>
+            <Typography className={s.progressInfoText} variant="small_text">
+              Following
+            </Typography>
           </div>
           <div className={s.info}>
-            <Typography variant="semi-bold_small_text">1231</Typography>
-            <Typography variant="small_text">Followers</Typography>
+            <Typography className={s.progressInfoValue} variant="semi-bold_small_text">
+              1231
+            </Typography>
+            <Typography className={s.progressInfoText} variant="small_text">
+              Followers
+            </Typography>
           </div>
           <div className={s.info}>
-            <Typography variant="semi-bold_small_text">1231</Typography>
-            <Typography variant="small_text">Publications</Typography>
+            <Typography className={s.progressInfoValue} variant="semi-bold_small_text">
+              1231
+            </Typography>
+            <Typography className={s.progressInfoText} variant="small_text">
+              Publications
+            </Typography>
           </div>
         </div>
       </div>
