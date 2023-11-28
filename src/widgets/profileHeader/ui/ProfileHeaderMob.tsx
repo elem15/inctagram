@@ -18,13 +18,13 @@ export const ProfileHeaderMob = () => {
           <div className={s.info}>
             <Typography variant="semi-bold_small_text">1231</Typography>
             <Link href={'/my-profile/following-page/following'} className={s.follow}>
-              {t.following_modal.title}
+              {t.following_modal.followings_title}
             </Link>
           </div>
           <div className={s.info}>
             <Typography variant="semi-bold_small_text">1231</Typography>
             <Link href={'/my-profile/following-page/followers'} className={s.follow}>
-              {t.followers_modal.title}
+              {t.followers_modal.modals_title}
             </Link>
           </div>
           <div className={s.info}>
