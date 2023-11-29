@@ -61,6 +61,11 @@ const Information = () => {
   }, [error, putError])
 
   useEffect(() => {
+    profile && trigger()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t.profile.age_error])
+
+  useEffect(() => {
     profile?.firstName && setValue('firstName', profile.firstName)
     profile?.lastName && setValue('lastName', profile.lastName)
     profile?.userName && setValue('userName', profile.userName)

@@ -16,6 +16,7 @@ import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { Button, SuperCheckbox } from '@/shared/components'
 import { consoleErrors, useTranslation } from '@/shared/lib'
+import { useClient } from '@/shared/lib/hooks/useClient'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
 
@@ -26,12 +27,15 @@ export const SignUpWidget: FC = () => {
     formState,
     getValues,
     setError,
+    trigger,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   })
 
   const { t } = useTranslation()
+
+  const { isClient } = useClient()
 
   const [agree, setAgree] = useState(false)
 
@@ -53,6 +57,11 @@ export const SignUpWidget: FC = () => {
     isSuccess && router.push('/email-sent')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
+
+  useEffect(() => {
+    isClient && trigger()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t.signin.error_message])
 
   const googleLogin = () => {
     window.location.assign(AUTH_URLS.GOOGLE)
