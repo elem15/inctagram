@@ -54,7 +54,7 @@ export const HeaderWidget: FC = () => {
             </div>
           )}
           <LangSelectWidget />
-          <div className={s.wrappedMenu}>
+          <div className={s.wrappedActionMenu}>
             <CustomDropdown
               trigger={
                 <div>
