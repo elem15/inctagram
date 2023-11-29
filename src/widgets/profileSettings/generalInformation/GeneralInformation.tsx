@@ -8,7 +8,7 @@ import s from './GeneralInformation.module.scss'
 
 import { setAlert } from '@/app/services'
 import { useGetProfileQuery } from '@/entities/profile'
-import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
+import { usePutProfileMutation, useSavePhotoMutation } from '@/entities/profile/api/profileApi'
 import { Button, Input, Textarea, SelectCustom } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
 import { useAppDispatch, useTranslation } from '@/shared/lib'
@@ -57,7 +57,8 @@ const Information = () => {
     } else if (error) {
       dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
     }
-  }, [dispatch, error, putError, setError, t.profile.auth_error, t.profile.user_name_error])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error, putError])
 
   useEffect(() => {
     profile?.firstName && setValue('firstName', profile.firstName)
@@ -81,18 +82,13 @@ const Information = () => {
         trigger()
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps, prettier/prettier
   }, [
     profile?.firstName,
     profile?.lastName,
     profile?.userName,
     profile?.aboutMe,
-    profile,
-    setValue,
     date,
-    t.profile.age_error,
-    clearErrors,
-    setError,
-    trigger,
   ])
 
   const onSubmit: SubmitHandler<ProfilePut> = data => {
@@ -161,10 +157,11 @@ const Information = () => {
   const onChangeCityHandler = (value: any) => {
     setValue('city', value)
   }
+  const [_, { isLoading: isPhotoLoading }] = useSavePhotoMutation()
 
   return (
     <div className={s.container}>
-      {(isLoading || isPutLoading) && <Spinner />}
+      {(isLoading || isPutLoading || isPhotoLoading) && <Spinner />}
       <main className={s.mainContainer}>
         <div className={s.imagePicker}>
           <ProfilePhotoForGeneralInfo />
