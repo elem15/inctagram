@@ -52,7 +52,7 @@ export const AddProfilePhotoModal = ({ isOpen, closeModal }: Props) => {
       const acceptedTypes = ['image/jpeg', 'image/png']
 
       if (!acceptedTypes.includes(selectedFile.type)) {
-        setErrorText(t.add_profile_photo.error_typy_of_photo)
+        setErrorText(t.add_profile_photo.error_type_of_photo)
 
         return
       }

@@ -1,14 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import s from './ProfileHeaderMob.module.scss'
 
 import PersonImg from '@/shared/assets/PersonImg1.png'
-import { Typography, Button } from '@/shared/components'
+import { Typography } from '@/shared/components'
+import { useTranslation } from '@/shared/lib'
 
 export const ProfileHeaderMob = () => {
-  const { push } = useRouter()
+  const { t } = useTranslation()
 
   return (
     <>
@@ -19,25 +19,21 @@ export const ProfileHeaderMob = () => {
             <Typography className={s.progressInfoValue} variant="semi-bold_small_text">
               1231
             </Typography>
-            <Typography className={s.progressInfoText} variant="small_text">
-              Following
-            </Typography>
+            <Link href={'/my-profile/following-page/following'} className={s.progressInfoText}>
+              {t.following_modal.followings_title}
+            </Link>
           </div>
           <div className={s.info}>
             <Typography className={s.progressInfoValue} variant="semi-bold_small_text">
               1231
             </Typography>
-            <Typography className={s.progressInfoText} variant="small_text">
-              Followers
-            </Typography>
+            <Link href={'/my-profile/following-page/followers'} className={s.progressInfoText}>
+              {t.followers_modal.modals_title}
+            </Link>
           </div>
           <div className={s.info}>
-            <Typography className={s.progressInfoValue} variant="semi-bold_small_text">
-              1231
-            </Typography>
-            <Typography className={s.progressInfoText} variant="small_text">
-              Publications
-            </Typography>
+            <Typography variant="semi-bold_small_text">1231</Typography>
+            <Typography className={s.progressInfoText}>{t.followers_modal.post}</Typography>
           </div>
         </div>
       </div>
