@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
@@ -61,7 +61,7 @@ const Information = () => {
   }, [error, putError])
 
   useEffect(() => {
-    profile && trigger()
+    profile && !isValid && trigger()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t.profile.age_error])
 
@@ -83,9 +83,9 @@ const Information = () => {
           message: t.profile.age_error,
         })
       } else {
+        trigger()
         clearErrors('dateOfBirth')
       }
-      profile && trigger()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps, prettier/prettier
   }, [
@@ -94,7 +94,6 @@ const Information = () => {
     profile?.userName,
     profile?.aboutMe,
     date,
-    t.profile.age_error,
   ])
 
   const onSubmit: SubmitHandler<ProfilePut> = data => {
@@ -231,7 +230,7 @@ const Information = () => {
             />
             <DatePicker
               mode="single"
-              errorMessage={errors.dateOfBirth?.message?.toString()}
+              errorMessage={errors.dateOfBirth?.message && t.profile.age_error}
               errorLinkHref="/auth/privacy"
               errorLinkMessage={t.privacy_policy.title}
               lang={t.lg}
