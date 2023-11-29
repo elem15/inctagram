@@ -28,6 +28,7 @@ const Information = () => {
     setError,
     clearErrors,
     setValue,
+    trigger,
   } = useForm<ProfilePut>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
@@ -64,6 +65,10 @@ const Information = () => {
     profile?.userName && setValue('userName', profile.userName)
     profile?.aboutMe && setValue('aboutMe', profile.aboutMe)
     if (date && date instanceof Date) {
+      const offset = new Date().getTimezoneOffset()
+
+      date.setMinutes(date.getMinutes() + offset)
+      setValue('dateOfBirth', date.toISOString())
       const age = differenceInYears(new Date(), date)
 
       if (age < 13) {
@@ -71,11 +76,10 @@ const Information = () => {
           type: 'client',
           message: t.profile.age_error,
         })
-      } else clearErrors('dateOfBirth')
-      const offset = new Date().getTimezoneOffset()
-
-      date.setMinutes(date.getMinutes() + offset)
-      setValue('dateOfBirth', date.toISOString())
+      } else {
+        clearErrors('dateOfBirth')
+        trigger()
+      }
     }
   }, [
     profile?.firstName,
@@ -88,6 +92,7 @@ const Information = () => {
     t.profile.age_error,
     clearErrors,
     setError,
+    trigger,
   ])
 
   const onSubmit: SubmitHandler<ProfilePut> = data => {
@@ -104,7 +109,10 @@ const Information = () => {
     })
   }
 
-  isSuccess && dispatch(setAlert({ message: t.profile.success, variant: 'info' }))
+  useEffect(() => {
+    isSuccess && dispatch(setAlert({ message: t.profile.success, variant: 'info' }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
 
   const [countries, setCountries] = useState<SelectOptions[]>([])
   const [countriesOptions, setCountriesOptions] = useState<Omit<SelectOptions, 'cities'>[]>([])
