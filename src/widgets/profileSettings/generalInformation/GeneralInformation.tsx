@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
@@ -79,8 +79,8 @@ const Information = () => {
         })
       } else {
         clearErrors('dateOfBirth')
-        trigger()
       }
+      profile && trigger()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps, prettier/prettier
   }, [
@@ -89,6 +89,7 @@ const Information = () => {
     profile?.userName,
     profile?.aboutMe,
     date,
+    t.profile.age_error,
   ])
 
   const onSubmit: SubmitHandler<ProfilePut> = data => {
