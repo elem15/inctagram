@@ -39,17 +39,18 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 54px;
+
       }
     }
   }
-.follow{
+.progressInfoText{
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-400);
   line-height: var(--line-height-s);
 }
+
   .profileName {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
   .description {
@@ -66,5 +67,40 @@
     color: var(--color-accent-500);
     text-decoration: underline;
     text-decoration-color: var(--color-accent-500);
+  }
+}
+
+@media (width < 375px) {
+  .container {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .progressProfile {
+      display: flex;
+      gap: 15px;
+      height: 48px;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .progressInfoValue {
+          font-size: 10px;
+          font-weight: 700;
+          font-style: normal;
+          line-height: 16px;
+        }
+
+        .progressInfoText {
+          font-size: 10px;
+          font-weight: 700;
+          font-style: normal;
+          line-height: 16px;
+        }
+      }
+    }
   }
 }

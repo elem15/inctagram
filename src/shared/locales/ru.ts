@@ -176,7 +176,7 @@ export const ru: LangType = {
     title: 'Подписчики',
     modals_title: 'Подписчиков',
     button_remove: 'Удалить',
-    post: 'Публикации',
+    post: 'Публикаций',
   },
   delete_followers: {
     remove_text: 'Вы действительно хотите удалить',

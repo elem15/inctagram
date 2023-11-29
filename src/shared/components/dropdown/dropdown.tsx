@@ -43,7 +43,10 @@ export const CustomDropdown = forwardRef<ElementRef<typeof DropdownMenu.Trigger>
             className={classNames.content}
             sideOffset={8}
             style={style}
-            onClick={event => event.stopPropagation()}
+            onClick={event => {
+              event.stopPropagation()
+              setOpen(false)
+            }}
             align={align}
           >
             <div className={classNames.itemsWrap}>{children}</div>

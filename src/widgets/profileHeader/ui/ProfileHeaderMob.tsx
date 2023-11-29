@@ -16,20 +16,24 @@ export const ProfileHeaderMob = () => {
         <Image src={PersonImg} className={s.image} alt={''} />
         <div className={s.progressProfile}>
           <div className={s.info}>
-            <Typography variant="semi-bold_small_text">1231</Typography>
-            <Link href={'/my-profile/following-page/following'} className={s.follow}>
+            <Typography className={s.progressInfoValue} variant="semi-bold_small_text">
+              1231
+            </Typography>
+            <Link href={'/my-profile/following-page/following'} className={s.progressInfoText}>
               {t.following_modal.followings_title}
             </Link>
           </div>
           <div className={s.info}>
-            <Typography variant="semi-bold_small_text">1231</Typography>
-            <Link href={'/my-profile/following-page/followers'} className={s.follow}>
+            <Typography className={s.progressInfoValue} variant="semi-bold_small_text">
+              1231
+            </Typography>
+            <Link href={'/my-profile/following-page/followers'} className={s.progressInfoText}>
               {t.followers_modal.modals_title}
             </Link>
           </div>
           <div className={s.info}>
             <Typography variant="semi-bold_small_text">1231</Typography>
-            <Typography variant="small_text">{t.followers_modal.post}</Typography>
+            <Typography className={s.progressInfoText}>{t.followers_modal.post}</Typography>
           </div>
         </div>
       </div>

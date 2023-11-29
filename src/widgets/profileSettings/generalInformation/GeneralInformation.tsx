@@ -9,13 +9,13 @@ import s from './GeneralInformation.module.scss'
 import { setAlert } from '@/app/services'
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
-import { Button, Input, Textarea, SelectCustom, Typography } from '@/shared/components'
+import { Button, Input, Textarea, SelectCustom } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
 import { useAppDispatch, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation, nameValidation } from '@/shared/regex'
-import { ProfilePhotoForGeneralInfo } from '@/widgets/addProfilePhoto/ProfilePhotoForGeneralInfo'
-import { TabsLayout, getTabsLayout } from '@/widgets/layouts'
+import { ProfilePhotoForGeneralInfo } from '@/widgets/addProfilePhoto'
+import { TabsLayout } from '@/widgets/layouts'
 import { Spinner } from '@/widgets/spinner'
 
 const Information = () => {
@@ -104,9 +104,7 @@ const Information = () => {
     })
   }
 
-  useEffect(() => {
-    isSuccess && dispatch(setAlert({ message: t.profile.success, variant: 'info' }))
-  }, [dispatch, isSuccess, t.profile.success])
+  isSuccess && dispatch(setAlert({ message: t.profile.success, variant: 'info' }))
 
   const [countries, setCountries] = useState<SelectOptions[]>([])
   const [countriesOptions, setCountriesOptions] = useState<Omit<SelectOptions, 'cities'>[]>([])
@@ -157,14 +155,14 @@ const Information = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <div className={s.container}>
       {(isLoading || isPutLoading) && <Spinner />}
-      <div className={s.container}>
-        <main className={s.mainContainer}>
-          <div className={s.imagePicker}>
-            <ProfilePhotoForGeneralInfo />
-          </div>
-          <div className={s.textFormContainer}>
+      <main className={s.mainContainer}>
+        <div className={s.imagePicker}>
+          <ProfilePhotoForGeneralInfo />
+        </div>
+        <div className={s.textFormContainer}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Input
               label={t.profile.user_name}
               labelClass="asterisk"
@@ -257,15 +255,16 @@ const Information = () => {
               })}
               errorMessage={errors.aboutMe?.message?.toString()}
             />
-          </div>
-        </main>
-        <div className={s.footerContainer}>
-          <Button type="submit" disabled={!isValid}>
-            {t.profile.button}
-          </Button>
+
+            <div className={s.footerContainer}>
+              <Button type="submit" disabled={!isValid}>
+                {t.profile.button}
+              </Button>
+            </div>
+          </form>
         </div>
-      </div>
-    </form>
+      </main>
+    </div>
   )
 }
 
