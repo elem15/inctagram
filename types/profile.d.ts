@@ -35,14 +35,20 @@ type City = {
   value: string 
 }
 
-type SelectOptions = {
-  key?: string
-  label: string
-  value: string
-  cities: string[]
-}
-
 
 type SaveAvatarsResponse = {
   avatars: Avatar[];
+}
+
+type CountriesResponseData = {
+  error: boolean
+  msg: string
+  data: []
+}
+
+type CountriesDataElement = {
+  iso2?: string
+  iso3: string
+  country: string
+  cities: string[]
 }
