@@ -39,13 +39,18 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 54px;
+width: 54px;
       }
     }
   }
+.progressInfoText{
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-s);
+}
 
   .profileName {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
   .description {
@@ -91,7 +96,7 @@
 
         .progressInfoText {
           font-size: 10px;
-          font-weight: 400;
+          font-weight: 700;
           font-style: normal;
           line-height: 16px;
         }

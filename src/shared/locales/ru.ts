@@ -146,10 +146,17 @@ export const ru: LangType = {
     user_name_error: 'Пользователь с таким именем уже существует',
     success: 'Ваши настройки профиля сохранены!',
   },
+
+  following_modal: {
+    input_placeholder: 'Поиск',
+    title: 'Подписки',
+    followings_title: 'Подписок',
+    follow_button: 'Подписаться',
+  },
   add_profile_photo: {
     add_profile_photo_text: 'Добавить фотографию',
     text_of_button_select_from_comp: 'Выбрать с компьютера',
-    error_typy_of_photo: 'Формат загружаемой фотографии должен быть\n' + 'PNG или JPEG',
+    error_type_of_photo: 'Формат загружаемой фотографии должен быть\n' + 'PNG или JPEG',
     error: 'Ошибка! ',
     error_size_photo: 'Размер фотографии должен быть меньше 1.5 МБ!',
     save_button: 'Сохранить',
@@ -159,5 +166,19 @@ export const ru: LangType = {
     title_of_modal: 'Удалить фото',
     button_yes: 'Да',
     button_no: 'Нет',
+  },
+  delete_following: {
+    title_of_delete_modal: 'Удалить подписку',
+    delete_button: 'Отписаться',
+    text: 'Вы действительно хотите отписаться от',
+  },
+  followers_modal: {
+    title: 'Подписчики',
+    modals_title: 'Подписчиков',
+    button_remove: 'Удалить',
+    post: 'Публикаций',
+  },
+  delete_followers: {
+    remove_text: 'Вы действительно хотите удалить',
   },
 }

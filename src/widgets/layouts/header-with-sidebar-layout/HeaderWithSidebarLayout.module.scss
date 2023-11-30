@@ -11,7 +11,7 @@
   }
 
   .sidebar {
-    @media (width <= 1024px) {
+    @media (width < 1024px) {
       display: none;
     }
   }

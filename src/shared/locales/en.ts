@@ -150,7 +150,7 @@ export const en = {
   add_profile_photo: {
     add_profile_photo_text: 'Add a Profile Photo',
     text_of_button_select_from_comp: 'Select from Computer',
-    error_typy_of_photo: 'The format of the uploaded photo must be PNG and JPEG.',
+    error_type_of_photo: 'The format of the uploaded photo must be PNG and JPEG.',
     error: 'Error! ',
     error_size_photo: 'Photo size must be less than 1.5 MB!',
     save_button: ' Save',
@@ -160,6 +160,26 @@ export const en = {
     text: 'Are you sure you want to delete the photo?',
     button_yes: 'Yes',
     button_no: 'No',
+  },
+  following_modal: {
+    input_placeholder: 'Search',
+    title: 'Following',
+    followings_title: 'Following',
+    follow_button: 'Follow',
+  },
+  delete_following: {
+    title_of_delete_modal: 'Delete Following',
+    delete_button: 'Unfollow',
+    text: 'Do you really want to Unfollow from this user ',
+  },
+  followers_modal: {
+    title: 'Followers',
+    modals_title: 'Followers',
+    button_remove: 'Remove',
+    post: 'Publications',
+  },
+  delete_followers: {
+    remove_text: 'Do you really want to remove',
   },
 }
 export type LangType = typeof en

@@ -69,7 +69,7 @@ export function DatePicker({
           <CalendarButton
             variant={'default'}
             className={cn(
-              'min-w-[160px] w-full justify-between text-left gap-10 font-normal bg-dark-500 border-dark-300 rounded-none hover:text-light-100 group',
+              'min-w-[160px] w-full justify-between text-left font-normal bg-dark-500 border-dark-300 rounded-none hover:text-light-100 group',
               !isSelected && 'text-light-900',
               errorMessage &&
                 'data-[state=closed]:border-danger-500 data-[state=closed]:text-danger-500 border-[1px]'
@@ -87,7 +87,7 @@ export function DatePicker({
                 placeholder="yyyy-dd-mm"
                 value={dateValue}
                 onChange={e => setDateValue(e.target.value)}
-                className="bg-dark-500 border-dark-500 text-base outline-none"
+                className="bg-dark-500 border-dark-500 text-base outline-none flex-1 w-full"
               />
             )}
             {range?.from &&

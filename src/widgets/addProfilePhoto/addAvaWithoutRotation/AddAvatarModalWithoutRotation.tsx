@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ChangeEvent, useRef } from 'react'
+import React, { useState, useCallback, ChangeEvent, useRef, useEffect } from 'react'
 
 import Cropper from 'react-easy-crop'
 
@@ -6,12 +6,13 @@ import s from '../AddProfilePhotoModal.module.scss'
 
 import getCroppedImg from './crropUtils'
 
+import { setAlert } from '@/app/services'
 import { useSavePhotoMutation } from '@/entities/profile/api/profileApi'
 import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { SliderDemo } from '@/shared/components/slider'
-import { useTranslation } from '@/shared/lib'
+import { useAppDispatch, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 type Props = {
@@ -35,8 +36,14 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
   const { accessToken } = useAuth()
   const { t } = useTranslation()
   const inputRef = useRef<HTMLInputElement>(null)
+  const dispatch = useAppDispatch()
 
-  const [savePhoto] = useSavePhotoMutation()
+  const [savePhoto, { error }] = useSavePhotoMutation()
+
+  useEffect(() => {
+    error && dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error])
   const onCropComplete = useCallback((_croppedArea: any, croppedAreaPixels: CroppedAreaPixel) => {
     setCroppedAreaPixels(croppedAreaPixels)
   }, [])
@@ -89,7 +96,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
       const maxSizeBytes = 1.5 * 1024 * 1024
 
       if (!acceptedTypes.includes(file.type)) {
-        setErrorText(t.add_profile_photo.error_typy_of_photo)
+        setErrorText(t.add_profile_photo.error_type_of_photo)
 
         return
       }
