@@ -12,10 +12,9 @@ import { useLoginMutation } from '@/entities/auth'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { Button } from '@/shared/components'
-import { useTranslation } from '@/shared/lib'
+import { useFetchLoader, useTranslation } from '@/shared/lib'
 import { useClient } from '@/shared/lib/hooks/useClient'
 import { IAuthInput } from '@/shared/types'
-import { Spinner } from '@/widgets/spinner'
 
 export const SignInWidget: FC = () => {
   const [socialsLoading, setSocialsLoading] = useState(false)
@@ -64,9 +63,10 @@ export const SignInWidget: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t.signin.error_message])
 
+  useFetchLoader(isLoading || socialsLoading)
+
   return (
     <div className={styles.wrapper}>
-      {(isLoading || socialsLoading) && <Spinner />}
       <h1 className={styles.heading}>{t.signin.title}</h1>
       <div className={styles.icon}>
         <Button variant="link" onClick={googleLogin}>

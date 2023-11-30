@@ -8,11 +8,10 @@ import styles from './CreateNewPassword.module.scss'
 
 import { useCreateNewPasswordMutation } from '@/entities/auth'
 import { PasswordField } from '@/shared'
-import { consoleErrors, useTranslation } from '@/shared/lib'
+import { consoleErrors, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useClient } from '@/shared/lib/hooks/useClient'
 import { passwordValidation } from '@/shared/regex'
 import { IAuthInput } from '@/shared/types'
-import { Spinner } from '@/widgets/spinner'
 
 export const CreateNewPasswordWidget: FC = () => {
   const {
@@ -50,9 +49,10 @@ export const CreateNewPasswordWidget: FC = () => {
       .catch(consoleErrors)
   }
 
+  useFetchLoader(isLoading)
+
   return (
     <>
-      {isLoading && <Spinner />}
       <div className={styles.wrapper}>
         <div className={styles.heading}>{t.password_recovery.title}</div>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>

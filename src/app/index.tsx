@@ -1,6 +1,4 @@
 import './styles/globals.css'
-//не удалять подключаю стили
-/*import './styles/index.scss'*/
 import './styles/index.scss'
 import './styles/nprogress.css'
 

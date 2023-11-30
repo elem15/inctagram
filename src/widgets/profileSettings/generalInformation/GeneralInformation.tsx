@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
-import nProgress from 'nprogress'
 import { DateRange } from 'react-day-picker'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -12,12 +11,11 @@ import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation, useSavePhotoMutation } from '@/entities/profile/api/profileApi'
 import { Button, Input, Textarea, SelectCustom } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
-import { useAppDispatch, useTranslation } from '@/shared/lib'
+import { useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation, nameValidation } from '@/shared/regex'
 import { ProfilePhotoForGeneralInfo } from '@/widgets/addProfilePhoto'
 import { TabsLayout } from '@/widgets/layouts'
-import { Spinner } from '@/widgets/spinner'
 
 const Information = () => {
   const { t } = useTranslation()
@@ -164,13 +162,10 @@ const Information = () => {
     setValue('city', value)
   }
 
-  useEffect(() => {
-    isLoading || isPutLoading ? nProgress.start() : nProgress.done()
-  }, [isLoading, isPutLoading])
+  useFetchLoader(isLoading || isPutLoading)
 
   return (
     <div className={s.container}>
-      {/* {(isLoading || isPutLoading) && <Spinner />} */}
       <main className={s.mainContainer}>
         <div className={s.imagePicker}>
           <ProfilePhotoForGeneralInfo />

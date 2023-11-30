@@ -12,9 +12,8 @@ import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { SliderDemo } from '@/shared/components/slider'
-import { useAppDispatch, useTranslation } from '@/shared/lib'
+import { useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
-import nProgress from 'nprogress';
 
 type Props = {
   isOpen: boolean
@@ -144,9 +143,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
     setZoom(1)
   }
 
-  useEffect(() => {
-    isLoading ? nProgress.start() : nProgress.done()
-  }, [isLoading])
+  useFetchLoader(isLoading)
 
   return (
     <Modal
