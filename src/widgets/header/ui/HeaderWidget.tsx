@@ -42,7 +42,7 @@ export const HeaderWidget: FC = () => {
     <header
       className={'header-three sticky-header w-full h-16 sticky lg:relative top-0 z-20 bg-dark-700'}
     >
-      <div className="flex justify-between items-center h-16 max-sm:px-6 sm:px-16 py-3 border-b border-dark-300">
+      <div className="flex justify-between items-center h-16 max-[320px]:px-1 px-6 sm:px-16 py-3 border-b border-dark-300">
         <Link href="/my-profile" className="text-light-100 text-[26px] font-semibold">
           Inctagram
         </Link>

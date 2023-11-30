@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react'
 
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
