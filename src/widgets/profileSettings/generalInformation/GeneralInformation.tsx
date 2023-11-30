@@ -8,7 +8,7 @@ import s from './GeneralInformation.module.scss'
 
 import { setAlert } from '@/app/services'
 import { useGetProfileQuery } from '@/entities/profile'
-import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
+import { usePutProfileMutation, useSavePhotoMutation } from '@/entities/profile/api/profileApi'
 import { Button, Input, Textarea, SelectCustom } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
 import { useAppDispatch, useTranslation } from '@/shared/lib'
@@ -28,6 +28,7 @@ const Information = () => {
     setError,
     clearErrors,
     setValue,
+    trigger,
   } = useForm<ProfilePut>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
@@ -56,7 +57,13 @@ const Information = () => {
     } else if (error) {
       dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
     }
-  }, [dispatch, error, putError, setError, t.profile.auth_error, t.profile.user_name_error])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error, putError])
+
+  useEffect(() => {
+    profile && !isValid && trigger()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t.profile.age_error])
 
   useEffect(() => {
     profile?.firstName && setValue('firstName', profile.firstName)
@@ -64,6 +71,10 @@ const Information = () => {
     profile?.userName && setValue('userName', profile.userName)
     profile?.aboutMe && setValue('aboutMe', profile.aboutMe)
     if (date && date instanceof Date) {
+      const offset = new Date().getTimezoneOffset()
+
+      date.setMinutes(date.getMinutes() + offset)
+      setValue('dateOfBirth', date.toISOString())
       const age = differenceInYears(new Date(), date)
 
       if (age < 13) {
@@ -71,23 +82,18 @@ const Information = () => {
           type: 'client',
           message: t.profile.age_error,
         })
-      } else clearErrors('dateOfBirth')
-      const offset = new Date().getTimezoneOffset()
-
-      date.setMinutes(date.getMinutes() + offset)
-      setValue('dateOfBirth', date.toISOString())
+      } else {
+        trigger()
+        clearErrors('dateOfBirth')
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps, prettier/prettier
   }, [
     profile?.firstName,
     profile?.lastName,
     profile?.userName,
     profile?.aboutMe,
-    profile,
-    setValue,
     date,
-    t.profile.age_error,
-    clearErrors,
-    setError,
   ])
 
   const onSubmit: SubmitHandler<ProfilePut> = data => {
@@ -104,7 +110,10 @@ const Information = () => {
     })
   }
 
-  isSuccess && dispatch(setAlert({ message: t.profile.success, variant: 'info' }))
+  useEffect(() => {
+    isSuccess && dispatch(setAlert({ message: t.profile.success, variant: 'info' }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
 
   const [countries, setCountries] = useState<SelectOptions[]>([])
   const [countriesOptions, setCountriesOptions] = useState<Omit<SelectOptions, 'cities'>[]>([])
@@ -153,10 +162,11 @@ const Information = () => {
   const onChangeCityHandler = (value: any) => {
     setValue('city', value)
   }
+  const [_, { isLoading: isPhotoLoading }] = useSavePhotoMutation()
 
   return (
     <div className={s.container}>
-      {(isLoading || isPutLoading) && <Spinner />}
+      {(isLoading || isPutLoading || isPhotoLoading) && <Spinner />}
       <main className={s.mainContainer}>
         <div className={s.imagePicker}>
           <ProfilePhotoForGeneralInfo />
@@ -220,7 +230,7 @@ const Information = () => {
             />
             <DatePicker
               mode="single"
-              errorMessage={errors.dateOfBirth?.message?.toString()}
+              errorMessage={errors.dateOfBirth?.message && t.profile.age_error}
               errorLinkHref="/auth/privacy"
               errorLinkMessage={t.privacy_policy.title}
               lang={t.lg}

@@ -13,6 +13,7 @@ import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { useTranslation } from '@/shared/lib'
+import { useClient } from '@/shared/lib/hooks/useClient'
 import { IAuthInput } from '@/shared/types'
 import { Spinner } from '@/widgets/spinner'
 
@@ -25,11 +26,12 @@ export const SignInWidget: FC = () => {
     formState,
     getValues,
     setError,
+    trigger,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   })
-
+  const { isClient } = useClient()
   const { t } = useTranslation()
   const [Login, { isLoading, error, isSuccess }] = useLoginMutation()
   const router = useRouter()
@@ -56,6 +58,11 @@ export const SignInWidget: FC = () => {
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])
+
+  useEffect(() => {
+    isClient && trigger()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t.signin.error_message])
 
   return (
     <div className={styles.wrapper}>

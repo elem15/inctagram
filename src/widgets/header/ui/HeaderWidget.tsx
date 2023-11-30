@@ -42,7 +42,7 @@ export const HeaderWidget: FC = () => {
     <header
       className={'header-three sticky-header w-full h-16 sticky lg:relative top-0 z-20 bg-dark-700'}
     >
-      <div className="flex justify-between items-center h-16 max-sm:px-6 sm:px-16 py-3 border-b border-dark-300">
+      <div className="flex justify-between items-center h-16 max-[320px]:px-1 px-6 sm:px-16 py-3 border-b border-dark-300">
         <Link href="/my-profile" className="text-light-100 text-[26px] font-semibold">
           Inctagram
         </Link>
@@ -54,53 +54,55 @@ export const HeaderWidget: FC = () => {
             </div>
           )}
           <LangSelectWidget />
-          <div className={s.wrappedActionMenu}>
-            <CustomDropdown
-              trigger={
-                <div>
-                  <Typography variant="h1" className={s.content}>
-                    ...
-                  </Typography>
-                </div>
-              }
-              align={'end'}
-              className="flex lg:hidden"
-            >
-              <CustomDropdownItem>
-                <Link
-                  href={'/my-profile/general-information'}
-                  className={clsx(
-                    router.pathname === '/my-profile/general-information' && s.activeLink,
-                    s.content
-                  )}
-                >
-                  <ProfileSettings /> {t.sidebar.settings}
-                </Link>
-              </CustomDropdownItem>
-              <CustomDropdownItem>
-                <Link
-                  href={'/statistics'}
-                  className={clsx(router.pathname === '/statistics' && s.activeLink, s.content)}
-                >
-                  <StatisticsIcon />
-                  {t.sidebar.statistics}
-                </Link>
-              </CustomDropdownItem>
-              <CustomDropdownItem>
-                <Link href={'/favorites'} className={clsx(s.content, s.largeMargin)}>
-                  {router.pathname === '/favorites' ? <BookMarkIcon /> : <FavoritesIcon />}
-                  <span className={router.pathname === '/favorites' ? s.activeLink : ''}>
-                    {t.sidebar.favorites}
-                  </span>
-                </Link>
-              </CustomDropdownItem>
-              <CustomDropdownItem>
-                <div onClick={() => logOut(accessToken as string)} className={s.content}>
-                  <LogOutIcon /> {t.sidebar.log_out}
-                </div>
-              </CustomDropdownItem>
-            </CustomDropdown>
-          </div>
+          {isAuth && (
+            <div className={s.wrappedActionMenu}>
+              <CustomDropdown
+                trigger={
+                  <div>
+                    <Typography variant="h1" className={s.content}>
+                      ...
+                    </Typography>
+                  </div>
+                }
+                align={'end'}
+                className="flex lg:hidden"
+              >
+                <CustomDropdownItem>
+                  <Link
+                    href={'/my-profile/general-information'}
+                    className={clsx(
+                      router.pathname === '/my-profile/general-information' && s.activeLink,
+                      s.content
+                    )}
+                  >
+                    <ProfileSettings /> {t.sidebar.settings}
+                  </Link>
+                </CustomDropdownItem>
+                <CustomDropdownItem>
+                  <Link
+                    href={'/statistics'}
+                    className={clsx(router.pathname === '/statistics' && s.activeLink, s.content)}
+                  >
+                    <StatisticsIcon />
+                    {t.sidebar.statistics}
+                  </Link>
+                </CustomDropdownItem>
+                <CustomDropdownItem>
+                  <Link href={'/favorites'} className={clsx(s.content, s.largeMargin)}>
+                    {router.pathname === '/favorites' ? <BookMarkIcon /> : <FavoritesIcon />}
+                    <span className={router.pathname === '/favorites' ? s.activeLink : ''}>
+                      {t.sidebar.favorites}
+                    </span>
+                  </Link>
+                </CustomDropdownItem>
+                <CustomDropdownItem>
+                  <div onClick={() => logOut(accessToken as string)} className={s.content}>
+                    <LogOutIcon /> {t.sidebar.log_out}
+                  </div>
+                </CustomDropdownItem>
+              </CustomDropdown>
+            </div>
+          )}
         </div>
       </div>
     </header>
