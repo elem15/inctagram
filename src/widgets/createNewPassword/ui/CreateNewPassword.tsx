@@ -30,7 +30,6 @@ export const CreateNewPasswordWidget: FC = () => {
   const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation()
   const router = useRouter()
   const searchParams = useSearchParams()
-
   const recoveryCode = searchParams?.get('code') as string
 
   const { t } = useTranslation()
