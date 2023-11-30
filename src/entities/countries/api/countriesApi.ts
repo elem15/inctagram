@@ -5,7 +5,7 @@ export const countriesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://countriesnow.space/api/v0.1/countries' }),
   tagTypes: ['Countries'],
   endpoints: builder => ({
-    getUsers: builder.query<any, void>({
+    getCountries: builder.query<any, void>({
       query: () => ({
         url: '/',
         method: 'Get',
@@ -28,17 +28,8 @@ export const countriesApi = createApi({
           }),
         responseError: response.error,
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled
-        } catch (error) {
-          const e = error as RTKError
-
-          console.error(e)
-        }
-      },
     }),
   }),
 })
 
-export const { useGetUsersQuery } = countriesApi
+export const { useGetCountriesQuery } = countriesApi

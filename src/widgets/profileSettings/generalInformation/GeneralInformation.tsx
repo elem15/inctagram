@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import s from './GeneralInformation.module.scss'
 
 import { setAlert } from '@/app/services'
-import { useGetUsersQuery } from '@/entities/countries/api/countriesApi'
+import { useGetCountriesQuery } from '@/entities/countries/api/countriesApi'
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation, useSavePhotoMutation } from '@/entities/profile/api/profileApi'
 import { Button, Input, Textarea, SelectCustom } from '@/shared/components'
@@ -123,7 +123,7 @@ const Information = () => {
     data: countriesData,
     isError: isErrorCountriesData,
     isLoading: isLoadingCountries,
-  } = useGetUsersQuery()
+  } = useGetCountriesQuery()
 
   const onChangeCountryHandler = (value: string) => {
     setCountry(value)
@@ -142,11 +142,10 @@ const Information = () => {
   const onChangeCityHandler = (value: any) => {
     setValue('city', value)
   }
-  const [_, { isLoading: isPhotoLoading }] = useSavePhotoMutation()
 
   return (
     <div className={s.container}>
-      {(isLoading || isPutLoading || isPhotoLoading) && <Spinner />}
+      {(isLoading || isPutLoading) && <Spinner />}
       <main className={s.mainContainer}>
         <div className={s.imagePicker}>
           <ProfilePhotoForGeneralInfo />
