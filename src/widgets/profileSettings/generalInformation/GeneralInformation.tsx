@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import s from './GeneralInformation.module.scss'
 
 import { setAlert } from '@/app/services'
+import { useGetUsersQuery } from '@/entities/countries/api/countriesApi'
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
 import { Button, Input, Textarea, SelectCustom } from '@/shared/components'
@@ -106,42 +107,21 @@ const Information = () => {
 
   isSuccess && dispatch(setAlert({ message: t.profile.success, variant: 'info' }))
 
-  const [countries, setCountries] = useState<SelectOptions[]>([])
-  const [countriesOptions, setCountriesOptions] = useState<Omit<SelectOptions, 'cities'>[]>([])
   const [country, setCountry] = useState('')
   const [cities, setCity] = useState<City[]>([])
 
-  useEffect(() => {
-    const getCities = async () => {
-      const response = await fetch('https://countriesnow.space/api/v0.1/countries')
-      const data = await response.json()
-      const receivedCountries: SelectOptions[] = data.data.map((el: Countries): SelectOptions => {
-        return {
-          key: el.iso3,
-          label: el.country,
-          value: el.country,
-          cities: el.cities,
-        }
-      })
-
-      setCountries(receivedCountries)
-      setCountriesOptions(
-        receivedCountries.filter(el => {
-          if (el.label !== 'Jordan' && el.label !== 'Myanmar')
-            return { key: el.key, label: el.label, value: el.value }
-        })
-      )
-    }
-
-    getCities()
-  }, [])
+  const {
+    data: countriesData,
+    isError: isErrorCountriesData,
+    isLoading: isLoadingCountries,
+  } = useGetUsersQuery()
 
   const onChangeCountryHandler = (value: string) => {
     setCountry(value)
 
-    const citiesOfCountry = countries
-      .filter(el => value === el.label)[0]
-      .cities.map(el => {
+    const citiesOfCountry = countriesData.countriesData
+      .filter((el: any) => value === el.label)[0]
+      .cities.map((el: any) => {
         return {
           label: el,
           value: el,
@@ -230,7 +210,8 @@ const Information = () => {
             />
             <div className={s.selects}>
               <SelectCustom
-                options={countriesOptions}
+                disabled={isErrorCountriesData}
+                options={countriesData?.countriesData}
                 label={t.profile.country}
                 placeHolder={t.profile.country_blank}
                 value={country}
@@ -245,6 +226,7 @@ const Information = () => {
                 onValueChange={onChangeCityHandler}
               />
             </div>
+
             <Textarea
               label={t.profile.about}
               {...register('aboutMe', {
