@@ -14,6 +14,7 @@ import { Modal } from '@/shared/components/modals'
 import { SliderDemo } from '@/shared/components/slider'
 import { useAppDispatch, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
+import nProgress from 'nprogress';
 
 type Props = {
   isOpen: boolean
@@ -38,7 +39,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch()
 
-  const [savePhoto, { error }] = useSavePhotoMutation()
+  const [savePhoto, { error, isLoading }] = useSavePhotoMutation()
 
   useEffect(() => {
     error && dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
@@ -142,6 +143,10 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
     setErrorText(undefined)
     setZoom(1)
   }
+
+  useEffect(() => {
+    isLoading ? nProgress.start() : nProgress.done()
+  }, [isLoading])
 
   return (
     <Modal

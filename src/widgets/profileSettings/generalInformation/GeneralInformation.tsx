@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
+import nProgress from 'nprogress'
 import { DateRange } from 'react-day-picker'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -162,11 +163,14 @@ const Information = () => {
   const onChangeCityHandler = (value: any) => {
     setValue('city', value)
   }
-  const [_, { isLoading: isPhotoLoading }] = useSavePhotoMutation()
+
+  useEffect(() => {
+    isLoading || isPutLoading ? nProgress.start() : nProgress.done()
+  }, [isLoading, isPutLoading])
 
   return (
     <div className={s.container}>
-      {(isLoading || isPutLoading || isPhotoLoading) && <Spinner />}
+      {/* {(isLoading || isPutLoading) && <Spinner />} */}
       <main className={s.mainContainer}>
         <div className={s.imagePicker}>
           <ProfilePhotoForGeneralInfo />
