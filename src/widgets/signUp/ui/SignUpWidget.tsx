@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -70,10 +71,21 @@ export const SignUpWidget: FC = () => {
   useEffect(() => {
     if (error) {
       consoleErrors(error as Error)
-      setError('password', {
-        type: 'server',
-        message: t.signin.error_message,
-      })
+      const e = error as CustomerError
+
+      const field = e.data.messages && Array.isArray(e.data.messages) && e.data.messages[0]?.field
+
+      if (field) {
+        setError(field, {
+          type: 'server',
+          message: t.signup.user_exist_error,
+        })
+      } else {
+        setError('password', {
+          type: 'server',
+          message: t.signin.error_message,
+        })
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])
