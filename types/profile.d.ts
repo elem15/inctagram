@@ -25,7 +25,7 @@ type UserAuthData = {
   body?: ProfilePut
 }
 
-type Countries = {
+type Country = {
   iso3: string
   country: string
   cities: string[]
