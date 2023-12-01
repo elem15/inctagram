@@ -89,7 +89,6 @@ const Information = () => {
       }
     }
   }
-
   const onSubmit: SubmitHandler<ProfilePut> = data => {
     let existData = {}
 
@@ -109,7 +108,7 @@ const Information = () => {
       handleDate()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t.profile.age_error])
+  }, [t.profile.age_error, date])
 
   useEffect(() => {
     profile?.firstName && setValue('firstName', profile.firstName)
