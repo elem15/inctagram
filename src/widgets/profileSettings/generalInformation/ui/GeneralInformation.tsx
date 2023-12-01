@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
+import { useRouter } from 'next/router'
 import { DateRange } from 'react-day-picker'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -22,6 +23,7 @@ import { TabsLayout } from '@/widgets/layouts'
 const Information = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -54,9 +56,11 @@ const Information = () => {
         setError('userName', { type: 'server', message: t.profile.user_name_error })
       } else {
         dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+        router.push('/signin')
       }
     } else if (error) {
       dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+      router.push('/signin')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, putError])
