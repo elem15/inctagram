@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
@@ -10,7 +10,7 @@ import { setAlert } from '@/app/services'
 import { useGetCountriesQuery } from '@/entities/countries/api/countriesApi'
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
-import { Button, Input, Textarea, SelectCustom, OptionsType } from '@/shared/components'
+import { Button, Input, Textarea, SelectCustom } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
 import { useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
@@ -116,34 +116,23 @@ const Information = () => {
   }, [isSuccess])
 
   const {
-    data: countriesData,
+    data,
     isError: isErrorCountriesData,
     isLoading: isLoadingCountries,
   } = useGetCountriesQuery()
 
+  const countriesData = data as CountriesRTKOutput
+
   const [country, setCountry] = useState('')
   const [cities, setCity] = useState<City[]>([])
-  const countriesWithoutCities = useMemo(() => {
-    if (countriesData?.countriesData) {
-      return (countriesData.countriesData as OptionsType[]).filter(c => ({
-        label: c.label,
-        value: c.value,
-      }))
-    }
-  }, [countriesData?.countriesData]) as OptionsType[]
 
   const onChangeCountryHandler = useCallback(
     (value: string) => {
       setCountry(value)
-
-      const citiesOfCountry = countriesData?.countriesData
-        .filter((el: any) => value === el.label)[0]
-        .cities.map((el: any) => {
-          return {
-            label: el,
-            value: el,
-          }
-        })
+      const citiesOfCountry = countriesData.countriesDataDict[value].map(c => ({
+        label: c,
+        value: c,
+      }))
 
       setCity(citiesOfCountry)
     },
@@ -232,7 +221,7 @@ const Information = () => {
             <div className={s.selects}>
               <SelectCustom
                 disabled={isErrorCountriesData}
-                options={countriesWithoutCities}
+                options={countriesData?.countriesWithoutCities}
                 label={t.profile.country}
                 placeHolder={t.profile.country_blank}
                 value={country}
