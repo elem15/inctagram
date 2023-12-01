@@ -89,16 +89,13 @@ const Information = () => {
       }
     }
   }
-  const onSubmit: SubmitHandler<ProfilePut> = data => {
-    let existData = {}
-
-    for (const item in data) {
-      if (data[item as keyof typeof data]) {
-        existData = { ...existData, [item]: data[item as keyof typeof data] }
-      }
+  const onSubmit: SubmitHandler<ProfilePut> = body => {
+    if (profile?.aboutMe && !body.aboutMe) {
+      body.aboutMe = ' '
     }
+
     putProfile({
-      body: { ...existData },
+      body,
       accessToken,
     })
   }
