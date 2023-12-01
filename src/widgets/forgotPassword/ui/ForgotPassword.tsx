@@ -10,7 +10,7 @@ import styles from './ForgotPassword.module.scss'
 import { useSendCaptchaMutation } from '@/entities/auth'
 import { setUser } from '@/entities/auth/model/authSlice'
 import { InputField } from '@/shared'
-import { consoleErrors, useAppDispatch, useTranslation } from '@/shared/lib'
+import { consoleErrors, useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useClient } from '@/shared/lib/hooks/useClient'
 import { emailValidation } from '@/shared/regex'
 import { IAuthInput } from '@/shared/types'
@@ -46,9 +46,10 @@ export const ForgotPasswordWidget: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t.signup.email_invalid])
 
+  useFetchLoader(isLoading)
+
   return (
     <div>
-      {isLoading && <Spinner />}
       {isSuccess && <SetPopUp />}
 
       <div className={styles.wrapper}>

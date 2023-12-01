@@ -12,7 +12,7 @@ import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { SliderDemo } from '@/shared/components/slider'
-import { useAppDispatch, useTranslation } from '@/shared/lib'
+import { useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 type Props = {
@@ -38,7 +38,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch()
 
-  const [savePhoto, { error }] = useSavePhotoMutation()
+  const [savePhoto, { error, isLoading }] = useSavePhotoMutation()
 
   useEffect(() => {
     error && dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
@@ -142,6 +142,8 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
     setErrorText(undefined)
     setZoom(1)
   }
+
+  useFetchLoader(isLoading)
 
   return (
     <Modal

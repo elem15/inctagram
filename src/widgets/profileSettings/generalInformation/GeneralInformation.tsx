@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
@@ -9,15 +9,14 @@ import s from './GeneralInformation.module.scss'
 import { setAlert } from '@/app/services'
 import { useGetCountriesQuery } from '@/entities/countries/api/countriesApi'
 import { useGetProfileQuery } from '@/entities/profile'
-import { usePutProfileMutation, useSavePhotoMutation } from '@/entities/profile/api/profileApi'
-import { Button, Input, Textarea, SelectCustom } from '@/shared/components'
+import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
+import { Button, Input, Textarea, SelectCustom, OptionsType } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
-import { useAppDispatch, useTranslation } from '@/shared/lib'
+import { useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation, nameValidation } from '@/shared/regex'
 import { ProfilePhotoForGeneralInfo } from '@/widgets/addProfilePhoto'
 import { TabsLayout } from '@/widgets/layouts'
-import { Spinner } from '@/widgets/spinner'
 
 const Information = () => {
   const { t } = useTranslation()
@@ -116,36 +115,49 @@ const Information = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
-  const [country, setCountry] = useState('')
-  const [cities, setCity] = useState<City[]>([])
-
   const {
     data: countriesData,
     isError: isErrorCountriesData,
     isLoading: isLoadingCountries,
   } = useGetCountriesQuery()
 
-  const onChangeCountryHandler = (value: string) => {
-    setCountry(value)
+  const [country, setCountry] = useState('')
+  const [cities, setCity] = useState<City[]>([])
+  const countriesWithoutCities = useMemo(() => {
+    if (countriesData?.countriesData) {
+      return (countriesData.countriesData as OptionsType[]).filter(c => ({
+        label: c.label,
+        value: c.value,
+      }))
+    }
+  }, [countriesData?.countriesData]) as OptionsType[]
 
-    const citiesOfCountry = countriesData.countriesData
-      .filter((el: any) => value === el.label)[0]
-      .cities.map((el: any) => {
-        return {
-          label: el,
-          value: el,
-        }
-      })
+  const onChangeCountryHandler = useCallback(
+    (value: string) => {
+      setCountry(value)
 
-    setCity(citiesOfCountry)
-  }
+      const citiesOfCountry = countriesData?.countriesData
+        .filter((el: any) => value === el.label)[0]
+        .cities.map((el: any) => {
+          return {
+            label: el,
+            value: el,
+          }
+        })
+
+      setCity(citiesOfCountry)
+    },
+    [countriesData]
+  )
+
   const onChangeCityHandler = (value: any) => {
     setValue('city', value)
   }
 
+  useFetchLoader(isLoading || isPutLoading || isLoadingCountries)
+
   return (
     <div className={s.container}>
-      {(isLoading || isPutLoading) && <Spinner />}
       <main className={s.mainContainer}>
         <div className={s.imagePicker}>
           <ProfilePhotoForGeneralInfo />
@@ -220,7 +232,7 @@ const Information = () => {
             <div className={s.selects}>
               <SelectCustom
                 disabled={isErrorCountriesData}
-                options={countriesData?.countriesData}
+                options={countriesWithoutCities}
                 label={t.profile.country}
                 placeHolder={t.profile.country_blank}
                 value={country}
