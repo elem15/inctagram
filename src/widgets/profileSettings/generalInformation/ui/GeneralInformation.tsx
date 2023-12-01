@@ -1,13 +1,14 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
 import { DateRange } from 'react-day-picker'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { useCountries } from '../model/useCountries'
+
 import s from './GeneralInformation.module.scss'
 
 import { setAlert } from '@/app/services'
-import { useGetCountriesQuery } from '@/entities/countries/api/countriesApi'
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
 import { Button, Input, Textarea, SelectCustom } from '@/shared/components'
@@ -116,28 +117,13 @@ const Information = () => {
   }, [isSuccess])
 
   const {
-    data,
-    isError: isErrorCountriesData,
-    isLoading: isLoadingCountries,
-  } = useGetCountriesQuery()
-
-  const countriesData = data as CountriesRTKOutput
-
-  const [country, setCountry] = useState('')
-  const [cities, setCity] = useState<City[]>([])
-
-  const onChangeCountryHandler = useCallback(
-    (value: string) => {
-      setCountry(value)
-      const citiesOfCountry = countriesData.countriesDataDict[value].map(c => ({
-        label: c,
-        value: c,
-      }))
-
-      setCity(citiesOfCountry)
-    },
-    [countriesData]
-  )
+    isErrorCountriesData,
+    isLoadingCountries,
+    country,
+    cities,
+    countriesData,
+    onChangeCountryHandler,
+  } = useCountries()
 
   const onChangeCityHandler = (value: any) => {
     setValue('city', value)
