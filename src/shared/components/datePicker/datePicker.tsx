@@ -22,6 +22,7 @@ type Props = {
   setResultDate: React.Dispatch<React.SetStateAction<Date | DateRange | undefined>>
   defaultMonth?: Date
   label?: string
+  onBlur?: () => void
 }
 
 export function DatePicker({
@@ -33,6 +34,7 @@ export function DatePicker({
   lang,
   defaultMonth,
   label,
+  onBlur,
   ...props
 }: Props) {
   const [date, setDate] = useState<Date>()
@@ -67,6 +69,7 @@ export function DatePicker({
       <Popover>
         <PopoverTrigger asChild>
           <CalendarButton
+            onBlur={onBlur}
             variant={'default'}
             className={cn(
               'min-w-[160px] w-full justify-between text-left font-normal bg-dark-500 border-dark-300 rounded-none hover:text-light-100 group',

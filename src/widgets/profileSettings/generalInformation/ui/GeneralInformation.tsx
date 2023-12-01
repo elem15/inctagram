@@ -65,23 +65,12 @@ const Information = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, putError])
 
-  useEffect(() => {
-    profile && !isValid && trigger()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t.profile.age_error])
-
-  useEffect(() => {
-    profile?.firstName && setValue('firstName', profile.firstName)
-    profile?.lastName && setValue('lastName', profile.lastName)
-    profile?.userName && setValue('userName', profile.userName)
-    profile?.aboutMe && setValue('aboutMe', profile.aboutMe)
+  const handleDate = () => {
     if (date && date instanceof Date) {
       const offset = new Date().getTimezoneOffset()
 
       date.setMinutes(date.getMinutes() + offset)
       const age = differenceInYears(new Date(), date)
-
-      trigger()
 
       if (age > 100) {
         setError('dateOfBirth', {
@@ -95,18 +84,11 @@ const Information = () => {
         })
       } else {
         clearErrors('dateOfBirth')
+        setValue('dateOfBirth', date.toISOString())
+        trigger()
       }
-      setValue('dateOfBirth', date.toISOString())
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps, prettier/prettier
-  }, [
-    profile?.firstName,
-    profile?.lastName,
-    profile?.userName,
-    profile?.aboutMe,
-    date,
-    t.profile.age_error,
-  ])
+  }
 
   const onSubmit: SubmitHandler<ProfilePut> = data => {
     let existData = {}
@@ -121,6 +103,27 @@ const Information = () => {
       accessToken,
     })
   }
+
+  useEffect(() => {
+    if (profile && !isValid) {
+      handleDate()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t.profile.age_error])
+
+  useEffect(() => {
+    profile?.firstName && setValue('firstName', profile.firstName)
+    profile?.lastName && setValue('lastName', profile.lastName)
+    profile?.userName && setValue('userName', profile.userName)
+    profile?.aboutMe && setValue('aboutMe', profile.aboutMe)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps, prettier/prettier
+  }, [
+    profile?.firstName,
+    profile?.lastName,
+    profile?.userName,
+    profile?.aboutMe,
+  ])
 
   useEffect(() => {
     isSuccess && dispatch(setAlert({ message: t.profile.success, variant: 'info' }))
@@ -214,6 +217,7 @@ const Information = () => {
               setResultDate={setResultDate}
               defaultMonth={profile?.dateOfBirth ? new Date(profile?.dateOfBirth) : undefined}
               label={t.profile.birth_date}
+              onBlur={handleDate}
             />
             <div className={s.selects}>
               <SelectCustom
