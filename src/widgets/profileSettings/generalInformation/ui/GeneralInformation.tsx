@@ -79,18 +79,24 @@ const Information = () => {
       const offset = new Date().getTimezoneOffset()
 
       date.setMinutes(date.getMinutes() + offset)
-      setValue('dateOfBirth', date.toISOString())
       const age = differenceInYears(new Date(), date)
 
-      if (age < 13) {
+      trigger()
+
+      if (age > 100) {
+        setError('dateOfBirth', {
+          type: 'client',
+          message: t.profile.age_too_old,
+        })
+      } else if (age < 13) {
         setError('dateOfBirth', {
           type: 'client',
           message: t.profile.age_error,
         })
       } else {
-        trigger()
         clearErrors('dateOfBirth')
       }
+      setValue('dateOfBirth', date.toISOString())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps, prettier/prettier
   }, [
@@ -99,6 +105,7 @@ const Information = () => {
     profile?.userName,
     profile?.aboutMe,
     date,
+    t.profile.age_error,
   ])
 
   const onSubmit: SubmitHandler<ProfilePut> = data => {
@@ -200,7 +207,7 @@ const Information = () => {
             />
             <DatePicker
               mode="single"
-              errorMessage={errors.dateOfBirth?.message && t.profile.age_error}
+              errorMessage={errors.dateOfBirth?.message?.toString()}
               errorLinkHref="/auth/privacy"
               errorLinkMessage={t.privacy_policy.title}
               lang={t.lg}

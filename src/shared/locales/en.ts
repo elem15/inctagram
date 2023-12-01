@@ -132,6 +132,7 @@ export const en = {
     city_blank: 'City',
     about: 'About Me',
     age_error: 'A user under 13 cannot create a profile. ',
+    age_too_old: 'Enter your real age. ',
     names_max_length: 'Maximum number of characters 50',
     about_max_length: 'Maximum number of characters 200',
     first_name_required: 'First name is required',
