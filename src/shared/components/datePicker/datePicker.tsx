@@ -22,7 +22,7 @@ type Props = {
   setResultDate?: React.Dispatch<React.SetStateAction<Date | DateRange | undefined>>
   defaultMonth?: Date
   label?: string
-  onBlur: (date?: Date) => void
+  onBlur: (date?: Date | DateRange) => void
 }
 
 export function DatePicker({
