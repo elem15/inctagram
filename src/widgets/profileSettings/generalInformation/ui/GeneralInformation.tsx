@@ -128,6 +128,7 @@ const Information = () => {
 
   const onChangeCityHandler = (value: any) => {
     setValue('city', value)
+    trigger()
   }
 
   useFetchLoader(isLoading || isPutLoading || isLoadingCountries)
