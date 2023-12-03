@@ -19,10 +19,10 @@ type Props = {
   errorLinkHref?: string
   errorLinkMessage?: string
   lang?: string
-  setResultDate: React.Dispatch<React.SetStateAction<Date | DateRange | undefined>>
+  setResultDate?: React.Dispatch<React.SetStateAction<Date | DateRange | undefined>>
   defaultMonth?: Date
   label?: string
-  onBlur?: () => void
+  onBlur: (date?: Date) => void
 }
 
 export function DatePicker({
@@ -44,14 +44,19 @@ export function DatePicker({
   const isSelected = date || range
   const locale = lang === 'ru' ? ru : undefined
 
-  useEffect(() => {
-    if (date) {
-      setResultDate(date)
+  const handleDate = (date?: Date) => {
+    if (date && date instanceof Date) {
       setDateValue(format(date, 'yyyy-MM-dd'))
-    } else if (range && range.to) {
-      setResultDate(range)
+      onBlur(date)
     }
-  }, [setResultDate, date, range])
+  }
+
+  useEffect(() => {
+    if (range && range.to) {
+      setResultDate && setResultDate(range)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [range])
 
   useEffect(() => {
     const date = new Date(dateValue)
@@ -69,7 +74,7 @@ export function DatePicker({
       <Popover>
         <PopoverTrigger asChild>
           <CalendarButton
-            onBlur={onBlur}
+            onBlur={() => onBlur(date)}
             variant={'default'}
             className={cn(
               'min-w-[160px] w-full justify-between text-left font-normal bg-dark-500 border-dark-300 rounded-none hover:text-light-100 group',
@@ -89,6 +94,7 @@ export function DatePicker({
                 type="date"
                 placeholder="yyyy-dd-mm"
                 value={dateValue}
+                min={'1910-01-01'}
                 onChange={e => setDateValue(e.target.value)}
                 className="bg-dark-500 border-dark-500 text-base outline-none flex-1 w-full"
               />
@@ -117,7 +123,7 @@ export function DatePicker({
               mode={'single'}
               locale={locale}
               selected={date}
-              onSelect={setDate}
+              onSelect={handleDate}
               initialFocus
               className="dark bg-dark-500 border-dark-300 hidden md:block"
               defaultMonth={date}

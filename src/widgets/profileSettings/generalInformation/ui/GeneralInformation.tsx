@@ -46,8 +46,6 @@ const Information = () => {
   const [putProfile, { isLoading: isPutLoading, error: putError, isSuccess }] =
     usePutProfileMutation()
 
-  const [date, setResultDate] = useState<Date | DateRange>()
-
   useEffect(() => {
     if (putError) {
       const e = putError as CustomerError
@@ -65,26 +63,19 @@ const Information = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, putError])
 
-  const handleDate = () => {
+  const handleDate = (date?: Date | DateRange) => {
     if (date && date instanceof Date) {
-      const offset = new Date().getTimezoneOffset()
-
-      date.setMinutes(date.getMinutes() + offset)
       const age = differenceInYears(new Date(), date)
 
-      if (age > 100) {
-        setError('dateOfBirth', {
-          type: 'client',
-          message: t.profile.age_too_old,
-        })
-      } else if (age < 13) {
+      setValue('dateOfBirth', date.toISOString())
+
+      if (age < 13) {
         setError('dateOfBirth', {
           type: 'client',
           message: t.profile.age_error,
         })
       } else {
         clearErrors('dateOfBirth')
-        setValue('dateOfBirth', date.toISOString())
         trigger()
       }
     }
@@ -102,10 +93,10 @@ const Information = () => {
 
   useEffect(() => {
     if (profile && !isValid) {
-      handleDate()
+      trigger()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t.profile.age_error, date])
+  }, [t.profile.age_error])
 
   useEffect(() => {
     profile?.firstName && setValue('firstName', profile.firstName)
@@ -206,11 +197,10 @@ const Information = () => {
             />
             <DatePicker
               mode="single"
-              errorMessage={errors.dateOfBirth?.message?.toString()}
+              errorMessage={errors.dateOfBirth?.message && t.profile.user_name_error}
               errorLinkHref="/auth/privacy"
               errorLinkMessage={t.privacy_policy.title}
               lang={t.lg}
-              setResultDate={setResultDate}
               defaultMonth={profile?.dateOfBirth ? new Date(profile?.dateOfBirth) : undefined}
               label={t.profile.birth_date}
               onBlur={handleDate}
