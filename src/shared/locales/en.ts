@@ -100,6 +100,7 @@ export const en = {
 
   terms_of_service: {
     button_text: 'Back to Sign Up',
+    button_to_profile: 'Back to Profile',
     title: 'Terms of Service',
     text: enTextsTermsOfService,
   },

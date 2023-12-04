@@ -99,6 +99,7 @@ export const ru: LangType = {
   },
   terms_of_service: {
     button_text: 'Вернуться к регистрации',
+    button_to_profile: 'Вернуться к профилю',
     title: 'Условия использования',
     text: ruTextsTermsOfService,
   },

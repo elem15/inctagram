@@ -77,7 +77,6 @@ const Information = () => {
           message: t.profile.age_error,
         })
       } else if (age > 120) {
-        console.log('handleDate')
         setError('dateOfBirth', {
           type: 'client',
           message: t.profile.age_too_old,
@@ -210,7 +209,7 @@ const Information = () => {
             <DatePicker
               mode="single"
               errorMessage={errors.dateOfBirth?.message}
-              errorLinkHref="/auth/privacy"
+              errorLinkHref="/auth/privacy?from=profile"
               errorLinkMessage={t.privacy_policy.title}
               lang={t.lg}
               defaultMonth={profile?.dateOfBirth ? new Date(profile?.dateOfBirth) : undefined}
