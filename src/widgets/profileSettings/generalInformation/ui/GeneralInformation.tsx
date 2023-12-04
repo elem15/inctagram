@@ -63,16 +63,24 @@ const Information = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, putError])
 
+  const [date, setDate] = useState<Date>()
+
   const handleDate = (date?: Date | DateRange) => {
     if (date && date instanceof Date) {
       const age = differenceInYears(new Date(), date)
 
       setValue('dateOfBirth', date.toISOString())
-
+      setDate(date)
       if (age < 13) {
         setError('dateOfBirth', {
           type: 'client',
           message: t.profile.age_error,
+        })
+      } else if (age > 120) {
+        console.log('handleDate')
+        setError('dateOfBirth', {
+          type: 'client',
+          message: t.profile.age_too_old,
         })
       } else {
         clearErrors('dateOfBirth')
@@ -92,8 +100,11 @@ const Information = () => {
   }
 
   useEffect(() => {
-    if (profile && !isValid) {
+    if (profile) {
       trigger()
+      setTimeout(() => {
+        date && handleDate(date)
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t.profile.age_error])
@@ -198,7 +209,7 @@ const Information = () => {
             />
             <DatePicker
               mode="single"
-              errorMessage={errors.dateOfBirth?.message && t.profile.user_name_error}
+              errorMessage={errors.dateOfBirth?.message}
               errorLinkHref="/auth/privacy"
               errorLinkMessage={t.privacy_policy.title}
               lang={t.lg}
@@ -233,7 +244,7 @@ const Information = () => {
                   message: t.profile.about_max_length,
                 },
               })}
-              errorMessage={errors.aboutMe?.message?.toString()}
+              errorMessage={errors.aboutMe?.message}
             />
 
             <div className={s.footerContainer}>
