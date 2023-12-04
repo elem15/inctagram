@@ -1,16 +1,18 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { differenceInYears } from 'date-fns'
+import { useRouter } from 'next/router'
 import { DateRange } from 'react-day-picker'
 import { SubmitHandler, useForm } from 'react-hook-form'
+
+import { useCountries } from '../model/useCountries'
 
 import s from './GeneralInformation.module.scss'
 
 import { setAlert } from '@/app/services'
-import { useGetCountriesQuery } from '@/entities/countries/api/countriesApi'
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
-import { Button, Input, Textarea, SelectCustom, OptionsType } from '@/shared/components'
+import { Button, Input, Textarea, SelectCustom } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
 import { useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
@@ -21,6 +23,7 @@ import { TabsLayout } from '@/widgets/layouts'
 const Information = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -43,8 +46,6 @@ const Information = () => {
   const [putProfile, { isLoading: isPutLoading, error: putError, isSuccess }] =
     usePutProfileMutation()
 
-  const [date, setResultDate] = useState<Date | DateRange>()
-
   useEffect(() => {
     if (putError) {
       const e = putError as CustomerError
@@ -53,15 +54,57 @@ const Information = () => {
         setError('userName', { type: 'server', message: t.profile.user_name_error })
       } else {
         dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+        router.push('/signin')
       }
     } else if (error) {
       dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+      router.push('/signin')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, putError])
 
+  const [date, setDate] = useState<Date>()
+
+  const handleDate = (date?: Date | DateRange) => {
+    if (date && date instanceof Date) {
+      const age = differenceInYears(new Date(), date)
+
+      setValue('dateOfBirth', date.toISOString())
+      setDate(date)
+      if (age < 13) {
+        setError('dateOfBirth', {
+          type: 'client',
+          message: t.profile.age_error,
+        })
+      } else if (age > 120) {
+        setError('dateOfBirth', {
+          type: 'client',
+          message: t.profile.age_too_old,
+        })
+      } else {
+        clearErrors('dateOfBirth')
+        trigger()
+      }
+    }
+  }
+  const onSubmit: SubmitHandler<ProfilePut> = body => {
+    if (profile?.aboutMe && !body.aboutMe) {
+      body.aboutMe = ' '
+    }
+
+    putProfile({
+      body,
+      accessToken,
+    })
+  }
+
   useEffect(() => {
-    profile && !isValid && trigger()
+    if (profile) {
+      trigger()
+      setTimeout(() => {
+        date && handleDate(date)
+      })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t.profile.age_error])
 
@@ -70,45 +113,14 @@ const Information = () => {
     profile?.lastName && setValue('lastName', profile.lastName)
     profile?.userName && setValue('userName', profile.userName)
     profile?.aboutMe && setValue('aboutMe', profile.aboutMe)
-    if (date && date instanceof Date) {
-      const offset = new Date().getTimezoneOffset()
 
-      date.setMinutes(date.getMinutes() + offset)
-      setValue('dateOfBirth', date.toISOString())
-      const age = differenceInYears(new Date(), date)
-
-      if (age < 13) {
-        setError('dateOfBirth', {
-          type: 'client',
-          message: t.profile.age_error,
-        })
-      } else {
-        trigger()
-        clearErrors('dateOfBirth')
-      }
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps, prettier/prettier
   }, [
     profile?.firstName,
     profile?.lastName,
     profile?.userName,
     profile?.aboutMe,
-    date,
   ])
-
-  const onSubmit: SubmitHandler<ProfilePut> = data => {
-    let existData = {}
-
-    for (const item in data) {
-      if (data[item as keyof typeof data]) {
-        existData = { ...existData, [item]: data[item as keyof typeof data] }
-      }
-    }
-    putProfile({
-      body: { ...existData },
-      accessToken,
-    })
-  }
 
   useEffect(() => {
     isSuccess && dispatch(setAlert({ message: t.profile.success, variant: 'info' }))
@@ -116,42 +128,17 @@ const Information = () => {
   }, [isSuccess])
 
   const {
-    data: countriesData,
-    isError: isErrorCountriesData,
-    isLoading: isLoadingCountries,
-  } = useGetCountriesQuery()
-
-  const [country, setCountry] = useState('')
-  const [cities, setCity] = useState<City[]>([])
-  const countriesWithoutCities = useMemo(() => {
-    if (countriesData?.countriesData) {
-      return (countriesData.countriesData as OptionsType[]).filter(c => ({
-        label: c.label,
-        value: c.value,
-      }))
-    }
-  }, [countriesData?.countriesData]) as OptionsType[]
-
-  const onChangeCountryHandler = useCallback(
-    (value: string) => {
-      setCountry(value)
-
-      const citiesOfCountry = countriesData?.countriesData
-        .filter((el: any) => value === el.label)[0]
-        .cities.map((el: any) => {
-          return {
-            label: el,
-            value: el,
-          }
-        })
-
-      setCity(citiesOfCountry)
-    },
-    [countriesData]
-  )
+    isErrorCountriesData,
+    isLoadingCountries,
+    country,
+    cities,
+    countriesData,
+    onChangeCountryHandler,
+  } = useCountries()
 
   const onChangeCityHandler = (value: any) => {
     setValue('city', value)
+    trigger()
   }
 
   useFetchLoader(isLoading || isPutLoading || isLoadingCountries)
@@ -221,18 +208,18 @@ const Information = () => {
             />
             <DatePicker
               mode="single"
-              errorMessage={errors.dateOfBirth?.message && t.profile.age_error}
-              errorLinkHref="/auth/privacy"
+              errorMessage={errors.dateOfBirth?.message}
+              errorLinkHref="/auth/privacy?from=profile"
               errorLinkMessage={t.privacy_policy.title}
               lang={t.lg}
-              setResultDate={setResultDate}
               defaultMonth={profile?.dateOfBirth ? new Date(profile?.dateOfBirth) : undefined}
               label={t.profile.birth_date}
+              onBlur={handleDate}
             />
             <div className={s.selects}>
               <SelectCustom
                 disabled={isErrorCountriesData}
-                options={countriesWithoutCities}
+                options={countriesData?.countriesWithoutCities}
                 label={t.profile.country}
                 placeHolder={t.profile.country_blank}
                 value={country}
@@ -256,7 +243,7 @@ const Information = () => {
                   message: t.profile.about_max_length,
                 },
               })}
-              errorMessage={errors.aboutMe?.message?.toString()}
+              errorMessage={errors.aboutMe?.message}
             />
 
             <div className={s.footerContainer}>

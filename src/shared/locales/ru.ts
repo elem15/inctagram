@@ -99,6 +99,7 @@ export const ru: LangType = {
   },
   terms_of_service: {
     button_text: 'Вернуться к регистрации',
+    button_to_profile: 'Вернуться к профилю',
     title: 'Условия использования',
     text: ruTextsTermsOfService,
   },
@@ -131,6 +132,7 @@ export const ru: LangType = {
     city_blank: 'Город',
     about: 'Обо мне',
     age_error: 'Пользователь младше 13 лет не может зарегистрироваться. ',
+    age_too_old: 'Введите действительную дату рождения. ',
     names_max_length: 'Максимальное количество символов 50',
     about_max_length: 'Максимальное количество символов 200',
     first_name_required: 'Имя обязательно',

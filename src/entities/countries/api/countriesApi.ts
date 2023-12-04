@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+import { OptionsType } from '@/shared/components'
+
 export const countriesApi = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://countriesnow.space/api/v0.1/countries' }),
@@ -11,23 +13,30 @@ export const countriesApi = createApi({
         method: 'Get',
       }),
       providesTags: ['Countries'],
-      transformResponse: (response: CountriesResponseData) => ({
-        countriesData: response.data
-          ?.map((el: CountriesDataElement) => {
-            return {
-              key: el.iso3,
-              label: el.country,
-              value: el.country,
-              cities: el.cities,
-            }
-          }, {})
-          // With Jordan and Myanmar api has bugs
-          .filter((el: any) => {
-            if (el.label !== 'Jordan' && el.label !== 'Myanmar')
-              return { key: el.key, label: el.label, value: el.value, cities: el.cities }
-          }),
-        responseError: response.error,
-      }),
+      transformResponse: (response: CountriesResponseData) => {
+        const countriesData = response.data?.map((el: Country) => {
+          return {
+            country: el.country,
+            cities: el.cities,
+          }
+        }) as Country[]
+
+        const countriesDataDict = countriesData.reduce((acc, el) => {
+          acc[el.country] = el.cities
+
+          return acc
+        }, {} as CountriesDataDict)
+
+        // With Jordan and Myanmar api has dubble bug
+        const countriesWithoutCities = Object.keys(countriesDataDict).map(c => ({
+          label: c,
+          value: c,
+        })) as OptionsType[]
+
+        const responseError = response.error
+
+        return { countriesDataDict, countriesWithoutCities, responseError }
+      },
     }),
   }),
 })
