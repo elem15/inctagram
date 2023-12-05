@@ -10,5 +10,4 @@ const SignInPage = () => {
 }
 
 SignInPage.getLayout = getHeaderLayout
-
 export { SignInPage }

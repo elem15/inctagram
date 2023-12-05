@@ -1,7 +1,5 @@
 import { useEffect } from 'react'
 
-import { consoleErrors } from '../index'
-
 import { useAppDispatch } from './index'
 
 import { useGoogleLoginMutation } from '@/entities/auth'
@@ -9,7 +7,7 @@ import { useGoogleLoginMutation } from '@/entities/auth'
 export const useGoogleLogin = (code: string | undefined) => {
   const dispatch = useAppDispatch()
 
-  const [googleLogin, { isLoading, error }] = useGoogleLoginMutation()
+  const [googleLogin, { isLoading, error, data }] = useGoogleLoginMutation()
 
   useEffect(() => {
     if (code) {
@@ -17,5 +15,5 @@ export const useGoogleLogin = (code: string | undefined) => {
     }
   }, [googleLogin, code, dispatch])
 
-  return { isLoading, error }
+  return { isLoading, error, data }
 }

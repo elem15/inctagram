@@ -1,0 +1,47 @@
+.profileBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .ruBox {
+    display: flex;
+    justify-content: center;
+
+    .userPhotoBlock {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 12rem;
+      height: 12rem;
+      margin-bottom: 24px;
+
+      background-color: var(--color-dark-500);
+      border-radius: 50%;
+    }
+  }
+}
+
+.avaButtonBox {
+  position: relative;
+  width: 222px;
+}
+
+.deleteButtonBox {
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 1;
+  top: 14%;
+  left: 86.5%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+
+  background-color: var(--color-dark-700);
+  border-radius: 50%;
+}

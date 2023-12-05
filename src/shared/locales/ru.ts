@@ -3,6 +3,7 @@ import { LangType } from './en'
 import { ruTextsTermsOfService } from '@/shared/locales/ru-terms-of-service'
 import { ruTextsPrivacyPolicy } from '@/shared/locales/ru-texts-privacy-policy'
 export const ru: LangType = {
+  lg: 'ru',
   home: {
     home: 'Главная',
     create: 'Создать',
@@ -11,6 +12,7 @@ export const ru: LangType = {
     search: 'Поиск',
     statistics: 'Статистика',
     favorites: 'Избранное',
+    profile_btn: 'Настройки профиля',
   },
   resend: {
     title: 'Срок действия ссылки для подтверждения электронной почты истек',
@@ -91,18 +93,94 @@ export const ru: LangType = {
     user_min_length: 'Минимальное количество символов 6',
     password_min_length: 'Минимальное количество символов 6',
     password_max_length: 'Максимальное количество символов 20',
-    name_format_message:
-      'Имя должно содержать символы, не содержать пробелов, не начинаться с цифр',
+    name_format_message: 'Имя должно содержать буквы, не содержать пробелов, не начинаться с цифр',
     email_format_message: 'Электронная почта должна соответствовать формату example@example.com',
     password_match_message: 'Пароли должны совпадать',
   },
   terms_of_service: {
     button_text: 'Вернуться к регистрации',
+    button_to_profile: 'Вернуться к профилю',
     title: 'Условия использования',
     text: ruTextsTermsOfService,
   },
   privacy_policy: {
     title: 'Политика конфиденциальности',
     text: ruTextsPrivacyPolicy,
+  },
+  sidebar: {
+    home: 'Главная',
+    create: 'Создать',
+    my_profile: 'Профиль',
+    messenger: 'Сообщения',
+    search: 'Поиск',
+    statistics: 'Статистика',
+    favorites: 'Избранное',
+    settings: 'Настройки профиля',
+    log_out: 'Выйти',
+  },
+  notification_menu: {
+    title: 'Уведомления',
+  },
+  profile: {
+    user_name: 'Имя пользователя',
+    first_name: 'Имя',
+    last_name: 'Фамилия',
+    birth_date: 'Дата рождения',
+    country: 'Выберите страну',
+    country_blank: 'Страна',
+    cities: 'Выберите город',
+    city_blank: 'Город',
+    about: 'Обо мне',
+    age_error: 'Пользователь младше 13 лет не может зарегистрироваться. ',
+    age_too_old: 'Введите действительную дату рождения. ',
+    names_max_length: 'Максимальное количество символов 50',
+    about_max_length: 'Максимальное количество символов 200',
+    first_name_required: 'Имя обязательно',
+    last_name_required: 'Фамилия обязательна',
+    first_name_message: 'Имя должно содержать буквы, не содержать пробелов и цифр',
+    last_name_message: 'Фамилия должна содержать буквы, не содержать пробелов и цифр',
+    button: 'Сохранить изменения',
+    general_information: 'Основная информация',
+    devices: 'Устройства',
+    account_management: 'Управление аккаунтом',
+    my_payments: 'Мои платежи',
+    auth_error: 'Ошибка авторизации. Войдите еще раз',
+    user_name_error: 'Пользователь с таким именем уже существует',
+    success: 'Ваши настройки профиля сохранены!',
+  },
+
+  following_modal: {
+    input_placeholder: 'Поиск',
+    title: 'Подписки',
+    followings_title: 'Подписок',
+    follow_button: 'Подписаться',
+  },
+  add_profile_photo: {
+    add_profile_photo_text: 'Добавить фотографию',
+    text_of_button_select_from_comp: 'Выбрать с компьютера',
+    error_type_of_photo: 'Формат загружаемой фотографии должен быть\n' + 'PNG или JPEG',
+    error: 'Ошибка! ',
+    error_size_photo: 'Размер фотографии должен быть меньше 1.5 МБ!',
+    save_button: 'Сохранить',
+  },
+  delete_photo_of_profile: {
+    text: 'Вы уверены, что хотите удалить фотографию?',
+    title_of_modal: 'Удалить фото',
+    button_yes: 'Да',
+    button_no: 'Нет',
+  },
+  delete_following: {
+    title_of_delete_modal: 'Удалить подписку',
+    delete_button: 'Отписаться',
+    text: 'Вы действительно хотите отписаться от',
+  },
+  followers_modal: {
+    title: 'Подписчики',
+    modals_title: 'Подписчиков',
+    button_remove: 'Удалить',
+    post: 'Публикаций',
+  },
+  delete_followers: {
+    remove_text: 'Вы действительно хотите удалить',
   },
 }

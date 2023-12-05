@@ -1,0 +1,39 @@
+.dataBox{
+  margin-top: 22px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 12px;
+
+}
+.avatar{
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-dark-100);
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+.text{
+  min-width: 55%;
+  @media screen and (width <= 590px) {
+    min-width: 32%
+  }
+}
+.ruText{
+  min-width: 38%;
+  @media screen and (width <= 610px) {
+    min-width: 25%
+  }
+  @media screen and (width <= 526px) {
+    min-width: 19%
+  }
+}
+.deleteButtonBox{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

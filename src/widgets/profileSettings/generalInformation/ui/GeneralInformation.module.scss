@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 25px;
+
+  margin-left: 5px;
+}
+
+.selects {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  align-items: flex-end;
+}
+
+.footerContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 25px 0;
+  border-top: 2px solid var(--color-dark-300);
+}
+
+.mainContainer {
+  display: flex;
+  align-content: space-between;
+
+  @media (width <= 768px) {
+    flex-direction: column;
+  }
+}
+
+.imagePicker {
+  @media (width > 768px) {
+    max-width: 40%;
+    padding-right: 40px;
+  }
+}
+
+.textFormContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  row-gap: 1rem;
+}

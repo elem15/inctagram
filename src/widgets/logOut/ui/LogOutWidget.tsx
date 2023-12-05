@@ -47,8 +47,8 @@ export const LogOutWidget: FC<{ onClose: () => void }> = ({ onClose }) => {
               </button>
               <button
                 onClick={() => {
-                  logOut(accessToken as string)
                   router.push('/signin')
+                  logOut(accessToken as string)
                 }}
                 className="px-10 mb-12  bg-red-600 font-semibold text-light-100 p-2 rounded my-2"
               >

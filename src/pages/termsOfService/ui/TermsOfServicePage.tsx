@@ -6,7 +6,7 @@ import { TermsOfService } from '@/widgets/termsOfService/TermsOfService'
 const TermsOfServicePage = () => {
   const router = useRouter()
   const handleBackToSignUpClick = () => {
-    router.push('/signup')
+    router.back()
   }
 
   return (

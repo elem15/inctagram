@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
@@ -8,10 +8,10 @@ import styles from './CreateNewPassword.module.scss'
 
 import { useCreateNewPasswordMutation } from '@/entities/auth'
 import { PasswordField } from '@/shared'
-import { consoleErrors, useTranslation } from '@/shared/lib'
+import { consoleErrors, useFetchLoader, useTranslation } from '@/shared/lib'
+import { useClient } from '@/shared/lib/hooks/useClient'
 import { passwordValidation } from '@/shared/regex'
 import { IAuthInput } from '@/shared/types'
-import { Spinner } from '@/widgets/spinner'
 
 export const CreateNewPasswordWidget: FC = () => {
   const {
@@ -20,6 +20,7 @@ export const CreateNewPasswordWidget: FC = () => {
     formState: { errors },
     getValues,
     formState,
+    trigger,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
@@ -28,10 +29,15 @@ export const CreateNewPasswordWidget: FC = () => {
   const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation()
   const router = useRouter()
   const searchParams = useSearchParams()
-
   const recoveryCode = searchParams?.get('code') as string
 
   const { t } = useTranslation()
+  const { isClient } = useClient()
+
+  useEffect(() => {
+    isClient && trigger()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t.signup.email_invalid])
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
     createNewPassword({ newPassword: data.password, recoveryCode })
@@ -42,9 +48,10 @@ export const CreateNewPasswordWidget: FC = () => {
       .catch(consoleErrors)
   }
 
+  useFetchLoader(isLoading)
+
   return (
     <>
-      {isLoading && <Spinner />}
       <div className={styles.wrapper}>
         <div className={styles.heading}>{t.password_recovery.title}</div>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>

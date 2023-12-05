@@ -22,7 +22,6 @@ export const PasswordField = forwardRef<HTMLInputElement, IField>(
         <label className={styles.label}>{label}</label>
         <div className={`${helperText ? '' : 'mb-4'} relative`}>
           <input
-            autoComplete="off"
             ref={ref}
             type={type}
             {...rest}

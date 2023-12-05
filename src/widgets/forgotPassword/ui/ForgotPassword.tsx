@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import Link from 'next/link'
 // eslint-disable-next-line import/no-named-as-default
@@ -10,7 +10,8 @@ import styles from './ForgotPassword.module.scss'
 import { useSendCaptchaMutation } from '@/entities/auth'
 import { setUser } from '@/entities/auth/model/authSlice'
 import { InputField } from '@/shared'
-import { consoleErrors, useAppDispatch, useTranslation } from '@/shared/lib'
+import { consoleErrors, useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
+import { useClient } from '@/shared/lib/hooks/useClient'
 import { emailValidation } from '@/shared/regex'
 import { IAuthInput } from '@/shared/types'
 import { SetPopUp } from '@/widgets/emailSendPopUp/ui/SetPopUp'
@@ -21,12 +22,14 @@ export const ForgotPasswordWidget: FC = () => {
     register: registerInput,
     handleSubmit,
     formState,
+    trigger,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   })
 
   const { t } = useTranslation()
+  const { isClient } = useClient()
 
   const dispatch = useAppDispatch()
 
@@ -35,12 +38,18 @@ export const ForgotPasswordWidget: FC = () => {
 
   const onSubmit = (data: any) => {
     sendCaptcha({ email: data.email, recaptcha: reCaptcha }).unwrap().catch(consoleErrors)
-    dispatch(setUser({ email: data.email, user: '' }))
+    dispatch(setUser({ email: data.email, userName: '' }))
   }
+
+  useEffect(() => {
+    isClient && trigger()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t.signup.email_invalid])
+
+  useFetchLoader(isLoading)
 
   return (
     <div>
-      {isLoading && <Spinner />}
       {isSuccess && <SetPopUp />}
 
       <div className={styles.wrapper}>

@@ -1,0 +1,29 @@
+.image {
+  width: 234px;
+  height: 228px;
+  border-radius: 3px;
+}
+
+@media (width <= 1024px) {
+  .image {
+    width: 150px;
+    height: 150px;
+    border-radius: 3px;
+  }
+}
+
+@media (width <= 768px) {
+  .image {
+    width: 108px;
+    height: 108px;
+    border-radius: 3px;
+  }
+}
+
+@media (width <= 375px) {
+  .image {
+    width: 90px;
+    height: 90px;
+    border-radius: 3px;
+  }
+}

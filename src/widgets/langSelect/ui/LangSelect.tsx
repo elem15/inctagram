@@ -52,6 +52,9 @@ const customStyles: StylesConfig<MyOptionType, IsMulti> = {
     color: 'var(--color-light-100)',
     '&:hover': { color: 'var(--color-light-200)' },
   }),
+  input: () => ({
+    display: 'none',
+  }),
   menu: baseStyles => ({
     ...baseStyles,
     backgroundColor: 'var(--bg-opacity-100)',
@@ -111,9 +114,6 @@ function LangSelectWidget() {
   const { isClient } = useClient()
   const changeLangHandler = (selectedOption: { value: string; label: string }) => {
     push({ pathname, query }, asPath, { locale: selectedOption.value })
-    events.on('routeChangeComplete', () => {
-      reload()
-    })
   }
 
   return (

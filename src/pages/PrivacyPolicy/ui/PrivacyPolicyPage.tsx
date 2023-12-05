@@ -4,9 +4,9 @@ import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { PrivacyPolicy } from '@/widgets/privacyPolicy/PrivacyPolicy'
 
 const PrivacyPolicyPage = () => {
-  const router = useRouter()
+  const { back } = useRouter()
   const handleBackToSignUpClick = () => {
-    router.push('/signup')
+    back()
   }
 
   return (

@@ -11,9 +11,10 @@ import styles from './SignInWidget.module.scss'
 import { useLoginMutation } from '@/entities/auth'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
-import { useTranslation } from '@/shared/lib'
+import { Button } from '@/shared/components'
+import { useFetchLoader, useTranslation } from '@/shared/lib'
+import { useClient } from '@/shared/lib/hooks/useClient'
 import { IAuthInput } from '@/shared/types'
-import { Spinner } from '@/widgets/spinner'
 
 export const SignInWidget: FC = () => {
   const [socialsLoading, setSocialsLoading] = useState(false)
@@ -24,11 +25,12 @@ export const SignInWidget: FC = () => {
     formState,
     getValues,
     setError,
+    trigger,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   })
-
+  const { isClient } = useClient()
   const { t } = useTranslation()
   const [Login, { isLoading, error, isSuccess }] = useLoginMutation()
   const router = useRouter()
@@ -37,8 +39,13 @@ export const SignInWidget: FC = () => {
     Login({ email: data.email, password: data.password })
   }
 
+  const googleLogin = () => {
+    setSocialsLoading(true)
+    window.location.assign(AUTH_URLS.GOOGLE)
+  }
+
   useEffect(() => {
-    isSuccess && router.push('/')
+    isSuccess && router.push('/my-profile')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
@@ -51,14 +58,20 @@ export const SignInWidget: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])
 
+  useEffect(() => {
+    isClient && trigger()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t.signin.error_message])
+
+  useFetchLoader(isLoading || socialsLoading)
+
   return (
     <div className={styles.wrapper}>
-      {(isLoading || socialsLoading) && <Spinner />}
       <h1 className={styles.heading}>{t.signin.title}</h1>
       <div className={styles.icon}>
-        <Link href={AUTH_URLS.GOOGLE} onClick={() => setSocialsLoading(true)}>
+        <Button variant="link" onClick={googleLogin}>
           <GoogleIcon />
-        </Link>
+        </Button>
         <Link href={AUTH_URLS.GITHUB} onClick={() => setSocialsLoading(true)}>
           <GithubIcon className="fill-light-100" />
         </Link>

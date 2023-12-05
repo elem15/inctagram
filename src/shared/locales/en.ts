@@ -2,6 +2,7 @@ import { enTextsPrivacyPolicy } from '@/shared/locales/en-texts-privacy-policy'
 import { enTextsTermsOfService } from '@/shared/locales/en-texts-terms-of-service'
 
 export const en = {
+  lg: 'en',
   home: {
     home: 'Home',
     create: 'Create',
@@ -10,6 +11,7 @@ export const en = {
     search: 'Search',
     statistics: 'Statistics',
     favorites: 'Favorites',
+    profile_btn: 'Profile Settings',
   },
   resend: {
     title: 'Email verification link expired',
@@ -98,12 +100,88 @@ export const en = {
 
   terms_of_service: {
     button_text: 'Back to Sign Up',
+    button_to_profile: 'Back to Profile',
     title: 'Terms of Service',
     text: enTextsTermsOfService,
   },
   privacy_policy: {
     title: 'Privacy Policy',
     text: enTextsPrivacyPolicy,
+  },
+  sidebar: {
+    home: 'Home',
+    create: 'Create',
+    my_profile: 'My Profile',
+    messenger: 'Messenger',
+    search: 'Search',
+    statistics: 'Statistics',
+    favorites: 'Favorites',
+    settings: 'Profile Settings',
+    log_out: 'Log Out',
+  },
+  notification_menu: {
+    title: 'Notification',
+  },
+  profile: {
+    user_name: 'Username',
+    first_name: 'First name',
+    last_name: 'Last name',
+    birth_date: 'Date of birth',
+    country: 'Select your country',
+    country_blank: 'Country',
+    cities: 'Select your city',
+    city_blank: 'City',
+    about: 'About Me',
+    age_error: 'A user under 13 cannot create a profile. ',
+    age_too_old: 'Enter your real age. ',
+    names_max_length: 'Maximum number of characters 50',
+    about_max_length: 'Maximum number of characters 200',
+    first_name_required: 'First name is required',
+    last_name_required: 'Last name is required',
+    first_name_message: 'The first name contain characters, not spaces, not numbers',
+    last_name_message: 'The last name contain characters, not spaces, not numbers',
+    button: 'Save changes',
+    general_information: 'General Information',
+    devices: 'Devices',
+    account_management: 'Account Management',
+    my_payments: 'My Payments',
+    auth_error: 'Auth error. Signin again',
+    user_name_error: 'User with this name already exist',
+    success: 'Your settings are saved!',
+  },
+  add_profile_photo: {
+    add_profile_photo_text: 'Add a Profile Photo',
+    text_of_button_select_from_comp: 'Select from Computer',
+    error_type_of_photo: 'The format of the uploaded photo must be PNG and JPEG.',
+    error: 'Error! ',
+    error_size_photo: 'Photo size must be less than 1.5 MB!',
+    save_button: ' Save',
+  },
+  delete_photo_of_profile: {
+    title_of_modal: 'Delete Photo',
+    text: 'Are you sure you want to delete the photo?',
+    button_yes: 'Yes',
+    button_no: 'No',
+  },
+  following_modal: {
+    input_placeholder: 'Search',
+    title: 'Following',
+    followings_title: 'Following',
+    follow_button: 'Follow',
+  },
+  delete_following: {
+    title_of_delete_modal: 'Delete Following',
+    delete_button: 'Unfollow',
+    text: 'Do you really want to Unfollow from this user ',
+  },
+  followers_modal: {
+    title: 'Followers',
+    modals_title: 'Followers',
+    button_remove: 'Remove',
+    post: 'Publications',
+  },
+  delete_followers: {
+    remove_text: 'Do you really want to remove',
   },
 }
 export type LangType = typeof en

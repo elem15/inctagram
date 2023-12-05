@@ -37,6 +37,7 @@
     }
 
     &:active {
+      color: var(--color-light-100);
       border: 1px solid var(--color-light-100);
 
       &::placeholder {
@@ -45,6 +46,7 @@
     }
 
     &:focus {
+      color: var(--color-light-100);
       border: 2px solid var(--color-accent-700);
 
       &::placeholder {
