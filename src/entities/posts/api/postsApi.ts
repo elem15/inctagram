@@ -17,6 +17,17 @@ export const postsApi = createApi({
         },
       }),
       providesTags: ['Posts'],
+      transformResponse: (response: PostsData): PostDataToComponent[] => {
+        const images = response?.items.map(item => ({
+          id: item.id,
+          url: item.images[0].url,
+          description: item.description,
+          width: item.images[0].width,
+          height: item.images[0].height,
+        }))
+
+        return images
+      },
     }),
   }),
 })

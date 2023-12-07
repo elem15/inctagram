@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { StaticImageData, StaticImport } from 'next/dist/shared/lib/get-img-props'
 
@@ -8,26 +8,18 @@ import { useGetPostsQuery } from '@/entities/posts'
 import { ImageCard } from '@/shared/components/imageCard'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 
-type Props = {
-  imageList?: string[] | StaticImageData[]
-}
-
-export const ImageListWidget: FC<Props> = props => {
-  const { imageList } = props
+export const ImageListWidget = () => {
   const { accessToken } = useAuth()
-  const {
-    data,
-    isError: isErrorCountriesData,
-    isLoading: isLoadingCountries,
-    refetch,
-  } = useGetPostsQuery({ accessToken })
+  const { data, isError, isLoading } = useGetPostsQuery({ accessToken })
+  const images = data as PostDataToComponent[]
+
+  console.log(images)
 
   return (
     <div className={s.container}>
-      <div>{data ? JSON.stringify(data) : null}</div>
-      <button onClick={refetch}>fetch</button>
-
-      {imageList?.map((img, index) => <ImageCard key={index} src={img} alt="" />)}
+      {images?.map(({ id, url, description, width, height }) => (
+        <ImageCard key={id} src={url} alt={description} width={width} height={height} />
+      ))}
     </div>
   )
 }

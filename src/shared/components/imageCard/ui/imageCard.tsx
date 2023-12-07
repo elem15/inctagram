@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 
 import { clsx } from 'clsx'
 import Image, { type ImageProps } from 'next/image'
@@ -9,12 +9,16 @@ type Props = ImageProps & {
   cardClassName?: string
 }
 
-export const ImageCard: FC<Props> = props => {
-  const { src, alt, cardClassName } = props
-
+export const ImageCard = ({ src, alt, cardClassName, width, height }: Props) => {
   return (
     <>
-      <Image src={src} className={clsx(s.image, cardClassName)} alt={alt} />
+      <Image
+        src={src}
+        className={clsx(s.image, cardClassName)}
+        alt={alt}
+        width={width}
+        height={height}
+      />
     </>
   )
 }
