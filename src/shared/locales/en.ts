@@ -183,6 +183,6 @@ export const en = {
   },
   delete_followers: {
     remove_text: 'Do you really want to remove',
-  }, 
+  },
 }
 export type LangType = typeof en
