@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import { StaticImageData, StaticImport } from 'next/dist/shared/lib/get-img-props'
 import { useRouter } from 'next/router'
 
 import s from './ImageList.module.scss'
@@ -18,15 +17,15 @@ export const ImageListWidget = () => {
   const [postId, setPostId] = useState<number>()
   const { data, isError, isLoading, error } = useGetPostsQuery({ postId })
   const [images, setImages] = useState<PostDataToComponent[]>([])
-
-  const loadNextPosts = () => {
-    images && setPostId(images.at(-1)?.id)
-  }
+  const ref = useRef(null)
 
   useEffect(() => {
     const imagesData = data ? (data as PostDataToComponent[]) : []
+    const index = images.findIndex(image => image.id === imagesData[0]?.id)
 
-    setImages(prev => [...prev, ...imagesData])
+    setImages(prev => {
+      return index === -1 ? [...prev, ...imagesData] : prev
+    })
   }, [data])
 
   useFetchLoader(isLoading)
@@ -46,12 +45,33 @@ export const ImageListWidget = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, isError])
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          setPostId(images.at(-1)?.id)
+        }
+      },
+      { rootMargin: '0px' }
+    )
+
+    ref?.current && observer.observe(ref.current)
+
+    return () => {
+      observer && observer?.disconnect()
+    }
+  }, [images])
+
   return (
-    <div className={s.container}>
-      <button onClick={loadNextPosts}>next</button>
-      {images?.map(({ id, url, description, width, height }) => (
-        <ImageCard key={id} src={url} alt={description} width={width} height={height} />
-      ))}
-    </div>
+    <>
+      <div className={s.container}>
+        {images?.map(({ id, url, description, width, height }) => (
+          <ImageCard key={id} src={url} alt={description} width={width} height={height} />
+        ))}
+      </div>
+      <div ref={ref} style={{ visibility: 'hidden' }}>
+        __________________
+      </div>
+    </>
   )
 }
