@@ -146,6 +146,7 @@ export const en = {
     account_management: 'Account Management',
     my_payments: 'My Payments',
     auth_error: 'Auth error. Signin again',
+    server_error: 'Server error. Reload page',
     user_name_error: 'User with this name already exist',
     success: 'Your settings are saved!',
   },
@@ -182,6 +183,6 @@ export const en = {
   },
   delete_followers: {
     remove_text: 'Do you really want to remove',
-  },
+  }, 
 }
 export type LangType = typeof en

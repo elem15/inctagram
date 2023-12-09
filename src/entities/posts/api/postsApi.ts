@@ -8,14 +8,18 @@ export const postsApi = createApi({
   tagTypes: ['Posts'],
   endpoints: builder => ({
     getPosts: builder.query<any, PostsQuery>({
-      query: ({ accessToken, postId }) => ({
-        method: 'GET',
-        url: `/posts/user/${postId}`,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + accessToken,
-        },
-      }),
+      query: ({ postId }) => {
+        const accessToken = localStorage.getItem('token') as string
+
+        return {
+          method: 'GET',
+          url: `/posts/user/${postId ? postId : ''}?pageSize=8`,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + accessToken,
+          },
+        }
+      },
       providesTags: ['Posts'],
       transformResponse: (response: PostsData): PostDataToComponent[] => {
         const images = response?.items.map(item => ({

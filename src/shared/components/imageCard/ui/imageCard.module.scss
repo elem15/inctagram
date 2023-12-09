@@ -4,15 +4,7 @@
   border-radius: 3px;
 }
 
-@media (width <= 1024px) {
-  .image {
-    width: 150px;
-    height: 150px;
-    border-radius: 3px;
-  }
-}
-
-@media (width <= 768px) {
+@media (width <= 640px) {
   .image {
     width: 108px;
     height: 108px;
