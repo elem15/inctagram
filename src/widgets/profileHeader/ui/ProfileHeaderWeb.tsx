@@ -23,14 +23,15 @@ export const ProfileHeaderWeb = () => {
   return (
     <>
       <div className={s.container}>
-        <Image
-          src={data?.avatars[0].url as string}
-          className={s.image}
-          alt={''}
-          width={204}
-          height={204}
-        />
-
+        {data && (
+          <Image
+            src={data.avatars[0].url as string}
+            className={s.image}
+            alt={''}
+            width={204}
+            height={204}
+          />
+        )}
         <div className={s.dataProfile}>
           <div className={s.header}>
             <Typography variant="h1">URLProfile</Typography>

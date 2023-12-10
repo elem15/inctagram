@@ -17,15 +17,15 @@ export const ImageCard = ({ src, alt, cardClassName, width, height }: Props) => 
   useFetchLoader(loading)
 
   return (
-    <>
+    <div className={s.image}>
       <Image
         src={src}
-        className={clsx(s.image, cardClassName)}
+        className={cardClassName}
         alt={alt}
         width={width}
         height={height}
         onLoadingComplete={() => setLoading(false)}
       />
-    </>
+    </div>
   )
 }

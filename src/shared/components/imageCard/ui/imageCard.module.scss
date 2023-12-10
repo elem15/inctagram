@@ -1,7 +1,14 @@
 .image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 234px;
   height: 228px;
-  border-radius: 3px;
+
+  img {
+    border-radius: 3px;
+  }
 }
 
 @media (width <= 640px) {
