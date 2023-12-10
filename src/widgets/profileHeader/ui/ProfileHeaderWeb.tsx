@@ -56,14 +56,9 @@ export const ProfileHeaderWeb = () => {
             </div>
           </div>
           <p className={s.description}>
-            <Typography className={s.descriptionText} as="span" variant="regular_text_16">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco{' '}
+            <Typography as="span" variant="regular_text_14">
+              {data?.aboutMe}
             </Typography>
-            <Link as="span" className={s.text} href="">
-              laboris nisi ut aliquip ex ea commodo consequat.
-            </Link>
           </p>
         </div>
       </div>

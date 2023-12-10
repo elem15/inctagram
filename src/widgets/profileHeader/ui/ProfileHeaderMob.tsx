@@ -1,3 +1,5 @@
+import { profile } from 'console'
+
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -47,15 +49,12 @@ export const ProfileHeaderMob = () => {
         </div>
       </div>
       <Typography className={s.profileName} variant="bold_text_16">
-        URLProfiele
+        URLProfile
       </Typography>
       <p className={s.description}>
         <Typography as="span" variant="regular_text_14">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt{' '}
+          {data?.aboutMe}
         </Typography>
-        <Link as="span" className={s.text} href="">
-          laboris nisi ut aliquip ex ea commodo consequat.
-        </Link>
       </p>
     </>
   )

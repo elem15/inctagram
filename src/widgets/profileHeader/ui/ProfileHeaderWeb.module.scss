@@ -4,13 +4,15 @@
   }
 }
 
+.dataProfile {
+  width: 100%;
+}
+
 @media (width >= 1024px) {
   .container {
     display: flex;
     gap: 39px;
     align-items: center;
-    justify-content: space-between;
-
     margin-bottom: 53px;
 
     .image {
