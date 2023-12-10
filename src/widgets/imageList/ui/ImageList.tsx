@@ -1,22 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react'
 
-import { useRouter } from 'next/router'
-
 import s from './ImageList.module.scss'
 
-import { setAlert } from '@/app/services'
 import { useGetPostsQuery } from '@/entities/posts'
 import { ImageCard } from '@/shared/components/imageCard'
-import { useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
+import { useErrorHandler, useFetchLoader } from '@/shared/lib'
 
 export const ImageListWidget = () => {
-  const { t } = useTranslation()
-  const dispatch = useAppDispatch()
-  const router = useRouter()
   const [postId, setPostId] = useState<number>()
-  const { data, isError, isLoading, error } = useGetPostsQuery({ postId })
   const [images, setImages] = useState<PostDataToComponent[]>([])
+  const { data, isLoading, error } = useGetPostsQuery({ postId })
   const ref = useRef(null)
 
   useEffect(() => {
@@ -30,25 +24,12 @@ export const ImageListWidget = () => {
 
   useFetchLoader(isLoading)
 
-  useEffect(() => {
-    if (isError) {
-      const e = error as CustomerError
-
-      if (e.status === 401) {
-        dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
-        router.push('/signin')
-      } else {
-        dispatch(setAlert({ message: t.profile.server_error, variant: 'error' }))
-        console.error(e)
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error, isError])
+  useErrorHandler(error as CustomerError)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting) {
+      ([entry]) => {
+        if (entry.isIntersecting) {
           setPostId(images.at(-1)?.id)
         }
       },

@@ -7,13 +7,18 @@ import { useGetProfileQuery } from '@/entities/profile'
 import { Typography, Button } from '@/shared/components'
 import { ModalOfFollowers } from '@/shared/components/followers-modal'
 import { ModalOfFollowing } from '@/shared/components/following-modal'
-import { useTranslation } from '@/shared/lib'
+import { useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 export const ProfileHeaderWeb = () => {
   const { t } = useTranslation()
   const { userId, accessToken } = useAuth()
-  const { data } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
+  const { data, isLoading, isError } = useGetProfileQuery({
+    profileId: userId,
+    accessToken,
+  } as UserAuthData)
+
+  useFetchLoader(isLoading)
 
   return (
     <>
