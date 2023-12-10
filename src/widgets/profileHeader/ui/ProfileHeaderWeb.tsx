@@ -1,26 +1,34 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import s from './ProfileHeaderWeb.module.scss'
 
-import PersonImg from '@/shared/assets/PersonImg1.png'
+import { useGetProfileQuery } from '@/entities/profile'
 import { Typography, Button } from '@/shared/components'
 import { ModalOfFollowers } from '@/shared/components/followers-modal'
 import { ModalOfFollowing } from '@/shared/components/following-modal'
 import { useTranslation } from '@/shared/lib'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 export const ProfileHeaderWeb = () => {
   const { t } = useTranslation()
+  const { userId, accessToken } = useAuth()
+  const { data } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
 
   return (
     <>
       <div className={s.container}>
-        <Image src={PersonImg} className={s.image} alt={''} />
+        <Image
+          src={data?.avatars[0].url as string}
+          className={s.image}
+          alt={''}
+          width={204}
+          height={204}
+        />
 
         <div className={s.dataProfile}>
           <div className={s.header}>
-            <Typography variant="h1">URLProfiele</Typography>
+            <Typography variant="h1">URLProfile</Typography>
             <Button variant="secondary">
               <Link href="/my-profile/general-information">Profile Settings</Link>
             </Button>

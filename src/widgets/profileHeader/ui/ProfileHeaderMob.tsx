@@ -3,17 +3,26 @@ import Link from 'next/link'
 
 import s from './ProfileHeaderMob.module.scss'
 
-import PersonImg from '@/shared/assets/PersonImg1.png'
+import { useGetProfileQuery } from '@/entities/profile'
 import { Typography } from '@/shared/components'
 import { useTranslation } from '@/shared/lib'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 export const ProfileHeaderMob = () => {
   const { t } = useTranslation()
+  const { userId, accessToken } = useAuth()
+  const { data } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
 
   return (
     <>
       <div className={s.container}>
-        <Image src={PersonImg} className={s.image} alt={''} />
+        <Image
+          src={data?.avatars[0].url as string}
+          className={s.image}
+          alt={''}
+          width={204}
+          height={204}
+        />{' '}
         <div className={s.progressProfile}>
           <div className={s.info}>
             <Typography className={s.progressInfoValue} variant="semi-bold_small_text">
