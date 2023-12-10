@@ -39,15 +39,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-width: 54px;
+        width: 54px;
       }
     }
   }
-.progressInfoText{
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-400);
-  line-height: var(--line-height-s);
-}
+
+  .progressInfoText {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-s);
+  }
 
   .profileName {
     margin-bottom: 20px;

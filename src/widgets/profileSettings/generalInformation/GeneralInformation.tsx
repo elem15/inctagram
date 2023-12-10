@@ -89,13 +89,7 @@ const Information = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps, prettier/prettier
-  }, [
-    profile?.firstName,
-    profile?.lastName,
-    profile?.userName,
-    profile?.aboutMe,
-    date,
-  ])
+  }, [profile?.firstName, profile?.lastName, profile?.userName, profile?.aboutMe, date])
 
   const onSubmit: SubmitHandler<ProfilePut> = data => {
     let existData = {}

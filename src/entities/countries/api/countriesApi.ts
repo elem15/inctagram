@@ -28,7 +28,7 @@ export const countriesApi = createApi({
           }),
         responseError: response.error,
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
         } catch (error) {
