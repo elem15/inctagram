@@ -16,15 +16,13 @@ export const ProfileHeaderMob = () => {
   return (
     <>
       <div className={s.container}>
-        {data && (
-          <Image
-            src={data.avatars[0].url as string}
-            className={s.image}
-            alt={''}
-            width={204}
-            height={204}
-          />
-        )}
+        <Image
+          src={data?.avatars[0]?.url || ''}
+          className={s.image}
+          alt={''}
+          width={204}
+          height={204}
+        />
         <div className={s.progressProfile}>
           <div className={s.info}>
             <Typography className={s.progressInfoValue} variant="semi-bold_small_text">

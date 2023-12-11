@@ -2,13 +2,12 @@ import s from './MyProfile.module.scss'
 
 import { ImageListWidget } from '@/widgets/imageList'
 import { getHeaderWithSidebarLayout } from '@/widgets/layouts'
-import { ProfileHeaderMob, ProfileHeaderWeb } from '@/widgets/profileHeader'
+import { ProfileHeaderWeb } from '@/widgets/profileHeader'
 
 function MyProfile() {
   return (
     <div className={s.container}>
       <ProfileHeaderWeb />
-      <ProfileHeaderMob />
       <ImageListWidget />
     </div>
   )

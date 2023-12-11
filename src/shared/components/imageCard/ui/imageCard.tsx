@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-import { clsx } from 'clsx'
 import Image, { type ImageProps } from 'next/image'
 
 import s from './imageCard.module.scss'
