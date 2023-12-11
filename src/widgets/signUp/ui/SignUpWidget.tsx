@@ -27,6 +27,7 @@ export const SignUpWidget: FC = () => {
     getValues,
     setError,
     trigger,
+    getFieldState,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
@@ -75,7 +76,7 @@ export const SignUpWidget: FC = () => {
       const field = e.data.messages && Array.isArray(e.data.messages) && e.data.messages[0]?.field
 
       if (field) {
-        setError(field, {
+        setError('username', {
           type: 'server',
           message: t.signup.user_exist_error,
         })
