@@ -10,6 +10,7 @@ import { ModalOfFollowers } from '@/shared/components/followers-modal'
 import { ModalOfFollowing } from '@/shared/components/following-modal'
 import { useErrorHandler, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
+import { cn } from '@/shared/lib/utils'
 
 export const ProfileHeaderWeb = () => {
   const { t } = useTranslation()
@@ -23,7 +24,7 @@ export const ProfileHeaderWeb = () => {
   useErrorHandler(error as CustomerError)
 
   return (
-    <>
+    <div className={s.containerColumn}>
       <div className={s.container}>
         <div className={s.imageContainer}>
           <div className={s.image}>
@@ -57,13 +58,29 @@ export const ProfileHeaderWeb = () => {
               <Typography className={s.progressInfoValue} variant="bold_text_14">
                 1231
               </Typography>
-              <ModalOfFollowing />
+              <div className={'max-lg:hidden'}>
+                <ModalOfFollowing />
+              </div>
+              <Link
+                href={'/my-profile/following-page/following'}
+                className={cn(s.progressInfoText, 'hidden max-lg:block')}
+              >
+                {t.following_modal.followings_title}
+              </Link>
             </div>
             <div className={s.info}>
               <Typography className={s.progressInfoValue} variant="bold_text_14">
                 1231
               </Typography>
-              <ModalOfFollowers />
+              <div className={'max-lg:hidden'}>
+                <ModalOfFollowers />
+              </div>
+              <Link
+                href={'/my-profile/following-page/followers'}
+                className={cn(s.progressInfoText, 'hidden max-lg:block')}
+              >
+                {t.followers_modal.modals_title}
+              </Link>
             </div>
             <div className={s.info}>
               <Typography className={s.progressInfoValue} variant="bold_text_14">
@@ -74,13 +91,18 @@ export const ProfileHeaderWeb = () => {
               </Typography>
             </div>
           </div>
-          <p className={s.description}>
+          <p className={cn(s.description, 'max-lg:hidden')}>
             <Typography as="span" variant="regular_text_14">
               {data?.aboutMe}
             </Typography>
           </p>
         </div>
       </div>
-    </>
+      <p className={cn(s.description, 'hidden max-lg:block mb-10')}>
+        <Typography as="span" variant="regular_text_14">
+          {data?.aboutMe}
+        </Typography>
+      </p>
+    </div>
   )
 }
