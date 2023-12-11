@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
-import './CustomSlider.css'
+import s from './CustomSlider.module.scss'
 
-export const CustomSlider = ({ children }) => {
+export const CustomSlider = ({ children }: { children: any[] }) => {
   const [activeIndex, setActiveIndex] = useState(0)
 
   const slideNext = () => {
     setActiveIndex(val => {
-      if (val >= children.length - 1) {
+      if (val >= children?.length - 1) {
         return 0
       } else {
         return val + 1
@@ -18,7 +18,7 @@ export const CustomSlider = ({ children }) => {
   const slidePrev = () => {
     setActiveIndex(val => {
       if (val <= 0) {
-        return children.length - 1
+        return children?.length - 1
       } else {
         return val - 1
       }
@@ -26,24 +26,27 @@ export const CustomSlider = ({ children }) => {
   }
 
   return (
-    <div className="container__slider">
-      {children?.map((item, index) => {
+    <div className={s.containerSlider}>
+      {children?.map((item: any, index: number) => {
         return (
-          <div className={'slider__item slider__item-active-' + (activeIndex + 1)} key={index}>
+          <div
+            className={`${s.sliderItem} ${s['sliderItemActive-' + (activeIndex + 1)]}`}
+            key={index}
+          >
             {item}
           </div>
         )
       })}
 
-      <div className="container__slider__links">
-        {children?.map((item, index) => {
+      <div className={s.containerSliderLinks}>
+        {children?.map((item: any, index: number) => {
           return (
             <div
               key={index}
               className={
                 activeIndex === index
-                  ? 'container__slider__links-small container__slider__links-small-active'
-                  : 'container__slider__links-small'
+                  ? `${s.containerSliderLinksSmall} ${s.containerSliderLinksSmallActive}`
+                  : `${s.containerSliderLinksSmall}`
               }
               onClick={e => {
                 e.preventDefault()
@@ -55,7 +58,7 @@ export const CustomSlider = ({ children }) => {
       </div>
 
       <button
-        className="slider__btn-next"
+        className={s.sliderBtnNext}
         onClick={e => {
           e.preventDefault()
           slideNext()
@@ -64,7 +67,7 @@ export const CustomSlider = ({ children }) => {
         {'>'}
       </button>
       <button
-        className="slider__btn-prev"
+        className={s.sliderBtnPrev}
         onClick={e => {
           e.preventDefault()
           slidePrev()

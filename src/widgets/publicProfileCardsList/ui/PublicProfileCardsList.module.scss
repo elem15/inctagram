@@ -21,7 +21,7 @@
   width: 234px;
   height: 240px;
 
-  background: var(--dark-500, #171717);
+  background: var(--color-dark-500, #171717);
   border-radius: 1px;
 }
 
@@ -49,8 +49,6 @@
   .text {
     width: 100%;
 
-    /* regular_text 14 */
-
     font-size: 14px;
     font-weight: 400;
     font-style: normal;
@@ -58,13 +56,11 @@
     color: var(--light-100, #fff);
   }
 
-  /* Style the read more/less button */
   .toggleButton {
     cursor: pointer;
 
     margin-left: 7px;
 
-    /* regular_link */
     font-size: 14px;
     font-weight: 400;
     font-style: normal;
@@ -238,7 +234,7 @@
 
     .wrapper {
       display: flex;
-      height: 260px;
+      height: 240px;
     }
   }
 

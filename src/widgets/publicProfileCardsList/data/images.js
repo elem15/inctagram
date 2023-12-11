@@ -54,8 +54,7 @@ const images = [
       },
     ],
     imgAlt: 'img-4',
-    description:
-      'TEMPOR incdipiscing elit, sed do eiusmod tempor inipiscing elit, sed do eiusmod tempor incdipiscing elit, sed do eiusmod tempor incd.mpor incd.mpor incd.mpo TEMPOR incdipiscing elit, sed do eiusmod tempor inipiscing elit, sed do eiusmod tempor incdipiscing elit, sed do eiusmod tempor incd.mpor incd.mpor incd.mpo Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.',
+    description: 'TEMPOR incdipiscing elit,.',
   },
 ]
 

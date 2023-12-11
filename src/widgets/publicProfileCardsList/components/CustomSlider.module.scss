@@ -1,0 +1,119 @@
+.containerSlider {
+  position: relative;
+
+  overflow: hidden;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+  padding: 0;
+
+  background-color: var(--color-dark-300);
+}
+
+.containerSlider > button {
+  font-size: 24px;
+  color: var(--color-light-100);
+
+  background-color: transparent;
+  border: 0;
+  outline: none;
+}
+
+.containerSlider > button:active {
+  color: var(--color-dark-300);
+}
+
+.sliderBtnNext {
+  position: absolute;
+  right: 0;
+}
+
+.sliderBtnPrev {
+  position: absolute;
+  left: 0;
+}
+
+.containerSliderLinks {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: center;
+
+  padding: 2px 6px;
+
+  background-color: var(--color-dark-300);
+  border-radius: 2px;
+}
+
+.containerSliderLinksSmall {
+  position: relative;
+
+  width: 8px;
+  height: 8px;
+  margin: 0 2px;
+  padding: 0;
+
+  background-color: var(--color-light-100);
+  border: 0;
+  border-radius: 50%;
+  outline: none;
+
+  transition: background-color 1s ease;
+}
+
+.containerSliderLinksSmallActive {
+  background-color: var(--color-accent-500);
+}
+
+.sliderItem {
+  transform: translateX(0);
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+  min-width: 100%;
+  height: auto;
+
+  object-fit: cover;
+
+  transition: transform 1s ease;
+}
+
+.sliderItemActive-1 {
+  transform: translateX(0);
+}
+
+.sliderItemActive-2 {
+  transform: translateX(-100%);
+}
+
+.sliderItemActive-3 {
+  transform: translateX(-200%);
+}
+
+.sliderItemActive-4 {
+  transform: translateX(-300%);
+}
+
+.sliderItemActive-5 {
+  transform: translateX(-300%);
+}
+
+.sliderItemActive-6 {
+  transform: translateX(-300%);
+}
+
+.sliderItemActive-7 {
+  transform: translateX(-300%);
+}
+
+.sliderItem img {
+  width: 100%;
+  height: auto;
+}

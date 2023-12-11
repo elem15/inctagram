@@ -1,18 +1,27 @@
-import { useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 
-import Image from 'next/image'
-import Link from 'next/link'
+import Image, { StaticImageData } from 'next/image'
 
 import { CustomSlider } from '../components/CustomSlider'
 import images from '../data/images'
 
 import s from './PublicProfileCardsList.module.scss'
 
-import PersonImg2 from '@/shared/assets/PersonImg2.png'
 import { Typography } from '@/shared/components'
-import { ImageCard } from '@/shared/components/imageCard'
 
-const ExpandableText = ({ children, descriptionLength, setIsExpanded, isExpanded }) => {
+export type PublicProfileProps = {
+  children: string
+  descriptionLength?: number
+  isExpanded: boolean
+  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const ExpandableText: FC<PublicProfileProps> = ({
+  children,
+  descriptionLength,
+  setIsExpanded,
+  isExpanded,
+}) => {
   const fullText = children
 
   const toggleText = () => {
@@ -23,13 +32,19 @@ const ExpandableText = ({ children, descriptionLength, setIsExpanded, isExpanded
     <p className={s.text}>
       {isExpanded ? fullText : `${fullText?.slice(0, descriptionLength)}...`}
       <span onClick={toggleText} className={s.toggleButton}>
-        {isExpanded ? 'Hide' : 'Show'}
+        {isExpanded ? 'Hide' : 'Show more'}
       </span>
     </p>
   )
 }
 
-const PublicProfileCard = ({ mainImage, imagesUrl, description }) => {
+export type PublicProfileCardProps = {
+  mainImage: StaticImageData
+  description: string
+  imagesUrl: any
+}
+
+const PublicProfileCard: FC<PublicProfileCardProps> = ({ mainImage, imagesUrl, description }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const menuRef = useRef<HTMLDivElement | null>(null)
 
@@ -48,7 +63,7 @@ const PublicProfileCard = ({ mainImage, imagesUrl, description }) => {
   return (
     <div className={s.container}>
       <CustomSlider>
-        {imagesUrl?.map((image, index) => {
+        {imagesUrl?.map((image: any, index: number) => {
           return <Image key={index} src={image.url} alt={''} />
         })}
       </CustomSlider>
@@ -65,7 +80,7 @@ const PublicProfileCard = ({ mainImage, imagesUrl, description }) => {
           </Typography>
           <div className={s.description}>
             <ExpandableText
-              descriptionLength={120}
+              descriptionLength={100}
               isExpanded={isExpanded}
               setIsExpanded={setIsExpanded}
             >
