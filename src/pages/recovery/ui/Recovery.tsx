@@ -4,11 +4,11 @@ import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 
 import { useValidCodeMutation } from '@/entities/auth'
+import { useFetchLoader } from '@/shared/lib'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
-import { Spinner } from '@/widgets/spinner'
 
 const Recovery = () => {
-  const [validCode, { isLoading: isValidationLoading }] = useValidCodeMutation()
+  const [validCode, { isLoading }] = useValidCodeMutation()
 
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -27,7 +27,9 @@ const Recovery = () => {
         })
   }, [validCode, recoveryCode, router])
 
-  return <div>{isValidationLoading && <Spinner />}</div>
+  useFetchLoader(isLoading)
+
+  return <div></div>
 }
 
 Recovery.getLayout = getHeaderLayout

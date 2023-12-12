@@ -15,10 +15,9 @@ import { setUser } from '@/entities/auth/model/authSlice'
 import { AUTH_URLS } from '@/shared'
 import { GithubIcon, GoogleIcon } from '@/shared/assets'
 import { Button, SuperCheckbox } from '@/shared/components'
-import { consoleErrors, useTranslation } from '@/shared/lib'
+import { consoleErrors, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useClient } from '@/shared/lib/hooks/useClient'
 import { IAuthInput } from '@/shared/types'
-import { Spinner } from '@/widgets/spinner'
 
 export const SignUpWidget: FC = () => {
   const {
@@ -89,9 +88,10 @@ export const SignUpWidget: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])
 
+  useFetchLoader(isLoading || socialsLoading)
+
   return (
     <div className={styles.wrapper}>
-      {(isLoading || socialsLoading) && <Spinner />}
       <h1 className={styles.heading}>{t.signup.title}</h1>
       <div className={styles.icon}>
         <Button variant="link" onClick={googleLogin}>

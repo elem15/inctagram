@@ -25,16 +25,15 @@ type UserAuthData = {
   body?: ProfilePut
 }
 
-type Countries = {
-  iso3: string
+type Country = {
   country: string
   cities: string[]
 }
+
 type City = {
   label: string
   value: string 
 }
-
 
 type SaveAvatarsResponse = {
   avatars: Avatar[];
@@ -46,9 +45,10 @@ type CountriesResponseData = {
   data: []
 }
 
-type CountriesDataElement = {
-  iso2?: string
-  iso3: string
-  country: string
-  cities: string[]
-}
+type CountriesDataDict = Record<string, string[]>
+
+type CountriesRTKOutput = {
+  countriesDataDict: CountriesDataDict
+  countriesWithoutCities: City[]
+  responseError: boolean
+};
