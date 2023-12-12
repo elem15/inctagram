@@ -4,7 +4,7 @@ import s from './ExpandableText.module.scss'
 
 export type ExpandableTextProps = {
   children: string
-  descriptionLength?: number
+  descriptionLength: number
   isExpanded: boolean
   setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -21,12 +21,14 @@ export const ExpandableText: FC<ExpandableTextProps> = ({
     setIsExpanded(!isExpanded)
   }
 
-  return (
+  return fullText.length > descriptionLength ? (
     <p className={s.text}>
       {isExpanded ? fullText : `${fullText?.slice(0, descriptionLength)}...`}
       <span onClick={toggleText} className={s.toggleButton}>
         {isExpanded ? 'Hide' : 'Show more'}
       </span>
     </p>
+  ) : (
+    <p>{fullText}</p>
   )
 }
