@@ -1,3 +1,4 @@
+import PersonImg1 from '@/shared/assets/PersonImg1.png'
 import PersonImg2 from '@/shared/assets/PersonImg2.png'
 
 const images = [
@@ -8,7 +9,7 @@ const images = [
         url: PersonImg2,
       },
       {
-        url: PersonImg2,
+        url: PersonImg1,
       },
     ],
     imgAlt: 'img-1',
@@ -19,7 +20,7 @@ const images = [
     mainImgURL: PersonImg2,
     imgURL: [
       {
-        url: PersonImg2,
+        url: PersonImg1,
       },
       {
         url: PersonImg2,
@@ -30,7 +31,7 @@ const images = [
       'tempor incdipiscing elit, sed do eiusmod tempor inipiscing elit, sed do eiusmod tempor incdipiscing elit, sed do eiusmod tempor incd.mpor incd.mpor incd.mpo Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.',
   },
   {
-    mainImgURL: PersonImg2,
+    mainImgURL: PersonImg1,
     imgURL: [
       {
         url: PersonImg2,
@@ -47,7 +48,7 @@ const images = [
     mainImgURL: PersonImg2,
     imgURL: [
       {
-        url: PersonImg2,
+        url: PersonImg1,
       },
       {
         url: PersonImg2,
