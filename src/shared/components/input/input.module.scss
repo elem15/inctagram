@@ -25,7 +25,15 @@
 
       color: var(--color-dark-100);
     }
+    .locationIcon {
+      position: absolute;
+      top: 8px;
+      left: 93%;
+      width: 21px;
+      height: 21px;
 
+      color: #fff;
+    }
     .input {
       all: unset;
 
@@ -43,7 +51,11 @@
         padding: 6px 10px 6px 40px;
         width: calc(100% - 55px);
       }
-
+      &[type='location'] {
+        padding: 6px 40px 6px 10px;
+        width: calc(100% - 55px);
+        background-color: transparent !important;
+      }
       &:hover {
         background-color: var(--color-dark-500);
       }

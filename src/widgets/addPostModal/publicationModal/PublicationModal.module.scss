@@ -1,0 +1,25 @@
+.dataBox{
+  width: 50%;
+  .avaAndUserName {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    margin-bottom: 30px;
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+  }
+  .textareaBox{
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--color-dark-100);
+  }
+  .locationBox{
+    padding: 1.5rem;
+//.textField{
+//  background-color: transparent;
+//  border: 1px solid var(--color-dark-100);
+//}
+  }
+}

@@ -1,7 +1,8 @@
+import { AddPostModal } from '@/widgets/addPostModal/AddPostModal'
 import { getHeaderWithSidebarLayout } from '@/widgets/layouts'
 
 function Create() {
-  return <div>Create</div>
+  return <AddPostModal />
 }
 
 Create.getLayout = getHeaderWithSidebarLayout

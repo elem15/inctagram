@@ -93,7 +93,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
     if (e.currentTarget.files && e.currentTarget.files.length > 0) {
       const file = e.currentTarget.files[0]
       const acceptedTypes = ['image/jpeg', 'image/png']
-      const maxSizeBytes = 1.5 * 1024 * 1024
+      const maxSizeBytes = 10 * 1024 * 1024
 
       if (!acceptedTypes.includes(file.type)) {
         setErrorText(t.add_profile_photo.error_type_of_photo)

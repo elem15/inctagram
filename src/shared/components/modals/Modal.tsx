@@ -14,7 +14,8 @@ type Props = {
   open: boolean
   showCloseButton?: boolean
   size?: ModalSize
-  title?: string
+  title?: string | Element
+  isPost?: boolean
 } & ComponentProps<'div'>
 
 const dropIn = {
@@ -48,12 +49,14 @@ export const Modal = ({
   showCloseButton = true,
   size = 'md',
   title,
+  isPost,
 }: Props) => {
   const handleOpenChange = () => {
     onClose?.()
   }
   const classNames = {
     content: getContentClassName(size, className),
+    contentBoxModal: clsx(isPost ? s.postBox : s.contentBox),
   }
 
   return (
@@ -82,7 +85,7 @@ export const Modal = ({
                     </Dialog.Close>
                   )}
                 </header>
-                <div className={s.contentBox}>{children}</div>
+                <div className={classNames.contentBoxModal}>{children}</div>
               </motion.div>
             </Dialog.Content>
           </Dialog.Portal>
