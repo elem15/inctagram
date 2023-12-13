@@ -1,6 +1,7 @@
 .container {
   flex-shrink: 0;
   width: 234px;
+  height: 100%;
   margin-top: 36px;
 
   .wrapper {
@@ -12,8 +13,12 @@
 
 .sticky {
   z-index: 11;
+
   align-self: flex-end;
+
+  width: 100%;
   min-height: 180px;
+
   background-color: var(--color-dark-500);
 }
 

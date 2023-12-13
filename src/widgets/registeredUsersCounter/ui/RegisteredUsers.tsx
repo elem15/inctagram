@@ -1,9 +1,17 @@
 import s from './RegisteredUsers.module.scss'
 
+import { useGetPublicPostsQuery } from '@/entities/publicPosts'
 import { Typography } from '@/shared/components'
 
 export const RegisteredUsers = () => {
-  const counter = Array.from(Array(7).keys())
+  const {
+    data,
+    isError: isErrorPublicPostsData,
+    isLoading: isLoadingPublicPostsData,
+  } = useGetPublicPostsQuery()
+
+  const counter = data?.usersCounter
+  const counterArray = Array.from(String(counter))
 
   return (
     <div className={s.container}>
@@ -11,11 +19,7 @@ export const RegisteredUsers = () => {
         <Typography className={s.label} variant="h2">
           Registered Users
         </Typography>
-        <ul className={s.counter}>
-          {counter?.map((el, i) => {
-            return <li key={i}>{el}</li>
-          })}
-        </ul>
+        <ul className={s.counter}>{counterArray?.map((el, i) => <li key={i}>{el}</li>)}</ul>
       </div>
     </div>
   )

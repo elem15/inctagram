@@ -1,23 +1,29 @@
 import { FC, useEffect, useRef, useState } from 'react'
 
-import Image, { StaticImageData } from 'next/image'
+import { StaticImageData, StaticImport } from 'next/dist/shared/lib/get-img-props'
+import Image from 'next/image'
 
 import s from './PublicProfileCard.module.scss'
 
+import SmileImg from '@/shared/assets/SmileImg.png'
 import { Typography } from '@/shared/components'
 import { CustomSlider } from '@/shared/components/custom-slider'
 import { ExpandableText } from '@/shared/components/expandable-text'
 
 export type PublicProfileCardProps = {
-  mainImage: StaticImageData
+  profileImage?: string | StaticImageData
   description: string
-  imagesUrl: any
+  imagesUrl: any[]
+  firstName: string
+  lastName: string
 }
 
 export const PublicProfileCard: FC<PublicProfileCardProps> = ({
-  mainImage,
+  profileImage,
   imagesUrl,
   description,
+  firstName,
+  lastName,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const menuRef = useRef<HTMLDivElement | null>(null)
@@ -38,20 +44,26 @@ export const PublicProfileCard: FC<PublicProfileCardProps> = ({
     <div className={s.container}>
       <CustomSlider>
         {imagesUrl?.map((image: any, index: number) => {
-          return <Image key={index} src={image.url} alt={''} />
+          return <Image key={index} width={234} height={240} src={image.url} alt={''} />
         })}
       </CustomSlider>
       <div className={s.wrapper} ref={menuRef}>
         <div className={s.sticky}>
           <div className={s.mainInfo}>
-            <Image src={mainImage} className={s.profileImg} alt={''} />
-            <Typography className={s.profileName} variant="bold_text_16">
-              URLProfiele
-            </Typography>
+            {profileImage ? (
+              <Image src={profileImage} className={s.profileImg} width={0} height={0} alt={''} />
+            ) : (
+              <Image src={SmileImg} className={s.profileImg} width={234} height={240} alt={''} />
+            )}
+            {firstName && (
+              <Typography className={s.profileName} variant="bold_text_16">
+                {`${firstName} ${lastName}`}
+              </Typography>
+            )}
           </div>
-          <Typography className={s.timeInfo} variant="semi-bold_small_text">
+          {/* <Typography className={s.timeInfo} variant="semi-bold_small_text">
             22 min ago
-          </Typography>
+          </Typography> */}
           <div className={s.description}>
             <ExpandableText
               descriptionLength={100}

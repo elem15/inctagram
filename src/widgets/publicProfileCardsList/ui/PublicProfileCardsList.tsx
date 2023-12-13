@@ -1,21 +1,26 @@
-import images from '../data/images'
-
+import { useGetPublicPostsQuery } from '@/entities/publicPosts'
 import { PublicProfileCard } from '@/shared/components/public-profile-card'
 
 export const PublicProfileCardsList = () => {
+  const {
+    data,
+    isError: isErrorPublicPostsData,
+    isLoading: isLoadingPublicPostsData,
+  } = useGetPublicPostsQuery()
+
   return (
     <div className="flex items-center justify-center ">
       <div className=" max-md:flex  max-md:flex-col   sm:flex sm:flex-wrap  gap-x-3 ">
-        {Array.from(Array(10).keys()).map((i, key) => {
+        {data?.publicPostsData.map((el: any, key: number) => {
           return (
-            images[i] && (
-              <PublicProfileCard
-                key={key}
-                mainImage={images[i].mainImgURL}
-                imagesUrl={images[i].imgURL}
-                description={images[i].description}
-              />
-            )
+            <PublicProfileCard
+              key={key}
+              profileImage={el.avatarImage}
+              imagesUrl={el.images}
+              firstName={el.owner.firstName}
+              lastName={el.owner.lastName}
+              description={el.description}
+            />
           )
         })}
       </div>
