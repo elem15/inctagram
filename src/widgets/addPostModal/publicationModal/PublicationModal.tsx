@@ -1,10 +1,15 @@
-import React, { FC } from 'react'
+import React, { ChangeEvent, ChangeEventHandler, EventHandler, FC, useState } from 'react'
 
 import { A11y, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import s from './PublicationModal.module.scss'
 
+import { setTextOfTextarea } from '@/app/services/post-slice'
+import {
+  usePublishPostsImageMutation,
+  usePublishPostsMutation,
+} from '@/entities/posts/api/postsApi'
 import { useGetProfileQuery } from '@/entities/profile'
 import { InputField } from '@/shared'
 import { Input, Textarea, Typography } from '@/shared/components'
@@ -12,8 +17,8 @@ import 'swiper/scss/effect-cube'
 import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
 import 'swiper/scss/scrollbar'
-
 import { Modal } from '@/shared/components/modals'
+import { useAppDispatch, useAppSelector } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { PostModalHeader } from '@/widgets/addPostModal/PostHeaderModal'
 type Props = {
@@ -23,13 +28,34 @@ type Props = {
 }
 export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep }) => {
   const { userId, accessToken } = useAuth()
+  const [wordCount, setWordCount] = useState(0)
+  const text = useAppSelector(state => state.postSlice.textOfTextarea)
+  const dispatch = useAppDispatch()
   const { data: profileData } = useGetProfileQuery({
     profileId: userId,
     accessToken,
   } as UserAuthData)
-  const handlePublish = () => {}
+  const [publishDescription] = usePublishPostsMutation()
+  const [publishPostImage, { error, isLoading }] = usePublishPostsImageMutation()
+  const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value
 
-  console.log(profileData)
+    dispatch(setTextOfTextarea(value))
+
+    setWordCount(value.length)
+  }
+  const photo = [...photos]
+
+  console.log({ publish: photos })
+  const handlePublish = async () => {
+    try {
+      const imageUploadResult = await publishPostImage({ postsPhoto: photo, accessToken }).unwrap()
+
+      await publishDescription({ description: text, accessToken })
+    } catch (error) {
+      console.error('Error publishing post:', error)
+    }
+  }
 
   return (
     <>
@@ -58,7 +84,7 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep }) => {
               spaceBetween={10}
               slidesPerView={1}
             >
-              <div style={{}}>
+              <div style={{ width: '50%' }}>
                 {photos.map((photo, index) => {
                   return (
                     <SwiperSlide key={index} className={s.swiper}>
@@ -80,9 +106,14 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep }) => {
 
               <Textarea
                 label={'Add publication descriptions'}
-                style={{ height: '120px' }}
+                style={{ height: '120px', resize: 'none' }}
                 placeholder={'Add your description'}
+                onChange={handleChangeText}
+                disabled={wordCount === 500}
               />
+              <Typography variant={'small_text'} style={{ textAlign: 'end', color: '#8d9094' }}>
+                {wordCount}/500
+              </Typography>
             </div>
             <div className={s.locationBox}>
               <Input

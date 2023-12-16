@@ -1,21 +1,23 @@
 import React, { ChangeEvent, useCallback, useRef, useState } from 'react'
 
 import Cropper from 'react-easy-crop'
-import { Navigation, Pagination, A11y } from 'swiper/modules'
+import { Navigation, Pagination, A11y, Thumbs } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import './post-images-slider.css'
-import 'swiper/scss'
+// import 'swiper/scss'
 
 import s from './AddPostModal.module.scss'
 
-import 'swiper/scss/navigation'
-import 'swiper/scss/pagination'
-import 'swiper/scss/scrollbar'
+//
+// import 'swiper/scss/navigation'
+// import 'swiper/scss/pagination'
+// import 'swiper/scss/scrollbar'
 import { DefaultProfileImg } from '@/shared/assets'
-import { Button } from '@/shared/components'
+import { Button, Typography } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { useTranslation } from '@/shared/lib'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
+import { ClickOutside } from '@/widgets/addPostModal/ClickOutSide'
 import { FilterModal } from '@/widgets/addPostModal/filterModal/FilterModal'
 import { PostPhotoModificationTools } from '@/widgets/addPostModal/modificationTools/tools/post-modification-tools'
 import { PostModalHeader } from '@/widgets/addPostModal/PostHeaderModal'
@@ -27,7 +29,11 @@ const size = {
   height: 504,
 }
 
-export const AddPostModal = () => {
+type Props = {
+  closePostModal: () => void
+  openPostModal: boolean
+}
+export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null)
   const [croppers, setCroppers] = useState<Array<{ imageSrc: string | null }>>([])
   const [photos, setPhotos] = useState<File[]>([])
@@ -37,6 +43,8 @@ export const AddPostModal = () => {
   const [errorText, setErrorText] = useState<string | undefined>()
   const [aspect, setAspect] = useState(size)
   // const [rotation, setRotation] = useState(-1)
+  const [openPosts, setOpen] = useState(true)
+  const [openCloseCrop, setCloseCropModal] = useState(false)
   const { isOpen, openModal, closeModal } = useModal()
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -51,6 +59,10 @@ export const AddPostModal = () => {
       reader.addEventListener('load', () => resolve(reader.result as string))
       reader.readAsDataURL(file)
     })
+  }
+  const handleDeletePhoto = (index: number) => {
+    debugger
+    setPhotos(photos.filter((_, photoIndex) => photoIndex !== index))
   }
   const onCropComplete = useCallback((_croppedArea: any, croppedAreaPixels: CroppedAreaPixel) => {
     setCroppedAreaPixels(croppedAreaPixels)
@@ -105,6 +117,24 @@ export const AddPostModal = () => {
         setAspect(size)
     }
   }
+  // const handleAspectChange = (selectedAspect: string) => {
+  //   switch (selectedAspect) {
+  //     case 'contain':
+  //       setAspect(1)
+  //       break
+  //     case '1/1':
+  //       setAspect(1 / 1)
+  //       break
+  //     case 'vertical':
+  //       setAspect(4 / 9)
+  //       break
+  //     case 'horizontal':
+  //       setAspect(16 / 9)
+  //       break
+  //     default:
+  //       setAspect(1)
+  //   }
+  // }
   const handleBack = () => {
     setImageSrc(null)
   }
@@ -134,19 +164,10 @@ export const AddPostModal = () => {
       openModal()
     }
   }
-
-  // const titleOfModalDraft = (
-  //   <div style={{ display: 'flex', gap: '117px', alignItems: 'center' }}>
-  //     <Button variant={'link'} onClick={handleBack}>
-  //       <IconLeft />
-  //     </Button>
-  //     <Typography variant={'h1'}>Cropping</Typography>
-  //     <Button variant={'link'} style={{ fontSize: '16px' }} onClick={handleOpenFilter}>
-  //       Next
-  //     </Button>
-  //     <FilterModal isOpen={isOpen} imgPost={photos} closeFilter={closeModal} />
-  //   </div>
-  // )
+  // const swiper = new Swiper('.swiper', {
+  //   speed: 400,
+  //   spaceBetween: 100,
+  // })
 
   const customStyles = {
     style: {
@@ -161,101 +182,152 @@ export const AddPostModal = () => {
     },
   }
 
+  const openCloseCropModal = (value: boolean) => {
+    return setCloseCropModal(true)
+  }
+  const handleCloseCrop = () => {
+    setCloseCropModal(false)
+  }
+  const handleDiscard = () => {
+    setImageSrc(null)
+    handleCloseCrop()
+  }
+
   return (
-    <Modal
-      open={true}
-      size={'md'}
-      title={
-        imageSrc ? (
-          <PostModalHeader
-            closeModal={handleBack}
-            title={'Cropping'}
-            gap={'57%'}
-            onNext={handleOpenFilter}
-          />
-        ) : (
-          'Add photo'
-        )
-      }
-      showCloseButton={imageSrc ? false : true}
-      isPost={true}
-    >
-      <>
-        <FilterModal isOpenFilter={isOpen} imgPost={photos} closeFilter={closeModal} />
-        {imageSrc ? (
-          <div className={s.menuBox}>
-            <Swiper
-              modules={[Navigation, Pagination, A11y]}
-              spaceBetween={10}
-              slidesPerView={1}
-              className={'post-images-slider'}
-              navigation
-              pagination={{ clickable: true }}
-            >
-              {croppers.map((cropper, index) => (
-                <SwiperSlide key={index} className={s.swiper}>
-                  <div className={s.imageBox}>
-                    <Cropper
-                      onCropChange={setCrop}
-                      crop={crop}
-                      image={cropper.imageSrc}
-                      showGrid={false}
-                      cropSize={aspect}
-                      // rotation={rotation}
-                      {...customStyles}
-                      objectFit={'cover'}
-                      zoom={zoom}
-                      onCropComplete={onCropComplete}
-                      onZoomChange={setZoom}
-                      // onRotationChange={setRotation}
-                    />
+    <>
+      <ClickOutside onClickOutside={openCloseCropModal}>
+        <Modal
+          open={openPostModal}
+          size={'md'}
+          title={
+            imageSrc ? (
+              <PostModalHeader
+                closeModal={handleBack}
+                title={'Cropping'}
+                gap={'57%'}
+                onNext={handleOpenFilter}
+              />
+            ) : (
+              'Add photo'
+            )
+          }
+          showCloseButton={imageSrc ? false : true}
+          isPost={true}
+          onClose={closePostModal}
+        >
+          <>
+            <FilterModal isOpenFilter={isOpen} imgPost={photos} closeFilter={closeModal} />
+
+            {imageSrc ? (
+              <>
+                <div className={s.menuBox}>
+                  <Swiper
+                    modules={[Navigation, Pagination]}
+                    spaceBetween={10}
+                    slidesPerView={1}
+                    className={'post-images-slider'}
+                    navigation
+                    pagination={{ clickable: true }}
+                    simulateTouch={false}
+                  >
+                    {croppers.map((cropper, index) => (
+                      <SwiperSlide key={index} className={s.swiper}>
+                        <div className={s.imageBox}>
+                          <Cropper
+                            onCropChange={setCrop}
+                            crop={crop}
+                            image={cropper.imageSrc}
+                            showGrid={false}
+                            cropSize={aspect}
+                            // rotation={rotation}
+                            {...customStyles}
+                            aspect={1}
+                            objectFit={'cover'}
+                            zoom={zoom}
+                            onCropComplete={onCropComplete}
+                            onZoomChange={setZoom}
+                            // onRotationChange={setRotation}
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+
+                  <PostPhotoModificationTools
+                    zoomValue={[zoom]}
+                    onChange={handleZoomChange}
+                    onAspectChange={handleAspectChange}
+                    // onRotationChange={onRotationChange}
+                    // rotationValue={[rotation]}
+                    deletePhoto={handleDeletePhoto}
+                    selectNewPhoto={selectPhotoHandler}
+                    photos={croppers}
+                  />
+                </div>
+              </>
+            ) : (
+              <div className={s.modalBox}>
+                {errorText && (
+                  <div className={s.errorText}>
+                    <strong>{t.add_profile_photo.error}</strong>
+                    {errorText}
                   </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-
-            <PostPhotoModificationTools
-              zoomValue={[zoom]}
-              onChange={handleZoomChange}
-              onAspectChange={handleAspectChange}
-              // onRotationChange={onRotationChange}
-              // rotationValue={[rotation]}
-
-              selectNewPhoto={selectPhotoHandler}
-              photos={croppers}
-            />
-          </div>
-        ) : (
-          <div className={s.modalBox}>
-            {errorText && (
-              <div className={s.errorText}>
-                <strong>{t.add_profile_photo.error}</strong>
-                {errorText}
+                )}
+                <div className={s.box}>
+                  <DefaultProfileImg style={{ width: '3rem', height: '3rem' }} />
+                </div>
+                <Button
+                  variant={'primary'}
+                  style={{ marginBottom: '24px' }}
+                  onClick={selectPhotoHandler}
+                >
+                  Select from computer
+                </Button>
+                <Button variant={'outline'} style={{ width: '170px' }}>
+                  Open Draft
+                </Button>
               </div>
             )}
-            <div className={s.box}>
-              <DefaultProfileImg style={{ width: '3rem', height: '3rem' }} />
-            </div>
-            <Button
-              variant={'primary'}
-              style={{ marginBottom: '24px' }}
-              onClick={selectPhotoHandler}
-            >
-              Select from computer
-            </Button>
-            <Button variant={'outline'} style={{ width: '170px' }}>
-              Open Draft
-            </Button>
-          </div>
-        )}
-        <input
-          accept={'image/jpeg, image/png'}
-          onChange={onFileChange}
-          ref={inputRef}
-          style={{ display: 'none' }}
-          type={'file'}
-          multiple
-        />
+            <input
+              accept={'image/jpeg, image/png'}
+              onChange={onFileChange}
+              ref={inputRef}
+              style={{ display: 'none' }}
+              type={'file'}
+              multiple
+            />
+          </>
+        </Modal>
+      </ClickOutside>
+      {/*<CloseCrop*/}
+      {/*  openCloseCrop={openCloseCrop}*/}
+      {/*  closeCrop={handleCloseCrop}*/}
+      {/*  onDiscard={handleDiscard}*/}
+      {/*/>*/}
+    </>
+  )
+}
+type CloseCropType = {
+  openCloseCrop: boolean
+  closeCrop: () => void
+  onDiscard: () => void
+}
+export const CloseCrop = ({ openCloseCrop, closeCrop, onDiscard }: CloseCropType) => {
+  console.log('CloseCrop')
+
+  return (
+    <Modal open={openCloseCrop} size={'sm'} title={'Close'} onClose={closeCrop}>
+      <>
+        <Typography variant={'regular_text_16'}>
+          Do you really want to close the creation of a publication? If you close everything will be
+          deleted
+        </Typography>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '18px' }}>
+          <Button variant={'outline'} onClick={() => onDiscard()}>
+            Discard
+          </Button>
+          <Button>Save draft</Button>
+        </div>
       </>
     </Modal>
   )

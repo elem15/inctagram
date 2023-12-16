@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 
 import { clsx } from 'clsx'
-import { A11y, Scrollbar } from 'swiper/modules'
+import { A11y, Scrollbar, Thumbs } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import 'swiper/scss'
@@ -15,8 +15,9 @@ import { CustomDropdown, CustomDropdownItem } from '@/shared/components'
 type Props = {
   selectNewPhoto: () => void
   photos: { imageSrc: string | null }[]
+  deletePhoto: (i: number) => void
 }
-export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, photos }) => {
+export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, photos, deletePhoto }) => {
   const [open, setOpen] = useState(true)
   const newPhotoTrigger = (
     <div className={s.tool}>
@@ -25,6 +26,12 @@ export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, photos }) => {
   )
   const handleSelect = (event: Event) => {
     event.preventDefault()
+  }
+  const countSwiper = photos.length < 2 ? 1 : 2
+  const handleDeletePhoto = (index: any) => {
+    console.log('delete')
+    debugger
+    deletePhoto(index)
   }
 
   return (
@@ -39,32 +46,36 @@ export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, photos }) => {
         stayOpen={true}
       >
         <CustomDropdownItem
-          className={s.newItem}
+          className={clsx(photos.length < 2 ? `${s.oneSlide} ${s.newItem}` : s.newItem)}
           onSelect={handleSelect}
           onClick={event => event.preventDefault()}
         >
-          <div className={s.imgs}>
+          <div className={clsx(photos.length < 2 ? `${s.oneImg} ${s.imgs}` : s.imgs)}>
             <Swiper
-              modules={[Scrollbar, A11y]}
+              modules={[Scrollbar]}
               spaceBetween={1}
-              slidesPerView={2}
+              slidesPerView={countSwiper}
               scrollbar={{ draggable: true }}
             >
               {photos?.map((photo, index) => {
+                console.log(photo)
+                console.log(index)
+
                 return (
                   <SwiperSlide key={index}>
-                    <div key={index} className={s.imgs}>
+                    <div className={s.imgs}>
                       <img src={photo.imageSrc} alt={''} />
-                      <DeleteIcon
-                        style={{
-                          position: 'absolute',
-                          top: '12%',
-                          backgroundColor: '#171717',
-                          opacity: '0.8',
-                          left: '50%',
-                        }}
-                        on
-                      />
+                      <div onClick={() => handleDeletePhoto(index)}>
+                        <DeleteIcon
+                          style={{
+                            position: 'absolute',
+                            top: '3%',
+                            backgroundColor: '#171717',
+                            opacity: '0.8',
+                            left: '80%',
+                          }}
+                        />
+                      </div>
                     </div>
                   </SwiperSlide>
                 )

@@ -21,11 +21,21 @@ import {
 import s from './Sidebar.module.scss'
 
 import { useTranslation } from '@/shared/lib'
+import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
+import { AddPostModal } from '@/widgets/addPostModal/AddPostModal'
 import { LogOutButton } from '@/widgets/logOut'
 
 export const Sidebar = () => {
   const router = useRouter()
   const { t } = useTranslation()
+  const { isOpen, openModal, closeModal } = useModal()
+  const handleOpenMyProfileAndAddPost = () => {
+    // Redirect to /my-profile
+    router.push('/my-profile')
+
+    // Set the state to open the AddPostModal
+    openModal()
+  }
 
   return (
     <div className={s.box}>
@@ -40,13 +50,13 @@ export const Sidebar = () => {
               </span>
             </Link>
           </li>
-          <li>
-            <Link href={'/create'} className={s.content}>
-              {router.pathname === '/create' ? <CreatesIcon /> : <CreateIcon />}
-              <span className={router.pathname === '/create' ? s.activeLink : ''}>
-                {t.sidebar.create}
-              </span>
-            </Link>
+          <li onClick={handleOpenMyProfileAndAddPost} className={s.content}>
+            {/*<Link href={'/create'} className={s.content}>*/}
+            {router.pathname === '/my-profile' ? <CreatesIcon /> : <CreateIcon />}
+            <span className={router.pathname === '/my-profile' ? s.activeLink : ''}>
+              {t.sidebar.create}
+            </span>
+            {/*</Link>*/}
           </li>
           <li>
             <Link href={'/my-profile'} className={s.content}>
@@ -105,6 +115,7 @@ export const Sidebar = () => {
             </li>
           </LogOutButton>
         </ul>
+        <AddPostModal closePostModal={closeModal} openPostModal={isOpen} />
       </div>
     </div>
   )

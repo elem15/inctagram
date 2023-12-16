@@ -6,9 +6,10 @@ import s from './TextArea.module.scss'
 type Props = {
   errorMessage?: string
   label?: string
+  isError?: boolean
 } & ComponentProps<'textarea'>
 export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
-  ({ className, errorMessage, id, label, onChange, ...rest }, ref) => {
+  ({ className, isError = false, errorMessage, id, label, onChange, ...rest }, ref) => {
     const showError = !!errorMessage
 
     function handleInputValueChanged(e: ChangeEvent<HTMLTextAreaElement>) {

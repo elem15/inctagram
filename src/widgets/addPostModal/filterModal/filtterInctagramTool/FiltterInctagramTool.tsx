@@ -1,16 +1,25 @@
 import React, { useEffect } from 'react'
 
 import s from './FiltterInctagramTool.module.scss'
+
 import '../instagram.min.scss'
+import { Typography } from '@/shared/components'
 
 type Props = {
   filterClass: string
   setFilterClass: (v: string) => void
   imgRef: any
   photo: any
+  onFilterComplete: (filteredImage: any) => void
 }
 
-export const FiltersInsta = ({ filterClass, setFilterClass, imgRef, photo }: Props) => {
+export const FiltersInsta = ({
+  filterClass,
+  setFilterClass,
+  imgRef,
+  photo,
+  onFilterComplete,
+}: Props) => {
   useEffect(() => {
     const divImg = imgRef.current
 
@@ -18,7 +27,19 @@ export const FiltersInsta = ({ filterClass, setFilterClass, imgRef, photo }: Pro
       divImg.style.filter = ''
     }
   }, [filterClass])
+  const applyFilter = selectedFilter => {
+    const filteredImage = applyFilterToImage(selectedFilter)
 
+    onFilterComplete(filteredImage)
+  }
+
+  const applyFilterToImage = selectedFilter => {
+    const filteredImage = { ...photo[0], filter: selectedFilter }
+
+    console.log(filteredImage)
+
+    return filteredImage
+  }
   const filters = [
     // {
     //   name: 'Aden',
@@ -84,10 +105,10 @@ export const FiltersInsta = ({ filterClass, setFilterClass, imgRef, photo }: Pro
     //   name: 'Inkwell',
     //   class: 'filter-inkwell',
     // },
-    {
-      name: 'Kelvin',
-      class: 'filter-kelvin',
-    },
+    // {
+    //   name: 'Kelvin',
+    //   class: 'filter-kelvin',
+    // },
     {
       name: 'Lark',
       class: 'filter-lark',
@@ -101,6 +122,10 @@ export const FiltersInsta = ({ filterClass, setFilterClass, imgRef, photo }: Pro
     //   class: 'filter-ludwing',
     // },
     {
+      name: 'Reyes',
+      class: 'filter-reyes',
+    },
+    {
       name: 'Maven',
       class: 'filter-maven',
     },
@@ -112,22 +137,7 @@ export const FiltersInsta = ({ filterClass, setFilterClass, imgRef, photo }: Pro
       name: 'Moon',
       class: 'filter-moon',
     },
-    // {
-    //   name: 'Nashville',
-    //   class: 'filter-nashvile',
-    // },
-    // {
-    //   name: 'Perpetua',
-    //   class: 'filter-perpetua',
-    // },
-    // {
-    //   name: 'Poprocket',
-    //   class: 'filter-poprocket',
-    // },
-    {
-      name: 'Reyes',
-      class: 'filter-reyes',
-    },
+
     // {
     //   name: 'Rise',
     //   class: 'filter-rise',
@@ -179,19 +189,23 @@ export const FiltersInsta = ({ filterClass, setFilterClass, imgRef, photo }: Pro
   ]
 
   console.log(photo)
+  const setFilterAndApplyFilter = (filterClass: string) => {
+    setFilterClass(filterClass)
+    applyFilter(filterClass)
+  }
 
   return (
-    <div className={s.filtersBox}>
+    <>
       {filters.map((filter, index) => {
-        console.log(filter)
-
         return (
           <div key={index}>
             <div
               className={`filter-item ${
                 filterClass === filter.class ? 'filter-item--selected' : ''
               }`}
-              onClick={() => setFilterClass(filter.class)}
+              onClick={() => {
+                setFilterAndApplyFilter(filter.class)
+              }}
             >
               <div style={{ width: '108px', height: '108px' }}>
                 <img
@@ -200,15 +214,14 @@ export const FiltersInsta = ({ filterClass, setFilterClass, imgRef, photo }: Pro
                   alt={filter.name}
                 />
               </div>
-              <div className="filter-item__name">
-                <p>
-                  <strong>{filter.name}</strong>
-                </p>
-              </div>
+
+              <Typography variant={'regular_text_16'} style={{ textAlign: 'center' }}>
+                {filter.name}
+              </Typography>
             </div>
           </div>
         )
       })}
-    </div>
+    </>
   )
 }

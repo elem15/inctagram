@@ -16,6 +16,7 @@ import 'swiper/scss/scrollbar'
 import { Modal } from '@/shared/components/modals'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { FiltersInsta } from '@/widgets/addPostModal/filterModal/filtterInctagramTool'
+import { NormalFilter } from '@/widgets/addPostModal/filterModal/filtterInctagramTool/NormalFilter'
 import { PostModalHeader } from '@/widgets/addPostModal/PostHeaderModal'
 import { PublicationModal } from '@/widgets/addPostModal/publicationModal/PublicationModal'
 
@@ -28,13 +29,19 @@ type Props = {
 export const FilterModal: FC<Props> = ({ isOpenFilter, imgPost, closeFilter }) => {
   const imgResultRef = useRef(null)
   const [filterClass, setFilterClass] = useState('')
+  const [filteredImg, setFilteredImg] = useState()
+
   const imgRef = useRef(null)
   const { isOpen, openModal, closeModal } = useModal()
+  const [openPublishModal, setPublishModal] = useState(false)
 
-  console.log(imgPost)
+  console.log(filteredImg)
 
   const handleOpenNext = () => {
     openModal()
+  }
+  const handleFilterComplete = async filteredImage => {
+    const img = await setFilteredImg(filteredImage)
   }
 
   return (
@@ -53,20 +60,26 @@ export const FilterModal: FC<Props> = ({ isOpenFilter, imgPost, closeFilter }) =
         showCloseButton={false}
         isPost={true}
       >
-        <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            display: 'flex',
+            width: '100%',
+            height: '100%',
+            justifyContent: 'space-between',
+          }}
+        >
           <div style={{ height: '504px', width: '490px' }}>
             <Swiper
               modules={[Navigation, Pagination, A11y, EffectCube]}
               className={'post-images-slider'}
-              navigation
               pagination={{ clickable: true }}
               effect={'cube'}
-              cubeEffect={{
-                shadow: true,
-                slideShadows: true,
-                shadowOffset: 20,
-                shadowScale: 0.94,
-              }}
+              navigation
+              cubeEffect={
+                {
+                  //slideShadows: true,
+                }
+              }
               grabCursor={true}
             >
               {imgPost.map((post, index) => {
@@ -78,6 +91,7 @@ export const FilterModal: FC<Props> = ({ isOpenFilter, imgPost, closeFilter }) =
                       <img
                         src={URL.createObjectURL(post)}
                         alt={''}
+                        style={{ height: '100%' }}
                         className={clsx(s.postImg && filterClass)}
                         ref={imgResultRef}
                       />
@@ -87,13 +101,21 @@ export const FilterModal: FC<Props> = ({ isOpenFilter, imgPost, closeFilter }) =
               })}
             </Swiper>
           </div>
-          <PublicationModal isOpen={isOpen} photos={imgPost} onPrevStep={closeModal} />
-          <FiltersInsta
-            filterClass={filterClass}
-            setFilterClass={setFilterClass}
-            imgRef={imgRef}
-            photo={imgPost}
-          />
+          <div className={s.instaFilter}>
+            <NormalFilter
+              filterClass={filterClass}
+              setFilterClass={setFilterClass}
+              photo={imgPost}
+            />
+            <FiltersInsta
+              filterClass={filterClass}
+              setFilterClass={setFilterClass}
+              imgRef={imgRef}
+              photo={imgPost}
+              onFilterComplete={filteredImage => handleFilterComplete(filteredImage)}
+            />
+            <PublicationModal isOpen={isOpen} photos={imgPost} onPrevStep={closeModal} />
+          </div>
         </div>
       </Modal>
     </>

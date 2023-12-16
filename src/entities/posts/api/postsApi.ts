@@ -33,7 +33,41 @@ export const postsApi = createApi({
         return images
       },
     }),
+    publishPostsImage: builder.mutation<any, { postsPhoto: File; accessToken: string | undefined }>(
+      {
+        query: ({ postsPhoto, accessToken }) => {
+          const formData = new FormData()
+
+          formData.append('file', postsPhoto)
+
+          return {
+            url: '/posts/image',
+            body: formData,
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+              Authorization: 'Bearer ' + accessToken,
+            },
+          }
+        },
+        invalidatesTags: ['Posts'],
+      }
+    ),
+    publishPosts: builder.mutation<any, { description: string; accessToken: string | undefined }>({
+      query: ({ description, accessToken }) => {
+        return {
+          url: '/posts',
+          body: description,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + accessToken,
+          },
+        }
+      },
+      invalidatesTags: ['Posts'],
+    }),
   }),
 })
 
-export const { useGetPostsQuery } = postsApi
+export const { useGetPostsQuery, usePublishPostsImageMutation, usePublishPostsMutation } = postsApi
