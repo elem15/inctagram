@@ -12,10 +12,17 @@ import s from './AddPostModal.module.scss'
 // import 'swiper/scss/navigation'
 // import 'swiper/scss/pagination'
 // import 'swiper/scss/scrollbar'
+import { useAppSelector } from '@/app/appStore'
+import {
+  addCropper,
+  updateCroppedArea,
+  updateCroppedAreaPixels,
+  updateCropper,
+} from '@/app/services/cropper-slice'
 import { DefaultProfileImg } from '@/shared/assets'
 import { Button, Typography } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
-import { useTranslation } from '@/shared/lib'
+import { useAppDispatch, useTranslation } from '@/shared/lib'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { ClickOutside } from '@/widgets/addPostModal/ClickOutSide'
 import { FilterModal } from '@/widgets/addPostModal/filterModal/FilterModal'
@@ -35,19 +42,19 @@ type Props = {
 }
 export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null)
-  const [croppers, setCroppers] = useState<Array<{ imageSrc: string | null }>>([])
+  // const [croppers, setCroppers] = useState<Array<{ imageSrc: string | null }>>([])
   const [photos, setPhotos] = useState<File[]>([])
-  const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
-  const [zoom, setZoom] = useState<number>(1)
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<CroppedAreaPixel>(null)
+  // const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
+  // const [zoom, setZoom] = useState<number>(1)
+  // const [croppedAreaPixels, setCroppedAreaPixels] = useState<CroppedAreaPixel>(null)
   const [errorText, setErrorText] = useState<string | undefined>()
   const [aspect, setAspect] = useState(size)
   // const [rotation, setRotation] = useState(-1)
-  const [openPosts, setOpen] = useState(true)
   const [openCloseCrop, setCloseCropModal] = useState(false)
   const { isOpen, openModal, closeModal } = useModal()
   const inputRef = useRef<HTMLInputElement>(null)
-
+  const croppers = useAppSelector(state => state.croppersSlice)
+  const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const selectPhotoHandler = () => {
     inputRef && inputRef.current?.click()
@@ -60,21 +67,46 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
       reader.readAsDataURL(file)
     })
   }
-  const handleDeletePhoto = (index: number) => {
-    debugger
-    setPhotos(photos.filter((_, photoIndex) => photoIndex !== index))
-  }
-  const onCropComplete = useCallback((_croppedArea: any, croppedAreaPixels: CroppedAreaPixel) => {
-    setCroppedAreaPixels(croppedAreaPixels)
-  }, [])
+  // const handleDeletePhoto = (photo: any) => {
+  //   setCroppers(croppers.filter(p => p !== photo))
+  // }
+  // const onCropComplete = useCallback((_croppedArea: any, croppedAreaPixels: CroppedAreaPixel) => {
+  //   setCroppedAreaPixels(croppedAreaPixels)
+  // }, [])
   const handleZoomChange = (value: number[]) => {
-    setZoom(value[0])
+    // setZoom(value[0])
   }
   // const onRotationChange = (value: number[]) => {
   //   setRotation(value[0])
   // }
+  // const addNewCropper = (imageSrc: string) => {
+  //   setCroppers(prevCroppers => [...prevCroppers, { imageSrc }])
+  // }
   const addNewCropper = (imageSrc: string) => {
-    setCroppers(prevCroppers => [...prevCroppers, { imageSrc }])
+    dispatch(addCropper(imageSrc))
+  }
+  const onCropChange = (index: number, newCrop: { x: number; y: number }) => {
+    dispatch(updateCropper({ index, data: { crop: newCrop } }))
+  }
+
+  const onZoomChange = (index: number, newZoom: number) => {
+    dispatch(updateCropper({ index, data: { zoom: newZoom } }))
+  }
+
+  // const onCropComplete = (index: number, croppedAreaPixels: CroppedAreaPixel) => {
+  //   dispatch(updateCropper({ index, data: { croppedAreaPixels } }))
+  // }
+  const handleOnCropComplete = index => (croppedArea, croppedAreaPixels) => {
+    dispatch(updateCroppedArea({ index, croppedArea }))
+    dispatch(updateCroppedAreaPixels({ index, croppedAreaPixels }))
+
+    // Your additional logic here
+    // console.log(
+    //   `Index: ${index}, Cropped Area:`,
+    //   croppedArea,
+    //   'Cropped Area Pixels:',
+    //   croppedAreaPixels
+    // )
   }
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.files && e.currentTarget.files.length > 0) {
@@ -138,36 +170,65 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   const handleBack = () => {
     setImageSrc(null)
   }
-  const addNewCropperForFilter = async (imageSrc: string) => {
-    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels)
+  // const addNewCropperForFilter = async (imageSrc: string, index: number) => {
+  //   const croppedImage = await getCroppedImg(imageSrc, croppers[index]?.croppedAreaPixels)
+  //
+  //   console.log('croppedImage', croppedImage)
+  //   if (croppedImage) {
+  //     try {
+  //       const response = await fetch(croppedImage)
+  //
+  //       if (!response.ok) {
+  //         throw new Error(`Failed to fetch image. Status: ${response.status}`)
+  //       }
+  //
+  //       const blob = await response.blob()
+  //       const croppedFile = new File([blob], 'cropped-image.jpg', { type: blob.type })
+  //
+  //       setPhotos(croppedFile)
+  //       console.log('croppedFile', croppedFile)
+  //     } catch (error) {
+  //       console.error('Error converting and sending the cropped image:', error)
+  //     }
+  //   }
+  // }
+  const addNewCropperForFilter = async (imageSrc: string[], index: number) => {
+    const croppedImages = await Promise.all(
+      imageSrc.map(async src => {
+        const croppedImage = await getCroppedImg(src, croppers[index]?.croppedAreaPixels)
 
-    if (croppedImage) {
-      try {
-        const response = await fetch(croppedImage)
+        if (croppedImage) {
+          try {
+            const response = await fetch(croppedImage)
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch image. Status: ${response.status}`)
+            if (!response.ok) {
+              throw new Error(`Failed to fetch image. Status: ${response.status}`)
+            }
+
+            const blob = await response.blob()
+            const croppedFile = new File([blob], `cropped-image-${index}.jpg`, { type: blob.type })
+
+            return croppedFile
+          } catch (error) {
+            console.error('Error converting and sending the cropped image:', error)
+
+            return null
+          }
         }
 
-        const blob = await response.blob()
-        const croppedFile = new File([blob], 'cropped-image.jpg', { type: blob.type })
+        return null
+      })
+    )
 
-        setPhotos(prevPhotos => [...prevPhotos, croppedFile])
-      } catch (error) {
-        console.error('Error converting and sending the cropped image:', error)
-      }
-    }
+    debugger
+    const filteredCroppedImages = croppedImages.filter(img => img !== null)
+
+    setPhotos(prevPhotos => [...prevPhotos, ...filteredCroppedImages])
+    openModal()
   }
   const handleOpenFilter = () => {
-    if (imageSrc) {
-      addNewCropperForFilter(imageSrc)
-      openModal()
-    }
+    openModal()
   }
-  // const swiper = new Swiper('.swiper', {
-  //   speed: 400,
-  //   spaceBetween: 100,
-  // })
 
   const customStyles = {
     style: {
@@ -216,7 +277,7 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
           onClose={closePostModal}
         >
           <>
-            <FilterModal isOpenFilter={isOpen} imgPost={photos} closeFilter={closeModal} />
+            <FilterModal isOpenFilter={isOpen} closeFilter={closeModal} croppers={photos} />
 
             {imageSrc ? (
               <>
@@ -230,40 +291,54 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
                     pagination={{ clickable: true }}
                     simulateTouch={false}
                   >
-                    {croppers.map((cropper, index) => (
-                      <SwiperSlide key={index} className={s.swiper}>
-                        <div className={s.imageBox}>
-                          <Cropper
-                            onCropChange={setCrop}
-                            crop={crop}
-                            image={cropper.imageSrc}
-                            showGrid={false}
-                            cropSize={aspect}
-                            // rotation={rotation}
-                            {...customStyles}
-                            aspect={1}
-                            objectFit={'cover'}
-                            zoom={zoom}
-                            onCropComplete={onCropComplete}
-                            onZoomChange={setZoom}
-                            // onRotationChange={setRotation}
-                          />
-                        </div>
-                      </SwiperSlide>
-                    ))}
+                    {croppers.map((cropper, index) => {
+                      console.log(cropper)
+
+                      return (
+                        <SwiperSlide key={index} className={s.swiper}>
+                          <div className={s.imageBox}>
+                            <Cropper
+                              onCropChange={newCrop => onCropChange(index, newCrop)}
+                              onZoomChange={newZoom => onZoomChange(index, newZoom)}
+                              onCropComplete={handleOnCropComplete(index)}
+                              crop={cropper.crop}
+                              image={cropper.imageSrc}
+                              showGrid={false}
+                              cropSize={aspect}
+                              aspect={1}
+                              objectFit={'cover'}
+                              zoom={cropper.zoom}
+                              {...customStyles}
+                              // onRotationChange={setRotation}
+                            />
+                            <Button
+                              onClick={() => addNewCropperForFilter([cropper.imageSrc], index)}
+                              style={{ position: 'absolute' }}
+                            >
+                              Show
+                            </Button>
+                          </div>
+                        </SwiperSlide>
+                      )
+                    })}
                   </Swiper>
 
                   <PostPhotoModificationTools
-                    zoomValue={[zoom]}
+                    zoomValue={[]}
                     onChange={handleZoomChange}
                     onAspectChange={handleAspectChange}
                     // onRotationChange={onRotationChange}
                     // rotationValue={[rotation]}
-                    deletePhoto={handleDeletePhoto}
+                    // deletePhoto={handleDeletePhoto}
                     selectNewPhoto={selectPhotoHandler}
                     photos={croppers}
                   />
                 </div>
+
+                {/*<img*/}
+                {/*  src={URL.createObjectURL(photos)}*/}
+                {/*  style={{ width: '100px', height: '100px' }}*/}
+                {/*/>*/}
               </>
             ) : (
               <div className={s.modalBox}>

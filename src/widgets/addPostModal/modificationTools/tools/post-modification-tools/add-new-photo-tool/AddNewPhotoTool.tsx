@@ -8,17 +8,21 @@ import 'swiper/scss'
 import s from './AddNewPhotoTool.module.scss'
 
 import 'swiper/scss/scrollbar'
+import { removeCropper } from '@/app/services/cropper-slice'
 import { DefaultProfileImg, IconAdd } from '@/shared/assets'
 import { DeleteIcon } from '@/shared/assets/icons/DeleteIcon'
 import { CustomDropdown, CustomDropdownItem } from '@/shared/components'
+import { useAppDispatch } from '@/shared/lib'
 
 type Props = {
   selectNewPhoto: () => void
   photos: { imageSrc: string | null }[]
-  deletePhoto: (i: number) => void
+  // deletePhoto: (i: any) => void
 }
-export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, photos, deletePhoto }) => {
+export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, photos }) => {
   const [open, setOpen] = useState(true)
+  const dispatch = useAppDispatch()
+
   const newPhotoTrigger = (
     <div className={s.tool}>
       <DefaultProfileImg style={{ width: '24px', height: '24px' }} />
@@ -28,10 +32,11 @@ export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, photos, deletePhoto
     event.preventDefault()
   }
   const countSwiper = photos.length < 2 ? 1 : 2
-  const handleDeletePhoto = (index: any) => {
-    console.log('delete')
-    debugger
-    deletePhoto(index)
+  // const handleDeletePhoto = (index: any) => {
+  //   deletePhoto(index)
+  // }
+  const handleDeletePhoto = (index: number) => {
+    dispatch(removeCropper(index))
   }
 
   return (
@@ -58,9 +63,6 @@ export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, photos, deletePhoto
               scrollbar={{ draggable: true }}
             >
               {photos?.map((photo, index) => {
-                console.log(photo)
-                console.log(index)
-
                 return (
                   <SwiperSlide key={index}>
                     <div className={s.imgs}>

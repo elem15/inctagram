@@ -21,6 +21,7 @@ import { Modal } from '@/shared/components/modals'
 import { useAppDispatch, useAppSelector } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { PostModalHeader } from '@/widgets/addPostModal/PostHeaderModal'
+
 type Props = {
   isOpen: boolean
   photos: any
@@ -28,9 +29,10 @@ type Props = {
 }
 export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep }) => {
   const { userId, accessToken } = useAuth()
+
   const [wordCount, setWordCount] = useState(0)
-  const text = useAppSelector(state => state.postSlice.textOfTextarea)
   const dispatch = useAppDispatch()
+  const text = useAppSelector(state => state.postSlice.textOfTextarea)
   const { data: profileData } = useGetProfileQuery({
     profileId: userId,
     accessToken,
@@ -46,10 +48,9 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep }) => {
   }
   const photo = [...photos]
 
-  console.log({ publish: photos })
   const handlePublish = async () => {
     try {
-      const imageUploadResult = await publishPostImage({ postsPhoto: photo, accessToken }).unwrap()
+      const imageUploadResult = await publishPostImage({ postsPhoto: photos, accessToken }).unwrap()
 
       await publishDescription({ description: text, accessToken })
     } catch (error) {
@@ -84,12 +85,12 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep }) => {
               spaceBetween={10}
               slidesPerView={1}
             >
-              <div style={{ width: '50%' }}>
+              <div style={{}}>
                 {photos.map((photo, index) => {
                   return (
                     <SwiperSlide key={index} className={s.swiper}>
                       <div className={s.imageBox}>
-                        <img src={URL.createObjectURL(photo)} alt={''} />
+                        <img src={photo.imageSrc} alt={''} />
                       </div>
                     </SwiperSlide>
                   )

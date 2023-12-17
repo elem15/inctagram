@@ -27,19 +27,19 @@ export const FiltersInsta = ({
       divImg.style.filter = ''
     }
   }, [filterClass])
-  const applyFilter = selectedFilter => {
-    const filteredImage = applyFilterToImage(selectedFilter)
-
-    onFilterComplete(filteredImage)
-  }
-
-  const applyFilterToImage = selectedFilter => {
-    const filteredImage = { ...photo[0], filter: selectedFilter }
-
-    console.log(filteredImage)
-
-    return filteredImage
-  }
+  // const applyFilter = selectedFilter => {
+  //   const filteredImage = applyFilterToImage(selectedFilter)
+  //
+  //   onFilterComplete(filteredImage)
+  // }
+  //
+  // const applyFilterToImage = selectedFilter => {
+  //   const filteredImage = { ...photo[0], filter: selectedFilter }
+  //
+  //   console.log(filteredImage)
+  //
+  //   return filteredImage
+  // }
   const filters = [
     // {
     //   name: 'Aden',
@@ -188,11 +188,11 @@ export const FiltersInsta = ({
     // },
   ]
 
-  console.log(photo)
-  const setFilterAndApplyFilter = (filterClass: string) => {
-    setFilterClass(filterClass)
-    applyFilter(filterClass)
-  }
+  console.log(' filterPhoto', photo)
+  // const setFilterAndApplyFilter = (filterClass: string) => {
+  //   setFilterClass(filterClass)
+  //   applyFilter(filterClass)
+  // }
 
   return (
     <>
@@ -203,16 +203,12 @@ export const FiltersInsta = ({
               className={`filter-item ${
                 filterClass === filter.class ? 'filter-item--selected' : ''
               }`}
-              onClick={() => {
-                setFilterAndApplyFilter(filter.class)
-              }}
+              // onClick={() => {
+              //   setFilterAndApplyFilter(filter.class)
+              // }}
             >
               <div style={{ width: '108px', height: '108px' }}>
-                <img
-                  className={filter.class}
-                  src={photo.length > 0 ? URL.createObjectURL(photo[0]) : ''}
-                  alt={filter.name}
-                />
+                <img className={filter.class} src={photo} alt={filter.name} />
               </div>
 
               <Typography variant={'regular_text_16'} style={{ textAlign: 'center' }}>
