@@ -3,27 +3,20 @@ import { FC, useEffect, useRef, useState } from 'react'
 import { StaticImageData, StaticImport } from 'next/dist/shared/lib/get-img-props'
 import Image from 'next/image'
 
-import s from './PublicProfileCard.module.scss'
+import s from './PublicPostCard.module.scss'
 
 import SmileImg from '@/shared/assets/SmileImg.png'
 import { Typography } from '@/shared/components'
 import { CustomSlider } from '@/shared/components/custom-slider'
 import { ExpandableText } from '@/shared/components/expandable-text'
 
-export type PublicProfileCardProps = {
-  profileImage?: string | StaticImageData
-  description: string
-  imagesUrl: any[]
-  firstName: string
-  lastName: string
-}
-
-export const PublicProfileCard: FC<PublicProfileCardProps> = ({
+export const PublicPostCard: FC<PublicPostCardProps> = ({
   profileImage,
   imagesUrl,
   description,
   firstName,
   lastName,
+  updatedAt,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const menuRef = useRef<HTMLDivElement | null>(null)
@@ -62,7 +55,7 @@ export const PublicProfileCard: FC<PublicProfileCardProps> = ({
             )}
           </div>
           {/* <Typography className={s.timeInfo} variant="semi-bold_small_text">
-            22 min ago
+            {updatedAt}
           </Typography> */}
           <div className={s.description}>
             <ExpandableText

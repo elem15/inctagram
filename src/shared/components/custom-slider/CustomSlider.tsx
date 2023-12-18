@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 
 import s from './CustomSlider.module.scss'
 
+import ArrowLeft from '@/shared/assets/icons/ArrowLeft'
+import ArrowRight from '@/shared/assets/icons/ArrowRight'
+
 export const CustomSlider = ({ children }: { children: any[] }) => {
   const [activeIndex, setActiveIndex] = useState(0)
 
@@ -64,7 +67,7 @@ export const CustomSlider = ({ children }: { children: any[] }) => {
           slideNext()
         }}
       >
-        {'>'}
+        <ArrowRight />
       </button>
       <button
         className={s.sliderBtnPrev}
@@ -73,7 +76,7 @@ export const CustomSlider = ({ children }: { children: any[] }) => {
           slidePrev()
         }}
       >
-        {'<'}
+        <ArrowLeft />
       </button>
     </div>
   )

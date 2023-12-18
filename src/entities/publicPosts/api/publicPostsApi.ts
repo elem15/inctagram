@@ -13,17 +13,17 @@ export const publicPostsApi = createApi({
         method: 'Get',
       }),
       providesTags: ['PublicPosts'],
-      transformResponse: (response: any) => {
-        console.log(response)
-        const publicPostsData = response?.items.map((el: any) => {
+      transformResponse: (response: PublicPostsResponseData) => {
+        const publicPostsData = response?.items.map((el: PostDataType) => {
           return {
             id: el.id,
             description: el.description,
             images: el.images,
             owner: el.owner,
-            avatarImage: el.avatarOwner,
+            avatarOwner: el.avatarOwner,
+            updatedAt: el.updatedAt,
           }
-        })
+        }) as PostDataType[]
 
         const usersCounter = response?.totalUsers
 
