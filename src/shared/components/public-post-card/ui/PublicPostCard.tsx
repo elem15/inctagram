@@ -1,6 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react'
 
-import { StaticImageData, StaticImport } from 'next/dist/shared/lib/get-img-props'
 import Image from 'next/image'
 import ReactTimeAgo from 'react-time-ago'
 
@@ -10,6 +9,7 @@ import SmileImg from '@/shared/assets/SmileImg.png'
 import { Typography } from '@/shared/components'
 import { CustomSlider } from '@/shared/components/custom-slider'
 import { ExpandableText } from '@/shared/components/expandable-text'
+import { useTranslation } from '@/shared/lib'
 
 export const PublicPostCard: FC<PublicPostCardProps> = ({
   profileImage,
@@ -21,6 +21,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const menuRef = useRef<HTMLDivElement | null>(null)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const handler = (e: MouseEvent): void => {
@@ -73,7 +74,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
             )}
           </div>
           <Typography className={s.timeInfo} variant="semi-bold_small_text">
-            <ReactTimeAgo date={Date.parse(updatedAt)} locale="en-US" />
+            <ReactTimeAgo date={Date.parse(updatedAt)} locale={t.lg} />
           </Typography>
           <div className={s.description}>
             <ExpandableText
