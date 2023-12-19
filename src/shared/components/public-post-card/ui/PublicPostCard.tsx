@@ -2,6 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 import { StaticImageData, StaticImport } from 'next/dist/shared/lib/get-img-props'
 import Image from 'next/image'
+import ReactTimeAgo from 'react-time-ago'
 
 import s from './PublicPostCard.module.scss'
 
@@ -71,9 +72,9 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
               </Typography>
             )}
           </div>
-          {/* <Typography className={s.timeInfo} variant="semi-bold_small_text">
-            {updatedAt}
-          </Typography> */}
+          <Typography className={s.timeInfo} variant="semi-bold_small_text">
+            <ReactTimeAgo date={Date.parse(updatedAt)} locale="en-US" />
+          </Typography>
           <div className={s.description}>
             <ExpandableText
               descriptionLength={100}
