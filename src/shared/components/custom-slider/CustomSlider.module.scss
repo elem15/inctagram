@@ -16,6 +16,7 @@
 
 @media (width< 1280px) {
   .containerSlider {
+    max-width: 240px;
     max-height: 234px;
   }
 }
@@ -124,7 +125,12 @@
   transform: translateX(-300%);
 }
 
-.sliderItem img {
+.item {
+  position: relative;
   width: 100%;
-  height: auto;
+  height: 360px;
+
+  @media (width< 1280px) {
+    height: 234px;
+  }
 }

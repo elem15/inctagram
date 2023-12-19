@@ -37,14 +37,31 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
     <div className={s.container}>
       <CustomSlider>
         {imagesUrl?.map((image: any, index: number) => {
-          return <Image key={index} width={234} height={240} src={image.url} alt={''} />
+          return (
+            <Image
+              key={index}
+              style={{ height: '100%', width: '100%' }}
+              priority
+              layout="fill"
+              objectFit="cover"
+              src={image.url}
+              alt={''}
+            />
+          )
         })}
       </CustomSlider>
       <div className={s.wrapper} ref={menuRef}>
         <div className={s.sticky}>
           <div className={s.mainInfo}>
             {profileImage ? (
-              <Image src={profileImage} className={s.profileImg} width={0} height={0} alt={''} />
+              <Image
+                src={profileImage}
+                priority
+                className={s.profileImg}
+                width={0}
+                height={0}
+                alt={''}
+              />
             ) : (
               <Image src={SmileImg} className={s.profileImg} width={234} height={240} alt={''} />
             )}

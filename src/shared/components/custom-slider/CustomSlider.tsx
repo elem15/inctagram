@@ -33,10 +33,10 @@ export const CustomSlider = ({ children }: { children: any[] }) => {
       {children?.map((item: any, index: number) => {
         return (
           <div
-            className={`${s.sliderItem} ${s['sliderItemActive-' + (activeIndex + 1)]}`}
             key={index}
+            className={`${s.sliderItem} ${s['sliderItemActive-' + (activeIndex + 1)]}`}
           >
-            {item}
+            <div className={s.item}>{item}</div>
           </div>
         )
       })}
