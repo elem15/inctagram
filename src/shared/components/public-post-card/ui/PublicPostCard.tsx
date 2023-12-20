@@ -42,10 +42,10 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
           return (
             <Image
               key={index}
-              style={{ height: '100%', width: '100%' }}
+              style={{ height: '100%', width: '100%', objectFit: 'cover' }}
               priority
-              layout="fill"
-              objectFit="cover"
+              fill
+              sizes="(min-width: 1280px) 360px, (max-width: 1280px) 240px"
               src={image.url}
               alt={''}
             />

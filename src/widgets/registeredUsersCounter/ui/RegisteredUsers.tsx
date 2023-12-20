@@ -15,15 +15,17 @@ export const RegisteredUsers = () => {
   const counterArray = Array.from(String(counter))
 
   return (
-    <div className={s.container}>
+    <>
       {isSuccessRegisteredUsersData && (
-        <div className="w-full flex justify-between items-center">
-          <Typography className={s.label} variant="h2">
-            Registered Users
-          </Typography>
-          <ul className={s.counter}>{counterArray?.map((el, i) => <li key={i}>{el}</li>)}</ul>
+        <div className={s.container}>
+          <div className="w-full flex justify-between items-center">
+            <Typography className={s.label} variant="h2">
+              Registered Users
+            </Typography>
+            <ul className={s.counter}>{counterArray?.map((el, i) => <li key={i}>{el}</li>)}</ul>
+          </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
