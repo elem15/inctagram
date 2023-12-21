@@ -5,7 +5,7 @@
   font-weight: 400;
   font-style: normal;
   line-height: 24px;
-  color: var(--light-100, #fff);
+  color: var(--color-light-100);
 }
 
 .toggleButton {
@@ -17,6 +17,6 @@
   font-weight: 400;
   font-style: normal;
   line-height: 24px;
-  color: var(--primary-500, #397df6);
+  color: var(--color-accent-500);
   text-decoration-line: underline;
 }

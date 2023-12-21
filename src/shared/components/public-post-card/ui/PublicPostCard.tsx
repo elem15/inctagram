@@ -2,14 +2,23 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 import Image from 'next/image'
 import ReactTimeAgo from 'react-time-ago'
+import { Navigation, Pagination, Scrollbar, EffectFade } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
 
 import s from './PublicPostCard.module.scss'
 
+import ArrowLeft from '@/shared/assets/icons/ArrowLeft'
+import ArrowRight from '@/shared/assets/icons/ArrowRight'
 import SmileImg from '@/shared/assets/SmileImg.png'
 import { Typography } from '@/shared/components'
 import { CustomSlider } from '@/shared/components/custom-slider'
 import { ExpandableText } from '@/shared/components/expandable-text'
 import { useTranslation } from '@/shared/lib'
+
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
 
 export const PublicPostCard: FC<PublicPostCardProps> = ({
   profileImage,
@@ -22,6 +31,8 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
   const [isExpanded, setIsExpanded] = useState(false)
   const menuRef = useRef<HTMLDivElement | null>(null)
   const { t } = useTranslation()
+  const swiperNavPrevRef = useRef(null)
+  const swiperNavNextRef = useRef(null)
 
   useEffect(() => {
     const handler = (e: MouseEvent): void => {
@@ -37,7 +48,39 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
 
   return (
     <div className={s.container}>
-      <CustomSlider>
+      <Swiper
+        modules={[Navigation, Pagination, Scrollbar]}
+        navigation={{
+          prevEl: swiperNavPrevRef.current,
+          nextEl: swiperNavNextRef.current,
+        }}
+        effect={'fade'}
+        pagination={{ clickable: true }}
+        spaceBetween={10}
+        slidesPerView={1}
+      >
+        {imagesUrl?.map((image: any, index: number) => {
+          return (
+            <SwiperSlide key={index} className={s.item}>
+              <Image
+                style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+                priority
+                fill
+                sizes="(min-width: 1280px) 360px, (max-width: 1280px) 240px"
+                src={SmileImg}
+                alt={''}
+              />
+            </SwiperSlide>
+          )
+        })}
+        <div className={s.swiperNavPrev} ref={swiperNavPrevRef}>
+          <ArrowLeft />
+        </div>
+        <div className={s.swiperNavNext} ref={swiperNavNextRef}>
+          <ArrowRight />
+        </div>
+      </Swiper>
+      {/* <CustomSlider>
         {imagesUrl?.map((image: any, index: number) => {
           return (
             <Image
@@ -51,7 +94,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
             />
           )
         })}
-      </CustomSlider>
+      </CustomSlider> */}
       <div className={s.wrapper} ref={menuRef}>
         <div className={s.sticky}>
           <div className={s.mainInfo}>
