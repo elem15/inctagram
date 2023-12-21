@@ -8,11 +8,8 @@ import 'swiper/css'
 
 import s from './PublicPostCard.module.scss'
 
-import ArrowLeft from '@/shared/assets/icons/ArrowLeft'
-import ArrowRight from '@/shared/assets/icons/ArrowRight'
 import SmileImg from '@/shared/assets/SmileImg.png'
 import { Typography } from '@/shared/components'
-import { CustomSlider } from '@/shared/components/custom-slider'
 import { ExpandableText } from '@/shared/components/expandable-text'
 import { useTranslation } from '@/shared/lib'
 
@@ -31,8 +28,6 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
   const [isExpanded, setIsExpanded] = useState(false)
   const menuRef = useRef<HTMLDivElement | null>(null)
   const { t } = useTranslation()
-  const swiperNavPrevRef = useRef(null)
-  const swiperNavNextRef = useRef(null)
 
   useEffect(() => {
     const handler = (e: MouseEvent): void => {
@@ -50,11 +45,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
     <div className={s.container}>
       <Swiper
         modules={[Navigation, Pagination, Scrollbar]}
-        navigation={{
-          prevEl: swiperNavPrevRef.current,
-          nextEl: swiperNavNextRef.current,
-        }}
-        effect={'fade'}
+        navigation
         pagination={{ clickable: true }}
         spaceBetween={10}
         slidesPerView={1}
@@ -67,34 +58,13 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
                 priority
                 fill
                 sizes="(min-width: 1280px) 360px, (max-width: 1280px) 240px"
-                src={SmileImg}
+                src={image.url}
                 alt={''}
               />
             </SwiperSlide>
           )
         })}
-        <div className={s.swiperNavPrev} ref={swiperNavPrevRef}>
-          <ArrowLeft />
-        </div>
-        <div className={s.swiperNavNext} ref={swiperNavNextRef}>
-          <ArrowRight />
-        </div>
       </Swiper>
-      {/* <CustomSlider>
-        {imagesUrl?.map((image: any, index: number) => {
-          return (
-            <Image
-              key={index}
-              style={{ height: '100%', width: '100%', objectFit: 'cover' }}
-              priority
-              fill
-              sizes="(min-width: 1280px) 360px, (max-width: 1280px) 240px"
-              src={image.url}
-              alt={''}
-            />
-          )
-        })}
-      </CustomSlider> */}
       <div className={s.wrapper} ref={menuRef}>
         <div className={s.sticky}>
           <div className={s.mainInfo}>
