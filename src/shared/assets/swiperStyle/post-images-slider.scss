@@ -1,0 +1,32 @@
+.post-images-slider{
+
+  .swiper-button-prev,
+  .swiper-button-next{
+    color: rgb(255 255 255);
+    font-weight: bold;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after{
+    font-size: 12px;
+    background-color: var(--color-dark-500);
+    padding: 10px;
+    opacity: 0.8;
+  }
+
+}
+.post-images-filter{
+  .swiper-button-prev,
+  .swiper-button-next{
+    color: rgb(255 255 255);
+    font-weight: bold;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after{
+    font-size: 12px;
+    background-color: var(--color-dark-500);
+    padding: 10px;
+    opacity: 0.8;
+  }
+}
