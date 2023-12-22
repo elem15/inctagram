@@ -10,8 +10,8 @@ import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 export const ProfileHeaderMob = () => {
   const { t } = useTranslation()
-  const { userId, accessToken } = useAuth()
-  const { data } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
+  const { accessToken } = useAuth()
+  const { data } = useGetProfileQuery({ accessToken } as UserAuthData)
 
   return (
     <>
