@@ -3,25 +3,28 @@ import { configureStore } from '@reduxjs/toolkit'
 import { authReducer, authApi } from '../entities/auth'
 
 import { appSlice } from '@/app/services'
-import { countriesApi } from '@/entities/countries/api/countriesApi'
+import { countriesApi } from '@/entities/countries/'
+import { postsApi } from '@/entities/posts'
 import { profileApi } from '@/entities/profile'
 import { publicPostsApi } from '@/entities/publicPosts'
 
 const store = configureStore({
   reducer: {
     user: authReducer,
-    [authApi.reducerPath]: authApi.reducer,
     [appSlice.name]: appSlice.reducer,
+    [authApi.reducerPath]: authApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,
     [publicPostsApi.reducerPath]: publicPostsApi.reducer,
+    [postsApi.reducerPath]: postsApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
       authApi.middleware,
       profileApi.middleware,
       countriesApi.middleware,
-      publicPostsApi.middleware
+      publicPostsApi.middleware,
+      postsApi.middleware
     ),
 })
 

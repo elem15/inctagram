@@ -18,8 +18,6 @@
   .textarea {
     @include texts-properties(var(--font-size-m));
 
-    resize: none;
-
     flex-grow: 1;
 
     width: 100%;

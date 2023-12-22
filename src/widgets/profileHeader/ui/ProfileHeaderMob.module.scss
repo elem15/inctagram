@@ -12,6 +12,10 @@
   }
 }
 
+.dataProfile {
+  width: 100%;
+}
+
 @media (width <= 768px) {
   .container {
     display: flex;
@@ -44,7 +48,7 @@
     }
   }
 
-  .progressInfoText {
+  .progressInfoText{
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-400);
     line-height: var(--line-height-s);

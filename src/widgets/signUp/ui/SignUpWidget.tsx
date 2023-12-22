@@ -27,6 +27,7 @@ export const SignUpWidget: FC = () => {
     getValues,
     setError,
     trigger,
+    getFieldState,
   } = useForm<IAuthInput>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
@@ -62,8 +63,9 @@ export const SignUpWidget: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t.signin.error_message])
 
-  const googleLogin = () => {
-    window.location.assign(AUTH_URLS.GOOGLE)
+  const login = (url: string) => {
+    setSocialsLoading(true)
+    window.location.assign(url)
   }
 
   useEffect(() => {
@@ -74,7 +76,7 @@ export const SignUpWidget: FC = () => {
       const field = e.data.messages && Array.isArray(e.data.messages) && e.data.messages[0]?.field
 
       if (field) {
-        setError(field, {
+        setError('username', {
           type: 'server',
           message: t.signup.user_exist_error,
         })
@@ -94,12 +96,12 @@ export const SignUpWidget: FC = () => {
     <div className={styles.wrapper}>
       <h1 className={styles.heading}>{t.signup.title}</h1>
       <div className={styles.icon}>
-        <Button variant="link" onClick={googleLogin}>
+        <Button variant="link" onClick={() => login(AUTH_URLS.GOOGLE)}>
           <GoogleIcon />
         </Button>
-        <Link href={AUTH_URLS.GITHUB} onClick={() => setSocialsLoading(true)}>
+        <Button variant="link" onClick={() => login(AUTH_URLS.GITHUB)}>
           <GithubIcon className="fill-light-100" />
-        </Link>
+        </Button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <SignUpAuth

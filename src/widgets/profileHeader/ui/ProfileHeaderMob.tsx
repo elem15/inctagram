@@ -3,17 +3,26 @@ import Link from 'next/link'
 
 import s from './ProfileHeaderMob.module.scss'
 
-import PersonImg from '@/shared/assets/PersonImg1.png'
+import { useGetProfileQuery } from '@/entities/profile'
 import { Typography } from '@/shared/components'
 import { useTranslation } from '@/shared/lib'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 export const ProfileHeaderMob = () => {
   const { t } = useTranslation()
+  const { userId, accessToken } = useAuth()
+  const { data } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
 
   return (
     <>
       <div className={s.container}>
-        <Image src={PersonImg} className={s.image} alt={''} />
+        <Image
+          src={data?.avatars[0]?.url || ''}
+          className={s.image}
+          alt={''}
+          width={204}
+          height={204}
+        />
         <div className={s.progressProfile}>
           <div className={s.info}>
             <Typography className={s.progressInfoValue} variant="semi-bold_small_text">
@@ -38,15 +47,12 @@ export const ProfileHeaderMob = () => {
         </div>
       </div>
       <Typography className={s.profileName} variant="bold_text_16">
-        URLProfiele
+        URLProfile
       </Typography>
       <p className={s.description}>
         <Typography as="span" variant="regular_text_14">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt{' '}
+          {data?.aboutMe}
         </Typography>
-        <Link as="span" className={s.text} href="">
-          laboris nisi ut aliquip ex ea commodo consequat.
-        </Link>
       </p>
     </>
   )
