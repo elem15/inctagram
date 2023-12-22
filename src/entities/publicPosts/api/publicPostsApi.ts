@@ -9,7 +9,7 @@ export const publicPostsApi = createApi({
   endpoints: builder => ({
     getPublicPosts: builder.query<any, void>({
       query: () => ({
-        url: '/public-posts/all/,?pageSize=4&sortDirection=desc',
+        url: '/public-posts/all/?pageSize=4&sortDirection=desc',
         method: 'Get',
       }),
       providesTags: ['PublicPosts'],

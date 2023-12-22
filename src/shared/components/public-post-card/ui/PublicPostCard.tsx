@@ -12,6 +12,7 @@ import SmileImg from '@/shared/assets/SmileImg.png'
 import { Typography } from '@/shared/components'
 import { ExpandableText } from '@/shared/components/expandable-text'
 import { useTranslation } from '@/shared/lib'
+import '../../../assets/swiperStyle/post-images-slider.scss'
 
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -42,64 +43,67 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
   }, [isExpanded])
 
   return (
-    <div className={s.container}>
-      <Swiper
-        modules={[Navigation, Pagination, Scrollbar]}
-        navigation
-        pagination={{ clickable: true }}
-        spaceBetween={10}
-        slidesPerView={1}
-      >
-        {imagesUrl?.map((image: any, index: number) => {
-          return (
-            <SwiperSlide key={index} className={s.item}>
-              <Image
-                style={{ height: '100%', width: '100%', objectFit: 'cover' }}
-                priority
-                fill
-                sizes="(min-width: 1280px) 360px, (max-width: 1280px) 240px"
-                src={image.url}
-                alt={''}
-              />
-            </SwiperSlide>
-          )
-        })}
-      </Swiper>
-      <div className={s.wrapper} ref={menuRef}>
-        <div className={s.sticky}>
-          <div className={s.mainInfo}>
-            {profileImage ? (
-              <Image
-                src={profileImage}
-                priority
-                className={s.profileImg}
-                width={0}
-                height={0}
-                alt={''}
-              />
-            ) : (
-              <Image src={SmileImg} className={s.profileImg} width={234} height={240} alt={''} />
-            )}
-            {firstName && (
-              <Typography className={s.profileName} variant="bold_text_16">
-                {`${firstName} ${lastName}`}
-              </Typography>
-            )}
-          </div>
-          <Typography className={s.timeInfo} variant="semi-bold_small_text">
-            <ReactTimeAgo date={Date.parse(updatedAt)} locale={t.lg} />
-          </Typography>
-          <div className={s.description}>
-            <ExpandableText
-              descriptionLength={100}
-              isExpanded={isExpanded}
-              setIsExpanded={setIsExpanded}
-            >
-              {description}
-            </ExpandableText>
+    imagesUrl.length > 0 && (
+      <div className={s.container}>
+        <Swiper
+          modules={[Navigation, Pagination, Scrollbar]}
+          navigation
+          pagination={{ clickable: true }}
+          spaceBetween={10}
+          slidesPerView={1}
+          className={'post-images-slider'}
+        >
+          {imagesUrl?.map((image: any, index: number) => {
+            return (
+              <SwiperSlide key={index} className={s.item}>
+                <Image
+                  style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+                  priority
+                  fill
+                  sizes="(min-width: 1280px) 360px, (max-width: 1280px) 240px"
+                  src={image.url}
+                  alt={''}
+                />
+              </SwiperSlide>
+            )
+          })}
+        </Swiper>
+        <div className={s.wrapper} ref={menuRef}>
+          <div className={s.sticky}>
+            <div className={s.mainInfo}>
+              {profileImage ? (
+                <Image
+                  src={profileImage}
+                  priority
+                  className={s.profileImg}
+                  width={0}
+                  height={0}
+                  alt={''}
+                />
+              ) : (
+                <Image src={SmileImg} className={s.profileImg} width={234} height={240} alt={''} />
+              )}
+              {firstName && (
+                <Typography className={s.profileName} variant="bold_text_16">
+                  {`${firstName} ${lastName}`}
+                </Typography>
+              )}
+            </div>
+            <Typography className={s.timeInfo} variant="semi-bold_small_text">
+              <ReactTimeAgo date={Date.parse(updatedAt)} locale={t.lg} />
+            </Typography>
+            <div className={s.description}>
+              <ExpandableText
+                descriptionLength={100}
+                isExpanded={isExpanded}
+                setIsExpanded={setIsExpanded}
+              >
+                {description}
+              </ExpandableText>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    )
   )
 }

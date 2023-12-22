@@ -29,6 +29,6 @@ export const ExpandableText: FC<ExpandableTextProps> = ({
       </span>
     </p>
   ) : (
-    <p>{fullText}</p>
+    <p className={s.text}>{fullText}</p>
   )
 }

@@ -183,4 +183,7 @@ export const ru: LangType = {
   delete_followers: {
     remove_text: 'Вы действительно хотите удалить',
   },
+  registered_users: {
+    title: 'Зарегистрированные Пользователи',
+  },
 }

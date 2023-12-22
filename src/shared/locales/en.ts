@@ -183,5 +183,8 @@ export const en = {
   delete_followers: {
     remove_text: 'Do you really want to remove',
   },
+  registered_users: {
+    title: 'Registered Users',
+  },
 }
 export type LangType = typeof en

@@ -21,7 +21,7 @@ export function OauthCallbackGoogle() {
   useEffect(() => {
     if (isClient && !code) {
       setTimeout(() => {
-        router.push('/my-profile')
+        router.push('/public-page')
       }, 2000)
     }
   }, [code, isClient, router])
