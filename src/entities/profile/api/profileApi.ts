@@ -8,9 +8,9 @@ export const profileApi = createApi({
   tagTypes: ['Profile'],
   endpoints: builder => ({
     getProfile: builder.query<Profile, UserAuthData>({
-      query: ({ profileId, accessToken }) => ({
+      query: ({ accessToken }) => ({
         method: 'GET',
-        url: `/users/profile/${profileId}`,
+        url: `/users/profile`,
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + accessToken,
