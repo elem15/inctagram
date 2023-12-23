@@ -68,8 +68,8 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
             )
           })}
         </Swiper>
-        <div className={s.wrapper} ref={menuRef}>
-          <div className={s.sticky}>
+        <div className={s.wrapper}>
+          <div className={s.sticky} ref={menuRef}>
             <div className={s.mainInfo}>
               {profileImage ? (
                 <Image

@@ -42,7 +42,7 @@ export const HeaderWidget: FC = () => {
     <header
       className={'header-three sticky-header w-full h-16 sticky lg:relative top-0 z-20 bg-dark-700'}
     >
-      <div className="flex justify-between items-center h-16 max-[320px]:px-1 px-6 sm:px-16 py-3 border-b border-dark-300">
+      <div className="flex justify-between items-center h-16 max-[480px]:px-1 px-6 sm:px-16 py-3 border-b border-dark-300">
         {isAuth ? (
           <Link href="/my-profile" className="text-light-100 text-[26px] font-semibold">
             Inctagram
@@ -62,13 +62,15 @@ export const HeaderWidget: FC = () => {
           )}
           <LangSelectWidget />
           {!isAuth && (
-            <div className={s.buttonWrapper}>
-              <Button variant="link">
+            <div className="flex justify-center items-center">
+              <Button style={{ border: 'inherit' }} variant="link">
                 <Link href="/signin">{t.signin.log_in}</Link>
               </Button>
-              <Button variant="primary">
-                <Link href="/signup">{t.signin.sign_up}</Link>
-              </Button>
+              <div className={s.buttonWrapper}>
+                <Button variant="primary">
+                  <Link href="/signup">{t.signin.sign_up}</Link>
+                </Button>
+              </div>
             </div>
           )}
 
