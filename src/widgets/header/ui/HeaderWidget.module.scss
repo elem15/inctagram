@@ -45,3 +45,9 @@
     display: none;
   }
 }
+
+.buttonWrapper {
+  @media (width <= 1023px) {
+    display: none;
+  }
+}

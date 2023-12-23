@@ -31,6 +31,7 @@ export const ru: LangType = {
     password: 'Пароль',
     forgot_password: 'Забыли пароль',
     sign_in: 'Войти',
+    log_in: 'Войти',
     sign_up: 'Зарегистрироваться',
     account_question: 'Вы не зарегистрированы?',
     error_message: 'Неверная почта или пароль. Попробуйте еще раз',

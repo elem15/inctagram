@@ -21,7 +21,7 @@ export function OauthCallbackGoogle() {
   useEffect(() => {
     if (isClient && !code) {
       setTimeout(() => {
-        router.push('/public-page')
+        router.push('/my-profile')
       }, 2000)
     }
   }, [code, isClient, router])
@@ -42,7 +42,7 @@ export function OauthCallbackGoogle() {
       {error && isClient && (
         <>
           <div className="text-red-600">Authorization error!</div>
-          <Link href={'/signin'}>Signin</Link>
+          <Link href={'/public-page'}>Signin</Link>
         </>
       )}
     </>
