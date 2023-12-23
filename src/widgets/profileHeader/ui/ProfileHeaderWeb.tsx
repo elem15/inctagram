@@ -14,9 +14,8 @@ import { cn } from '@/shared/lib/utils'
 
 export const ProfileHeaderWeb = () => {
   const { t } = useTranslation()
-  const { userId, accessToken } = useAuth()
+  const { accessToken } = useAuth()
   const { data, isLoading, error } = useGetProfileQuery({
-    profileId: userId,
     accessToken,
   } as UserAuthData)
 
