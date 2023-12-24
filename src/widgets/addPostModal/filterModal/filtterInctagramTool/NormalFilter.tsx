@@ -9,6 +9,8 @@ type Props = {
   photo: any
 }
 export const NormalFilter: FC<Props> = ({ filterClass, setFilterClass, photo }) => {
+  console.log({ photo })
+
   return (
     <div>
       <div
@@ -16,7 +18,7 @@ export const NormalFilter: FC<Props> = ({ filterClass, setFilterClass, photo }) 
         onClick={() => setFilterClass('filter-normal')}
       >
         <div style={{ width: '108px', height: '108px' }}>
-          <img src={photo.length > 0 ? URL.createObjectURL(photo[0]) : ''} alt="Normal" />
+          <img src={photo} alt="Normal" />
         </div>
 
         <Typography variant={'regular_text_16'} style={{ textAlign: 'center' }}>

@@ -101,7 +101,7 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep }) => {
           <div className={s.dataBox}>
             <div className={s.textareaBox}>
               <div className={s.avaAndUserName}>
-                <img src={profileData?.avatars[0].url} className={s.avatar} />
+                <img src={profileData?.avatars[0]?.url} className={s.avatar} />
                 <Typography variant={'h3'}>{profileData?.userName}</Typography>
               </div>
 

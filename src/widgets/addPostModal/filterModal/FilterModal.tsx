@@ -1,6 +1,7 @@
 import React, { FC, useRef, useState } from 'react'
 
 import { clsx } from 'clsx'
+import Image from 'next/image'
 import { A11y, EffectCube, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -14,7 +15,7 @@ import 'swiper/scss/pagination'
 import 'swiper/scss/scrollbar'
 
 import { useAppSelector } from '@/app/appStore'
-import { updateFilter } from '@/app/services/cropper-slice'
+import { updateFilterClass } from '@/app/services/cropper-slice'
 import { Modal } from '@/shared/components/modals'
 import { useAppDispatch } from '@/shared/lib'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
@@ -22,6 +23,8 @@ import { FiltersInsta } from '@/widgets/addPostModal/filterModal/filtterInctagra
 import { NormalFilter } from '@/widgets/addPostModal/filterModal/filtterInctagramTool/NormalFilter'
 import { PostModalHeader } from '@/widgets/addPostModal/PostHeaderModal'
 import { PublicationModal } from '@/widgets/addPostModal/publicationModal/PublicationModal'
+
+import { use } from 'ast-types'
 
 type Props = {
   isOpenFilter: boolean
@@ -32,21 +35,19 @@ type Props = {
 
 export const FilterModal: FC<Props> = ({ isOpenFilter, croppers, closeFilter }) => {
   const imgResultRefs = useRef(Array.from({ length: croppers.length }, () => null))
-  const [filterClass, setFilterClass] = useState<{ [key: number]: string }>({})
+  const filterClass = useAppSelector(state => state.croppersSlice.filterClass)
+  // const [filterClass, setFilterClass] = useState<{ [key: number]: string }>({})
   const [filteredImg, setFilteredImg] = useState()
-  const imgRefs = useRef(Array.from({ length: croppers.length }, () => null))
+  const dispatch = useAppDispatch()
+  const imgRefs = useRef(null)
   const { isOpen, openModal, closeModal } = useModal()
   const [openPublishModal, setPublishModal] = useState(false)
   const handleOpenNext = () => {
     openModal()
   }
 
-  console.log(croppers, 'cro')
-  const handleChangeFilter = (index: number, filterClass: string) => {
-    setFilterClass(prevFilterClasses => ({
-      ...prevFilterClasses,
-      [index]: filterClass,
-    }))
+  const handleChangeFilter = (filterClass: string) => {
+    dispatch(updateFilterClass(filterClass))
   }
 
   return (
@@ -87,43 +88,42 @@ export const FilterModal: FC<Props> = ({ isOpenFilter, croppers, closeFilter }) 
               }
               grabCursor={true}
             >
-              {croppers.map((post, index) => {
-                console.log(post)
-
+              {croppers.map(post => {
                 return (
-                  <SwiperSlide key={index}>
+                  <SwiperSlide key={post.id}>
                     <div className={s.box}>
-                      <img
-                        src={URL.createObjectURL(post)}
+                      <Image
+                        src={post.image}
+                        width={500}
+                        height={500}
+                        // src={URL.createObjectURL(post)}
                         alt={''}
-                        style={{ height: '100%' }}
-                        className={clsx(s.postImg && filterClass[index])}
-                        ref={el => (imgResultRefs.current[index] = el)}
+                        style={{ height: '100%', width: '500px', border: '2px solid' }}
+                        className={clsx(s.postImg && filterClass)}
+                        ref={imgRefs}
                       />
+                      <div className={s.instaFilter}>
+                        <NormalFilter
+                          filterClass={filterClass}
+                          setFilterClass={filterClass => handleChangeFilter(filterClass)}
+                          photo={post.image}
+                        />
+
+                        <FiltersInsta
+                          filterClass={filterClass}
+                          setFilterClass={filterClass => handleChangeFilter(filterClass)}
+                          imgRef={imgRefs}
+                          photo={post.image}
+                        />
+                        <PublicationModal isOpen={isOpen} photos={croppers} onPrevStep={closeModal} />
+                      </div>
                     </div>
                   </SwiperSlide>
                 )
               })}
             </Swiper>
           </div>
-          <div className={s.instaFilter}>
-            {croppers.map((_, index) => (
-              <NormalFilter
-                key={index}
-                filterClass={filterClass[index]}
-                setFilterClass={filterClass => handleChangeFilter(index, filterClass)}
-                photo={croppers[index]}
-              />
-            ))}
-            <FiltersInsta
-              filterClass={filterClass[0]}
-              setFilterClass={filterClass => handleChangeFilter(0, filterClass)}
-              imgRef={el => (imgRefs.current[0] = el)}
-              photo={croppers[0]?.imageSrc}
-              onFilterComplete={() => {}}
-            />
-            <PublicationModal isOpen={isOpen} photos={croppers} onPrevStep={closeModal} />
-          </div>
+
         </div>
       </Modal>
     </>

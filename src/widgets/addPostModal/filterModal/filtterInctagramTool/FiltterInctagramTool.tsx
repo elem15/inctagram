@@ -10,7 +10,7 @@ type Props = {
   setFilterClass: (v: string) => void
   imgRef: any
   photo: any
-  onFilterComplete: (filteredImage: any) => void
+  onFilterComplete?: (filteredImage: any) => void
 }
 
 export const FiltersInsta = ({
@@ -188,7 +188,6 @@ export const FiltersInsta = ({
     // },
   ]
 
-  console.log(' filterPhoto', photo)
   // const setFilterAndApplyFilter = (filterClass: string) => {
   //   setFilterClass(filterClass)
   //   applyFilter(filterClass)

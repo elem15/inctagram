@@ -15,7 +15,6 @@ type Props = {
   //rotationValue: number[]
   // deletePhoto: (i: number) => void
   selectNewPhoto: () => void
-  photos: { imageSrc: string | null }[]
 }
 export const PostPhotoModificationTools = ({
   zoomValue,
@@ -23,9 +22,7 @@ export const PostPhotoModificationTools = ({
   onAspectChange,
   //rotationValue,
   // onRotationChange,
-  selectNewPhoto,
-  // deletePhoto,
-  photos,
+  selectNewPhoto, // deletePhoto,
 }: Props) => {
   return (
     <div className={s.toolBox}>
@@ -34,7 +31,7 @@ export const PostPhotoModificationTools = ({
         <ZoomTool zoomValue={zoomValue} onChange={onChange} />
         {/*<RotationTool rotationValue={rotationValue} onRotationChange={onRotationChange} />*/}
       </div>
-      <AddNewPhotoTool selectNewPhoto={selectNewPhoto} photos={photos} />
+      <AddNewPhotoTool selectNewPhoto={selectNewPhoto} />
     </div>
   )
 }

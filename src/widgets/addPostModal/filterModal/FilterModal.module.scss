@@ -1,6 +1,7 @@
 .box{
   height: 504px;
   width: 490px;
+  display: flex;
 }
 .postImg{
   width: 100%;
@@ -11,6 +12,7 @@
 }
 .instaFilter{
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: center;

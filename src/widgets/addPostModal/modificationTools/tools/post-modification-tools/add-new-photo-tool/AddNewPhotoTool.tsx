@@ -8,7 +8,8 @@ import 'swiper/scss'
 import s from './AddNewPhotoTool.module.scss'
 
 import 'swiper/scss/scrollbar'
-import { removeCropper } from '@/app/services/cropper-slice'
+import { useAppSelector } from '@/app/appStore'
+import { deletePhoto, removeCropper } from '@/app/services/cropper-slice'
 import { DefaultProfileImg, IconAdd } from '@/shared/assets'
 import { DeleteIcon } from '@/shared/assets/icons/DeleteIcon'
 import { CustomDropdown, CustomDropdownItem } from '@/shared/components'
@@ -16,12 +17,13 @@ import { useAppDispatch } from '@/shared/lib'
 
 type Props = {
   selectNewPhoto: () => void
-  photos: { imageSrc: string | null }[]
+
   // deletePhoto: (i: any) => void
 }
-export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, photos }) => {
+export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto }) => {
   const [open, setOpen] = useState(true)
   const dispatch = useAppDispatch()
+  const photos = useAppSelector(state => state.croppersSlice.images)
 
   const newPhotoTrigger = (
     <div className={s.tool}>
@@ -32,11 +34,9 @@ export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, photos }) => {
     event.preventDefault()
   }
   const countSwiper = photos.length < 2 ? 1 : 2
-  // const handleDeletePhoto = (index: any) => {
-  //   deletePhoto(index)
-  // }
-  const handleDeletePhoto = (index: number) => {
-    dispatch(removeCropper(index))
+
+  const handleDeletePhoto = (index: string) => {
+    dispatch(deletePhoto(index))
   }
 
   return (
@@ -62,12 +62,12 @@ export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, photos }) => {
               slidesPerView={countSwiper}
               scrollbar={{ draggable: true }}
             >
-              {photos?.map((photo, index) => {
+              {photos?.map(photo => {
                 return (
-                  <SwiperSlide key={index}>
+                  <SwiperSlide key={photo.id}>
                     <div className={s.imgs}>
-                      <img src={photo.imageSrc} alt={''} />
-                      <div onClick={() => handleDeletePhoto(index)}>
+                      <img src={photo.image} alt={''} />
+                      <div onClick={() => handleDeletePhoto(photo.id)}>
                         <DeleteIcon
                           style={{
                             position: 'absolute',

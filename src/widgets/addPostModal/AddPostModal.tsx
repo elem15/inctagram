@@ -1,10 +1,12 @@
-import React, { ChangeEvent, useCallback, useRef, useState } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 import Cropper from 'react-easy-crop'
 import { Navigation, Pagination, A11y, Thumbs } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import './post-images-slider.css'
 // import 'swiper/scss'
+
+import { v1 } from 'uuid'
 
 import s from './AddPostModal.module.scss'
 
@@ -14,10 +16,17 @@ import s from './AddPostModal.module.scss'
 // import 'swiper/scss/scrollbar'
 import { useAppSelector } from '@/app/appStore'
 import {
-  addCropper,
-  updateCroppedArea,
+  addNewPhoto,
+  removeAllPhotos,
+  // addCropper,
+  // CropperState,
+  // editCropper,
+  updateCrop,
+  // updateCroppedArea,
   updateCroppedAreaPixels,
-  updateCropper,
+  // updateCropper,
+  updatePhotos,
+  updateZoom,
 } from '@/app/services/cropper-slice'
 import { DefaultProfileImg } from '@/shared/assets'
 import { Button, Typography } from '@/shared/components'
@@ -48,12 +57,15 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   // const [zoom, setZoom] = useState<number>(1)
   // const [croppedAreaPixels, setCroppedAreaPixels] = useState<CroppedAreaPixel>(null)
   const [errorText, setErrorText] = useState<string | undefined>()
-  const [aspect, setAspect] = useState(size)
+  const [aspect, setAspect] = useState(1)
   // const [rotation, setRotation] = useState(-1)
   const [openCloseCrop, setCloseCropModal] = useState(false)
   const { isOpen, openModal, closeModal } = useModal()
   const inputRef = useRef<HTMLInputElement>(null)
-  const croppers = useAppSelector(state => state.croppersSlice)
+  const croppers = useAppSelector(state => state.croppersSlice.images)
+  const crop = useAppSelector(state => state.croppersSlice.crop)
+  const zoom = useAppSelector(state => state.croppersSlice.zoom)
+  const croppedAreaPixels = useAppSelector(state => state.croppersSlice.croppedAreaPixels)
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const selectPhotoHandler = () => {
@@ -74,6 +86,7 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   //   setCroppedAreaPixels(croppedAreaPixels)
   // }, [])
   const handleZoomChange = (value: number[]) => {
+    dispatch(updateZoom(value[0]))
     // setZoom(value[0])
   }
   // const onRotationChange = (value: number[]) => {
@@ -82,23 +95,29 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   // const addNewCropper = (imageSrc: string) => {
   //   setCroppers(prevCroppers => [...prevCroppers, { imageSrc }])
   // }
-  const addNewCropper = (imageSrc: string) => {
-    dispatch(addCropper(imageSrc))
+  const addNewCropper = (image: string) => {
+    dispatch(addNewPhoto({ image, id: v1() }))
   }
-  const onCropChange = (index: number, newCrop: { x: number; y: number }) => {
-    dispatch(updateCropper({ index, data: { crop: newCrop } }))
+  const onCropChange = (newCrop: Record<'x' | 'y', number>) => {
+    console.log('onCropChange', { newCrop })
+    dispatch(updateCrop(newCrop))
   }
 
-  const onZoomChange = (index: number, newZoom: number) => {
-    dispatch(updateCropper({ index, data: { zoom: newZoom } }))
+  const onZoomChange = (zoom: number) => {
+    console.log('onZoomChange', { zoom })
+    dispatch(updateZoom(zoom))
   }
 
   // const onCropComplete = (index: number, croppedAreaPixels: CroppedAreaPixel) => {
   //   dispatch(updateCropper({ index, data: { croppedAreaPixels } }))
   // }
-  const handleOnCropComplete = index => (croppedArea, croppedAreaPixels) => {
-    dispatch(updateCroppedArea({ index, croppedArea }))
-    dispatch(updateCroppedAreaPixels({ index, croppedAreaPixels }))
+  const handleOnCropComplete = (
+    _croppedArea: Record<'x' | 'y', number>,
+    croppedAreaPixels: CroppedAreaPixel
+  ) => {
+    console.log('handleOnCropComplete', { croppedAreaPixels })
+    // dispatch(updateCrop(croppedArea))
+    dispatch(updateCroppedAreaPixels(croppedAreaPixels))
 
     // Your additional logic here
     // console.log(
@@ -131,43 +150,46 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
       addNewCropper(imageDataUrl)
     }
   }
-  const handleAspectChange = (selectedAspect: string) => {
-    switch (selectedAspect) {
-      case 'contain':
-        setAspect(size)
-        break
-      case '1/1':
-        setAspect({ width: 487, height: 487 })
-        break
-      case 'vertical':
-        setAspect({ width: 373, height: 467 })
-        break
-      case 'horizontal':
-        setAspect({ width: 490, height: 276 })
-        break
-      default:
-        setAspect(size)
-    }
-  }
   // const handleAspectChange = (selectedAspect: string) => {
   //   switch (selectedAspect) {
   //     case 'contain':
-  //       setAspect(1)
+  //       setAspect(size)
   //       break
   //     case '1/1':
-  //       setAspect(1 / 1)
+  //       setAspect({ width: 487, height: 487 })
   //       break
   //     case 'vertical':
-  //       setAspect(4 / 9)
+  //       setAspect({ width: 373, height: 467 })
   //       break
   //     case 'horizontal':
-  //       setAspect(16 / 9)
+  //       setAspect({ width: 490, height: 276 })
   //       break
   //     default:
-  //       setAspect(1)
+  //       setAspect(size)
   //   }
+  //   console.log({ size, selectedAspect })
+  //   // dispatch(updateCroppedAreaPixels(size))
   // }
+  const handleAspectChange = (selectedAspect: string) => {
+    switch (selectedAspect) {
+      case 'contain':
+        setAspect(1)
+        break
+      case '1/1':
+        setAspect(1 / 1)
+        break
+      case 'vertical':
+        setAspect(4 / 9)
+        break
+      case 'horizontal':
+        setAspect(16 / 9)
+        break
+      default:
+        setAspect(1)
+    }
+  }
   const handleBack = () => {
+    dispatch(removeAllPhotos())
     setImageSrc(null)
   }
   // const addNewCropperForFilter = async (imageSrc: string, index: number) => {
@@ -192,41 +214,45 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   //     }
   //   }
   // }
-  const addNewCropperForFilter = async (imageSrc: string[], index: number) => {
+  const addNewCropperForFilter = async () => {
     const croppedImages = await Promise.all(
-      imageSrc.map(async src => {
-        const croppedImage = await getCroppedImg(src, croppers[index]?.croppedAreaPixels)
+      croppers.map(async cropper => {
+        const croppedImage = await getCroppedImg(cropper.image, { ...croppedAreaPixels })
 
-        if (croppedImage) {
-          try {
-            const response = await fetch(croppedImage)
+        // if (croppedImage) {
+        //   try {
+        //     const response = await fetch(croppedImage)
 
-            if (!response.ok) {
-              throw new Error(`Failed to fetch image. Status: ${response.status}`)
-            }
+        //     if (!response.ok) {
+        //       throw new Error(`Failed to fetch image. Status: ${response.status}`)
+        //     }
 
-            const blob = await response.blob()
-            const croppedFile = new File([blob], `cropped-image-${index}.jpg`, { type: blob.type })
+        //     const blob = await response.blob()
+        //     const croppedFile = new File([blob], `cropped-image-${cropper.id}.jpg`, { type: blob.type })
 
-            return croppedFile
-          } catch (error) {
-            console.error('Error converting and sending the cropped image:', error)
+        //     return croppedFile
+        //   } catch (error) {
+        //     console.error('Error converting and sending the cropped image:', error)
 
-            return null
-          }
-        }
+        //     return null
+        //   }
+        // }
 
-        return null
+        return { ...cropper, image: croppedImage as string }
       })
     )
 
-    debugger
-    const filteredCroppedImages = croppedImages.filter(img => img !== null)
+    // const filteredCroppedImages = croppedImages.filter(img => img !== null)
 
-    setPhotos(prevPhotos => [...prevPhotos, ...filteredCroppedImages])
-    openModal()
+    console.log({ croppedImages })
+    dispatch(updatePhotos(croppedImages))
+    // setPhotos(prevPhotos => [...prevPhotos, ...filteredCroppedImages])
+    // openModal()
   }
+
+  console.log({ photos, aspect, croppers, imageSrc })
   const handleOpenFilter = () => {
+    addNewCropperForFilter()
     openModal()
   }
 
@@ -254,6 +280,10 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
     handleCloseCrop()
   }
 
+  // useEffect(() => {
+  //   addNewCropperForFilter()
+  // }, [zoom, croppedAreaPixels, crop])
+
   return (
     <>
       <ClickOutside onClickOutside={openCloseCropModal}>
@@ -277,7 +307,7 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
           onClose={closePostModal}
         >
           <>
-            <FilterModal isOpenFilter={isOpen} closeFilter={closeModal} croppers={photos} />
+            <FilterModal isOpenFilter={isOpen} closeFilter={closeModal} croppers={croppers} />
 
             {imageSrc ? (
               <>
@@ -291,32 +321,30 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
                     pagination={{ clickable: true }}
                     simulateTouch={false}
                   >
-                    {croppers.map((cropper, index) => {
-                      console.log(cropper)
-
+                    {croppers.map(cropper => {
                       return (
-                        <SwiperSlide key={index} className={s.swiper}>
+                        <SwiperSlide key={cropper.id} className={s.swiper}>
                           <div className={s.imageBox}>
                             <Cropper
-                              onCropChange={newCrop => onCropChange(index, newCrop)}
-                              onZoomChange={newZoom => onZoomChange(index, newZoom)}
-                              onCropComplete={handleOnCropComplete(index)}
-                              crop={cropper.crop}
-                              image={cropper.imageSrc}
+                              onCropChange={onCropChange}
+                              onZoomChange={onZoomChange}
+                              onCropComplete={handleOnCropComplete}
+                              crop={crop}
+                              image={cropper.image}
                               showGrid={false}
-                              cropSize={aspect}
-                              aspect={1}
-                              objectFit={'cover'}
-                              zoom={cropper.zoom}
+                              //cropSize={aspect}
+                              aspect={aspect}
+                              //objectFit={'cover'}
+                              zoom={zoom}
                               {...customStyles}
                               // onRotationChange={setRotation}
                             />
-                            <Button
-                              onClick={() => addNewCropperForFilter([cropper.imageSrc], index)}
+                            {/* <Button
+                              onClick={() => addNewCropperForFilter(cropper)}
                               style={{ position: 'absolute' }}
                             >
                               Show
-                            </Button>
+                            </Button> */}
                           </div>
                         </SwiperSlide>
                       )
@@ -324,14 +352,13 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
                   </Swiper>
 
                   <PostPhotoModificationTools
-                    zoomValue={[]}
+                    zoomValue={[zoom]}
                     onChange={handleZoomChange}
                     onAspectChange={handleAspectChange}
                     // onRotationChange={onRotationChange}
                     // rotationValue={[rotation]}
                     // deletePhoto={handleDeletePhoto}
                     selectNewPhoto={selectPhotoHandler}
-                    photos={croppers}
                   />
                 </div>
 
@@ -388,8 +415,6 @@ type CloseCropType = {
   onDiscard: () => void
 }
 export const CloseCrop = ({ openCloseCrop, closeCrop, onDiscard }: CloseCropType) => {
-  console.log('CloseCrop')
-
   return (
     <Modal open={openCloseCrop} size={'sm'} title={'Close'} onClose={closeCrop}>
       <>
