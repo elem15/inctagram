@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react'
+import { useEffect } from 'react'
 
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -19,7 +19,7 @@ export function OauthCallbackGoogle() {
   const { isClient } = useClient()
   const { isAuth } = useAuth()
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const timeout = setTimeout(() => {
       if (!isAuth && !code) {
         router.push('/public-page')
