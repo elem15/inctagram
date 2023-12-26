@@ -12,7 +12,7 @@ export const FRONTEND_URL = process.env.NODE_ENV === 'development' ? LOCAL_URL :
 const GOOGLE_REDIRECT_URI =
   process.env.NODE_ENV === 'development'
     ? FRONTEND_URL
-    : FRONTEND_URL + '/auth/oauth-callback-google/'
+    : FRONTEND_URL + '/auth/oauth-callback-google'
 
 export const AUTH_URLS = {
   GITHUB: `${BASE_WORK_URL}/auth/github/login`,
