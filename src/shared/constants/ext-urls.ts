@@ -9,10 +9,7 @@ export const FRONTEND_URL = process.env.NODE_ENV === 'development' ? LOCAL_URL :
 // 2 different REDIRECT_URL used on deploy end develop
 // const GOOGLE_REDIRECT_URI = FRONTEND_URL + '/auth/oauth-callback-google'
 
-const GOOGLE_REDIRECT_URI =
-  process.env.NODE_ENV === 'development'
-    ? FRONTEND_URL
-    : 'storagerelay://https/incta.online/auth/oauth-callback-google'
+const GOOGLE_REDIRECT_URI = process.env.NODE_ENV === 'development' ? FRONTEND_URL : LOCAL_URL
 // : FRONTEND_URL + '/auth/oauth-callback-google'
 
 export const AUTH_URLS = {
