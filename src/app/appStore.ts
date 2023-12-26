@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import { authReducer, authApi } from '../entities/auth'
+import { authReducer, authApi, authGoogleApi } from '../entities/auth'
 
 import { appSlice } from '@/app/services'
 import { countriesApi } from '@/entities/countries/'
@@ -13,6 +13,7 @@ const store = configureStore({
     user: authReducer,
     [appSlice.name]: appSlice.reducer,
     [authApi.reducerPath]: authApi.reducer,
+    [authGoogleApi.reducerPath]: authGoogleApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,
     [publicPostsApi.reducerPath]: publicPostsApi.reducer,
@@ -21,6 +22,7 @@ const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
       authApi.middleware,
+      authGoogleApi.middleware,
       profileApi.middleware,
       countriesApi.middleware,
       publicPostsApi.middleware,
