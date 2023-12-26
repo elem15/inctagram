@@ -16,7 +16,6 @@ export const authGoogleApi = createApi({
         body: { code },
         url: '/auth/google/login',
         method: 'POST',
-        credentials: 'include',
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
@@ -127,7 +126,6 @@ export const authApi = createApi({
         body: { code },
         url: '/auth/google/login',
         method: 'POST',
-        credentials: 'include',
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
