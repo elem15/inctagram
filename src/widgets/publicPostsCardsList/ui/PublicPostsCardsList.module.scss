@@ -1,0 +1,11 @@
+.container {
+  flex-shrink: 0;
+  width: 234px;
+  margin-top: 36px;
+
+  .wrapper {
+    display: flex;
+    width: 234px;
+    height: 200px;
+  }
+}

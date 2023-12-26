@@ -40,8 +40,8 @@
       border-radius: 2px;
 
       &[type='search'] {
-        padding: 6px 10px 6px 40px;
         width: calc(100% - 55px);
+        padding: 6px 10px 6px 40px;
       }
 
       &:hover {

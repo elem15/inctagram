@@ -1,6 +1,7 @@
 import { FC, ReactElement, ReactNode } from 'react'
 
 import { HeaderWidget } from '../../header'
+import BottomNavigation from '../mobile-navigation/mobile-navigation'
 
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 

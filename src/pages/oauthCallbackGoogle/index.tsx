@@ -17,14 +17,19 @@ export function OauthCallbackGoogle() {
   const { isLoading, error, data } = useGoogleLogin(code)
 
   const { isClient } = useClient()
+  const { isAuth } = useAuth()
 
   useEffect(() => {
-    if (isClient && !code) {
+    if (isAuth) {
       setTimeout(() => {
         router.push('/my-profile')
       }, 2000)
+    } else {
+      setTimeout(() => {
+        router.push('/public-page')
+      }, 2000)
     }
-  }, [code, isClient, router])
+  }, [isAuth, router])
 
   useEffect(() => {
     const success = data && !error && !isLoading

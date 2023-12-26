@@ -6,6 +6,7 @@ import { appSlice } from '@/app/services'
 import { countriesApi } from '@/entities/countries/'
 import { postsApi } from '@/entities/posts'
 import { profileApi } from '@/entities/profile'
+import { publicPostsApi } from '@/entities/publicPosts'
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,
+    [publicPostsApi.reducerPath]: publicPostsApi.reducer,
     [postsApi.reducerPath]: postsApi.reducer,
   },
   middleware: getDefaultMiddleware =>
@@ -21,6 +23,7 @@ const store = configureStore({
       authApi.middleware,
       profileApi.middleware,
       countriesApi.middleware,
+      publicPostsApi.middleware,
       postsApi.middleware
     ),
 })

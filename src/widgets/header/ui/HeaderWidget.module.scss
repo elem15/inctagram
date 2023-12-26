@@ -39,9 +39,15 @@
   line-height: 24px;
   color: var(--color-accent-500);
 }
-.wrappedActionMenu{
 
+.wrappedActionMenu {
   @media (width >1023px) {
+    display: none;
+  }
+}
+
+.buttonWrapper {
+  @media (width <= 1023px) {
     display: none;
   }
 }
