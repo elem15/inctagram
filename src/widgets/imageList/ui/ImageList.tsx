@@ -10,22 +10,12 @@ import { ImageCard } from '@/shared/components/imageCard'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 
-export const ImageListWidget = () => {
-  let {
-    query: { ownerId },
-  } = useRouter()
-
-  if (ownerId && !Array.isArray(ownerId)) {
-    ownerId = ownerId as string
-  } else {
-    ownerId = ''
-  }
-
+type Props = { userId: string }
+export const ImageListWidget = ({ userId }: Props) => {
   const [postId, setPostId] = useState<number>()
   const [images, setImages] = useState<PostDataToComponent[]>([])
-  const { userId } = useAuth()
-  const { data, isLoading, error } = useGetPostsQuery({ userId: ownerId || userId, postId })
   const ref = useRef(null)
+  const { data, isLoading, error } = useGetPostsQuery({ userId, postId })
 
   useEffect(() => {
     const imagesData = data ? (data as PostDataToComponent[]) : []

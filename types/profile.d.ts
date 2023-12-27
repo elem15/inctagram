@@ -10,8 +10,13 @@ type Profile = {
   createdAt: string
 };
 
+type PublicProfile = Omit<Profile, 'firstName' | 'lastName' | 'city' | 'dateOfBirth'>
+
 type ProfilePut = Omit<Partial<Profile>, 'id' | 'avatars' | 'createdAt | userName'>
 
+type PublicProfileQuery = {
+  profileId: string
+}
 type Avatar = {
   url: string,
   width: number,
@@ -52,5 +57,3 @@ type CountriesRTKOutput = {
   countriesWithoutCities: City[]
   responseError: boolean
 };
-
-
