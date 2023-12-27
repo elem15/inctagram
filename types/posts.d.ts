@@ -1,5 +1,5 @@
 type PostsQuery = {
-  userId: number,
+  userId: string,
   postId?: number,
 }
 

@@ -11,12 +11,13 @@ export const PublicPostsCardsList = () => {
 
   return (
     <div className="flex items-center justify-center ">
-      <div className=" max-md:flex  max-md:flex-col   sm:flex sm:flex-wrap  gap-x-3 ">
+      <div className="flex justify-center flex-wrap gap-x-3 ">
         {isLoadingPublicPostsData && <Spinner />}
-        {data?.publicPostsData.map((el: PostDataType, key: number) => {
+        {data?.publicPostsData.map((el: PostDataType) => {
           return (
             <PublicPostCard
-              key={key}
+              key={el.id}
+              ownerId={el.ownerId}
               profileImage={el.avatarOwner}
               imagesUrl={el.images}
               firstName={el.owner.firstName}

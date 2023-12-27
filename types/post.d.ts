@@ -9,6 +9,7 @@ type CountriesRTKOutput = {
 type ImagesUrlData = Record<number, string[]>
 
 type PublicPostCardProps = {
+  ownerId: string
   profileImage?: string | StaticImageData
   description: string
   imagesUrl: ImagesUrlData[]
@@ -26,6 +27,7 @@ type PublicPostsResponseData = {
   
  type PostDataType = {
     id: number
+    ownerId: string
     description: string
     images: []
     owner: Record<string, string>
