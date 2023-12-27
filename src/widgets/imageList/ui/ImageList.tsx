@@ -8,6 +8,7 @@ import s from './ImageList.module.scss'
 import { useGetPostsQuery } from '@/entities/posts'
 import { ImageCard } from '@/shared/components/imageCard'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 export const ImageListWidget = () => {
   let {
@@ -22,7 +23,7 @@ export const ImageListWidget = () => {
 
   const [postId, setPostId] = useState<number>()
   const [images, setImages] = useState<PostDataToComponent[]>([])
-  const userId = localStorage.getItem('userId') as string
+  const { userId } = useAuth()
   const { data, isLoading, error } = useGetPostsQuery({ userId: ownerId || userId, postId })
   const ref = useRef(null)
 
