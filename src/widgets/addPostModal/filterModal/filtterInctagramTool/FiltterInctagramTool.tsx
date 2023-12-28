@@ -3,7 +3,9 @@ import React, { useEffect } from 'react'
 import s from './FiltterInctagramTool.module.scss'
 
 import '../instagram.min.scss'
+import { updateFilterClass } from '@/app/services/cropper-slice'
 import { Typography } from '@/shared/components'
+import { useAppDispatch } from '@/shared/lib'
 
 type Props = {
   filterClass: string
@@ -11,6 +13,7 @@ type Props = {
   imgRef: any
   photo: any
   onFilterComplete?: (filteredImage: any) => void
+  idOfImage: string
 }
 
 export const FiltersInsta = ({
@@ -19,7 +22,10 @@ export const FiltersInsta = ({
   imgRef,
   photo,
   onFilterComplete,
+  idOfImage,
 }: Props) => {
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
     const divImg = imgRef.current
 
@@ -202,12 +208,17 @@ export const FiltersInsta = ({
               className={`filter-item ${
                 filterClass === filter.class ? 'filter-item--selected' : ''
               }`}
-              // onClick={() => {
-              //   setFilterAndApplyFilter(filter.class)
-              // }}
+              onClick={() => {
+                dispatch(updateFilterClass({ id: idOfImage, filterClass: filter.class }))
+              }}
             >
               <div style={{ width: '108px', height: '108px' }}>
-                <img className={filter.class} src={photo} alt={filter.name} />
+                <img
+                  className={filter.class}
+                  src={photo}
+                  alt={filter.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
               </div>
 
               <Typography variant={'regular_text_16'} style={{ textAlign: 'center' }}>

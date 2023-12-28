@@ -1,70 +1,101 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { v1 } from 'uuid'
 
 import { RootState } from '../appStore'
 
 import { CroppedAreaPixel } from '@/widgets/addProfilePhoto/addAvaWithoutRotation/AddAvatarModalWithoutRotation'
-
-interface ImageType {
-  id: string
-  image: string
-}
 
 interface CropType {
   x: number
   y: number
 }
 
-interface AreaPixelsType {
-  width: number
-  height: number
-}
-
 export interface CropperState {
-  images: Array<ImageType>
+  id: string
+  image: string
   crop: CropType
   zoom: number
   croppedAreaPixels: CroppedAreaPixel
   filterClass: string
+  aspect: number
 }
 
-const initialState: CropperState = {
-  images: [],
-  crop: { x: 0, y: 0 },
-  zoom: 1,
-  croppedAreaPixels: null,
-  filterClass: '',
-}
+const initialState: CropperState[] = []
 
 export const croppersSlice = createSlice({
   initialState,
   name: 'croppersSlice',
   reducers: {
-    addNewPhoto: (state, action: PayloadAction<ImageType>) => {
-      state.images = [...state.images, action.payload]
+    addNewPhoto: (state, action: PayloadAction<string>) => {
+      const newData: CropperState = {
+        id: v1(),
+        image: action.payload,
+        crop: { x: 0, y: 0 },
+        zoom: 1,
+        croppedAreaPixels: null,
+        filterClass: '',
+        aspect: 1,
+      }
+
+      state.push(newData)
     },
     deletePhoto: (state, action: PayloadAction<string>) => {
-      const imageIndex = state.images.findIndex(image => image.id === action.payload)
+      const imageIndex = state.findIndex(image => image.id === action.payload)
 
-      state.images = state.images.splice(imageIndex, 1)
+      if (imageIndex !== -1) state.splice(imageIndex, 1)
     },
 
-    updatePhotos: (state, action: PayloadAction<ImageType[]>) => {
-      state.images = action.payload
+    updatePhotos: (
+      state,
+      action: PayloadAction<{ id: string; image: string; croppedAreaPixels: CroppedAreaPixel }[]>
+    ) => {
+      const payload = action.payload
+
+      payload.forEach(photo => {
+        const { id, image, croppedAreaPixels } = photo
+        const index = state.findIndex(img => img.id === id)
+
+        if (index !== -1) {
+          state[index].image = image
+          state[index].croppedAreaPixels = croppedAreaPixels
+        }
+      })
     },
-    updateCrop: (state, action: PayloadAction<CropType>) => {
-      state.crop = action.payload
+    updateCrop: (state, action: PayloadAction<{ id: string; crop: CropType }>) => {
+      const { crop, id } = action.payload
+      const photo = state.find(image => image.id === id)
+
+      if (photo) photo.crop = crop
     },
-    updateZoom: (state, action: PayloadAction<number>) => {
-      state.zoom = action.payload
+    updateZoom: (state, action: PayloadAction<{ id: string; zoom: number }>) => {
+      const photo = state.find(image => image.id === action.payload.id)
+
+      if (photo) photo.zoom = action.payload.zoom
     },
-    updateCroppedAreaPixels: (state, action: PayloadAction<CroppedAreaPixel>) => {
-      state.croppedAreaPixels = action.payload
+    updateCroppedAreaPixels: (
+      state,
+      action: PayloadAction<{ id: string; croppedAreaPixels: CroppedAreaPixel }>
+    ) => {
+      const photo = state.find(image => image.id === action.payload.id)
+
+      if (photo) photo.croppedAreaPixels = action.payload.croppedAreaPixels
     },
-    updateFilterClass: (state, action: PayloadAction<string>) => {
-      state.filterClass = action.payload
+    updateFilterClass: (state, action: PayloadAction<{ id: string; filterClass: string }>) => {
+      const photo = state.find(image => image.id === action.payload.id)
+
+      if (photo) photo.filterClass = action.payload.filterClass
+    },
+
+    updateAspect: (state, action: PayloadAction<{ id: string; aspect: number }>) => {
+      const photo = state.find(image => image.id === action.payload.id)
+
+      if (photo) photo.aspect = action.payload.aspect
     },
     removeAllPhotos: state => {
-      state.images = []
+      state = []
+    },
+    setImage: (state, action: PayloadAction<{ image: CropperState[] }>) => {
+      return action.payload.image.map(tl => ({ ...tl }))
     },
     // removeCropper: (state, action: PayloadAction<number>) => {
     //   const index = action.payload
@@ -123,8 +154,11 @@ export const {
   updateCroppedAreaPixels,
   updateFilterClass,
   updatePhotos,
+  updateAspect,
   deletePhoto,
   removeAllPhotos,
+  setImage,
+  // updateFilteredImage,
   // removeCropper,
   // addCropper,
   // updateCroppedAreaPixels,

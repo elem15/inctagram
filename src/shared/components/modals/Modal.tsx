@@ -16,6 +16,7 @@ type Props = {
   size?: ModalSize
   title?: string | Element
   isPost?: boolean
+  onInteractOutside?: (event) => void
 } & ComponentProps<'div'>
 
 const dropIn = {
@@ -50,6 +51,7 @@ export const Modal = ({
   size = 'md',
   title,
   isPost,
+  onInteractOutside,
 }: Props) => {
   const handleOpenChange = () => {
     onClose?.()
@@ -72,7 +74,12 @@ export const Modal = ({
                 initial={{ opacity: 0 }}
               />
             </Dialog.Overlay>
-            <Dialog.Content asChild className={classNames.content} forceMount>
+            <Dialog.Content
+              asChild
+              className={classNames.content}
+              forceMount
+              onInteractOutside={onInteractOutside}
+            >
               <motion.div animate={'visible'} exit={'exit'} initial={'hidden'} variants={dropIn}>
                 <header className={s.header}>
                   <Dialog.Title asChild>

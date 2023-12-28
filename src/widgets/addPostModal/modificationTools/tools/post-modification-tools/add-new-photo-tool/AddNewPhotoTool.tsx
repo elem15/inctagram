@@ -1,7 +1,7 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 
 import { clsx } from 'clsx'
-import { A11y, Scrollbar, Thumbs } from 'swiper/modules'
+import { Scrollbar } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import 'swiper/scss'
@@ -9,7 +9,7 @@ import s from './AddNewPhotoTool.module.scss'
 
 import 'swiper/scss/scrollbar'
 import { useAppSelector } from '@/app/appStore'
-import { deletePhoto, removeCropper } from '@/app/services/cropper-slice'
+import { deletePhoto } from '@/app/services/cropper-slice'
 import { DefaultProfileImg, IconAdd } from '@/shared/assets'
 import { DeleteIcon } from '@/shared/assets/icons/DeleteIcon'
 import { CustomDropdown, CustomDropdownItem } from '@/shared/components'
@@ -17,13 +17,10 @@ import { useAppDispatch } from '@/shared/lib'
 
 type Props = {
   selectNewPhoto: () => void
-
-  // deletePhoto: (i: any) => void
 }
 export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto }) => {
-  const [open, setOpen] = useState(true)
   const dispatch = useAppDispatch()
-  const photos = useAppSelector(state => state.croppersSlice.images)
+  const photos = useAppSelector(state => state.croppersSlice)
 
   const newPhotoTrigger = (
     <div className={s.tool}>

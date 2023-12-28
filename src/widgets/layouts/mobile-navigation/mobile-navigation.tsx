@@ -1,3 +1,5 @@
+import { useRef } from 'react'
+
 import { clsx } from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -15,9 +17,16 @@ import {
   MessengerIcon,
   SearchIcon,
 } from '@/shared/assets'
+import { Button } from '@/shared/components'
+import { AddPostModalMob } from '@/widgets/addPostModal/addPostMob/AddPostModalMob'
 
 export default function BottomNavigation() {
   const router = useRouter()
+  // const inputRef = useRef<HTMLInputElement>(null)
+  //
+  // const handleCLickCreate = () => {
+  //   inputRef && inputRef.current?.click()
+  // }
 
   return (
     <>
@@ -25,9 +34,13 @@ export default function BottomNavigation() {
         <Link href={'/home'} className={s.content}>
           {router.pathname == '/home' ? <HomesIcon /> : <IconBxHomeAlt />}
         </Link>
-        <Link href={'/create'} className={s.content}>
-          {router.pathname === '/create' ? <CreatesIcon /> : <CreateIcon />}
-        </Link>
+        <>
+          {/*<Button className={s.content} onClick={handleCLickCreate}>*/}
+          {/*  {router.pathname === '/create' ? <CreatesIcon /> : <CreateIcon />}*/}
+          {/*</Button>*/}
+          {/*<AddPostModalMob inputRef={inputRef} />*/}
+        </>
+
         <Link href={'/messenger'} className={s.content}>
           {router.pathname === '/messenger' ? <MessangersIcon /> : <MessengerIcon />}
         </Link>

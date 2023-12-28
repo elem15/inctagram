@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler, EventHandler, FC, useState } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 
 import { A11y, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -11,7 +11,6 @@ import {
   usePublishPostsMutation,
 } from '@/entities/posts/api/postsApi'
 import { useGetProfileQuery } from '@/entities/profile'
-import { InputField } from '@/shared'
 import { Input, Textarea, Typography } from '@/shared/components'
 import 'swiper/scss/effect-cube'
 import 'swiper/scss/navigation'
@@ -20,18 +19,23 @@ import 'swiper/scss/scrollbar'
 import { Modal } from '@/shared/components/modals'
 import { useAppDispatch, useAppSelector } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
+import { CloseCrop } from '@/widgets/addPostModal/ClickOutSide'
 import { PostModalHeader } from '@/widgets/addPostModal/PostHeaderModal'
+import { removeAllPhotos } from "@/app/services/cropper-slice";
 
 type Props = {
   isOpen: boolean
   photos: any
   onPrevStep: () => void
+  discardAll: () => void
 }
-export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep }) => {
+export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discardAll }) => {
   const { userId, accessToken } = useAuth()
-
+  const [openCloseModal, setCloseModal] = useState(false)
   const [wordCount, setWordCount] = useState(0)
   const dispatch = useAppDispatch()
+  //const photos = useAppSelector(state => state.croppersSlice)
+
   const text = useAppSelector(state => state.postSlice.textOfTextarea)
   const { data: profileData } = useGetProfileQuery({
     profileId: userId,
@@ -39,6 +43,7 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep }) => {
   } as UserAuthData)
   const [publishDescription] = usePublishPostsMutation()
   const [publishPostImage, { error, isLoading }] = usePublishPostsImageMutation()
+
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value
 
@@ -46,20 +51,35 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep }) => {
 
     setWordCount(value.length)
   }
-  const photo = [...photos]
 
-  const handlePublish = async () => {
-    try {
-      const imageUploadResult = await publishPostImage({ postsPhoto: photos, accessToken }).unwrap()
+  console.log({ userId })
+  const handlePublish = () => {
+    // try {
 
-      await publishDescription({ description: text, accessToken })
-    } catch (error) {
-      console.error('Error publishing post:', error)
-    }
+    publishPostImage({ postsPhoto: photos, accessToken }).unwrap()
+
+   // publishDescription({ description: text, childrenMetadata: [{ uploadId: userId }], accessToken })
+    // } catch (error) {
+    console.error('Error publishing post:', error)
+    discardAll()
+    onPrevStep()
+    dispatch(removeAllPhotos())
+  }
+  const handleInteractOutPublishModal = () => {
+    setCloseModal(true)
+  }
+  const handleDiscard = () => {
+    setCloseModal(false)
+    discardAll()
   }
 
   return (
     <>
+      <CloseCrop
+        openCloseCrop={openCloseModal}
+        closeCrop={() => setCloseModal(false)}
+        onDiscard={handleDiscard}
+      />
       <Modal
         open={isOpen}
         size={'lg'}
@@ -74,6 +94,7 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep }) => {
         }
         showCloseButton={false}
         isPost={true}
+        onInteractOutside={handleInteractOutPublishModal}
       >
         <div style={{ width: '100%', display: 'flex', height: '31.5rem' }}>
           <div style={{ width: '50%' }}>
@@ -85,12 +106,12 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep }) => {
               spaceBetween={10}
               slidesPerView={1}
             >
-              <div style={{}}>
-                {photos.map((photo, index) => {
+              <div>
+                {photos.map(photo => {
                   return (
-                    <SwiperSlide key={index} className={s.swiper}>
+                    <SwiperSlide key={photo.id} className={s.swiper}>
                       <div className={s.imageBox}>
-                        <img src={photo.imageSrc} alt={''} />
+                        <img src={photo.image} className={photo.filterClass} alt={''} />
                       </div>
                     </SwiperSlide>
                   )
