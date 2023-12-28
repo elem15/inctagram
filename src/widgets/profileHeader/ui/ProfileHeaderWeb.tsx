@@ -3,24 +3,19 @@ import Link from 'next/link'
 
 import s from './ProfileHeaderWeb.module.scss'
 
-import { useGetProfileQuery } from '@/entities/profile'
 import { DefaultProfileImg } from '@/shared/assets'
 import { Typography, Button } from '@/shared/components'
 import { ModalOfFollowers } from '@/shared/components/followers-modal'
 import { ModalOfFollowing } from '@/shared/components/following-modal'
-import { useErrorHandler, useFetchLoader, useTranslation } from '@/shared/lib'
-import { useAuth } from '@/shared/lib/hooks/useAuth'
+import { useTranslation } from '@/shared/lib'
 import { cn } from '@/shared/lib/utils'
 
-export const ProfileHeaderWeb = () => {
+type Props = {
+  data: PublicProfile
+  isAuth?: boolean
+}
+export const ProfileHeaderWeb = ({ data, isAuth }: Props) => {
   const { t } = useTranslation()
-  const { accessToken } = useAuth()
-  const { data, isLoading, error } = useGetProfileQuery({
-    accessToken,
-  } as UserAuthData)
-
-  useFetchLoader(isLoading)
-  useErrorHandler(error as CustomerError)
 
   return (
     <div className={s.containerColumn}>
@@ -48,9 +43,11 @@ export const ProfileHeaderWeb = () => {
             <Typography variant="h1" className={s.linkLargeProfile}>
               URLProfile
             </Typography>
-            <Button variant="secondary" className={s.buttonSettings}>
-              <Link href="/my-profile/general-information">Profile Settings</Link>
-            </Button>
+            {isAuth && (
+              <Button variant="secondary" className={s.buttonSettings}>
+                <Link href="/my-profile/general-information">{t.home.profile_btn}</Link>
+              </Button>
+            )}
           </div>
           <div className={s.progressProfile}>
             <div className={s.info}>

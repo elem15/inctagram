@@ -20,26 +20,32 @@ export function OauthCallbackGoogle() {
   const { isAuth } = useAuth()
 
   useEffect(() => {
-    if (isAuth) {
-      setTimeout(() => {
-        router.push('/my-profile')
-      }, 2000)
-    } else {
-      setTimeout(() => {
+    const timeout = setTimeout(() => {
+      if (!isAuth && !code) {
         router.push('/public-page')
-      }, 2000)
+      }
+    }, 1000)
+
+    return () => {
+      clearTimeout(timeout)
     }
-  }, [isAuth, router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth, code])
 
   useEffect(() => {
     const success = data && !error && !isLoading
 
-    if (success) {
-      setTimeout(() => {
+    const timeout = setTimeout(() => {
+      if (success || isAuth) {
         router.push('/my-profile')
-      })
+      }
+    }, 2000)
+
+    return () => {
+      clearTimeout(timeout)
     }
-  }, [isLoading, error, router, data])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, error, data, isAuth])
 
   return (
     <>

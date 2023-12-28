@@ -17,6 +17,7 @@ export const publicPostsApi = createApi({
         const publicPostsData = response?.items.map((el: PostDataType) => {
           return {
             id: el.id,
+            ownerId: el.ownerId,
             description: el.description,
             images: el.images,
             owner: el.owner,

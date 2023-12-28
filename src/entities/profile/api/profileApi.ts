@@ -5,8 +5,18 @@ import { BACKEND_URL } from '@/shared/constants/ext-urls'
 export const profileApi = createApi({
   reducerPath: 'userProfile',
   baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
-  tagTypes: ['Profile'],
+  tagTypes: ['Profile', 'PublicProfile'],
   endpoints: builder => ({
+    getPublicProfile: builder.query<PublicProfile, PublicProfileQuery>({
+      query: ({ profileId }) => ({
+        method: 'GET',
+        url: `/public-user/profile/${profileId}`,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      providesTags: ['PublicProfile'],
+    }),
     getProfile: builder.query<Profile, UserAuthData>({
       query: ({ accessToken }) => ({
         method: 'GET',
@@ -72,6 +82,7 @@ export const profileApi = createApi({
 
 export const {
   useGetProfileQuery,
+  useGetPublicProfileQuery,
   useDeletePhotoMutation,
   usePutProfileMutation,
   useSavePhotoMutation,

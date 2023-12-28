@@ -1,17 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react'
 
+import { useRouter } from 'next/router'
+
 import s from './ImageList.module.scss'
 
 import { useGetPostsQuery } from '@/entities/posts'
 import { ImageCard } from '@/shared/components/imageCard'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 
-export const ImageListWidget = () => {
+type Props = { userId: string }
+export const ImageListWidget = ({ userId }: Props) => {
   const [postId, setPostId] = useState<number>()
   const [images, setImages] = useState<PostDataToComponent[]>([])
-  const { data, isLoading, error } = useGetPostsQuery({ postId })
   const ref = useRef(null)
+  const { data, isLoading, error } = useGetPostsQuery({ userId, postId })
 
   useEffect(() => {
     const imagesData = data ? (data as PostDataToComponent[]) : []
@@ -39,7 +43,7 @@ export const ImageListWidget = () => {
     ref?.current && observer.observe(ref.current)
 
     return () => {
-      observer && observer?.disconnect()
+      observer && observer.disconnect()
     }
   }, [images])
 

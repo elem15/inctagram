@@ -2,9 +2,39 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { clearLocalUserData, setLoginUser } from '../model/authSlice'
 
-import { BACKEND_URL } from '@/shared/constants/ext-urls'
+import { BACKEND_URL, BASE_WORK_URL } from '@/shared/constants/ext-urls'
 import { consoleErrors } from '@/shared/lib'
 import { IEmailBaseUrl, IEmailPassword, IEmailPasswordUser } from '@/shared/types'
+
+export const authGoogleApi = createApi({
+  reducerPath: 'authGoogle',
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_WORK_URL }),
+  tagTypes: ['User'],
+  endpoints: builder => ({
+    googleLogin: builder.mutation<any, string>({
+      query: code => ({
+        body: { code },
+        url: '/auth/google/login',
+        method: 'POST',
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+
+          dispatch(setLoginUser({ email: data.email, accessToken: data.accessToken }))
+        } catch (error) {
+          const e = error as RTKError
+
+          if ('error' in e) {
+            consoleErrors(e.error)
+          } else console.error(e)
+        }
+      },
+    }),
+  }),
+})
+
+export const { useGoogleLoginMutation } = authGoogleApi
 
 export const authApi = createApi({
   reducerPath: 'userAuth',
@@ -121,7 +151,6 @@ export const {
   useSendCaptchaMutation,
   useCreateNewPasswordMutation,
   useValidCodeMutation,
-  useGoogleLoginMutation,
   useResendRegistrationLinkMutation,
   useLogOutMutation,
 } = authApi

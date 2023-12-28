@@ -1,6 +1,7 @@
 import { FC, useEffect, useRef, useState } from 'react'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import ReactTimeAgo from 'react-time-ago'
 import { Navigation, Pagination, Scrollbar, EffectFade } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -19,6 +20,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
 export const PublicPostCard: FC<PublicPostCardProps> = ({
+  ownerId,
   profileImage,
   imagesUrl,
   description,
@@ -70,7 +72,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
         </Swiper>
         <div className={s.wrapper}>
           <div className={s.sticky} ref={menuRef}>
-            <div className={s.mainInfo}>
+            <Link href={`/public-posts/${ownerId}`} className={s.mainInfo}>
               {profileImage ? (
                 <Image
                   src={profileImage}
@@ -88,7 +90,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
                   {`${firstName} ${lastName}`}
                 </Typography>
               )}
-            </div>
+            </Link>
             <Typography className={s.timeInfo} variant="semi-bold_small_text">
               <ReactTimeAgo date={Date.parse(updatedAt)} locale={t.lg} />
             </Typography>
