@@ -1,6 +1,6 @@
 type PostsQuery = {
+  userId: string,
   postId?: number,
-  accessToken?: string,
 }
 
 type PostDataToComponent = {

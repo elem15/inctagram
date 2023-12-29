@@ -31,6 +31,7 @@ export const ru: LangType = {
     password: 'Пароль',
     forgot_password: 'Забыли пароль',
     sign_in: 'Войти',
+    log_in: 'Войти',
     sign_up: 'Зарегистрироваться',
     account_question: 'Вы не зарегистрированы?',
     error_message: 'Неверная почта или пароль. Попробуйте еще раз',
@@ -183,5 +184,8 @@ export const ru: LangType = {
   },
   delete_followers: {
     remove_text: 'Вы действительно хотите удалить',
+  },
+  registered_users: {
+    title: 'Зарегистрированные Пользователи:',
   },
 }

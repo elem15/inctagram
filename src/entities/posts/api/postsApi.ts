@@ -8,29 +8,24 @@ export const postsApi = createApi({
   tagTypes: ['Posts'],
   endpoints: builder => ({
     getPosts: builder.query<any, PostsQuery>({
-      query: ({ postId }) => {
-        const accessToken = localStorage.getItem('token') as string
-
+      query: ({ userId, postId }) => {
         return {
           method: 'GET',
-          url: `/posts/user/${postId ? postId : ''}?pageSize=8`,
+          url: `/public-posts/user/${userId}/${postId ? postId : ''}?pageSize=8`,
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + accessToken,
           },
         }
       },
       providesTags: ['Posts'],
       transformResponse: (response: PostsData): PostDataToComponent[] => {
-        const images = response?.items.map(item => ({
+        return response?.items.map(item => ({
           id: item.id,
-          url: item.images[0].url,
           description: item.description,
-          width: item.images[0].width,
-          height: item.images[0].height,
+          url: item.images.length ? item.images[1].url : '',
+          width: item.images.length ? item.images[1].width : 640,
+          height: item.images.length ? item.images[1].height : 360,
         }))
-
-        return images
       },
     }),
     publishPostsImage: builder.mutation<any, { postsPhoto: any; accessToken: string | undefined }>({

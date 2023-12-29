@@ -9,6 +9,9 @@ import '@fontsource/inter/600.css'
 import '@fontsource/inter/700.css'
 import type { ReactElement, ReactNode } from 'react'
 
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en.json'
+import ru from 'javascript-time-ago/locale/ru.json'
 import type { NextPage } from 'next'
 import { AppProps } from 'next/app'
 
@@ -16,6 +19,9 @@ import { ReduxProvider } from './providers'
 
 import { useLoader } from '@/shared/lib'
 import { NotificationContainer } from '@/widgets/alertContainer'
+
+TimeAgo.addDefaultLocale(en)
+TimeAgo.addLocale(ru)
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
