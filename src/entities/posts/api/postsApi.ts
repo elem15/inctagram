@@ -35,42 +35,8 @@ export const postsApi = createApi({
     }),
     publishPostsImage: builder.mutation<any, { postsPhoto: any; accessToken: string | undefined }>({
       query: ({ postsPhoto, accessToken }) => {
-        // const convertBase64ToBlob = (base64String, mimeType) => {
-        //   const byteCharacters = atob(base64String)
-        //   const byteArrays = []
-        //
-        //   for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-        //     const slice = byteCharacters.slice(offset, offset + 512)
-        //
-        //     const byteNumbers = new Array(slice.length)
-        //
-        //     for (let i = 0; i < slice.length; i++) {
-        //       byteNumbers[i] = slice.charCodeAt(i)
-        //     }
-        //
-        //     const byteArray = new Uint8Array(byteNumbers)
-        //
-        //     byteArrays.push(byteArray)
-        //   }
-        //
-        //   return new Blob(byteArrays, { type: mimeType })
-        // }
-        // const createFormData = croppers => {
-        //   const formData = new FormData()
-        //
-        //   croppers.forEach(cropper => {
-        //     debugger
-        //     const blobImage = convertBase64ToBlob(cropper.image.split(',')[1], 'image/jpeg')
-        //
-        //     console.log({ blobImage })
-        //     // Append each image as a Blob to the FormData object
-        //     formData.append(`file`, blobImage, `cropped-image-${cropper.id}.jpg`)
-        //   })
-        //
-        //   return formData
-        // }
-        //
         const formData = new FormData()
+
         debugger
         const b64toBlob = dataURI => {
           const byteString = atob(dataURI.split(',')[1])
