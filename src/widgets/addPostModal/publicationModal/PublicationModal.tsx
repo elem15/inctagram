@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import s from './PublicationModal.module.scss'
 
+import { removeAllPhotos } from '@/app/services/cropper-slice'
 import { setTextOfTextarea } from '@/app/services/post-slice'
 import {
   usePublishPostsImageMutation,
@@ -21,7 +22,6 @@ import { useAppDispatch, useAppSelector } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { CloseCrop } from '@/widgets/addPostModal/ClickOutSide'
 import { PostModalHeader } from '@/widgets/addPostModal/PostHeaderModal'
-import { removeAllPhotos } from "@/app/services/cropper-slice";
 
 type Props = {
   isOpen: boolean
@@ -55,10 +55,10 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
   console.log({ userId })
   const handlePublish = () => {
     // try {
-
+    debugger
     publishPostImage({ postsPhoto: photos, accessToken }).unwrap()
 
-   // publishDescription({ description: text, childrenMetadata: [{ uploadId: userId }], accessToken })
+    // publishDescription({ description: text, childrenMetadata: [{ uploadId: userId }], accessToken })
     // } catch (error) {
     console.error('Error publishing post:', error)
     discardAll()

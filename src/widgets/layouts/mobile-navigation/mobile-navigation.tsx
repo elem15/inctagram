@@ -18,7 +18,6 @@ import {
   SearchIcon,
 } from '@/shared/assets'
 import { Button } from '@/shared/components'
-import { AddPostModalMob } from '@/widgets/addPostModal/addPostMob/AddPostModalMob'
 
 export default function BottomNavigation() {
   const router = useRouter()

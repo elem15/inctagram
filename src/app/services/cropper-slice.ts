@@ -1,8 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { v1 } from 'uuid'
 
-import { RootState } from '../appStore'
-
 import { CroppedAreaPixel } from '@/widgets/addProfilePhoto/addAvaWithoutRotation/AddAvatarModalWithoutRotation'
 
 interface CropType {
@@ -92,7 +90,7 @@ export const croppersSlice = createSlice({
       if (photo) photo.aspect = action.payload.aspect
     },
     removeAllPhotos: state => {
-      state = []
+      return initialState
     },
     setImage: (state, action: PayloadAction<{ image: CropperState[] }>) => {
       return action.payload.image.map(tl => ({ ...tl }))
