@@ -52,7 +52,6 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
     setWordCount(value.length)
   }
 
-  console.log({ userId })
   const handlePublish = () => {
     // try {
     debugger
