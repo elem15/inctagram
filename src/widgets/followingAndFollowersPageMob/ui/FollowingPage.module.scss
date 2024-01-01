@@ -1,15 +1,16 @@
-.box{
-  padding: 17px 12px 0 12px;
+.box {
+  padding: 17px 12px 0;
 }
-.button_title{
-display: flex;
-  align-items: center;
-  margin-bottom: 17px;
 
-}
-.title{
+.button_title {
   display: flex;
   align-items: center;
-  width: 100%;
+  margin-bottom: 17px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
   justify-content: center;
+  width: 100%;
 }

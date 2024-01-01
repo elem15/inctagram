@@ -31,6 +31,7 @@ export const en = {
     forgot_password: 'Forgot Password',
     sign_in: 'Sign In',
     sign_up: 'Sign Up',
+    log_in: 'Log in ',
     account_question: 'Don’t have an account?',
     error_message: 'The email or password are incorrect. Try again please',
     email_required: 'Email is required',
@@ -146,6 +147,7 @@ export const en = {
     account_management: 'Account Management',
     my_payments: 'My Payments',
     auth_error: 'Auth error. Signin again',
+    server_error: 'Server error. Reload page',
     user_name_error: 'User with this name already exist',
     success: 'Your settings are saved!',
   },
@@ -182,6 +184,9 @@ export const en = {
   },
   delete_followers: {
     remove_text: 'Do you really want to remove',
+  },
+  registered_users: {
+    title: 'Registered Users:',
   },
 }
 export type LangType = typeof en

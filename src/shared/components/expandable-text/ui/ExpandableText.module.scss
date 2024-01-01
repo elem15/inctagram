@@ -1,0 +1,23 @@
+.text {
+  width: 100%;
+
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 24px;
+  color: var(--color-light-100);
+  word-break: break-all;
+}
+
+.toggleButton {
+  cursor: pointer;
+
+  margin-left: 7px;
+
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 24px;
+  color: var(--color-accent-500);
+  text-decoration-line: underline;
+}

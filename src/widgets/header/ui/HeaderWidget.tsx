@@ -9,7 +9,7 @@ import s from './HeaderWidget.module.scss'
 import { useLogOutMutation } from '@/entities/auth'
 import { BookMarkIcon, FavoritesIcon, LogOutIcon, StatisticsIcon } from '@/shared/assets'
 import { ProfileSettings } from '@/shared/assets/icons/ProfileSettings'
-import { CustomDropdown, CustomDropdownItem, Typography } from '@/shared/components'
+import { Button, CustomDropdown, CustomDropdownItem, Typography } from '@/shared/components'
 import { NotificationBell } from '@/shared/components/notificatification-bell'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
@@ -42,10 +42,17 @@ export const HeaderWidget: FC = () => {
     <header
       className={'header-three sticky-header w-full h-16 sticky lg:relative top-0 z-20 bg-dark-700'}
     >
-      <div className="flex justify-between items-center h-16 max-[320px]:px-1 px-6 sm:px-16 py-3 border-b border-dark-300">
-        <Link href="/my-profile" className="text-light-100 text-[26px] font-semibold">
-          Inctagram
-        </Link>
+      <div className="flex justify-between items-center h-16 max-[480px]:px-1 px-6 sm:px-16 py-3 border-b border-dark-300">
+        {isAuth ? (
+          <Link href="/my-profile" className="text-light-100 text-[26px] font-semibold">
+            Inctagram
+          </Link>
+        ) : (
+          <Link href="/public-page" className="text-light-100 text-[26px] font-semibold">
+            Inctagram
+          </Link>
+        )}
+
         <div className="flex justify-center items-center space-x-6">
           {isAuth && (
             <div className="hidden lg:flex relative" ref={menuRef}>
@@ -54,6 +61,19 @@ export const HeaderWidget: FC = () => {
             </div>
           )}
           <LangSelectWidget />
+          {!isAuth && (
+            <div className="flex justify-center items-center">
+              <Button style={{ border: 'inherit' }} variant="link">
+                <Link href="/signin">{t.signin.log_in}</Link>
+              </Button>
+              <div className={s.buttonWrapper}>
+                <Button variant="primary">
+                  <Link href="/signup">{t.signin.sign_up}</Link>
+                </Button>
+              </div>
+            </div>
+          )}
+
           {isAuth && (
             <div className={s.wrappedActionMenu}>
               <CustomDropdown

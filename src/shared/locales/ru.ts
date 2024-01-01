@@ -31,6 +31,7 @@ export const ru: LangType = {
     password: 'Пароль',
     forgot_password: 'Забыли пароль',
     sign_in: 'Войти',
+    log_in: 'Войти',
     sign_up: 'Зарегистрироваться',
     account_question: 'Вы не зарегистрированы?',
     error_message: 'Неверная почта или пароль. Попробуйте еще раз',
@@ -145,6 +146,7 @@ export const ru: LangType = {
     account_management: 'Управление аккаунтом',
     my_payments: 'Мои платежи',
     auth_error: 'Ошибка авторизации. Войдите еще раз',
+    server_error: 'Ошибка сервера. Перезагрузите страницу',
     user_name_error: 'Пользователь с таким именем уже существует',
     success: 'Ваши настройки профиля сохранены!',
   },
@@ -182,5 +184,8 @@ export const ru: LangType = {
   },
   delete_followers: {
     remove_text: 'Вы действительно хотите удалить',
+  },
+  registered_users: {
+    title: 'Зарегистрированные Пользователи:',
   },
 }

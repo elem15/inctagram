@@ -1,5 +1,6 @@
 export {
   authApi,
+  authGoogleApi,
   useRegistrationMutation,
   useRegistrationConfirmationMutation,
   useLoginMutation,

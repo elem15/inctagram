@@ -4,13 +4,13 @@ import { JwtPayload, jwtDecode } from 'jwt-decode'
 import { RootState } from '@/app/appStore'
 
 interface IInitialState {
-  userId: number | string
+  userId: string
   userName?: string
   email?: string
   accessToken?: string
 }
 interface MyJwtPayload extends JwtPayload {
-  userId: number
+  userId: string
 }
 
 const initialState: IInitialState = {

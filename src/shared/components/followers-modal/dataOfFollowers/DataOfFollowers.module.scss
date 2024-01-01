@@ -1,39 +1,48 @@
-.dataBox{
-  margin-top: 22px;
+.dataBox {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  margin-bottom: 12px;
+  justify-content: flex-start;
 
+  margin-top: 22px;
+  margin-bottom: 12px;
 }
-.avatar{
-  min-width: 36px;
-  min-height: 36px;
-  border-radius: 50%;
-  border: 1px solid var(--color-dark-100);
-  background-position: center;
+
+.avatar {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  min-width: 36px;
+  min-height: 36px;
   margin-right: 12px;
+
+  background-position: center;
+  border: 1px solid var(--color-dark-100);
+  border-radius: 50%;
 }
-.text{
+
+.text {
   min-width: 55%;
+
   @media screen and (width <= 590px) {
-    min-width: 32%
+    min-width: 32%;
   }
 }
-.ruText{
+
+.ruText {
   min-width: 38%;
+
   @media screen and (width <= 610px) {
-    min-width: 25%
+    min-width: 25%;
   }
+
   @media screen and (width <= 526px) {
-    min-width: 19%
+    min-width: 19%;
   }
 }
-.deleteButtonBox{
-  width: 100%;
+
+.deleteButtonBox {
   display: flex;
   justify-content: flex-end;
+  width: 100%;
 }

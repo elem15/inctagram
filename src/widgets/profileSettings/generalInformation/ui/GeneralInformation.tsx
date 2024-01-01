@@ -36,12 +36,8 @@ const Information = () => {
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   })
-  const { userId, accessToken } = useAuth()
-  const {
-    data: profile,
-    isLoading,
-    error,
-  } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
+  const { accessToken } = useAuth()
+  const { data: profile, isLoading, error } = useGetProfileQuery({ accessToken } as UserAuthData)
 
   const [putProfile, { isLoading: isPutLoading, error: putError, isSuccess }] =
     usePutProfileMutation()

@@ -17,24 +17,35 @@ export function OauthCallbackGoogle() {
   const { isLoading, error, data } = useGoogleLogin(code)
 
   const { isClient } = useClient()
+  const { isAuth } = useAuth()
 
   useEffect(() => {
-    if (isClient && !code) {
-      setTimeout(() => {
-        router.push('/my-profile')
-      }, 2000)
+    const timeout = setTimeout(() => {
+      if (!isAuth && !code) {
+        router.push('/public-page')
+      }
+    }, 1000)
+
+    return () => {
+      clearTimeout(timeout)
     }
-  }, [code, isClient, router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth, code])
 
   useEffect(() => {
     const success = data && !error && !isLoading
 
-    if (success) {
-      setTimeout(() => {
+    const timeout = setTimeout(() => {
+      if (success || isAuth) {
         router.push('/my-profile')
-      })
+      }
+    }, 2000)
+
+    return () => {
+      clearTimeout(timeout)
     }
-  }, [isLoading, error, router, data])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, error, data, isAuth])
 
   return (
     <>

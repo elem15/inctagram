@@ -67,6 +67,7 @@ const customStyles: StylesConfig<MyOptionType, IsMulti> = {
   menuList: (baseStyles, state) => ({
     ...baseStyles,
     border: 'solid 1px white',
+    backgroundColor: 'var(--color-dark-700)',
     color: state.selectProps.menuIsOpen ? 'var(--color-light-100)' : 'var(--color-light-900)',
   }),
   option: (baseStyles, state) => ({
@@ -122,6 +123,7 @@ function LangSelectWidget() {
         <Select
           styles={customStyles}
           defaultValue={defaultValue}
+          isSearchable={false}
           // @ts-ignore
           onChange={changeLangHandler}
           options={options}
