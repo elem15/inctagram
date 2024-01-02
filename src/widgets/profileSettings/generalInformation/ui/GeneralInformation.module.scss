@@ -11,7 +11,9 @@
   display: flex;
   flex-direction: row;
   gap: 25px;
-  align-items: flex-end;
+  align-items: flex-start;
+
+  margin-top: 4px;
 }
 
 .footerContainer {
@@ -42,4 +44,17 @@
   flex-direction: column;
   flex-grow: 1;
   row-gap: 1rem;
+}
+
+.label {
+  line-height: 22px;
+  color: var(--color-light-900);
+}
+
+.citiesContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  // margin-top: 4px;
 }

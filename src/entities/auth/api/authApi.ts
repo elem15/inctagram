@@ -8,7 +8,7 @@ import { IEmailBaseUrl, IEmailPassword, IEmailPasswordUser } from '@/shared/type
 
 export const authGoogleApi = createApi({
   reducerPath: 'authGoogle',
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_WORK_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
   tagTypes: ['User'],
   endpoints: builder => ({
     googleLogin: builder.mutation<any, string>({
