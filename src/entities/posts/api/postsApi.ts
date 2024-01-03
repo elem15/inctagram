@@ -78,13 +78,10 @@ export const postsApi = createApi({
       }
     >({
       query: ({ description, accessToken, childrenMetadata }) => {
-        if (!Array.isArray(childrenMetadata) || childrenMetadata.length === 0) {
-          return Promise.reject(new Error('childrenMetadata must contain at least 1 element'))
-        }
-
+debugger
         return {
           url: '/posts',
-          body: JSON.stringify({ description, childrenMetadata }),
+          body: { description, childrenMetadata },
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

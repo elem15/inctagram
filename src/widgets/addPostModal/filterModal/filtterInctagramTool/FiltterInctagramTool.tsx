@@ -9,7 +9,6 @@ import { useAppDispatch } from '@/shared/lib'
 
 type Props = {
   filterClass: string
-  setFilterClass: (v: string) => void
   imgRef: any
   photo: any
   onFilterComplete?: (filteredImage: any) => void
@@ -18,7 +17,7 @@ type Props = {
 
 export const FiltersInsta = ({
   filterClass,
-  setFilterClass,
+
   imgRef,
   photo,
   onFilterComplete,
@@ -198,6 +197,9 @@ export const FiltersInsta = ({
   //   setFilterClass(filterClass)
   //   applyFilter(filterClass)
   // }
+const changeFilter=()=>{
+
+}
 
   return (
     <>

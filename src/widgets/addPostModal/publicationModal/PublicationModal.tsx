@@ -42,7 +42,7 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
     accessToken,
   } as UserAuthData)
   const [publishDescription] = usePublishPostsMutation()
-  const [publishPostImage, { error, isLoading }] = usePublishPostsImageMutation()
+  const [publishPostImage, { error, data, isLoading }] = usePublishPostsImageMutation()
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value
@@ -52,17 +52,29 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
     setWordCount(value.length)
   }
 
-  const handlePublish = () => {
-    // try {
-    debugger
-    publishPostImage({ postsPhoto: photos, accessToken }).unwrap()
+  const handlePublish =  () => {
 
-    // publishDescription({ description: text, childrenMetadata: [{ uploadId: userId }], accessToken })
-    // } catch (error) {
-    console.error('Error publishing post:', error)
-    discardAll()
-    onPrevStep()
-    dispatch(removeAllPhotos())
+    publishPostImage({ postsPhoto: photos, accessToken })
+        .unwrap()
+        .then((res) => {
+          const imgId=res.images[0].uploadId
+  publishDescription({
+    description: text,
+    childrenMetadata: [{ uploadId: imgId}],
+    accessToken,
+})
+        })
+        .then(() => {
+
+          discardAll();
+          onPrevStep();
+          dispatch(removeAllPhotos());
+        })
+        .catch((error) => {
+          console.error('Error publishing post:', error);
+
+        });
+
   }
   const handleInteractOutPublishModal = () => {
     setCloseModal(true)

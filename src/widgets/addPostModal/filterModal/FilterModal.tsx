@@ -46,22 +46,50 @@ export const FilterModal: FC<Props> = ({
 }) => {
   const croppers = useAppSelector(state => state.croppersSlice)
 
-  // const [filterClass, setFilterClass] = useState<{ [key: number]: string }>({})
-  const [filteredImg, setFilteredImg] = useState()
   const [openClosCrop, setCloseCrop] = useState(false)
   const dispatch = useAppDispatch()
   const imgRefs = useRef(null)
   const { isOpen, openModal, closeModal } = useModal()
-  const [openPublishModal, setPublishModal] = useState(false)
-
-  const handleOpenNext = () => {
+    const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const handleOpenNext = (id:string, ) => {
     dispatch(setImage({ image: croppers }))
+      debugger
+      console.log({canvasRef})
+      // if (canvasRef.current !== null && selectedImageIndex !== null) {
+          const context = canvasRef.current.getContext('2d');
+
+          if (context) {
+              const selectedImage = croppers[selectedImageIndex];
+              const img = new Image();
+
+              img.onload = () => {
+                  // Clear previous content on the canvas
+                  context.clearRect(0, 0, canvasRef.current!.width, canvasRef.current!.height);
+
+                  // Apply the new filter
+                  context.filter = selectedImage.filterClass;
+
+                  // Draw the image on the canvas with the applied filter
+                  context.drawImage(img, 0, 0, canvasRef.current!.width, canvasRef.current!.height);
+
+                  // Convert canvas content to data URL (base64 encoded image)
+                  const modifiedImageSrc = canvasRef.current.toDataURL();
+
+                  // Dispatch an action to update the image in your state
+                  dispatch(updatePhotos([{ id: selectedImage.id, image: modifiedImageSrc, croppedAreaPixels: selectedImage.croppedAreaPixels }]));
+              };
+
+              img.src = selectedImage.image;
+          } else {
+              console.error('Canvas context is null');
+          // }
+      }
     openModal()
   }
 
-  const handleChangeFilter = (id: string, filterClass: string) => {
-    dispatch(updateFilterClass({ id, filterClass }))
-  }
+
+
 
   console.log({ croppers }, ' filterModal')
   const handleDiscard = () => {
@@ -121,6 +149,7 @@ export const FilterModal: FC<Props> = ({
                 return (
                   <SwiperSlide key={post.id}>
                     <div className={s.box}>
+                        <canvas ref={canvasRef} width={500} height={500} style={{ display: 'none' }} />
                       <Image
                         src={post.image}
                         width={500}
@@ -133,14 +162,14 @@ export const FilterModal: FC<Props> = ({
                       <div className={s.instaFilter}>
                         <NormalFilter
                           filterClass={post.filterClass}
-                          setFilterClass={filterClass => handleChangeFilter(post.id, filterClass)}
+                          // setFilterClass={filterClass => handleChangeFilter(post.id, filterClass)}
                           photo={post.image}
                           idOfImage={post.id}
                         />
 
                         <FiltersInsta
                           filterClass={post.filterClass}
-                          setFilterClass={filterClass => handleChangeFilter(post.id, filterClass)}
+                          // setFilterClass={filterClass => handleChangeFilter(post.id, filterClass)}
                           imgRef={imgRefs}
                           photo={post.image}
                           idOfImage={post.id}

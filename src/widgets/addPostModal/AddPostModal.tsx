@@ -133,31 +133,12 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
         return
       }
       let imageDataUrl: any = await readFile(file)
-
+      console.log({inputRef})
       setImageSrc(imageDataUrl)
       addNewCropper(imageDataUrl)
     }
   }
-  // const handleAspectChange = (selectedAspect: string) => {
-  //   switch (selectedAspect) {
-  //     case 'contain':
-  //       setAspect(size)
-  //       break
-  //     case '1/1':
-  //       setAspect({ width: 487, height: 487 })
-  //       break
-  //     case 'vertical':
-  //       setAspect({ width: 373, height: 467 })
-  //       break
-  //     case 'horizontal':
-  //       setAspect({ width: 490, height: 276 })
-  //       break
-  //     default:
-  //       setAspect(size)
-  //   }
-  //   console.log({ size, selectedAspect })
-  //   // dispatch(updateCroppedAreaPixels(size))
-  // }
+
   const handleAspectChange = (selectedAspect: string, id: string) => {
     switch (selectedAspect) {
       case 'contain':
@@ -381,6 +362,7 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
             ref={inputRef}
             style={{ display: 'none' }}
             type={'file'}
+            multiple
           />
         </>
       </Modal>

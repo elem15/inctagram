@@ -6,7 +6,6 @@ import { useAppDispatch } from '@/shared/lib'
 
 type Props = {
   filterClass: string
-  setFilterClass: (v: string) => void
   idOfImage: string
   photo: any
 }
