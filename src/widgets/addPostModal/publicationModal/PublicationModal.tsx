@@ -147,7 +147,7 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
             <div className={s.locationBox}>
               <Input
                 label={'Add location'}
-                type={'location'}
+                type={`location`}
                 style={{ border: '1px solid #4C4C4C', background: 'transparent' }}
               />
             </div>
