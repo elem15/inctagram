@@ -1,11 +1,16 @@
-import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
-import { AddPostModal } from '@/widgets/addPostModal/AddPostModal'
+import { useGeneralInputRefForPost } from '@/widgets/addPostModal/AddPostModal'
+import { AddPostModalData } from '@/widgets/addPostModal/addPostModalData'
+import { AddPostModalDataMob } from '@/widgets/addPostPageMob'
 import { getHeaderWithSidebarLayout } from '@/widgets/layouts'
 
-function Create() {
-  const { isOpen, closeModal, openModal } = useModal()
+const Create = () => {
+  const { selectPhotoHandler } = useGeneralInputRefForPost()
 
-  return <AddPostModal isPostOpen={isOpen} />
+  return (
+    <div>
+      <AddPostModalDataMob selectPhoto={selectPhotoHandler} />
+    </div>
+  )
 }
 
 Create.getLayout = getHeaderWithSidebarLayout

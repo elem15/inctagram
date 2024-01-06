@@ -14,9 +14,10 @@ type Props = {
   open: boolean
   showCloseButton?: boolean
   size?: ModalSize
-  title?: string | Element
+  title?: string | JSX.Element | undefined
   isPost?: boolean
   onInteractOutside?: (event) => void
+
 } & ComponentProps<'div'>
 
 const dropIn = {

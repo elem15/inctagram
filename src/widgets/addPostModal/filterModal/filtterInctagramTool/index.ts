@@ -1,1 +1,1 @@
-export { FiltersInsta } from './FiltterInctagramTool'
+export { FiltersTool } from './FilttersTool'

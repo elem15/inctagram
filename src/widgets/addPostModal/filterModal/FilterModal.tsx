@@ -1,34 +1,26 @@
 import React, { FC, useRef, useState } from 'react'
 
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import { A11y, EffectCube, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import 'swiper/scss'
 import s from './FilterModal.module.scss'
-
-import './instagram.min.scss'
 import 'swiper/scss/effect-cube'
 import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
 import 'swiper/scss/scrollbar'
 
 import { useAppSelector } from '@/app/appStore'
-import {
-  removeAllPhotos,
-  setImage,
-  updateFilterClass,
-  updatePhotos,
-} from '@/app/services/cropper-slice'
+import { updatePhotos } from '@/app/services/cropper-slice'
 import { Modal } from '@/shared/components/modals'
 import { useAppDispatch } from '@/shared/lib'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { CloseCrop } from '@/widgets/addPostModal/ClickOutSide'
-import { FiltersInsta } from '@/widgets/addPostModal/filterModal/filtterInctagramTool'
-import { NormalFilter } from '@/widgets/addPostModal/filterModal/filtterInctagramTool/NormalFilter'
+import { FiltersTool } from '@/widgets/addPostModal/filterModal/filtterInctagramTool/FilttersTool'
 import { PostModalHeader } from '@/widgets/addPostModal/PostHeaderModal'
 import { PublicationModal } from '@/widgets/addPostModal/publicationModal/PublicationModal'
+import { createImage } from '@/widgets/addProfilePhoto/addAvaWithoutRotation/crropUtils'
 
 type Props = {
   isOpenFilter: boolean
@@ -48,48 +40,43 @@ export const FilterModal: FC<Props> = ({
 
   const [openClosCrop, setCloseCrop] = useState(false)
   const dispatch = useAppDispatch()
-  const imgRefs = useRef(null)
+  const imageRef = useRef<HTMLImageElement | null>(null)
   const { isOpen, openModal, closeModal } = useModal()
-    const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const handleOpenNext = (id:string, ) => {
-    dispatch(setImage({ image: croppers }))
-      debugger
-      console.log({canvasRef})
-      // if (canvasRef.current !== null && selectedImageIndex !== null) {
-          const context = canvasRef.current.getContext('2d');
+  const handleOpenNext = async () => {
+    const croppedImages = await Promise.all(
+      croppers.map(async cropper => {
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+        const modifiedImage = await createImage(cropper.image)
 
-          if (context) {
-              const selectedImage = croppers[selectedImageIndex];
-              const img = new Image();
+        canvas.width = modifiedImage.width
+        canvas.height = modifiedImage.height
 
-              img.onload = () => {
-                  // Clear previous content on the canvas
-                  context.clearRect(0, 0, canvasRef.current!.width, canvasRef.current!.height);
+        ctx?.drawImage(modifiedImage, 0, 0, modifiedImage.width, modifiedImage.height)
 
-                  // Apply the new filter
-                  context.filter = selectedImage.filterClass;
+        ctx.filter = cropper.filterClass
 
-                  // Draw the image on the canvas with the applied filter
-                  context.drawImage(img, 0, 0, canvasRef.current!.width, canvasRef.current!.height);
+        ctx?.drawImage(modifiedImage, 0, 0, modifiedImage.width, modifiedImage.height)
 
-                  // Convert canvas content to data URL (base64 encoded image)
-                  const modifiedImageSrc = canvasRef.current.toDataURL();
+        ctx.filter = 'none'
 
-                  // Dispatch an action to update the image in your state
-                  dispatch(updatePhotos([{ id: selectedImage.id, image: modifiedImageSrc, croppedAreaPixels: selectedImage.croppedAreaPixels }]));
-              };
+        const newImage = new Image()
 
-              img.src = selectedImage.image;
-          } else {
-              console.error('Canvas context is null');
-          // }
-      }
+        newImage.src = canvas.toDataURL()
+
+        const base64Data = canvas.toDataURL('image/jpeg')
+
+        return {
+          id: cropper.id,
+          image: base64Data,
+          croppedAreaPixels: cropper.croppedAreaPixels,
+        }
+      })
+    )
+
+    dispatch(updatePhotos(croppedImages))
     openModal()
   }
-
-
-
 
   console.log({ croppers }, ' filterModal')
   const handleDiscard = () => {
@@ -149,31 +136,21 @@ export const FilterModal: FC<Props> = ({
                 return (
                   <SwiperSlide key={post.id}>
                     <div className={s.box}>
-                        <canvas ref={canvasRef} width={500} height={500} style={{ display: 'none' }} />
-                      <Image
+                      <img
                         src={post.image}
                         width={500}
                         height={500}
                         alt={''}
-                        style={{ height: '100%', minWidth: '490px', border: '2px solid' }}
-                        className={clsx(s.postImg && post.filterClass)}
-                        ref={imgRefs}
+                        style={{
+                          height: '100%',
+                          minWidth: '490px',
+                          filter: post.filterClass,
+                        }}
+                        className={clsx(s.postImg)}
+                        ref={imageRef}
                       />
                       <div className={s.instaFilter}>
-                        <NormalFilter
-                          filterClass={post.filterClass}
-                          // setFilterClass={filterClass => handleChangeFilter(post.id, filterClass)}
-                          photo={post.image}
-                          idOfImage={post.id}
-                        />
-
-                        <FiltersInsta
-                          filterClass={post.filterClass}
-                          // setFilterClass={filterClass => handleChangeFilter(post.id, filterClass)}
-                          imgRef={imgRefs}
-                          photo={post.image}
-                          idOfImage={post.id}
-                        />
+                        <FiltersTool photo={post.image} idOfImage={post.id} />
                       </div>
                     </div>
                   </SwiperSlide>

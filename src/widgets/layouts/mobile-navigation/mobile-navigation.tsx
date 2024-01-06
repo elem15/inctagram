@@ -18,14 +18,21 @@ import {
   SearchIcon,
 } from '@/shared/assets'
 import { Button } from '@/shared/components'
+import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
+import { useGeneralInputRefForPost } from '@/widgets/addPostModal/AddPostModal'
+import { AddPostPageMob } from '@/widgets/addPostPageMob/ui/AddPostPageMob'
 
 export default function BottomNavigation() {
   const router = useRouter()
-  // const inputRef = useRef<HTMLInputElement>(null)
-  //
-  // const handleCLickCreate = () => {
-  //   inputRef && inputRef.current?.click()
-  // }
+  const { isOpen, openModal, closeModal } = useModal()
+  const { inputRef } = useGeneralInputRefForPost()
+
+  const handleCLickCreate = () => {
+    openModal()
+  }
+  const handleClosePostModal = () => {
+    inputRef && closeModal()
+  }
 
   return (
     <>
@@ -34,10 +41,10 @@ export default function BottomNavigation() {
           {router.pathname == '/home' ? <HomesIcon /> : <IconBxHomeAlt />}
         </Link>
         <>
-          {/*<Button className={s.content} onClick={handleCLickCreate}>*/}
-          {/*  {router.pathname === '/create' ? <CreatesIcon /> : <CreateIcon />}*/}
-          {/*</Button>*/}
-          {/*<AddPostModalMob inputRef={inputRef} />*/}
+          <Button className={s.content} onClick={handleCLickCreate} variant={'link'}>
+            {router.pathname === '/create' ? <CreatesIcon /> : <CreateIcon />}
+          </Button>
+          <AddPostPageMob closePostModal={handleClosePostModal} openPostModal={isOpen} />
         </>
 
         <Link href={'/messenger'} className={s.content}>

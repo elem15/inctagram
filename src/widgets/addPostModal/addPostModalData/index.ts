@@ -1,0 +1,1 @@
+export { AddPostModalData } from './AddPostModalData'

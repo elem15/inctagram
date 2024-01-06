@@ -34,7 +34,6 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
   const [openCloseModal, setCloseModal] = useState(false)
   const [wordCount, setWordCount] = useState(0)
   const dispatch = useAppDispatch()
-  //const photos = useAppSelector(state => state.croppersSlice)
 
   const text = useAppSelector(state => state.postSlice.textOfTextarea)
   const { data: profileData } = useGetProfileQuery({
@@ -52,29 +51,26 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
     setWordCount(value.length)
   }
 
-  const handlePublish =  () => {
-
+  const handlePublish = () => {
     publishPostImage({ postsPhoto: photos, accessToken })
-        .unwrap()
-        .then((res) => {
-          const imgId=res.images[0].uploadId
-  publishDescription({
-    description: text,
-    childrenMetadata: [{ uploadId: imgId}],
-    accessToken,
-})
+      .unwrap()
+      .then(res => {
+        const imgId = res.images[0].uploadId
+
+        publishDescription({
+          description: text,
+          childrenMetadata: [{ uploadId: imgId }],
+          accessToken,
         })
-        .then(() => {
-
-          discardAll();
-          onPrevStep();
-          dispatch(removeAllPhotos());
-        })
-        .catch((error) => {
-          console.error('Error publishing post:', error);
-
-        });
-
+      })
+      .then(() => {
+        discardAll()
+        onPrevStep()
+        dispatch(removeAllPhotos())
+      })
+      .catch(error => {
+        console.error('Error publishing post:', error)
+      })
   }
   const handleInteractOutPublishModal = () => {
     setCloseModal(true)
@@ -122,7 +118,7 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
                   return (
                     <SwiperSlide key={photo.id} className={s.swiper}>
                       <div className={s.imageBox}>
-                        <img src={photo.image} className={photo.filterClass} alt={''} />
+                        <img src={photo.image} style={{ filter: photo.filterClass }} alt={''} />
                       </div>
                     </SwiperSlide>
                   )

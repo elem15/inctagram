@@ -30,10 +30,7 @@ export const Sidebar = () => {
   const { t } = useTranslation()
   const { isOpen, openModal, closeModal } = useModal()
   const handleOpenMyProfileAndAddPost = () => {
-    // Redirect to /my-profile
     router.push('/my-profile')
-
-    // Set the state to open the AddPostModal
     openModal()
   }
 

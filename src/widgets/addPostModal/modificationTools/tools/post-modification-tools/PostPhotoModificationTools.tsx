@@ -11,27 +11,21 @@ type Props = {
   zoomValue: number[]
   onChange: (value: number[]) => void
   onAspectChange: (selectedAspect: string) => void
-  // onRotationChange: (value: number[]) => void
-  //rotationValue: number[]
-  // deletePhoto: (i: number) => void
+
   imageId: string
   selectNewPhoto: () => void
 }
 export const PostPhotoModificationTools = ({
   zoomValue,
   onChange,
-  onAspectChange,
-  //rotationValue,
-  // onRotationChange,
   imageId,
-  selectNewPhoto, // deletePhoto,
+  selectNewPhoto,
 }: Props) => {
   return (
     <div className={s.toolBox}>
       <div className={s.sizeBox}>
         <CropTool imageId={imageId} />
         <ZoomTool zoomValue={zoomValue} onChange={onChange} />
-        {/*<RotationTool rotationValue={rotationValue} onRotationChange={onRotationChange} />*/}
       </div>
       <AddNewPhotoTool selectNewPhoto={selectNewPhoto} />
     </div>

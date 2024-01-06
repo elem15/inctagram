@@ -1,4 +1,4 @@
-const createImage = (url: string): Promise<HTMLImageElement> => {
+export const createImage = (url: string): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const image = new Image()
 
