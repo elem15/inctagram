@@ -20,6 +20,7 @@ import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation, nameValidation } from '@/shared/regex'
 import { ProfilePhotoForGeneralInfo } from '@/widgets/addProfilePhoto'
 import { TabsLayout } from '@/widgets/layouts'
+import { clearLocalUserData } from '@/entities/auth'
 
 const Information = () => {
   const { t } = useTranslation()
@@ -51,10 +52,12 @@ const Information = () => {
         setError('userName', { type: 'server', message: t.profile.user_name_error })
       } else {
         dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+        dispatch(clearLocalUserData())
         router.push('/signin')
       }
     } else if (error) {
       dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+      dispatch(clearLocalUserData())
       router.push('/signin')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -7,6 +7,7 @@ import s from '../AddProfilePhotoModal.module.scss'
 import getCroppedImg from './crropUtils'
 
 import { setAlert } from '@/app/services'
+import { clearLocalUserData } from '@/entities/auth'
 import { useSavePhotoMutation } from '@/entities/profile/api/profileApi'
 import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
@@ -41,7 +42,10 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
   const [savePhoto, { error, isLoading }] = useSavePhotoMutation()
 
   useEffect(() => {
-    error && dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+    if (error) {
+      dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+      dispatch(clearLocalUserData())
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])
   const onCropComplete = useCallback((_croppedArea: any, croppedAreaPixels: CroppedAreaPixel) => {

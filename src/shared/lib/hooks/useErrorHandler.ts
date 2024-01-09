@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useAppDispatch, useTranslation } from '.'
 
 import { setAlert } from '@/app/services'
+import { clearLocalUserData } from '@/entities/auth'
 
 export const useErrorHandler = (error: CustomerError) => {
   const dispatch = useAppDispatch()
@@ -15,6 +16,7 @@ export const useErrorHandler = (error: CustomerError) => {
     if (error) {
       if (error.status === 401) {
         dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+        dispatch(clearLocalUserData())
         router.push('/signin')
       } else {
         dispatch(setAlert({ message: t.profile.server_error, variant: 'error' }))
