@@ -2,7 +2,12 @@ type PostsQuery = {
   userId: string,
   postId?: number,
 }
+type PostImage={
+  croppedAreaPixels: {width: number, height: number, x: number, y: number}
+  id:string
+  image:string
 
+}
 type PostDataToComponent = {
   id: number,
   url: string,

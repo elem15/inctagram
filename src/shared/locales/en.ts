@@ -156,7 +156,7 @@ export const en = {
     text_of_button_select_from_comp: 'Select from Computer',
     error_type_of_photo: 'The format of the uploaded photo must be PNG and JPEG.',
     error: 'Error! ',
-    error_size_photo: 'Photo size must be less than 1.5 MB!',
+    error_size_photo: 'The photo size should not exceed 10 MB!',
     save_button: ' Save',
   },
   delete_photo_of_profile: {
@@ -187,6 +187,27 @@ export const en = {
   },
   registered_users: {
     title: 'Registered Users:',
+  },
+  post: {
+    post_modal_title: 'Add photo',
+    crop_modal_title: 'Cropping',
+    button_navigation_text: 'Next',
+    select_button: 'Select',
+    draft_button: 'Open Draft',
+    aspect_original: 'Original',
+    filter_modal: 'Filters',
+    publication_modal: 'Publication',
+    publish_button: 'Publish',
+    label_of_textarea: 'Add publication descriptions',
+    placeholder_of_textarea: 'Add your description',
+    label_of_input: 'Add location',
+    title_close_modal: 'Close',
+    text_close_modal:
+      ' Do you really want to close the creation of a publication? If you close everything will be\n' +
+      '          deleted',
+    discard_button: 'Discard',
+    save_draft: 'Save draft',
+    add_img_message: 'You have added the maximum number of photos allowed!',
   },
 }
 export type LangType = typeof en

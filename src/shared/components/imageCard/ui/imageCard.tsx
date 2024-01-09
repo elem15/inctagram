@@ -21,6 +21,7 @@ export const ImageCard = ({ src, alt, cardClassName, width, height }: Props) => 
         src={src}
         className={cardClassName}
         alt={alt}
+        priority={false}
         width={width}
         height={height}
         onLoadingComplete={() => setLoading(false)}

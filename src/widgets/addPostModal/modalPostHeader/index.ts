@@ -1,0 +1,1 @@
+export { PostModalHeader } from './PostHeaderModal'

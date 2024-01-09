@@ -1,0 +1,58 @@
+
+.tool{
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-dark-500);
+  border-radius: 2px;
+  opacity: 0.8;
+}
+.toolBox{
+  position: absolute;
+  display: flex;
+  top: 89%;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 12px;
+  z-index: 12;
+}
+.sizeBox{
+  display: flex;
+  gap: 24px;
+}
+.container{
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+
+}
+.boxWindow{
+  width: 156px;
+  height: 152px;
+  opacity: 0.8;
+  border-radius: 2px;
+  background-color: var(--color-dark-500);
+  transform: translateY(0);
+  transition: opacity 180ms linear, transform 90ms ease-out;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+.size{
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.customContentBox{
+  opacity: 0.8;
+}
+.item{
+  display: flex;
+  justify-content: space-between;
+  &:focus{
+    fill:var(--color-accent-500)
+  }
+}

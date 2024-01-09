@@ -15,7 +15,7 @@ export const NotificationContainer = () => {
     if (message) {
       const timeoutId = setTimeout(() => {
         dispatch(clearAlert())
-      }, 6000)
+      }, 4000)
 
       return () => {
         clearTimeout(timeoutId)

@@ -1,4 +1,4 @@
-const createImage = (url: string): Promise<HTMLImageElement> => {
+export const createImage = (url: string): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const image = new Image()
 
@@ -53,4 +53,9 @@ export default async function getCroppedImg(
   )
 
   return canvas.toDataURL('image/jpeg')
+  // return new Promise((resolve, reject) => {
+  //   canvas.toBlob((file) => {
+  //     resolve(URL.createObjectURL(file))
+  //   }, 'image/jpeg')
+  // })
 }

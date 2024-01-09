@@ -1,0 +1,32 @@
+@use "../../../../../shared/assets/mixins";
+.tool{
+  @include mixins.tool;
+  border-radius: 50%;
+  opacity: 1.8;
+}
+.box{
+
+}
+.droppedBox{
+  width: 244px;
+  height: 106px;
+  display: flex;
+  justify-content: space-between;
+}
+.filterBox{
+  display: flex;
+  gap: 3px;
+}
+.scrollImg{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9%;
+  justify-content: center;
+  padding: 3%;
+}
+.filterImg{
+  @media (width<=910px) {
+    width: 100%;
+    height: 53px;
+  }
+}
