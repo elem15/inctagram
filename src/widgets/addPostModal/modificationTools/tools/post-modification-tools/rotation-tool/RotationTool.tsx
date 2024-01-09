@@ -3,8 +3,7 @@ import React, { FC } from 'react'
 import s from '../zoom-tool/ZoomTool.module.scss'
 
 import { RotateIcon } from '@/shared/assets/icons/RotateIcon'
-import { ZoomToolIcon } from '@/shared/assets/icons/ZoomToolIcon'
-import { CustomDropdown, CustomDropdownItem, Typography } from '@/shared/components'
+import { CustomDropdown, CustomDropdownItem } from '@/shared/components'
 import { SliderDemo } from '@/shared/components/slider'
 type Props = {
   onRotationChange: (value: number[]) => void

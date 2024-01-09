@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 
 import { updateAspect } from '@/app/services/cropper-slice'
 import { DefaultProfileImg } from '@/shared/assets'
@@ -7,13 +7,13 @@ import { IconRectangleVertical } from '@/shared/assets/icons/RectangleIcon'
 import { IconRectangle } from '@/shared/assets/icons/RotatedSquareIcon'
 import { IconSquare } from '@/shared/assets/icons/Square'
 import { CustomDropdown, CustomDropdownItem, Typography } from '@/shared/components'
-import { useAppDispatch } from '@/shared/lib'
-import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
+import { useAppDispatch, useTranslation } from '@/shared/lib'
 import s from '@/widgets/addPostModal/modificationTools/tools/post-modification-tools/PostPhotoModificationTools.module.scss'
 type Props = {
   imageId: string
 }
 export const CropTool = ({ imageId }: Props) => {
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const toolTrigger = (
     <div className={s.tool}>
@@ -35,7 +35,7 @@ export const CropTool = ({ imageId }: Props) => {
           className={s.item}
           onClick={() => dispatch(updateAspect({ id: imageId, aspect: 1 }))}
         >
-          <Typography variant={'h3'}>Оригинал</Typography>
+          <Typography variant={'h3'}>{t.post.aspect_original}</Typography>
           <DefaultProfileImg style={{ width: '24px', height: '24px', marginLeft: '5px' }} />
         </CustomDropdownItem>
         <CustomDropdownItem

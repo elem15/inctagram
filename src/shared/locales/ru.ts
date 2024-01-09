@@ -188,4 +188,24 @@ export const ru: LangType = {
   registered_users: {
     title: 'Зарегистрированные Пользователи:',
   },
+  post: {
+    post_modal_title: 'Добавить фотографию',
+    crop_modal_title: 'Обрезать',
+    button_navigation_text: 'Далее',
+    select_button: 'Выбрать',
+    draft_button: 'Открыть черновик',
+    aspect_original: 'Оригинал',
+    filter_modal: 'Фильтры',
+    publication_modal: 'Публикация',
+    publish_button: 'Опубликовать',
+    label_of_textarea: 'Добавить описание поста',
+    placeholder_of_textarea: 'Добавь описание',
+    label_of_input: 'Добавить локацию',
+    title_close_modal: 'Закрыть',
+    text_close_modal:
+      'Вы действительно хотите закрыть создание публикации? Если закрыть все будет удалено',
+    discard_button: 'Сбросить',
+    save_draft: 'Сохранить черновик',
+    add_img_message: 'Ты добавил максимально допустимое количество фотографий!',
+  },
 }

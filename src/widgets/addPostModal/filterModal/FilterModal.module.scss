@@ -1,7 +1,45 @@
+.filterBox{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  @media (width<=910px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+}
+.imgContainer{
+  display: flex;
+  width: 50%;
+  height: 504px;
+  justify-content: space-between;
+
+  @media (width<=910px) {
+width: 100%;
+
+  }
+}
+.img{
+ min-width: 490px;
+
+}
 .box{
   height: 504px;
-  width: 490px;
+  width: 50%;
   display: flex;
+  position: relative;
+  @media (width<=910px) {
+    display: flex;
+min-width: 100%;
+flex-direction: column;
+  }
+}
+.mobFilter{
+
+  cursor: pointer;
+  padding: 0 12px;
 }
 .postImg{
   width: 100%;
@@ -9,6 +47,9 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  @media (width<=910px) {
+    height: 53%;
+  }
 }
 .instaFilter{
   display: flex;
@@ -19,8 +60,4 @@
   width: 50%;
   height: 100%;
   padding: 1.5rem 3.375rem;
-}
-.filLofi{
-  filter:  contrast(1.5) saturate(1.1) contrast(1.5);
-
 }

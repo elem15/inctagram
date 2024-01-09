@@ -1,11 +1,12 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { A11y, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import s from './PublicationModal.module.scss'
 
-import { removeAllPhotos } from '@/app/services/cropper-slice'
+import { setAlert } from '@/app/services'
+import { CropperState, removeAllPhotos, updatePhotos } from '@/app/services/cropper-slice'
 import { setTextOfTextarea } from '@/app/services/post-slice'
 import {
   usePublishPostsImageMutation,
@@ -18,14 +19,14 @@ import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
 import 'swiper/scss/scrollbar'
 import { Modal } from '@/shared/components/modals'
-import { useAppDispatch, useAppSelector } from '@/shared/lib'
+import { useAppDispatch, useAppSelector, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
-import { CloseCrop } from '@/widgets/addPostModal/ClickOutSide'
-import { PostModalHeader } from '@/widgets/addPostModal/PostHeaderModal'
+import { CloseCrop } from '@/widgets/addPostModal/CloseCrop'
+import { createImage } from '@/widgets/addProfilePhoto/addAvaWithoutRotation/crropUtils'
 
 type Props = {
   isOpen: boolean
-  photos: any
+  photos: CropperState[]
   onPrevStep: () => void
   discardAll: () => void
 }
@@ -34,15 +35,24 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
   const [openCloseModal, setCloseModal] = useState(false)
   const [wordCount, setWordCount] = useState(0)
   const dispatch = useAppDispatch()
-
+  const { t } = useTranslation()
   const text = useAppSelector(state => state.postSlice.textOfTextarea)
-  const { data: profileData } = useGetProfileQuery({
-    profileId: userId,
-    accessToken,
-  } as UserAuthData)
-  const [publishDescription] = usePublishPostsMutation()
-  const [publishPostImage, { error, data, isLoading }] = usePublishPostsImageMutation()
+  const { data: profileData } = useGetProfileQuery({ profileId: +userId, accessToken })
+  const [publishDescription, { isLoading: isPostLoading }] = usePublishPostsMutation()
+  const [publishPostImage, { isLoading }] = usePublishPostsImageMutation()
+  const [windowSize, setWindowSize] = useState([window.innerWidth, window.innerHeight])
 
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowSize([window.innerWidth, window.innerHeight])
+    }
+
+    window.addEventListener('resize', handleWindowResize)
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize)
+    }
+  }, [])
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value
 
@@ -51,8 +61,40 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
     setWordCount(value.length)
   }
 
-  const handlePublish = () => {
-    publishPostImage({ postsPhoto: photos, accessToken })
+  useFetchLoader(isPostLoading)
+  const handlePublish = async () => {
+    const croppedImages = await Promise.all(
+      photos.map(async cropper => {
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+        const modifiedImage = await createImage(cropper.image)
+
+        canvas.width = modifiedImage.width
+        canvas.height = modifiedImage.height
+
+        ctx?.drawImage(modifiedImage, 0, 0, modifiedImage.width, modifiedImage.height)
+
+        if (ctx) ctx.filter = cropper.filterClass
+
+        ctx?.drawImage(modifiedImage, 0, 0, modifiedImage.width, modifiedImage.height)
+
+        const newImage = new Image()
+
+        newImage.src = canvas.toDataURL()
+
+        const base64Data = canvas.toDataURL('image/jpeg')
+
+        return {
+          id: cropper.id,
+          image: base64Data,
+          croppedAreaPixels: cropper.croppedAreaPixels,
+        }
+      })
+    )
+
+    await dispatch(updatePhotos(croppedImages))
+
+    await publishPostImage({ postsPhoto: croppedImages, accessToken })
       .unwrap()
       .then(res => {
         const imgId = res.images[0].uploadId
@@ -69,7 +111,7 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
         dispatch(removeAllPhotos())
       })
       .catch(error => {
-        console.error('Error publishing post:', error)
+        dispatch(setAlert({ variant: 'error', message: error }))
       })
   }
   const handleInteractOutPublishModal = () => {
@@ -89,22 +131,19 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
       />
       <Modal
         open={isOpen}
-        size={'lg'}
-        title={
-          <PostModalHeader
-            title={'Publication'}
-            closeModal={onPrevStep}
-            gap={'137%'}
-            isPublish={true}
-            onNext={handlePublish}
-          />
-        }
+        size={windowSize[0] == 768 ? 'md' : 'lg'}
+        isCropHeader={true}
+        onClickNext={handlePublish}
+        closePostModal={onPrevStep}
+        buttonText={t.post.publish_button}
+        title={t.post.publication_modal}
         showCloseButton={false}
         isPost={true}
         onInteractOutside={handleInteractOutPublishModal}
+        disableButton={isLoading}
       >
-        <div style={{ width: '100%', display: 'flex', height: '31.5rem' }}>
-          <div style={{ width: '50%' }}>
+        <div className={s.modBox}>
+          <div className={s.imageContainer}>
             <Swiper
               modules={[Navigation, Pagination, A11y]}
               className={'post-images-slider'}
@@ -126,19 +165,21 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
               </div>
             </Swiper>
           </div>
+
           <div className={s.dataBox}>
             <div className={s.textareaBox}>
               <div className={s.avaAndUserName}>
-                <img src={profileData?.avatars[0]?.url} className={s.avatar} />
+                <img src={profileData?.avatars[0]?.url} className={s.avatar} alt={'postImg'} />
                 <Typography variant={'h3'}>{profileData?.userName}</Typography>
               </div>
 
               <Textarea
-                label={'Add publication descriptions'}
-                style={{ height: '120px', resize: 'none' }}
-                placeholder={'Add your description'}
+                label={t.post.label_of_textarea}
+                style={{ height: '80px', resize: 'none' }}
+                placeholder={t.post.placeholder_of_textarea}
                 onChange={handleChangeText}
                 disabled={wordCount === 500}
+                className={s.textArea}
               />
               <Typography variant={'small_text'} style={{ textAlign: 'end', color: '#8d9094' }}>
                 {wordCount}/500
@@ -146,7 +187,7 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
             </div>
             <div className={s.locationBox}>
               <Input
-                label={'Add location'}
+                label={t.post.label_of_input}
                 type={`location`}
                 style={{ border: '1px solid #4C4C4C', background: 'transparent' }}
               />

@@ -4,32 +4,29 @@ import Cropper from 'react-easy-crop'
 import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import './../post-images-slider.css'
+import '@/shared/assets/swiperStyle/post-images-slider.scss'
 import { useAppSelector } from '@/app/appStore'
 import {
-  addNewPhoto,
   updateAspect,
   updateCrop,
   updateCroppedAreaPixels,
   updateZoom,
 } from '@/app/services/cropper-slice'
 import { useAppDispatch } from '@/shared/lib'
-import { useGeneralInputRefForPost } from '@/widgets/addPostModal/AddPostModal'
 import s from '@/widgets/addPostModal/AddPostModal.module.scss'
 import { PostPhotoModificationTools } from '@/widgets/addPostModal/modificationTools/tools/post-modification-tools'
 import { CroppedAreaPixel } from '@/widgets/addProfilePhoto/addAvaWithoutRotation/AddAvatarModalWithoutRotation'
 type Props = {
   selectPhoto: () => void
+  closePostModal: () => void
 }
-export const AddPostModalData = ({ selectPhoto }: Props) => {
-  const croppers = useAppSelector(state => state.croppersSlice)
+export const AddPostModalData = ({ selectPhoto, closePostModal }: Props) => {
+  const images = useAppSelector(state => state.croppersSlice)
   const dispatch = useAppDispatch()
   const handleZoomChange = (value: number[], id: string) => {
     dispatch(updateZoom({ zoom: value[0], id }))
   }
-  const addNewCropper = (image: string) => {
-    dispatch(addNewPhoto(image))
-  }
+
   const onCropChange = (newCrop: Record<'x' | 'y', number>, id: string) => {
     dispatch(updateCrop({ crop: newCrop, id }))
   }
@@ -84,7 +81,7 @@ export const AddPostModalData = ({ selectPhoto }: Props) => {
         pagination={{ clickable: true }}
         simulateTouch={false}
       >
-        {croppers.map(cropper => {
+        {images.map(cropper => {
           return (
             <SwiperSlide key={cropper.id} className={s.swiper}>
               <div className={s.imageBox}>
@@ -101,6 +98,7 @@ export const AddPostModalData = ({ selectPhoto }: Props) => {
                 />
               </div>
               <PostPhotoModificationTools
+                closePostModal={closePostModal}
                 zoomValue={[cropper.zoom]}
                 onChange={zoom => handleZoomChange(zoom, cropper.id)}
                 onAspectChange={aspect => handleAspectChange(aspect, cropper.id)}

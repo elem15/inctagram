@@ -1,1 +1,0 @@
-export { SwiperButton } from './SwiperButton'

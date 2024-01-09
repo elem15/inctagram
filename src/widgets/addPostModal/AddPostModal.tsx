@@ -1,45 +1,19 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 
-import Cropper from 'react-easy-crop'
-import { Navigation, Pagination, A11y, Thumbs } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import './post-images-slider.css'
-// import 'swiper/scss'
-
-import { v1 } from 'uuid'
-
 import s from './AddPostModal.module.scss'
 
-//
-// import 'swiper/scss/navigation'
-// import 'swiper/scss/pagination'
-// import 'swiper/scss/scrollbar'
 import { useAppSelector } from '@/app/appStore'
-import {
-  addNewPhoto,
-  removeAllPhotos,
-  updateAspect,
-  updateCrop,
-  updateCroppedAreaPixels,
-  updatePhotos,
-  updateZoom,
-} from '@/app/services/cropper-slice'
+import { addNewPhoto, removeAllPhotos, updatePhotos } from '@/app/services/cropper-slice'
 import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { useAppDispatch, useTranslation } from '@/shared/lib'
+import { useErrorText } from '@/shared/lib/hooks'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { AddPostModalData } from '@/widgets/addPostModal/addPostModalData'
-import { CloseCrop } from '@/widgets/addPostModal/ClickOutSide'
+import { CloseCrop } from '@/widgets/addPostModal/CloseCrop'
 import { FilterModal } from '@/widgets/addPostModal/filterModal/FilterModal'
-import { PostModalHeader } from '@/widgets/addPostModal/PostHeaderModal'
-import { CroppedAreaPixel } from '@/widgets/addProfilePhoto/addAvaWithoutRotation/AddAvatarModalWithoutRotation'
 import getCroppedImg from '@/widgets/addProfilePhoto/addAvaWithoutRotation/crropUtils'
-
-const size = {
-  width: 487,
-  height: 504,
-}
 
 type Props = {
   closePostModal: () => void
@@ -56,17 +30,7 @@ export const useGeneralInputRefForPost = () => {
     selectPhotoHandler,
   }
 }
-export const useErrorText = () => {
-  const [errorText, setErrorText] = useState<string | undefined>()
-  const showErrorText = (text: string) => {
-    setErrorText(text)
-  }
 
-  return {
-    errorText,
-    showErrorText,
-  }
-}
 export const readFile = (file: File) => {
   return new Promise<string>(resolve => {
     const reader = new FileReader()
@@ -77,46 +41,17 @@ export const readFile = (file: File) => {
 }
 export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null)
-  const [errorText, setErrorText] = useState<string | undefined>()
   const [openCloseCrop, setCloseCropModal] = useState(false)
   const { isOpen, openModal, closeModal } = useModal()
   const { selectPhotoHandler, inputRef } = useGeneralInputRefForPost()
-  // const inputRef = useRef<HTMLInputElement>(null)
   const croppers = useAppSelector(state => state.croppersSlice)
-
+  const { errorText, showErrorText } = useErrorText()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
-  // export const selectPhotoHandler = () => {
-  //   inputRef && inputRef.current?.click()
-  // }
-  // const readFile = (file: File) => {
-  //   return new Promise<string>(resolve => {
-  //     const reader = new FileReader()
-  //
-  //     reader.addEventListener('load', () => resolve(reader.result as string))
-  //     reader.readAsDataURL(file)
-  //   })
-  // }
-  const handleZoomChange = (value: number[], id: string) => {
-    dispatch(updateZoom({ zoom: value[0], id }))
-  }
   const addNewCropper = (image: string) => {
     dispatch(addNewPhoto(image))
   }
-  const onCropChange = (newCrop: Record<'x' | 'y', number>, id: string) => {
-    dispatch(updateCrop({ crop: newCrop, id }))
-  }
-
-  const onZoomChange = (zoom: number, id: string) => {
-    dispatch(updateZoom({ zoom, id }))
-  }
-
-  const handleOnCropComplete =
-    (id: string) =>
-    (_croppedArea: Record<'x' | 'y', number>, croppedAreaPixels: CroppedAreaPixel) => {
-      dispatch(updateCroppedAreaPixels({ croppedAreaPixels: croppedAreaPixels, id }))
-    }
 
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.files && e.currentTarget.files.length > 0) {
@@ -125,13 +60,13 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
       const maxSizeBytes = 20 * 1024 * 1024
 
       if (!acceptedTypes.includes(file.type)) {
-        setErrorText(t.add_profile_photo.error_type_of_photo)
+        showErrorText(t.add_profile_photo.error_type_of_photo)
 
         return
       }
 
       if (file.size > maxSizeBytes) {
-        setErrorText(t.add_profile_photo.error_size_photo)
+        showErrorText(t.add_profile_photo.error_size_photo)
 
         return
       }
@@ -142,24 +77,6 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
     }
   }
 
-  const handleAspectChange = (selectedAspect: string, id: string) => {
-    switch (selectedAspect) {
-      case 'contain':
-        dispatch(updateAspect({ aspect: 1, id }))
-        break
-      case '1/1':
-        dispatch(updateAspect({ aspect: 1, id }))
-        break
-      case 'vertical':
-        dispatch(updateAspect({ aspect: 4 / 9, id }))
-        break
-      case 'horizontal':
-        dispatch(updateAspect({ aspect: 16 / 9, id }))
-        break
-      default:
-        dispatch(updateAspect({ aspect: 1, id }))
-    }
-  }
   const handleBack = () => {
     dispatch(removeAllPhotos())
     setImageSrc(null)
@@ -190,25 +107,12 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
     openModal()
   }
 
-  const customStyles = {
-    style: {
-      containerStyle: {
-        backgroundColor: '#333',
-        backgroundPosition: 'center',
-      },
-
-      cropAreaStyle: {
-        border: 'none',
-      },
-    },
-  }
-
   const handleDiscard = () => {
     setCloseCropModal(false)
     handleClosePostCropModal()
   }
 
-  const handleInteractOutsideOfCrop = (event: FocusEvent | MouseEvent | TouchEvent) => {
+  const handleInteractOutsideOfCrop = (event: Event) => {
     event.preventDefault()
     imageSrc && setCloseCropModal(true)
   }
@@ -223,18 +127,11 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
       <Modal
         open={openPostModal}
         size={'md'}
-        title={
-          imageSrc ? (
-            <PostModalHeader
-              closeModal={handleBack}
-              title={'Cropping'}
-              gap={'57%'}
-              onNext={handleOpenFilter}
-            />
-          ) : (
-            'Add photo'
-          )
-        }
+        title={imageSrc ? t.post.crop_modal_title : t.post.post_modal_title}
+        onClickNext={handleOpenFilter}
+        closePostModal={handleBack}
+        buttonText={t.post.button_navigation_text}
+        isCropHeader={imageSrc ? true : false}
         showCloseButton={imageSrc ? false : true}
         isPost={true}
         onClose={closePostModal}
@@ -248,7 +145,7 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
           />
 
           {imageSrc ? (
-            <AddPostModalData selectPhoto={selectPhotoHandler} />
+            <AddPostModalData selectPhoto={selectPhotoHandler} closePostModal={closePostModal} />
           ) : (
             <div className={s.modalBox}>
               {errorText && (
@@ -263,13 +160,13 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
 
               <Button
                 variant={'primary'}
-                style={{ marginBottom: '24px' }}
+                style={{ marginBottom: '24px', width: '168px' }}
                 onClick={selectPhotoHandler}
               >
-                Select from computer
+                {t.post.select_button}
               </Button>
               <Button variant={'outline'} style={{ width: '170px' }}>
-                Open Draft
+                {t.post.draft_button}
               </Button>
             </div>
           )}

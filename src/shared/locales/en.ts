@@ -188,5 +188,26 @@ export const en = {
   registered_users: {
     title: 'Registered Users:',
   },
+  post: {
+    post_modal_title: 'Add photo',
+    crop_modal_title: 'Cropping',
+    button_navigation_text: 'Next',
+    select_button: 'Select',
+    draft_button: 'Open Draft',
+    aspect_original: 'Original',
+    filter_modal: 'Filters',
+    publication_modal: 'Publication',
+    publish_button: 'Publish',
+    label_of_textarea: 'Add publication descriptions',
+    placeholder_of_textarea: 'Add your description',
+    label_of_input: 'Add location',
+    title_close_modal: 'Close',
+    text_close_modal:
+      ' Do you really want to close the creation of a publication? If you close everything will be\n' +
+      '          deleted',
+    discard_button: 'Discard',
+    save_draft: 'Save draft',
+    add_img_message: 'You have added the maximum number of photos allowed!',
+  },
 }
 export type LangType = typeof en

@@ -7,6 +7,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { CloseIcon } from './../../assets/icons/CloseIcon'
 import s from './Modal.module.scss'
 
+import { PostModalHeader } from '@/widgets/addPostModal/modalPostHeader'
+
 export type ModalSize = 'lg' | 'md' | 'sm' | 'xs' | 's' | 'm' | 'l'
 type Props = {
   children: ReactNode
@@ -14,10 +16,14 @@ type Props = {
   open: boolean
   showCloseButton?: boolean
   size?: ModalSize
-  title?: string | JSX.Element | undefined
+  title?: string
   isPost?: boolean
-  onInteractOutside?: (event) => void
-
+  onInteractOutside?: (event: Event) => void
+  closePostModal?: () => void
+  onClickNext?: () => void
+  isCropHeader?: boolean
+  buttonText?: string
+  disableButton?: any
 } & ComponentProps<'div'>
 
 const dropIn = {
@@ -53,6 +59,11 @@ export const Modal = ({
   title,
   isPost,
   onInteractOutside,
+  onClickNext,
+  closePostModal,
+  isCropHeader,
+  buttonText,
+  disableButton,
 }: Props) => {
   const handleOpenChange = () => {
     onClose?.()
@@ -82,17 +93,27 @@ export const Modal = ({
               onInteractOutside={onInteractOutside}
             >
               <motion.div animate={'visible'} exit={'exit'} initial={'hidden'} variants={dropIn}>
-                <header className={s.header}>
-                  <Dialog.Title asChild>
-                    <h2 className={s.title}>{title}</h2>
-                  </Dialog.Title>
+                {isCropHeader ? (
+                  <PostModalHeader
+                    closeModal={closePostModal}
+                    title={title}
+                    onNext={onClickNext}
+                    buttonText={buttonText}
+                    disableButton={disableButton}
+                  />
+                ) : (
+                  <header className={s.header}>
+                    <Dialog.Title asChild>
+                      <h2 className={s.title}>{title}</h2>
+                    </Dialog.Title>
 
-                  {showCloseButton && (
-                    <Dialog.Close className={s.closeButton}>
-                      <CloseIcon />
-                    </Dialog.Close>
-                  )}
-                </header>
+                    {showCloseButton && (
+                      <Dialog.Close className={s.closeButton}>
+                        <CloseIcon />
+                      </Dialog.Close>
+                    )}
+                  </header>
+                )}
                 <div className={classNames.contentBoxModal}>{children}</div>
               </motion.div>
             </Dialog.Content>

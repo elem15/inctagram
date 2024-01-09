@@ -8,59 +8,57 @@ type Props = {
   photo: any
   idOfImage: string
 }
+export const filters = [
+  {
+    name: 'Normal',
+    class: 'filter-normal',
+    style: 'none',
+  },
+  {
+    name: 'Clarendon',
+    class: 'filter-clarendon',
+    style: 'sepia(.15) contrast(1.25) brightness(1.25) hue-rotate(5deg)',
+  },
 
+  {
+    name: 'Gingham',
+    class: 'filter-gingham',
+    style: 'hue-rotate(150deg)',
+  },
+
+  {
+    name: 'Lark',
+    class: 'filter-lark',
+    style: 'sepia(.25) contrast(1.2) brightness(1.3) saturate(1.25)',
+  },
+  {
+    name: 'Lo-fi',
+    class: 'filter-lofi',
+    style: 'saturate(1.1) contrast(1.5)',
+  },
+  {
+    name: 'Reyes',
+    class: 'filter-reyes',
+    style: 'sepia(.75) contrast(.75) brightness(1.25) saturate(1.4)',
+  },
+  {
+    name: 'Maven',
+    class: 'filter-maven',
+    style: 'contrast(200%)',
+  },
+  {
+    name: 'Mayfair',
+    class: 'filter-mayfair',
+    style: 'contrast(1.1) brightness(1.15) saturate(1.1)',
+  },
+  {
+    name: 'Moon',
+    class: 'filter-moon',
+    style: 'brightness(1.4) contrast(.95) saturate(0) sepia(.35)',
+  },
+]
 export const FiltersTool = ({ photo, idOfImage }: Props) => {
   const dispatch = useAppDispatch()
-
-  const filters = [
-    {
-      name: 'Normal',
-      class: 'filter-normal',
-      style: 'none',
-    },
-    {
-      name: 'Clarendon',
-      class: 'filter-clarendon',
-      style: 'sepia(.15) contrast(1.25) brightness(1.25) hue-rotate(5deg)',
-    },
-
-    {
-      name: 'Gingham',
-      class: 'filter-gingham',
-      style: 'contrast(1.1) brightness(1.1)',
-    },
-
-    {
-      name: 'Lark',
-      class: 'filter-lark',
-      style: 'sepia(.25) contrast(1.2) brightness(1.3) saturate(1.25)',
-    },
-    {
-      name: 'Lo-fi',
-      class: 'filter-lofi',
-      style: 'saturate(1.1) contrast(1.5)',
-    },
-    {
-      name: 'Reyes',
-      class: 'filter-reyes',
-      style: 'sepia(.75) contrast(.75) brightness(1.25) saturate(1.4)',
-    },
-    {
-      name: 'Maven',
-      class: 'filter-maven',
-      style: 'contrast(200%)',
-    },
-    {
-      name: 'Mayfair',
-      class: 'filter-mayfair',
-      style: 'contrast(1.1) brightness(1.15) saturate(1.1)',
-    },
-    {
-      name: 'Moon',
-      class: 'filter-moon',
-      style: 'brightness(1.4) contrast(.95) saturate(0) sepia(.35)',
-    },
-  ]
 
   return (
     <>
@@ -72,7 +70,7 @@ export const FiltersTool = ({ photo, idOfImage }: Props) => {
                 dispatch(updateFilterClass({ id: idOfImage, filterClass: filter.style }))
               }}
             >
-              <div style={{ width: '108px', height: '108px' }}>
+              <div style={{ width: '108px', height: '108px', cursor: 'pointer' }}>
                 <img
                   src={photo}
                   alt={filter.name}

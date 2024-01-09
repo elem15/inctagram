@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import s from './ZoomTool.module.scss'
 
 import { ZoomToolIcon } from '@/shared/assets/icons/ZoomToolIcon'
-import { CustomDropdown, CustomDropdownItem, Typography } from '@/shared/components'
+import { CustomDropdown, CustomDropdownItem } from '@/shared/components'
 import { SliderDemo } from '@/shared/components/slider'
 type Props = {
   zoomValue: number[]

@@ -12,16 +12,16 @@ import { useAppSelector } from '@/app/appStore'
 import { deletePhoto } from '@/app/services/cropper-slice'
 import { DefaultProfileImg, IconAdd } from '@/shared/assets'
 import { DeleteIcon } from '@/shared/assets/icons/DeleteIcon'
-import { CustomDropdown, CustomDropdownItem } from '@/shared/components'
+import { Button, CustomDropdown, CustomDropdownItem } from '@/shared/components'
 import { useAppDispatch } from '@/shared/lib'
 
 type Props = {
   selectNewPhoto: () => void
+  closePostModal: () => void
 }
-export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto }) => {
+export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, closePostModal }) => {
   const dispatch = useAppDispatch()
   const photos = useAppSelector(state => state.croppersSlice)
-
   const newPhotoTrigger = (
     <div className={s.tool}>
       <DefaultProfileImg style={{ width: '24px', height: '24px' }} />
@@ -34,6 +34,7 @@ export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto }) => {
 
   const handleDeletePhoto = (index: string) => {
     dispatch(deletePhoto(index))
+    photos.length == 0 && closePostModal()
   }
 
   return (
@@ -81,9 +82,14 @@ export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto }) => {
               })}
             </Swiper>
           </div>
-          <div style={{ display: 'flex', alignItems: 'start', height: '100%' }}>
-            <IconAdd style={{ width: '36px', height: '36px' }} onClick={() => selectNewPhoto()} />
-          </div>
+          <Button
+            variant={'link'}
+            style={{ display: 'flex', alignItems: 'start', height: '100%' }}
+            onClick={() => selectNewPhoto()}
+            disabled={photos.length === 10}
+          >
+            <IconAdd style={{ width: '36px', height: '36px' }} />
+          </Button>
         </CustomDropdownItem>
       </CustomDropdown>
     </div>

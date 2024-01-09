@@ -1,5 +1,3 @@
-import { useRef } from 'react'
-
 import { clsx } from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -19,8 +17,7 @@ import {
 } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
-import { useGeneralInputRefForPost } from '@/widgets/addPostModal/AddPostModal'
-import { AddPostPageMob } from '@/widgets/addPostPageMob/ui/AddPostPageMob'
+import { AddPostModal, useGeneralInputRefForPost } from '@/widgets/addPostModal/AddPostModal'
 
 export default function BottomNavigation() {
   const router = useRouter()
@@ -44,7 +41,7 @@ export default function BottomNavigation() {
           <Button className={s.content} onClick={handleCLickCreate} variant={'link'}>
             {router.pathname === '/create' ? <CreatesIcon /> : <CreateIcon />}
           </Button>
-          <AddPostPageMob closePostModal={handleClosePostModal} openPostModal={isOpen} />
+          <AddPostModal closePostModal={handleClosePostModal} openPostModal={isOpen} />
         </>
 
         <Link href={'/messenger'} className={s.content}>

@@ -32,8 +32,7 @@ export const postsApi = createApi({
       query: ({ postsPhoto, accessToken }) => {
         const formData = new FormData()
 
-        debugger
-        const b64toBlob = dataURI => {
+        const b64toBlob = (dataURI: string) => {
           const byteString = atob(dataURI.split(',')[1])
           const ab = new ArrayBuffer(byteString.length)
           const ia = new Uint8Array(ab)
@@ -45,17 +44,11 @@ export const postsApi = createApi({
           return new Blob([ab], { type: 'image/jpeg' })
         }
 
-        postsPhoto.forEach(file => {
+        postsPhoto.forEach((file: any) => {
           const blob = b64toBlob(file.image)
 
           formData.append('file', blob)
         })
-        console.log({ postsPhoto }, 'postsPhoto')
-
-        console.log({ formData }, 'formData')
-        const log = formData.getAll('formData')
-
-        console.log({ log })
 
         return {
           url: '/posts/image',
@@ -78,7 +71,6 @@ export const postsApi = createApi({
       }
     >({
       query: ({ description, accessToken, childrenMetadata }) => {
-debugger
         return {
           url: '/posts',
           body: { description, childrenMetadata },

@@ -1,15 +1,18 @@
 import React, { CSSProperties } from 'react'
 
+import s from './PostHeaderModal.module.scss'
+
 import { IconLeft } from '@/shared/assets/icons/LeftIcon'
 import { Button, Typography } from '@/shared/components'
 type Props = {
-  closeModal: () => void
-  title: string
+  closeModal?: () => void
+  title?: string
   className?: string
   style?: CSSProperties
   gap?: string
-  onNext: () => void
-  isPublish?: boolean
+  onNext?: () => void
+  buttonText?: string
+  disableButton?: any
 }
 export const PostModalHeader = ({
   closeModal,
@@ -18,20 +21,23 @@ export const PostModalHeader = ({
   className,
   gap,
   onNext,
-  isPublish = false,
+  buttonText,
+  disableButton,
 }: Props) => {
   return (
-    <div
-      style={{ display: 'flex', alignItems: 'center', gap: gap, ...style }}
-      className={className}
-    >
+    <header style={{ ...style, display: 'flex', alignItems: 'center', gap: gap }} className={s.box}>
       <Button variant={'link'} onClick={closeModal}>
         <IconLeft />
       </Button>
       <Typography variant={'h1'}>{title}</Typography>
-      <Button variant={'link'} style={{ fontSize: '16px' }} onClick={onNext}>
-        {isPublish ? 'Publish' : 'Next'}
+      <Button
+        variant={'link'}
+        style={{ fontSize: '16px' }}
+        onClick={onNext}
+        disabled={disableButton}
+      >
+        {buttonText}
       </Button>
-    </div>
+    </header>
   )
 }
