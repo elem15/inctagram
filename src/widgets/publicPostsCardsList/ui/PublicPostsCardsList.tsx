@@ -1,7 +1,6 @@
 import { useGetPublicPostsQuery } from '@/entities/publicPosts'
 import { PublicPostCard } from '@/shared/components/public-post-card'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
-import { Spinner } from '@/widgets/spinner'
 
 export const PublicPostsCardsList = () => {
   const { data, error, isLoading } = useGetPublicPostsQuery()
