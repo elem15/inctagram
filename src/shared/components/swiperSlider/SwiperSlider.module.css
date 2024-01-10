@@ -1,0 +1,9 @@
+.item {
+  position: relative;
+  width: 100%;
+  height: 490px;
+}
+
+.slider>.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
+  display: none !important;
+}

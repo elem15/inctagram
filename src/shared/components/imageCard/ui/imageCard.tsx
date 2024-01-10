@@ -5,8 +5,6 @@ import Image, { type ImageProps } from 'next/image'
 import s from './imageCard.module.scss'
 
 import { useFetchLoader } from '@/shared/lib'
-import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
-import { PostViewModal } from '@/widgets/postViewModal'
 
 type Props = ImageProps & {
   postId: number
