@@ -11,6 +11,7 @@ import { AsyncSelect } from './AsyncSelect'
 import s from './GeneralInformation.module.scss'
 
 import { setAlert } from '@/app/services'
+import { clearLocalUserData } from '@/entities/auth'
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
 import { Button, Input, Textarea, SelectCustom, Typography } from '@/shared/components'
@@ -20,7 +21,6 @@ import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { firstNameValidation, nameValidation } from '@/shared/regex'
 import { ProfilePhotoForGeneralInfo } from '@/widgets/addProfilePhoto'
 import { TabsLayout } from '@/widgets/layouts'
-import { clearLocalUserData } from '@/entities/auth'
 
 const Information = () => {
   const { t } = useTranslation()
