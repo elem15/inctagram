@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
+import { GroupBase, StylesConfig } from 'react-select'
 import { AsyncPaginate } from 'react-select-async-paginate'
 
 export type OptionType = {
@@ -11,13 +12,11 @@ type AdditionalType = { page: number } | undefined
 
 type Props = { cities: OptionType[]; onValueChange: (value: string) => void }
 
-const customStyles = {
-  //@ts-ignore
+const customStyles: StylesConfig<OptionType, false, GroupBase<OptionType>> | undefined = {
   container: provided => ({
     ...provided,
     width: '100%',
   }),
-  //@ts-ignore
   control: (provided, state) => ({
     ...provided,
     cursor: 'pointer',
@@ -29,33 +28,40 @@ const customStyles = {
     background: 'none',
     '&:hover': { background: 'var(--dark-500, #333)' },
   }),
-  //@ts-ignore
   input: (provided, state) => ({
     ...provided,
     padding: '0px',
     margin: '0px',
+    //@ts-ignore
     color: state.isFocused ? 'var(--color-accent-500)' : 'var(--color-light-100)',
   }),
-  //@ts-ignore
-  menu: (provided, state) => ({
+  singleValue: (provided, state) => ({
+    ...provided,
+    color: 'var(--color-light-100)',
+  }),
+  menu: provided => ({
     ...provided,
     backgroundColor: 'var(--color-dark-900)',
   }),
-  //@ts-ignore
-  menuItem: (provided, state) => ({
-    ...provided,
+  menuItem: () => ({
     '&:hover': { color: 'var(--color-accent-500)' },
   }),
-  //@ts-ignore
   option: (provided, state) => ({
     ...provided,
     backgroundColor: state.isFocused ? 'var(--color-dark-500)' : 'var(--color-dark-900)',
     color: state.isFocused ? 'var(--color-accent-500)' : 'var(--color-light-100)',
     '&:hover': { color: 'var(--color-accent-500)' },
   }),
-  //@ts-ignore
-  indicatorSeparator: (provided, state) => ({
+  indicatorSeparator: () => ({
     display: 'none',
+  }),
+  //@ts-ignore
+  dropdownIndicator: (provided, state) => ({
+    ...provided,
+    transition: 'all .2s ease',
+    transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
+    color: 'var(--color-light-100)',
+    '&:hover': { color: 'var(--color-light-200)' },
   }),
 }
 
