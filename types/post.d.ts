@@ -29,7 +29,7 @@ type PublicPostsResponseData = {
     id: number
     ownerId: string
     description: string
-    images: []
+    images: PostImage[]
     owner: Record<string, string>
     avatarOwner: string
     updatedAt: string

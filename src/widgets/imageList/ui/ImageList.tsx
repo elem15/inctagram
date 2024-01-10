@@ -6,6 +6,8 @@ import s from './ImageList.module.scss'
 import { useGetPostsQuery } from '@/entities/posts'
 import { ImageCard } from '@/shared/components/imageCard'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
+import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
+import { PostViewModal } from '@/widgets/postViewModal'
 
 type Props = { userId: string }
 export const ImageListWidget = ({ userId }: Props) => {
@@ -13,6 +15,7 @@ export const ImageListWidget = ({ userId }: Props) => {
   const [images, setImages] = useState<PostDataToComponent[]>([])
   const ref = useRef(null)
   const { data, isLoading, error } = useGetPostsQuery({ userId, postId })
+  const { isOpen, openModal, closeModal, modalId } = useModal()
 
   useEffect(() => {
     setImages([])
@@ -51,12 +54,21 @@ export const ImageListWidget = ({ userId }: Props) => {
     <>
       <div className={s.container}>
         {images?.map(({ id, url, description, width, height }) => (
-          <ImageCard key={id} src={url} alt={description} width={width} height={height} />
+          <ImageCard
+            key={id}
+            postId={id}
+            src={url}
+            alt={description}
+            width={width}
+            height={height}
+            openModal={openModal}
+          />
         ))}
       </div>
       <div ref={ref} style={{ visibility: 'hidden' }}>
         __________________
       </div>
+      {modalId && <PostViewModal postId={modalId} isOpen={isOpen} closeModal={closeModal} />}
     </>
   )
 }

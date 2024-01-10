@@ -9,18 +9,19 @@ import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { PostViewModal } from '@/widgets/postViewModal'
 
 type Props = ImageProps & {
+  postId: number
   cardClassName?: string
+  openModal: (postId: number) => void
 }
 
-export const ImageCard = ({ src, alt, cardClassName, width, height }: Props) => {
+export const ImageCard = ({ postId, src, alt, cardClassName, width, height, openModal }: Props) => {
   const [loading, setLoading] = useState(true)
-  const { isOpen, openModal, closeModal } = useModal()
 
   useFetchLoader(loading)
 
   return (
     <>
-      <div className={s.image} onClick={openModal}>
+      <div className={s.image} onClick={() => openModal(postId)}>
         <Image
           src={src}
           className={cardClassName}
@@ -30,7 +31,6 @@ export const ImageCard = ({ src, alt, cardClassName, width, height }: Props) => 
           onLoadingComplete={() => setLoading(false)}
         />
       </div>
-      <PostViewModal isOpen={isOpen} closeModal={closeModal} />
     </>
   )
 }

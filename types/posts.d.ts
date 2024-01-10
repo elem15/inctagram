@@ -18,27 +18,20 @@ type PostsData = {
   totalUsers: number
 }
 
+type PostImage = {
+  url: string,
+  width: number,
+  height: number,
+  fileSize: number,
+  uploadId: string
+}
+
 type PostDataItem = {
   id: number,
   ownerId: number,
   description: string,
   location: string,
-  images: [
-    {
-      url: string,
-      width: number,
-      height: number,
-      fileSize: number,
-      uploadId: string
-    },
-    {
-      url: string,
-      width: number,
-      height: number,
-      fileSize: number,
-      uploadId: string,
-    }
-  ],
+  images: PostImage[],
   createdAt: string,
   updatedAt: string,
   avatarOwner:string,

@@ -1,1 +1,1 @@
-export { publicPostsApi, useGetPublicPostsQuery } from './api/publicPostsApi'
+export { publicPostsApi, useGetPublicPostsQuery, useGetSinglePostQuery } from './api/publicPostsApi'
