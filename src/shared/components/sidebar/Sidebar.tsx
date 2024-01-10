@@ -48,17 +48,15 @@ export const Sidebar = () => {
             </Link>
           </li>
           <li onClick={handleOpenMyProfileAndAddPost} className={s.content}>
-            {/*<Link href={'/create'} className={s.content}>*/}
-            {router.pathname === '/my-profile' ? <CreatesIcon /> : <CreateIcon />}
-            <span className={router.pathname === '/my-profile' ? s.activeLink : ''}>
-              {t.sidebar.create}
-            </span>
-            {/*</Link>*/}
+            {isOpen ? <CreatesIcon /> : <CreateIcon />}
+            <span className={isOpen ? s.activeLink : ''}>{t.sidebar.create}</span>
           </li>
           <li>
             <Link href={'/my-profile'} className={s.content}>
-              {router.pathname.includes('/my-profile') ? <IconUser2 /> : <IconUser />}
-              <span className={router.pathname.includes('/my-profile') ? s.activeLink : ''}>
+              {router.pathname.includes('/my-profile') && !isOpen ? <IconUser2 /> : <IconUser />}
+              <span
+                className={router.pathname.includes('/my-profile') && !isOpen ? s.activeLink : ''}
+              >
                 {t.sidebar.my_profile}
               </span>
             </Link>
