@@ -1,25 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export const useModal = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [modalId, setModalId] = useState<number>()
+  const [modalState, setModalState] = useState<{ isOpen: boolean; modalId: number }>({
+    isOpen: false,
+    modalId: NaN,
+  })
 
   const openModal = (modalId?: number) => {
-    modalId ? setModalId(modalId) : setIsOpen(true)
+    modalId
+      ? setModalState({ isOpen: true, modalId })
+      : setModalState({ isOpen: true, modalId: NaN })
   }
 
-  useEffect(() => {
-    modalId && setIsOpen(true)
-  }, [modalId])
-
   const closeModal = () => {
-    setIsOpen(false)
+    setModalState({ isOpen: false, modalId: NaN })
   }
 
   return {
     closeModal,
-    isOpen,
+    isOpen: modalState.isOpen,
     openModal,
-    modalId,
+    modalId: modalState.modalId,
   }
 }

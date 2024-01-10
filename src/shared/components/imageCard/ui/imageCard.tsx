@@ -21,7 +21,12 @@ export const ImageCard = ({ postId, src, alt, cardClassName, width, height, open
 
   return (
     <>
-      <div className={s.image} onClick={() => openModal(postId)}>
+      <div
+        className={s.image}
+        onClick={() => {
+          openModal(postId)
+        }}
+      >
         <Image
           src={src}
           className={cardClassName}
