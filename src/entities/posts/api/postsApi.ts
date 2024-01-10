@@ -19,13 +19,25 @@ export const postsApi = createApi({
       },
       providesTags: ['Posts'],
       transformResponse: (response: PostsData): PostDataToComponent[] => {
-        return response?.items.map(item => ({
-          id: item.id,
-          description: item.description,
-          url: item.images.length ? item.images[1].url : '',
-          width: item.images.length ? item.images[1].width : 640,
-          height: item.images.length ? item.images[1].height : 360,
-        }))
+        return response?.items.map(item => {
+          let img
+
+          if (item.images.length) {
+            img = item.images.find(i => i.width === 1440)
+          }
+
+          if (!img) {
+            img = item.images[0]
+          }
+
+          return {
+            id: item.id,
+            description: item.description,
+            url: img ? img.url : '',
+            width: img ? img.width : 640,
+            height: img ? img.height : 360,
+          }
+        })
       },
     }),
   }),
