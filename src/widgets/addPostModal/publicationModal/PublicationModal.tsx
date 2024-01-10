@@ -14,7 +14,6 @@ import {
 } from '@/entities/posts/api/postsApi'
 import { useGetProfileQuery } from '@/entities/profile'
 import { Input, Textarea, Typography } from '@/shared/components'
-import 'swiper/scss/effect-cube'
 import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
 import 'swiper/scss/scrollbar'
@@ -140,7 +139,7 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
         showCloseButton={false}
         isPost={true}
         onInteractOutside={handleInteractOutPublishModal}
-        disableButton={isLoading}
+        disableButton={isLoading && isPostLoading}
       >
         <div className={s.modBox}>
           <div className={s.imageContainer}>

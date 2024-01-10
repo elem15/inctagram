@@ -1,6 +1,5 @@
 import React, { FC, useRef, useState } from 'react'
 
-import { clsx } from 'clsx'
 import { A11y, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -35,7 +34,7 @@ export const FilterModal: FC<Props> = ({
   closeFilter,
 }) => {
   const croppers = useAppSelector(state => state.croppersSlice)
-
+  const [currentPostIndex, setCurrentPostIndex] = useState(0)
   const [openClosCrop, setCloseCrop] = useState(false)
   const imageRef = useRef<HTMLImageElement | null>(null)
   const { isOpen, openModal, closeModal } = useModal()
@@ -45,7 +44,9 @@ export const FilterModal: FC<Props> = ({
   const handleOpenNext = async () => {
     openModal()
   }
-
+  const handleSlideChange = (swiper: any) => {
+    setCurrentPostIndex(swiper.activeIndex)
+  }
   const handleDiscard = () => {
     closeFilter()
     setCloseCrop(false)
@@ -54,6 +55,9 @@ export const FilterModal: FC<Props> = ({
   const handleInteractOutside = (event: Event) => {
     setCloseCrop(true)
   }
+  const handleSaveFilterPost = () => {
+    handleDiscard()
+  }
 
   return (
     <div>
@@ -61,6 +65,7 @@ export const FilterModal: FC<Props> = ({
         openCloseCrop={openClosCrop}
         closeCrop={() => setCloseCrop(false)}
         onDiscard={handleDiscard}
+        savePhotoInDraft={handleSaveFilterPost}
       />
       <Modal
         open={isOpenFilter}
@@ -75,17 +80,18 @@ export const FilterModal: FC<Props> = ({
         buttonText={t.post.button_navigation_text}
       >
         <div className={s.filterBox}>
-          <Swiper
-            modules={[Navigation, Pagination, A11y]}
-            className={'post-images-slider'}
-            pagination={{ clickable: true }}
-            navigation
-            grabCursor={true}
-          >
-            {croppers.map(post => {
-              return (
-                <SwiperSlide key={post.id}>
-                  <div>
+          <div className={s.swiperSlideBox}>
+            <Swiper
+              modules={[Navigation, Pagination, A11y]}
+              className={'post-images-slider'}
+              pagination={{ clickable: true }}
+              navigation
+              grabCursor={true}
+              onSlideChange={handleSlideChange}
+            >
+              {croppers.map(post => {
+                return (
+                  <SwiperSlide key={post.id}>
                     <div className={s.box}>
                       <img
                         src={post.image}
@@ -93,24 +99,30 @@ export const FilterModal: FC<Props> = ({
                         style={{
                           filter: post.filterClass,
                         }}
-                        className={clsx(s.postImg)}
+                        className={s.postImg}
                         ref={imageRef}
                       />
-                      <>
-                        {windowsize[0] <= 910 || windowSize.current[0] <= 910 ? (
-                          <FilterToolMob idOfImage={post.id} photo={post.image} />
-                        ) : (
-                          <div className={s.instaFilter}>
-                            <FiltersTool photo={post.image} idOfImage={post.id} />
-                          </div>
-                        )}
-                      </>
                     </div>
-                  </div>
-                </SwiperSlide>
-              )
-            })}
-          </Swiper>
+                  </SwiperSlide>
+                )
+              })}
+            </Swiper>
+          </div>
+          <>
+            {windowsize[0] <= 910 || windowSize.current[0] <= 910 ? (
+              <FilterToolMob
+                idOfImage={croppers[currentPostIndex]?.id}
+                photo={croppers[currentPostIndex]?.image}
+              />
+            ) : (
+              <div className={s.instaFilter}>
+                <FiltersTool
+                  photo={croppers[currentPostIndex]?.image}
+                  idOfImage={croppers[currentPostIndex]?.id}
+                />
+              </div>
+            )}
+          </>
         </div>
 
         <PublicationModal

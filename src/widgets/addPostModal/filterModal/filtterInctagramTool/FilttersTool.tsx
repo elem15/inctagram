@@ -62,9 +62,9 @@ export const FiltersTool = ({ photo, idOfImage }: Props) => {
 
   return (
     <>
-      {filters.map((filter, index) => {
+      {filters.map(filter => {
         return (
-          <div key={index}>
+          <div key={filter.name}>
             <div
               onClick={() => {
                 dispatch(updateFilterClass({ id: idOfImage, filterClass: filter.style }))

@@ -116,6 +116,10 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
     event.preventDefault()
     imageSrc && setCloseCropModal(true)
   }
+  const handleSavePost = () => {
+    closePostModal()
+    setCloseCropModal(false)
+  }
 
   return (
     <>
@@ -123,6 +127,7 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
         openCloseCrop={openCloseCrop}
         closeCrop={() => setCloseCropModal(false)}
         onDiscard={handleDiscard}
+        savePhotoInDraft={handleSavePost}
       />
       <Modal
         open={openPostModal}
