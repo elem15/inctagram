@@ -61,7 +61,7 @@ export const ImageListWidget = ({ userId }: Props) => {
             alt={description}
             width={width}
             height={height}
-            openModal={openModal}
+            openModal={() => openModal()}
           />
         ))}
       </div>

@@ -14,7 +14,7 @@ export const ModalOfFollowers = () => {
       <Typography
         variant={'regular_text_14'}
         className={s.infoText}
-        onClick={openModal}
+        onClick={() => openModal()}
         style={{ cursor: 'pointer' }}
       >
         {t.followers_modal.modals_title}
