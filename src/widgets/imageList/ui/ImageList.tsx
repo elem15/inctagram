@@ -1,14 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react'
 
-import { useRouter } from 'next/router'
-
 import s from './ImageList.module.scss'
 
 import { useGetPostsQuery } from '@/entities/posts'
 import { ImageCard } from '@/shared/components/imageCard'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
-import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 type Props = { userId: string }
 export const ImageListWidget = ({ userId }: Props) => {
@@ -17,6 +14,9 @@ export const ImageListWidget = ({ userId }: Props) => {
   const ref = useRef(null)
   const { data, isLoading, error } = useGetPostsQuery({ userId, postId })
 
+  useEffect(() => {
+    setImages([])
+  }, [])
   useEffect(() => {
     const imagesData = data ? (data as PostDataToComponent[]) : []
     const index = images.findIndex(image => image.id === imagesData[0]?.id)
