@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 import s from './PostViewModal.module.scss'
 
 import { useGetSinglePostQuery } from '@/entities/publicPosts'

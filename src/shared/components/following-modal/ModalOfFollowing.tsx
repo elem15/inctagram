@@ -25,7 +25,7 @@ export const ModalOfFollowing = () => {
       <Typography
         variant={'regular_text_14'}
         className={s.infoText}
-        onClick={() => openModal()}
+        onClick={openModal}
         style={{ cursor: 'pointer' }}
       >
         {t.following_modal.followings_title}

@@ -53,22 +53,24 @@ export const ImageListWidget = ({ userId }: Props) => {
   return (
     <>
       <div className={s.container}>
-        {images?.map(({ id, url, description, width, height }) => (
-          <ImageCard
-            key={id}
-            postId={id}
-            src={url}
-            alt={description}
-            width={width}
-            height={height}
-            openModal={() => openModal()}
-          />
-        ))}
+        {!!images &&
+          images.length > 0 &&
+          images.map(({ id, url, description, width, height }) => (
+            <ImageCard
+              key={id}
+              postId={id}
+              src={url}
+              alt={description}
+              width={width}
+              height={height}
+              openModal={openModal}
+            />
+          ))}
       </div>
       <div ref={ref} style={{ visibility: 'hidden' }}>
         __________________
       </div>
-      {modalId && <PostViewModal postId={modalId} isOpen={isOpen} closeModal={closeModal} />}
+      {!!modalId && <PostViewModal postId={modalId} isOpen={isOpen} closeModal={closeModal} />}
     </>
   )
 }

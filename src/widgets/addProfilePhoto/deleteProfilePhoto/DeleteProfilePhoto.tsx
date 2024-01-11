@@ -22,7 +22,7 @@ export const DeleteProfilePhoto = () => {
 
   return (
     <div>
-      <Typography variant={'small_link'} onClick={() => openModal()}>
+      <Typography variant={'small_link'} onClick={openModal}>
         <DeleteIcon
           style={{
             backgroundColor: '#cc1439',
