@@ -126,7 +126,7 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
       <CloseCrop
         openCloseCrop={openCloseCrop}
         closeCrop={() => setCloseCropModal(false)}
-        onDiscard={handleDiscard}
+        onDiscard={() => setCloseCropModal(false)}
         savePhotoInDraft={handleSavePost}
       />
       <Modal

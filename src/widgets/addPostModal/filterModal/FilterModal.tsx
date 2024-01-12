@@ -64,7 +64,7 @@ export const FilterModal: FC<Props> = ({
       <CloseCrop
         openCloseCrop={openClosCrop}
         closeCrop={() => setCloseCrop(false)}
-        onDiscard={handleDiscard}
+        onDiscard={() => setCloseCrop(false)}
         savePhotoInDraft={handleSaveFilterPost}
       />
       <Modal

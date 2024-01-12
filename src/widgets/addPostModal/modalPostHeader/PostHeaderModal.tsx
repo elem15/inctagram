@@ -7,9 +7,6 @@ import { Button, Typography } from '@/shared/components'
 type Props = {
   closeModal?: () => void
   title?: string
-  className?: string
-  style?: CSSProperties
-  gap?: string
   onNext?: () => void
   buttonText?: string
   disableButton?: any
@@ -17,15 +14,12 @@ type Props = {
 export const PostModalHeader = ({
   closeModal,
   title,
-  style,
-  className,
-  gap,
   onNext,
   buttonText,
   disableButton,
 }: Props) => {
   return (
-    <header style={{ ...style, display: 'flex', alignItems: 'center', gap: gap }} className={s.box}>
+    <header className={s.box}>
       <Button variant={'link'} onClick={closeModal}>
         <IconLeft />
       </Button>

@@ -139,7 +139,7 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
         showCloseButton={false}
         isPost={true}
         onInteractOutside={handleInteractOutPublishModal}
-        disableButton={isLoading && isPostLoading}
+        disableButton={isLoading || isPostLoading}
       >
         <div className={s.modBox}>
           <div className={s.imageContainer}>
@@ -177,8 +177,8 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
                 style={{ height: '80px', resize: 'none' }}
                 placeholder={t.post.placeholder_of_textarea}
                 onChange={handleChangeText}
-                disabled={wordCount === 500}
                 className={s.textArea}
+                maxLength={500}
               />
               <Typography variant={'small_text'} style={{ textAlign: 'end', color: '#8d9094' }}>
                 {wordCount}/500

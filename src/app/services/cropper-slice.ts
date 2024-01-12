@@ -35,7 +35,7 @@ export const croppersSlice = createSlice({
         aspect: 1,
       }
 
-      state.push(newData)
+      state.unshift(newData)
     },
     deletePhoto: (state, action: PayloadAction<string>) => {
       const imageIndex = state.findIndex(image => image.id === action.payload)
@@ -95,54 +95,6 @@ export const croppersSlice = createSlice({
     setImage: (state, action: PayloadAction<{ image: CropperState[] }>) => {
       return action.payload.image.map(tl => ({ ...tl }))
     },
-    // removeCropper: (state, action: PayloadAction<number>) => {
-    //   const index = action.payload
-    //   state.splice(index, 1)
-    // },
-    // addCropper: (state, action: PayloadAction<{ image: string; id: string }>) => {
-    //   state.push({
-    //     imageSrc: action.payload.image,
-    //     id: action.payload.id,
-    //     crop: { x: 0, y: 0 },
-    //     zoom: 1,
-    //     croppedAreaPixels: null,
-    //     filterClass: '',
-    //   })
-    // },
-    // updateCropper: (state, action: PayloadAction<{ data: Partial<CropperState> }>) => {
-    //   const { data } = action.payload
-    //   state.map(s => ({ ...s, ...data }))
-    // },
-    // editCropper: (state, action: PayloadAction<CropperState[]>) => {
-    //   state = action.payload
-    // },
-    // updateFilterClass: (state, action: PayloadAction<{ index: number; filter: string }>) => {
-    //   const { index, filter } = action.payload
-    //   state[index].filterClass = filter
-    // },
-    // updateCroppedArea: (
-    //   state,
-    //   action: PayloadAction<{
-    //     croppedArea: { x: number; y: number }
-    //   }>
-    // ) => {
-    //   const { croppedArea } = action.payload
-    //   state.map(s => ({ ...s, croppedAreaPixels: { ...s.croppedAreaPixels, croppedArea } }))
-    // },
-    // updateCroppedAreaPixels: (
-    //   state,
-    //   action: PayloadAction<{
-    //     croppedAreaPixels: { width: number; height: number }
-    //   }>
-    // ) => {
-    //   console.log('action payload: ', action.payload)
-    //   const { croppedAreaPixels } = action.payload
-    //   const newState: CropperState[] = state.map(s => ({
-    //     ...s,
-    //     croppedAreaPixels: { x: 0, y: 0, ...croppedAreaPixels },
-    //   }))
-    //   return newState
-    // },
   },
 })
 export const {
