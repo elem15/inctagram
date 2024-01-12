@@ -188,5 +188,9 @@ export const en = {
   registered_users: {
     title: 'Registered Users:',
   },
+  post_view: {
+    edit: 'Edit Post',
+    delete: 'Delete Post',
+  },
 }
 export type LangType = typeof en

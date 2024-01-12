@@ -188,4 +188,8 @@ export const ru: LangType = {
   registered_users: {
     title: 'Зарегистрированные Пользователи:',
   },
+  post_view: {
+    edit: 'Редактировать',
+    delete: 'Удалить пост',
+  },
 }

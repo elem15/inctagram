@@ -1,10 +1,14 @@
+import { useState } from 'react'
+
+import Image from 'next/image'
+
 import { PostCommentsView } from './PostCommentsView'
 import s from './PostViewModal.module.scss'
 
 import { useGetSinglePostQuery } from '@/entities/publicPosts'
 import { SwiperSlider } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
-import { useErrorHandler, useFetchLoader } from '@/shared/lib'
+import { useErrorHandler, useFetchLoader, useTranslation } from '@/shared/lib'
 
 type Props = {
   postId: number
@@ -14,26 +18,58 @@ type Props = {
 
 export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
   const { data, error, isLoading } = useGetSinglePostQuery(postId)
+  const [modalType, setModalType] = useState<'view' | 'edit'>('view')
+  const { t } = useTranslation()
 
   useFetchLoader(isLoading)
   useErrorHandler(error as CustomerError)
 
   return (
-    <Modal open={isOpen} size={'lg'} title={''} onClose={closeModal}>
+    <Modal
+      open={isOpen}
+      size={'lg'}
+      title={modalType === 'edit' ? t.post_view.edit : ''}
+      onClose={closeModal}
+    >
       <div className={s.modalContent}>
-        <div className={s.imageContainer}>
-          {data && data.id === postId && <SwiperSlider imagesUrl={data.images} />}
-        </div>
-        <div className={s.commentsContainer}>
-          {data && (
-            <PostCommentsView
-              ownerId={data.ownerId}
-              avatarOwner={data.avatarOwner}
-              firstName={data.owner.firstName}
-              lastName={data.owner.lastName}
-            />
-          )}
-        </div>
+        {modalType === 'view' && (
+          <>
+            <div className={s.imageContainer}>
+              {data && data.id === postId && <SwiperSlider imagesUrl={data.images} />}
+            </div>
+            <div className={s.commentsContainer}>
+              {data && (
+                <PostCommentsView
+                  setModalType={setModalType}
+                  ownerId={data.ownerId}
+                  avatarOwner={data.avatarOwner}
+                  firstName={data.owner.firstName}
+                  lastName={data.owner.lastName}
+                />
+              )}
+            </div>
+          </>
+        )}
+        {modalType === 'edit' && (
+          <>
+            <div className={s.imageContainer}>
+              {data && data.id === postId && (
+                <Image src={data.images[0].url} alt={data.description} width={490} height={400} />
+              )}
+            </div>
+            <div className={s.commentsContainer}>
+              {data && (
+                <PostCommentsView
+                  setModalType={setModalType}
+                  ownerId={data.ownerId}
+                  avatarOwner={data.avatarOwner}
+                  firstName={data.owner.firstName}
+                  lastName={data.owner.lastName}
+                />
+              )}
+            </div>
+          </>
+        )}
       </div>
     </Modal>
   )
