@@ -1,4 +1,14 @@
+.modalContent {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .imageContainer {
   width: 490px;
   height: 400px;
+}
+
+.commentsContainer {
+  flex-grow: 1;
+  min-height: 400px;
 }

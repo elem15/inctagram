@@ -23,14 +23,18 @@ type PublicPostsResponseData = {
     totalCount: number
     pageSize: number
     totalUsers: number
-  }
+}
+type Owner = {
+  firstName: string
+  lastName: string
+}
   
  type PostDataType = {
     id: number
-    ownerId: string
+    ownerId: number
     description: string
     images: PostImage[]
-    owner: Record<string, string>
+    owner: Owner
     avatarOwner: string
     updatedAt: string
   }

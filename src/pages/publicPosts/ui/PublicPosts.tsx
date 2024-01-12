@@ -27,7 +27,6 @@ const PublicPosts = () => {
   return (
     <div className=" w-full mx-12 mt-6 mb-12">
       {data ? <ProfileHeaderWeb data={data} /> : null}
-
       {ownerId ? <ImageListWidget userId={ownerId} /> : null}
     </div>
   )
