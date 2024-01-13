@@ -82,18 +82,13 @@ export function OauthCallbackGoogle() {
   const { isAuth } = useAuth()
 
   useEffect(() => {
-    if (!code) {
-      router.push('/public-page')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [code])
-
-  useEffect(() => {
     const timeout = setTimeout(() => {
-      if (!isAuth) {
+      if (!code && !isAuth) {
         router.push('/public-page')
+      } else if (!code && isAuth) {
+        router.push('/my-profile')
       }
-    }, 1000)
+    }, 2000)
 
     return () => {
       clearTimeout(timeout)
@@ -105,10 +100,10 @@ export function OauthCallbackGoogle() {
     const success = data && !error && !isLoading
 
     const timeout = setTimeout(() => {
-      if (success || isAuth) {
+      if (success && isAuth) {
         router.push('/my-profile')
       }
-    }, 2000)
+    }, 3000)
 
     return () => {
       clearTimeout(timeout)
