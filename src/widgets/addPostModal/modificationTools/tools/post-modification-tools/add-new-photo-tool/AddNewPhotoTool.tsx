@@ -18,8 +18,9 @@ import { useAppDispatch } from '@/shared/lib'
 type Props = {
   selectNewPhoto: () => void
   closePostModal: () => void
+  setImageScr: (img: string | null) => void
 }
-export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, closePostModal }) => {
+export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, closePostModal, setImageScr }) => {
   const dispatch = useAppDispatch()
   const photos = useAppSelector(state => state.croppersSlice)
   const newPhotoTrigger = (
@@ -34,7 +35,10 @@ export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, closePostModal }) =
 
   const handleDeletePhoto = (index: string) => {
     dispatch(deletePhoto(index))
-    photos.length == 0 && closePostModal()
+    if (photos?.length === 1) {
+      closePostModal()
+      setImageScr(null)
+    }
   }
 
   return (

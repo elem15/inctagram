@@ -19,8 +19,9 @@ import { CroppedAreaPixel } from '@/widgets/addProfilePhoto/addAvaWithoutRotatio
 type Props = {
   selectPhoto: () => void
   closePostModal: () => void
+  setImageScr: (img: string | null) => void
 }
-export const AddPostModalData = ({ selectPhoto, closePostModal }: Props) => {
+export const AddPostModalData = ({ selectPhoto, closePostModal, setImageScr }: Props) => {
   const images = useAppSelector(state => state.croppersSlice)
   const dispatch = useAppDispatch()
   const handleZoomChange = (value: number[], id: string) => {
@@ -104,6 +105,7 @@ export const AddPostModalData = ({ selectPhoto, closePostModal }: Props) => {
                 onAspectChange={aspect => handleAspectChange(aspect, cropper.id)}
                 imageId={cropper.id}
                 selectNewPhoto={selectPhoto}
+                setImageScr={setImageScr}
               />
             </SwiperSlide>
           )

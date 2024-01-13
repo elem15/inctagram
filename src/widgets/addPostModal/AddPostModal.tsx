@@ -83,8 +83,8 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   }
   const handleClosePostCropModal = () => {
     closePostModal()
-    dispatch(removeAllPhotos())
-    setImageSrc(null)
+    // dispatch(removeAllPhotos())
+    // setImageSrc(null)
   }
   const addNewCropperForFilter = async () => {
     const croppedImages = await Promise.all(
@@ -147,10 +147,15 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
             isOpenFilter={isOpen}
             closeFilter={closeModal}
             closeCroppingModal={handleClosePostCropModal}
+            setImageScr={setImageSrc}
           />
 
           {imageSrc ? (
-            <AddPostModalData selectPhoto={selectPhotoHandler} closePostModal={closePostModal} />
+            <AddPostModalData
+              selectPhoto={selectPhotoHandler}
+              closePostModal={closePostModal}
+              setImageScr={setImageSrc}
+            />
           ) : (
             <div className={s.modalBox}>
               {errorText && (

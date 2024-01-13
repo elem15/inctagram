@@ -15,22 +15,21 @@ import { useTranslation } from '@/shared/lib'
 import { useSize } from '@/shared/lib/hooks'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { CloseCrop } from '@/widgets/addPostModal/CloseCrop'
-import { FilterToolMob } from '@/widgets/addPostModal/filterModal/filtterInctagramTool/FilterToolMob/FilterToolMob'
-import { FiltersTool } from '@/widgets/addPostModal/filterModal/filtterInctagramTool/FilttersTool'
+import { FiltersTool } from '@/widgets/addPostModal/filterModal/filtterInctagramTool/FiltersTool'
 import { PublicationModal } from '@/widgets/addPostModal/publicationModal/PublicationModal'
 
 type Props = {
   isOpenFilter: boolean
 
   closeFilter: () => void
-
+  setImageScr: (img: string | null) => void
   closeCroppingModal: () => void
 }
 
 export const FilterModal: FC<Props> = ({
   isOpenFilter,
   closeCroppingModal,
-
+  setImageScr,
   closeFilter,
 }) => {
   const croppers = useAppSelector(state => state.croppersSlice)
@@ -38,9 +37,7 @@ export const FilterModal: FC<Props> = ({
   const [openClosCrop, setCloseCrop] = useState(false)
   const imageRef = useRef<HTMLImageElement | null>(null)
   const { isOpen, openModal, closeModal } = useModal()
-  const windowSize = useRef([window.innerWidth, window.innerHeight])
   const { t } = useTranslation()
-  const windowsize = useSize()
   const handleOpenNext = async () => {
     openModal()
   }
@@ -108,21 +105,11 @@ export const FilterModal: FC<Props> = ({
               })}
             </Swiper>
           </div>
-          <>
-            {windowsize[0] <= 910 || windowSize.current[0] <= 910 ? (
-              <FilterToolMob
-                idOfImage={croppers[currentPostIndex]?.id}
-                photo={croppers[currentPostIndex]?.image}
-              />
-            ) : (
-              <div className={s.instaFilter}>
-                <FiltersTool
-                  photo={croppers[currentPostIndex]?.image}
-                  idOfImage={croppers[currentPostIndex]?.id}
-                />
-              </div>
-            )}
-          </>
+
+          <FiltersTool
+            photo={croppers[currentPostIndex]?.image}
+            idOfImage={croppers[currentPostIndex]?.id}
+          />
         </div>
 
         <PublicationModal
@@ -130,6 +117,7 @@ export const FilterModal: FC<Props> = ({
           onPrevStep={closeModal}
           discardAll={handleDiscard}
           photos={croppers}
+          setImageScr={setImageScr}
         />
       </Modal>
     </div>

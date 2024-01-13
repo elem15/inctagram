@@ -28,8 +28,15 @@ type Props = {
   photos: CropperState[]
   onPrevStep: () => void
   discardAll: () => void
+  setImageScr: (img: string | null) => void
 }
-export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discardAll }) => {
+export const PublicationModal: FC<Props> = ({
+  isOpen,
+  photos,
+  setImageScr,
+  onPrevStep,
+  discardAll,
+}) => {
   const { userId, accessToken } = useAuth()
   const [openCloseModal, setCloseModal] = useState(false)
   const [wordCount, setWordCount] = useState(0)
@@ -108,6 +115,7 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
         discardAll()
         onPrevStep()
         dispatch(removeAllPhotos())
+        setImageScr(null)
       })
       .catch(error => {
         dispatch(setAlert({ variant: 'error', message: error }))
@@ -126,7 +134,8 @@ export const PublicationModal: FC<Props> = ({ isOpen, photos, onPrevStep, discar
       <CloseCrop
         openCloseCrop={openCloseModal}
         closeCrop={() => setCloseModal(false)}
-        onDiscard={handleDiscard}
+        onDiscard={() => setCloseModal(false)}
+        savePhotoInDraft={handleDiscard}
       />
       <Modal
         open={isOpen}

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import s from './FiltersTool.module.scss'
+
 import { updateFilterClass } from '@/app/services/cropper-slice'
 import { Typography } from '@/shared/components'
 import { useAppDispatch } from '@/shared/lib'
@@ -61,35 +63,36 @@ export const FiltersTool = ({ photo, idOfImage }: Props) => {
   const dispatch = useAppDispatch()
 
   return (
-    <>
+    <div className={s.scrollImg}>
       {filters.map(filter => {
         return (
-          <div key={filter.name}>
+          <div key={filter.name} className={s.filterBox}>
             <div
               onClick={() => {
                 dispatch(updateFilterClass({ id: idOfImage, filterClass: filter.style }))
               }}
             >
-              <div style={{ width: '108px', height: '108px', cursor: 'pointer' }}>
-                <img
-                  src={photo}
-                  alt={filter.name}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    filter: filter.style,
-                  }}
-                />
-              </div>
+              <img
+                src={photo}
+                alt={filter.name}
+                style={{
+                  objectFit: 'cover',
+                  filter: filter.style,
+                }}
+                className={s.filterImg}
+              />
 
-              <Typography variant={'regular_text_16'} style={{ textAlign: 'center' }}>
+              <Typography
+                variant={'regular_text_16'}
+                style={{ textAlign: 'center' }}
+                className={s.text}
+              >
                 {filter.name}
               </Typography>
             </div>
           </div>
         )
       })}
-    </>
+    </div>
   )
 }

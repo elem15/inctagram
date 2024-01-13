@@ -1,1 +1,1 @@
-export { FiltersTool } from './FilttersTool'
+export { FiltersTool } from './FiltersTool'

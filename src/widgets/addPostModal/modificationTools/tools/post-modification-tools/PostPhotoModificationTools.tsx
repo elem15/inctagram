@@ -12,6 +12,7 @@ type Props = {
   closePostModal: () => void
   imageId: string
   selectNewPhoto: () => void
+  setImageScr: (img: string | null) => void
 }
 export const PostPhotoModificationTools = ({
   zoomValue,
@@ -19,6 +20,7 @@ export const PostPhotoModificationTools = ({
   imageId,
   selectNewPhoto,
   closePostModal,
+  setImageScr,
 }: Props) => {
   return (
     <div className={s.toolBox}>
@@ -26,7 +28,11 @@ export const PostPhotoModificationTools = ({
         <CropTool imageId={imageId} />
         <ZoomTool zoomValue={zoomValue} onChange={onChange} />
       </div>
-      <AddNewPhotoTool selectNewPhoto={selectNewPhoto} closePostModal={closePostModal} />
+      <AddNewPhotoTool
+        selectNewPhoto={selectNewPhoto}
+        closePostModal={closePostModal}
+        setImageScr={setImageScr}
+      />
     </div>
   )
 }
