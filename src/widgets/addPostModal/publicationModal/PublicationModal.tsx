@@ -9,6 +9,7 @@ import { setAlert } from '@/app/services'
 import { CropperState, removeAllPhotos, updatePhotos } from '@/app/services/cropper-slice'
 import { setTextOfTextarea } from '@/app/services/post-slice'
 import {
+  postsApi,
   useGetPostsQuery,
   usePublishPostsImageMutation,
   usePublishPostsMutation,
@@ -49,7 +50,6 @@ export const PublicationModal: FC<Props> = ({
   const [publishDescription, { isLoading: isPostLoading, isSuccess }] = usePublishPostsMutation()
   const [publishPostImage, { isLoading }] = usePublishPostsImageMutation()
   const [windowSize, setWindowSize] = useState([window.innerWidth, window.innerHeight])
-  const { refetch } = useGetPostsQuery({ userId })
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -81,9 +81,9 @@ export const PublicationModal: FC<Props> = ({
       .then(() => {
         setImageScr(null)
       })
-      // .then(() => {
-      //   refetch()
-      // })
+      .then(() => {
+        dispatch(postsApi.util.resetApiState())
+      })
       .then(() => {
         onPrevStep()
       })

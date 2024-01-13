@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react'
 
-import { reloadData } from '../model/reloadData'
-
 import s from './ImageList.module.scss'
 
 import { useGetPostsQuery } from '@/entities/posts'
@@ -20,12 +18,14 @@ export const ImageListWidget = ({ userId }: Props) => {
     setImages([])
   }, [])
   useEffect(() => {
-    console.log(data)
     const imagesData = data ? (data as PostDataToComponent[]) : []
     const index = images.findIndex(image => image.id === imagesData[0]?.id)
 
+    if (!data) {
+      setImages([])
+    }
     //if add new post
-    if (images.length && images[0]?.id < imagesData[0]?.id) {
+    else if (images.length && images[0]?.id < imagesData[0]?.id) {
       setImages(data)
     } else {
       setImages(prev => {
@@ -54,7 +54,6 @@ export const ImageListWidget = ({ userId }: Props) => {
 
   return (
     <>
-      <button onClick={() => reloadData(setPostId, refetch)}>Reload</button>
       <div className={s.container}>
         {images?.map(({ id, url, description, width, height }) => (
           <ImageCard key={id} src={url} alt={description} width={width} height={height} />
