@@ -1,16 +1,13 @@
-import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import s from './PostCommentsView.module.scss'
 
 import { DeletePostIcon, EditPostIcon } from '@/shared/assets'
+import ThreeDots from '@/shared/assets/icons/three-dots.png'
 import { Button, CustomDropdown, CustomDropdownItem, Typography } from '@/shared/components'
-import { CalendarButton } from '@/shared/components/ui'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
-
 type Props = {
   ownerId: number
   avatarOwner: string
@@ -48,13 +45,7 @@ export const PostCommentsView = ({
         {isAuth && userId == ownerId && (
           <div className={s.wrappedActionMenu}>
             <CustomDropdown
-              trigger={
-                <div>
-                  <Typography variant="h1" className={s.dots}>
-                    ...
-                  </Typography>
-                </div>
-              }
+              trigger={<Image src={ThreeDots} alt="menu-trigger" className={s.dots} />}
               align={'end'}
             >
               <CustomDropdownItem>
