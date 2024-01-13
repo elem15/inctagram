@@ -60,7 +60,6 @@ export const postsApi = createApi({
           },
         }
       },
-      invalidatesTags: ['Posts'],
     }),
     publishPosts: builder.mutation<
       any,
@@ -81,7 +80,7 @@ export const postsApi = createApi({
           },
         }
       },
-      invalidatesTags: ['Posts'],
+      invalidatesTags: [],
     }),
   }),
 })

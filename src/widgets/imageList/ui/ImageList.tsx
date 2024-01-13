@@ -1,35 +1,40 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react'
 
-import { useRouter } from 'next/router'
+import { reloadData } from '../model/reloadData'
 
 import s from './ImageList.module.scss'
 
 import { useGetPostsQuery } from '@/entities/posts'
 import { ImageCard } from '@/shared/components/imageCard'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
-import { useAuth } from '@/shared/lib/hooks/useAuth'
-
 type Props = { userId: string }
+
 export const ImageListWidget = ({ userId }: Props) => {
   const [postId, setPostId] = useState<number>()
   const [images, setImages] = useState<PostDataToComponent[]>([])
   const ref = useRef(null)
-  const { data, isLoading, error } = useGetPostsQuery({ userId, postId })
+  const { data, isLoading, error, refetch } = useGetPostsQuery({ userId, postId })
 
   useEffect(() => {
+    setImages([])
+  }, [])
+  useEffect(() => {
+    console.log(data)
     const imagesData = data ? (data as PostDataToComponent[]) : []
     const index = images.findIndex(image => image.id === imagesData[0]?.id)
 
-    setImages(prev => {
-      return index === -1 ? [...prev, ...imagesData] : prev
-    })
+    //if add new post
+    if (images.length && images[0]?.id < imagesData[0]?.id) {
+      setImages(data)
+    } else {
+      setImages(prev => {
+        return index === -1 ? [...prev, ...imagesData] : prev
+      })
+    }
   }, [data])
-
   useFetchLoader(isLoading)
-
   useErrorHandler(error as CustomerError)
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -49,6 +54,7 @@ export const ImageListWidget = ({ userId }: Props) => {
 
   return (
     <>
+      <button onClick={() => reloadData(setPostId, refetch)}>Reload</button>
       <div className={s.container}>
         {images?.map(({ id, url, description, width, height }) => (
           <ImageCard key={id} src={url} alt={description} width={width} height={height} />

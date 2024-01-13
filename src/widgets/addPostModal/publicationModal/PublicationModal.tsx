@@ -9,19 +9,21 @@ import { setAlert } from '@/app/services'
 import { CropperState, removeAllPhotos, updatePhotos } from '@/app/services/cropper-slice'
 import { setTextOfTextarea } from '@/app/services/post-slice'
 import {
+  useGetPostsQuery,
   usePublishPostsImageMutation,
   usePublishPostsMutation,
 } from '@/entities/posts/api/postsApi'
 import { useGetProfileQuery } from '@/entities/profile'
 import { Input, Textarea, Typography } from '@/shared/components'
-import 'swiper/scss/navigation'
-import 'swiper/scss/pagination'
-import 'swiper/scss/scrollbar'
 import { Modal } from '@/shared/components/modals'
 import { useAppDispatch, useAppSelector, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { CloseCrop } from '@/widgets/addPostModal/CloseCrop'
 import { createImage } from '@/widgets/addProfilePhoto/addAvaWithoutRotation/crropUtils'
+
+import 'swiper/scss/navigation'
+import 'swiper/scss/pagination'
+import 'swiper/scss/scrollbar'
 
 type Props = {
   isOpen: boolean
@@ -44,9 +46,10 @@ export const PublicationModal: FC<Props> = ({
   const { t } = useTranslation()
   const text = useAppSelector(state => state.postSlice.textOfTextarea)
   const { data: profileData } = useGetProfileQuery({ profileId: +userId, accessToken })
-  const [publishDescription, { isLoading: isPostLoading }] = usePublishPostsMutation()
+  const [publishDescription, { isLoading: isPostLoading, isSuccess }] = usePublishPostsMutation()
   const [publishPostImage, { isLoading }] = usePublishPostsImageMutation()
   const [windowSize, setWindowSize] = useState([window.innerWidth, window.innerHeight])
+  const { refetch } = useGetPostsQuery({ userId })
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -67,7 +70,27 @@ export const PublicationModal: FC<Props> = ({
     setWordCount(value.length)
   }
 
+  const downloadNewPosts = () => {
+    new Promise(res => setTimeout(res, 2000))
+      .then(() => {
+        discardAll()
+      })
+      .then(() => {
+        dispatch(removeAllPhotos())
+      })
+      .then(() => {
+        setImageScr(null)
+      })
+      // .then(() => {
+      //   refetch()
+      // })
+      .then(() => {
+        onPrevStep()
+      })
+  }
+
   useFetchLoader(isPostLoading)
+
   const handlePublish = async () => {
     const croppedImages = await Promise.all(
       photos.map(async cropper => {
@@ -98,7 +121,7 @@ export const PublicationModal: FC<Props> = ({
       })
     )
 
-    await dispatch(updatePhotos(croppedImages))
+    dispatch(updatePhotos(croppedImages))
 
     await publishPostImage({ postsPhoto: croppedImages, accessToken })
       .unwrap()
@@ -112,10 +135,7 @@ export const PublicationModal: FC<Props> = ({
         })
       })
       .then(() => {
-        discardAll()
-        onPrevStep()
-        dispatch(removeAllPhotos())
-        setImageScr(null)
+        downloadNewPosts()
       })
       .catch(error => {
         dispatch(setAlert({ variant: 'error', message: error }))
@@ -177,7 +197,9 @@ export const PublicationModal: FC<Props> = ({
           <div className={s.dataBox}>
             <div className={s.textareaBox}>
               <div className={s.avaAndUserName}>
-                <img src={profileData?.avatars[0]?.url} className={s.avatar} alt={'postImg'} />
+                {profileData?.avatars[0] && (
+                  <img src={profileData.avatars[0].url} className={s.avatar} alt={'postImg'} />
+                )}
                 <Typography variant={'h3'}>{profileData?.userName}</Typography>
               </div>
 
