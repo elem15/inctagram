@@ -18,6 +18,11 @@
   border-radius: 50%;
 }
 
+.smallAvatarPost {
+  transform: translateY(5px);
+  border-radius: 50%;
+}
+
 .dots {
   cursor: pointer;
   color: var(--color-accent-500);
@@ -36,4 +41,15 @@
   margin: 0;
   padding: 0;
   color: var(--color-light-100)
+}
+
+.post {
+  display: flex;
+  column-gap: 12px;
+  align-items: flex-start;
+  padding: 12px 24px;  
+}
+
+.updatedAt {
+  color: var(--color-light-900);
 }

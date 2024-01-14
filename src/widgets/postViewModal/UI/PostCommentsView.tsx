@@ -1,3 +1,6 @@
+import { useMemo } from 'react'
+
+import { differenceInHours, differenceInDays, differenceInYears } from 'date-fns'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -13,6 +16,8 @@ type Props = {
   avatarOwner: string
   firstName: string
   lastName: string
+  description: string
+  updatedAt: string
   setModalType: (modalType: 'edit' | 'view') => void
 }
 export const PostCommentsView = ({
@@ -20,10 +25,29 @@ export const PostCommentsView = ({
   avatarOwner,
   firstName,
   lastName,
+  description,
+  updatedAt,
   setModalType,
 }: Props) => {
   const { isAuth, userId } = useAuth()
   const { t } = useTranslation()
+  const timeAgo = useMemo(() => {
+    const hoursAgo = differenceInHours(Date.now(), new Date(updatedAt))
+
+    if (hoursAgo <= 1) return `1 hour ago`
+    if (hoursAgo < 24) return `${hoursAgo} hours ago`
+
+    const daysAgo = differenceInDays(Date.now(), new Date(updatedAt))
+
+    if (daysAgo <= 1) return `${daysAgo} day ago`
+    if (daysAgo < 365) return `${daysAgo} days ago`
+
+    const yearsAgo = differenceInYears(Date.now(), new Date(updatedAt))
+
+    if (yearsAgo <= 1) return `${yearsAgo} year ago`
+
+    return `${yearsAgo} years ago`
+  }, [updatedAt])
 
   return (
     <div>
@@ -62,6 +86,30 @@ export const PostCommentsView = ({
           </div>
         )}
       </header>
+      <main>
+        <div className={s.post}>
+          <Image
+            src={avatarOwner}
+            width={36}
+            height={36}
+            alt="Owner's avatar"
+            className={s.smallAvatarPost}
+          />
+          <div className={s.postContent}>
+            <Link href={`/public-posts/${ownerId}`}>
+              <Typography as="span" variant="bold_text_14">
+                {firstName} {lastName}
+              </Typography>
+            </Link>{' '}
+            <Typography as="span" variant="medium_text_14">
+              {description}
+            </Typography>
+            <Typography variant="medium_text_14" className={s.updatedAt}>
+              {timeAgo}
+            </Typography>
+          </div>
+        </div>
+      </main>
     </div>
   )
 }

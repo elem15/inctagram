@@ -30,11 +30,11 @@ type Owner = {
 }
   
  type PostDataType = {
-    id: number
-    ownerId: number
-    description: string
-    images: PostImage[]
-    owner: Owner
-    avatarOwner: string
-    updatedAt: string
+   id: number
+   ownerId: number
+   description: string
+   images: PostImage[]
+   owner: Owner
+   avatarOwner: string
+   updatedAt: string    
   }

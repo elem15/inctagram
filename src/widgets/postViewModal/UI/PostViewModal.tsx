@@ -45,6 +45,8 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
                   avatarOwner={data.avatarOwner}
                   firstName={data.owner.firstName}
                   lastName={data.owner.lastName}
+                  description={data.description}
+                  updatedAt={data.updatedAt}
                 />
               )}
             </div>
@@ -57,17 +59,7 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
                 <Image src={data.images[0].url} alt={data.description} width={490} height={400} />
               )}
             </div>
-            <div className={s.commentsContainer}>
-              {data && (
-                <PostCommentsView
-                  setModalType={setModalType}
-                  ownerId={data.ownerId}
-                  avatarOwner={data.avatarOwner}
-                  firstName={data.owner.firstName}
-                  lastName={data.owner.lastName}
-                />
-              )}
-            </div>
+            <div className={s.commentsContainer}>Edit description</div>
           </>
         )}
       </div>

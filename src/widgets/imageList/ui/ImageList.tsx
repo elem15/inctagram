@@ -9,7 +9,7 @@ import { useErrorHandler, useFetchLoader } from '@/shared/lib'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { PostViewModal } from '@/widgets/postViewModal'
 
-type Props = { userId: string }
+type Props = { userId: number }
 export const ImageListWidget = ({ userId }: Props) => {
   const [postId, setPostId] = useState<number>()
   const [images, setImages] = useState<PostDataToComponent[]>([])
