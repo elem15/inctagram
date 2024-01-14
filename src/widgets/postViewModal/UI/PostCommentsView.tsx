@@ -1,16 +1,17 @@
-import { useMemo } from 'react'
+import { memo } from 'react'
 
-import { differenceInHours, differenceInDays, differenceInYears } from 'date-fns'
 import Image from 'next/image'
 import Link from 'next/link'
+import ReactTimeAgo from 'react-time-ago'
 
 import s from './PostCommentsView.module.scss'
 
 import { DeletePostIcon, EditPostIcon } from '@/shared/assets'
 import ThreeDots from '@/shared/assets/icons/three-dots.png'
-import { Button, CustomDropdown, CustomDropdownItem, Typography } from '@/shared/components'
+import { Button, CustomDropdown, CustomDropdownItem, TimeAgo, Typography } from '@/shared/components'
 import { useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
+
 type Props = {
   ownerId: number
   avatarOwner: string
@@ -20,6 +21,7 @@ type Props = {
   updatedAt: string
   setModalType: (modalType: 'edit' | 'view') => void
 }
+
 export const PostCommentsView = ({
   ownerId,
   avatarOwner,
@@ -31,23 +33,6 @@ export const PostCommentsView = ({
 }: Props) => {
   const { isAuth, userId } = useAuth()
   const { t } = useTranslation()
-  const timeAgo = useMemo(() => {
-    const hoursAgo = differenceInHours(Date.now(), new Date(updatedAt))
-
-    if (hoursAgo <= 1) return `1 hour ago`
-    if (hoursAgo < 24) return `${hoursAgo} hours ago`
-
-    const daysAgo = differenceInDays(Date.now(), new Date(updatedAt))
-
-    if (daysAgo <= 1) return `${daysAgo} day ago`
-    if (daysAgo < 365) return `${daysAgo} days ago`
-
-    const yearsAgo = differenceInYears(Date.now(), new Date(updatedAt))
-
-    if (yearsAgo <= 1) return `${yearsAgo} year ago`
-
-    return `${yearsAgo} years ago`
-  }, [updatedAt])
 
   return (
     <div>
@@ -105,7 +90,7 @@ export const PostCommentsView = ({
               {description}
             </Typography>
             <Typography variant="medium_text_14" className={s.updatedAt}>
-              {timeAgo}
+              <TimeAgo updatedAt={updatedAt} lg={t.lg} />
             </Typography>
           </div>
         </div>

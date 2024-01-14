@@ -2,7 +2,6 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import ReactTimeAgo from 'react-time-ago'
 import { Navigation, Pagination, Scrollbar, EffectFade } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
@@ -10,7 +9,7 @@ import 'swiper/css'
 import s from './PublicPostCard.module.scss'
 
 import SmileImg from '@/shared/assets/SmileImg.png'
-import { Typography } from '@/shared/components'
+import { TimeAgo, Typography } from '@/shared/components'
 import { ExpandableText } from '@/shared/components/expandable-text'
 import { useTranslation } from '@/shared/lib'
 import '../../../assets/swiperStyle/post-images-slider.scss'
@@ -92,7 +91,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
               )}
             </Link>
             <Typography className={s.timeInfo} variant="semi-bold_small_text">
-              <ReactTimeAgo date={Date.parse(updatedAt)} locale={t.lg} />
+              <TimeAgo updatedAt={updatedAt} lg={t.lg} />
             </Typography>
             <div className={s.description}>
               <ExpandableText
