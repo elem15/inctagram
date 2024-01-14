@@ -191,5 +191,9 @@ export const ru: LangType = {
   post_view: {
     edit: 'Редактировать',
     delete: 'Удалить пост',
+    answer: 'Ответ',
+    like: 'Нравится',
+    add_comment: 'Добавить комментарий...',
+    publish: 'Опубликовать',
   },
 }

@@ -53,3 +53,74 @@
 .updatedAt {
   color: var(--color-light-900);
 }
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.like {
+  padding: 24px 24px 0 0;  
+}
+
+.share {
+  padding: 12px 24px;
+  border-top: 1px solid var(--color-dark-100);
+  border-bottom: 1px solid var(--color-dark-100);
+}
+
+.shareIcons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.shareIconsStart {
+  display: flex;
+  column-gap: 26px;
+  align-items: center;
+}
+
+.likeCounter {
+  display: flex;
+  column-gap: 12px;
+  align-items: center;
+  padding: 0 24px 36px 0;
+}
+
+.likeCounterNum {
+  transform: translateY(15px);
+}
+
+.avatarLayers {
+  position: relative;
+  width: 90px;
+}
+
+.smallAvatarLayer {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.smallAvatarLayer:first-child {
+  z-index: 30;
+  left: 0;
+}
+
+.smallAvatarLayer:nth-child(2) {
+  z-index: 20;
+  left: 25px;
+}
+
+.smallAvatarLayer:nth-child(3) {
+  z-index: 10;
+  left: 50px;
+}
+
+.addComment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px; 
+}

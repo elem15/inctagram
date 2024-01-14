@@ -191,6 +191,10 @@ export const en = {
   post_view: {
     edit: 'Edit Post',
     delete: 'Delete Post',
+    answer: 'Answer',
+    like: 'Like',
+    add_comment: 'Add a Comment...',
+    publish: 'Publish',
   },
 }
 export type LangType = typeof en
