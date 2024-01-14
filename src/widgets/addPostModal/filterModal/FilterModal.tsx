@@ -1,5 +1,6 @@
 import React, { FC, useRef, useState } from 'react'
 
+import Image from 'next/image'
 import { A11y, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -89,7 +90,7 @@ export const FilterModal: FC<Props> = ({
                 return (
                   <SwiperSlide key={post.id}>
                     <div className={s.box}>
-                      <img
+                      <Image
                         src={post.image}
                         alt={''}
                         style={{
