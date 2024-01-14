@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Image from 'next/image'
-
 import s from './FiltersTool.module.scss'
 
 import { updateFilterClass } from '@/app/services/cropper-slice'
@@ -74,16 +72,14 @@ export const FiltersTool = ({ photo, idOfImage }: Props) => {
                 dispatch(updateFilterClass({ id: idOfImage, filterClass: filter.style }))
               }}
             >
-              <Image
-                src={photo}
+              <img
+                src={photo ? photo : ''}
                 alt={filter.name}
                 style={{
                   objectFit: 'cover',
                   filter: filter.style,
                 }}
                 className={s.filterImg}
-                width={108}
-                height={108}
               />
 
               <Typography
