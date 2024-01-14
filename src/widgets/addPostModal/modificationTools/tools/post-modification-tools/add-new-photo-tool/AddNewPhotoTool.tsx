@@ -69,7 +69,7 @@ export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, closePostModal, set
                 return (
                   <SwiperSlide key={photo.id}>
                     <div className={s.imgs}>
-                      <Image src={photo.image} alt={''} />
+                      <Image src={photo.image} alt={''} width={80} height={82} />
                       <div onClick={() => handleDeletePhoto(photo.id)}>
                         <DeleteIcon
                           style={{

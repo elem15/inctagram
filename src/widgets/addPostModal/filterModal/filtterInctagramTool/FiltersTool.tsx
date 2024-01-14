@@ -82,6 +82,8 @@ export const FiltersTool = ({ photo, idOfImage }: Props) => {
                   filter: filter.style,
                 }}
                 className={s.filterImg}
+                width={108}
+                height={108}
               />
 
               <Typography

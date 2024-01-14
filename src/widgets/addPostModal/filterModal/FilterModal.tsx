@@ -98,6 +98,8 @@ export const FilterModal: FC<Props> = ({
                         }}
                         className={s.postImg}
                         ref={imageRef}
+                        width={100}
+                        height={100}
                       />
                     </div>
                   </SwiperSlide>
