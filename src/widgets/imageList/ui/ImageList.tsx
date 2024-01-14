@@ -12,7 +12,7 @@ export const ImageListWidget = ({ userId }: Props) => {
   const [postId, setPostId] = useState<number>()
   const [images, setImages] = useState<PostDataToComponent[]>([])
   const ref = useRef(null)
-  const { data, isLoading, error, refetch } = useGetPostsQuery({ userId, postId })
+  const { data, isLoading, error } = useGetPostsQuery({ userId, postId })
 
   useEffect(() => {
     setImages([])
