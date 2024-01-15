@@ -1,0 +1,30 @@
+.box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px 11px;
+  border-bottom: 1px solid var(--color-dark-100);
+  @media screen and (width <= 910px) {
+
+    margin: 0 8%;
+
+  }
+  @media screen and (width <= 768px) {
+font-size: var(--font-size-s);
+ margin: 0 10%;
+    justify-content: space-between;
+  }
+}
+.pubText{
+  font-size: var(--font-size-m);
+  @media screen and (width <= 768px) {
+    font-size: var(--font-size-s);
+  }
+}
+.prevButton{
+
+  @media screen and (width <= 768px) {
+    width: 16px;
+    height: 16px;
+  }
+}

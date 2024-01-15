@@ -1,0 +1,93 @@
+.filterBox{
+  display: flex;
+  width: 100%;
+  height: 504px;
+  justify-content: space-between;
+  @media screen and (width<=910px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 0;
+
+  }
+}
+.swiperSlideBox{
+  width: 50%;
+  @media screen and (width<=910px) {
+   width: 100%;
+  }
+}
+.box{
+  height: 504px;
+  display: flex;
+
+  @media screen and (width<=910px) {
+height: 230px;
+    min-width: 100%;
+
+  }
+}
+.postImg{
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  @media screen and (width<=910px) {
+
+  }
+}
+.filterPostImage{
+display: flex;
+  justify-content: center;
+  min-width: 100%;
+  @media screen and (width<=910px) {
+    min-width: 50%;
+
+  }
+}
+.imgContainer{
+  display: flex;
+  width: 50%;
+  height: 504px;
+  justify-content: space-between;
+
+  @media screen and (width<=910px) {
+width: 100%;
+
+  }
+}
+.img{
+ min-width: 490px;
+
+}
+
+.mobFilter{
+
+  cursor: pointer;
+  padding: 0 12px;
+}
+
+.instaFilter{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  padding: 1.5rem 3.375rem;
+
+  @media screen and (width<=910px) {
+    width: 100%;
+    height: 45%;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+  }
+  @media screen and (width<=760px) {
+
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+}

@@ -7,6 +7,7 @@ import { Typography } from '../typography/'
 import s from './input.module.scss'
 
 import { EyeOffOutline, EyeOutline, SearchIcon } from '@/shared/assets'
+import { IconLocation } from '@/shared/assets/icons/IconLocation'
 
 export type InputProps = {
   onChangeValue?: (value: string) => void
@@ -14,12 +15,23 @@ export type InputProps = {
   disabled?: boolean
   label?: string
   labelClass?: string
-  type?: 'text' | 'password' | 'search'
+  type?: 'text' | 'password' | 'search' | 'location'
 } & ComponentPropsWithoutRef<'input'>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    { onChangeValue, value, error, disabled, onChange, label, labelClass, type, ...restProps },
+    {
+      onChangeValue,
+      value,
+      style,
+      error,
+      disabled,
+      onChange,
+      label,
+      labelClass,
+      type,
+      ...restProps
+    },
     ref
   ) => {
     const [visiblePassword, setVisiblePassword] = useState<boolean>(false)
@@ -39,6 +51,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         <div className={s.inputContainer}>
           {type === 'search' && <SearchIcon className={s.searchIcon} />}
+          {type === 'location' && <IconLocation className={s.locationIcon} />}
+
           <input
             id={restProps.id}
             placeholder={restProps.placeholder}

@@ -6,8 +6,8 @@ import s from './ImageList.module.scss'
 import { useGetPostsQuery } from '@/entities/posts'
 import { ImageCard } from '@/shared/components/imageCard'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
-
 type Props = { userId: string }
+
 export const ImageListWidget = ({ userId }: Props) => {
   const [postId, setPostId] = useState<number>()
   const [images, setImages] = useState<PostDataToComponent[]>([])
@@ -21,15 +21,20 @@ export const ImageListWidget = ({ userId }: Props) => {
     const imagesData = data ? (data as PostDataToComponent[]) : []
     const index = images.findIndex(image => image.id === imagesData[0]?.id)
 
-    setImages(prev => {
-      return index === -1 ? [...prev, ...imagesData] : prev
-    })
+    if (!data) {
+      setImages([])
+    }
+    //if add new post
+    else if (images.length && images[0]?.id < imagesData[0]?.id) {
+      setImages(data)
+    } else {
+      setImages(prev => {
+        return index === -1 ? [...prev, ...imagesData] : prev
+      })
+    }
   }, [data])
-
   useFetchLoader(isLoading)
-
   useErrorHandler(error as CustomerError)
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {

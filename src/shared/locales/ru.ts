@@ -162,7 +162,7 @@ export const ru: LangType = {
     text_of_button_select_from_comp: 'Выбрать с компьютера',
     error_type_of_photo: 'Формат загружаемой фотографии должен быть\n' + 'PNG или JPEG',
     error: 'Ошибка! ',
-    error_size_photo: 'Размер фотографии должен быть меньше 1.5 МБ!',
+    error_size_photo: 'Размер фотографии не должен превышать 10 МБ!',
     save_button: 'Сохранить',
   },
   delete_photo_of_profile: {
@@ -187,5 +187,25 @@ export const ru: LangType = {
   },
   registered_users: {
     title: 'Зарегистрированные Пользователи:',
+  },
+  post: {
+    post_modal_title: 'Добавить фотографию',
+    crop_modal_title: 'Обрезать',
+    button_navigation_text: 'Далее',
+    select_button: 'Выбрать',
+    draft_button: 'Открыть черновик',
+    aspect_original: 'Оригинал',
+    filter_modal: 'Фильтры',
+    publication_modal: 'Публикация',
+    publish_button: 'Опубликовать',
+    label_of_textarea: 'Добавить описание поста',
+    placeholder_of_textarea: 'Добавь описание',
+    label_of_input: 'Добавить локацию',
+    title_close_modal: 'Закрыть',
+    text_close_modal:
+      'Вы действительно хотите закрыть создание публикации? Если закрыть, все будет удалено!',
+    discard_button: 'Сбросить',
+    save_draft: 'Сохранить',
+    add_img_message: 'Ты добавил максимально допустимое количество фотографий!',
   },
 }

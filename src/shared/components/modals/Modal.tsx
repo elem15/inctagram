@@ -1,4 +1,4 @@
-import { ComponentProps, ReactNode } from 'react'
+import React, { ComponentProps, ReactNode } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
 import { clsx } from 'clsx'
@@ -6,6 +6,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 import { CloseIcon } from './../../assets/icons/CloseIcon'
 import s from './Modal.module.scss'
+
+import { PostModalHeader } from '@/widgets/addPostModal/modalPostHeader'
 
 export type ModalSize = 'lg' | 'md' | 'sm' | 'xs' | 's' | 'm' | 'l'
 type Props = {
@@ -15,6 +17,13 @@ type Props = {
   showCloseButton?: boolean
   size?: ModalSize
   title?: string
+  isPost?: boolean
+  onInteractOutside?: (event: Event) => void
+  closePostModal?: () => void
+  onClickNext?: () => void
+  isCropHeader?: boolean
+  buttonText?: string
+  disableButton?: any
 } & ComponentProps<'div'>
 
 const dropIn = {
@@ -48,12 +57,20 @@ export const Modal = ({
   showCloseButton = true,
   size = 'md',
   title,
+  isPost,
+  onInteractOutside,
+  onClickNext,
+  closePostModal,
+  isCropHeader,
+  buttonText,
+  disableButton,
 }: Props) => {
   const handleOpenChange = () => {
     onClose?.()
   }
   const classNames = {
     content: getContentClassName(size, className),
+    contentBoxModal: clsx(isPost ? s.postBox : s.contentBox),
   }
 
   return (
@@ -69,20 +86,35 @@ export const Modal = ({
                 initial={{ opacity: 0 }}
               />
             </Dialog.Overlay>
-            <Dialog.Content asChild className={classNames.content} forceMount>
+            <Dialog.Content
+              asChild
+              className={classNames.content}
+              forceMount
+              onInteractOutside={onInteractOutside}
+            >
               <motion.div animate={'visible'} exit={'exit'} initial={'hidden'} variants={dropIn}>
-                <header className={s.header}>
-                  <Dialog.Title asChild>
-                    <h2 className={s.title}>{title}</h2>
-                  </Dialog.Title>
+                {isCropHeader ? (
+                  <PostModalHeader
+                    closeModal={closePostModal}
+                    title={title}
+                    onNext={onClickNext}
+                    buttonText={buttonText}
+                    disableButton={disableButton}
+                  />
+                ) : (
+                  <header className={s.header}>
+                    <Dialog.Title asChild>
+                      <h2 className={s.title}>{title}</h2>
+                    </Dialog.Title>
 
-                  {showCloseButton && (
-                    <Dialog.Close className={s.closeButton}>
-                      <CloseIcon />
-                    </Dialog.Close>
-                  )}
-                </header>
-                <div className={s.contentBox}>{children}</div>
+                    {showCloseButton && (
+                      <Dialog.Close className={s.closeButton}>
+                        <CloseIcon />
+                      </Dialog.Close>
+                    )}
+                  </header>
+                )}
+                <div className={classNames.contentBoxModal}>{children}</div>
               </motion.div>
             </Dialog.Content>
           </Dialog.Portal>
