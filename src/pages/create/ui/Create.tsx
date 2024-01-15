@@ -1,7 +1,7 @@
 import { getHeaderWithSidebarLayout } from '@/widgets/layouts'
 
-function Create() {
-  return <div>Create</div>
+const Create = () => {
+  return <div></div>
 }
 
 Create.getLayout = getHeaderWithSidebarLayout

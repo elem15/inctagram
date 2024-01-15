@@ -14,6 +14,7 @@ import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { SliderDemo } from '@/shared/components/slider'
 import { useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
+import { useErrorText } from '@/shared/lib/hooks'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 type Props = {
@@ -32,13 +33,12 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
   const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState<number>(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CroppedAreaPixel>(null)
-  const [errorText, setErrorText] = useState<string | undefined>()
 
   const { accessToken } = useAuth()
   const { t } = useTranslation()
   const inputRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch()
-
+  const { errorText, showErrorText } = useErrorText()
   const [savePhoto, { error, isLoading }] = useSavePhotoMutation()
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
     closeModal()
 
     setImageSrc(null)
-    setErrorText(undefined)
+    showErrorText('')
     setZoom(1)
   }
 
@@ -97,16 +97,16 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
     if (e.currentTarget.files && e.currentTarget.files.length > 0) {
       const file = e.currentTarget.files[0]
       const acceptedTypes = ['image/jpeg', 'image/png']
-      const maxSizeBytes = 1.5 * 1024 * 1024
+      const maxSizeBytes = 10 * 1024 * 1024
 
       if (!acceptedTypes.includes(file.type)) {
-        setErrorText(t.add_profile_photo.error_type_of_photo)
+        showErrorText(t.add_profile_photo.error_type_of_photo)
 
         return
       }
 
       if (file.size > maxSizeBytes) {
-        setErrorText(t.add_profile_photo.error_size_photo)
+        showErrorText(t.add_profile_photo.error_size_photo)
 
         return
       }
@@ -143,7 +143,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
   const handleCloseModal = () => {
     closeModal()
     setImageSrc(null)
-    setErrorText(undefined)
+    showErrorText('')
     setZoom(1)
   }
 

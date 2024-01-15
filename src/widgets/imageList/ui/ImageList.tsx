@@ -10,6 +10,7 @@ import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { PostViewModal } from '@/widgets/postViewModal'
 
 type Props = { userId: number }
+
 export const ImageListWidget = ({ userId }: Props) => {
   const [postId, setPostId] = useState<number>()
   const [images, setImages] = useState<PostDataToComponent[]>([])
@@ -24,15 +25,20 @@ export const ImageListWidget = ({ userId }: Props) => {
     const imagesData = data ? (data as PostDataToComponent[]) : []
     const index = images.findIndex(image => image.id === imagesData[0]?.id)
 
-    setImages(prev => {
-      return index === -1 ? [...prev, ...imagesData] : prev
-    })
+    if (!data) {
+      setImages([])
+    }
+    //if add new post
+    else if (images.length && images[0]?.id < imagesData[0]?.id) {
+      setImages(data)
+    } else {
+      setImages(prev => {
+        return index === -1 ? [...prev, ...imagesData] : prev
+      })
+    }
   }, [data])
-
   useFetchLoader(isLoading)
-
   useErrorHandler(error as CustomerError)
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {

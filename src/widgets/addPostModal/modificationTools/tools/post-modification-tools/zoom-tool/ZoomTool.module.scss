@@ -1,0 +1,12 @@
+@use '../../../../../../shared/assets/mixins';
+.customContentBox{
+  opacity: 0.8;
+}
+.tool{
+  @include mixins.tool
+}
+.zoomItem{
+  width: 125px;
+  height: 36px;
+  gap: 0;
+}

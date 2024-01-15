@@ -21,11 +21,18 @@ import {
 import s from './Sidebar.module.scss'
 
 import { useTranslation } from '@/shared/lib'
+import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
+import { AddPostModal } from '@/widgets/addPostModal/AddPostModal'
 import { LogOutButton } from '@/widgets/logOut'
 
 export const Sidebar = () => {
   const router = useRouter()
   const { t } = useTranslation()
+  const { isOpen, openModal, closeModal } = useModal()
+  const handleOpenMyProfileAndAddPost = () => {
+    router.push('/my-profile')
+    openModal()
+  }
 
   return (
     <div className={s.box}>
@@ -40,18 +47,16 @@ export const Sidebar = () => {
               </span>
             </Link>
           </li>
-          <li>
-            <Link href={'/create'} className={s.content}>
-              {router.pathname === '/create' ? <CreatesIcon /> : <CreateIcon />}
-              <span className={router.pathname === '/create' ? s.activeLink : ''}>
-                {t.sidebar.create}
-              </span>
-            </Link>
+          <li onClick={handleOpenMyProfileAndAddPost} className={s.content}>
+            {isOpen ? <CreatesIcon /> : <CreateIcon />}
+            <span className={isOpen ? s.activeLink : ''}>{t.sidebar.create}</span>
           </li>
           <li>
             <Link href={'/my-profile'} className={s.content}>
-              {router.pathname.includes('/my-profile') ? <IconUser2 /> : <IconUser />}
-              <span className={router.pathname.includes('/my-profile') ? s.activeLink : ''}>
+              {router.pathname.includes('/my-profile') && !isOpen ? <IconUser2 /> : <IconUser />}
+              <span
+                className={router.pathname.includes('/my-profile') && !isOpen ? s.activeLink : ''}
+              >
                 {t.sidebar.my_profile}
               </span>
             </Link>
@@ -105,6 +110,7 @@ export const Sidebar = () => {
             </li>
           </LogOutButton>
         </ul>
+        <AddPostModal closePostModal={closeModal} openPostModal={isOpen} />
       </div>
     </div>
   )

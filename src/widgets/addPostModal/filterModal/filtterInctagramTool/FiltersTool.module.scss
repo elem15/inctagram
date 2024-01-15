@@ -1,0 +1,68 @@
+
+.toolBox{
+
+  @media screen and (width<=910px) {
+    width: 86px;
+    height: 86px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.filterToolImg{
+  width: 108px;
+  height: 108px;
+  cursor: pointer;
+  @media screen and (width<=910px) {
+    width: 53px;
+    height: 53px;
+  }
+}
+.scrollImg{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  padding: 1.5rem 3.375rem;
+  @media screen and (width<=910px){
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9%;
+    justify-content: center;
+    padding: 3%;
+    width: 100%;
+  }
+  @media screen and (width<=368px){
+    height:260px ;
+  }
+}
+.filterBox{
+  @media screen and (width<=910px) {
+    display: flex;
+    gap: 3px;
+    width: 86px;
+    height: 86px;
+    justify-content: center;
+  }
+  @media screen and (width<=368px){
+    width: 62px;
+    height: 62px;
+  }
+}
+.filterImg{
+  width: 108px;
+  height: 108px;
+  @media (width<=910px) {
+    width: 53px;
+    height: 53px;
+  }
+}
+.text{
+  text-align: center;
+  @media screen and (width<=910px) {
+    font-size: var(--font-size-xs);
+  }
+}
