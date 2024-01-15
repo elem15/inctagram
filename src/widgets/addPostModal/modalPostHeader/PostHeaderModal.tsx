@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import React from 'react'
 
 import s from './PostHeaderModal.module.scss'
 
@@ -20,16 +20,11 @@ export const PostModalHeader = ({
 }: Props) => {
   return (
     <header className={s.box}>
-      <Button variant={'link'} onClick={closeModal}>
+      <Button variant={'link'} onClick={closeModal} className={s.prevButton}>
         <IconLeft />
       </Button>
       <Typography variant={'h1'}>{title}</Typography>
-      <Button
-        variant={'link'}
-        style={{ fontSize: '16px' }}
-        onClick={onNext}
-        disabled={disableButton}
-      >
+      <Button variant={'link'} onClick={onNext} disabled={disableButton} className={s.pubText}>
         {buttonText}
       </Button>
     </header>

@@ -80,7 +80,9 @@ export const AddPostModalData = ({ selectPhoto, closePostModal, setImageScr }: P
         className={'post-images-slider'}
         navigation
         pagination={{ clickable: true }}
-        simulateTouch={false}
+        allowTouchMove={false}
+        touchStartPreventDefault={false}
+        noSwiping={false}
       >
         {images.map(cropper => {
           return (

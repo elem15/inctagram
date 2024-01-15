@@ -10,7 +10,6 @@ import { CropperState, removeAllPhotos, updatePhotos } from '@/app/services/crop
 import { setTextOfTextarea } from '@/app/services/post-slice'
 import {
   postsApi,
-  useGetPostsQuery,
   usePublishPostsImageMutation,
   usePublishPostsMutation,
 } from '@/entities/posts/api/postsApi'
@@ -73,8 +72,9 @@ export const PublicationModal: FC<Props> = ({
   const downloadNewPosts = () => {
     new Promise(res => setTimeout(res, 2000))
       .then(() => {
-        discardAll()
+        onPrevStep()
       })
+
       .then(() => {
         dispatch(removeAllPhotos())
       })
@@ -85,7 +85,7 @@ export const PublicationModal: FC<Props> = ({
         dispatch(postsApi.util.resetApiState())
       })
       .then(() => {
-        onPrevStep()
+        discardAll()
       })
   }
 

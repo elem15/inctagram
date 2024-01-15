@@ -17,6 +17,9 @@
   width: 100%;
   padding: 0 12px;
   z-index: 12;
+  @media screen and (width<=768px){
+    top: 92%;
+  }
 }
 .sizeBox{
   display: flex;

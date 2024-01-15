@@ -1,15 +1,16 @@
 import React, { FC, useRef, useState } from 'react'
 
 import Image from 'next/image'
-import { A11y, Navigation, Pagination } from 'swiper/modules'
+import { A11y, Navigation, Pagination, EffectCube } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import 'swiper/scss'
 import s from './FilterModal.module.scss'
+
 import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
 import 'swiper/scss/scrollbar'
-
+import 'swiper/scss/effect-cube'
 import { useAppSelector } from '@/app/appStore'
 import { Modal } from '@/shared/components/modals'
 import { useTranslation } from '@/shared/lib'
@@ -79,10 +80,11 @@ export const FilterModal: FC<Props> = ({
         <div className={s.filterBox}>
           <div className={s.swiperSlideBox}>
             <Swiper
-              modules={[Navigation, Pagination, A11y]}
+              modules={[Navigation, Pagination, A11y, EffectCube]}
               className={'post-images-slider'}
               pagination={{ clickable: true }}
               navigation
+              effect={'cube'}
               grabCursor={true}
               onSlideChange={handleSlideChange}
             >
