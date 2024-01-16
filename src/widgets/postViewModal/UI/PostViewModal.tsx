@@ -3,13 +3,13 @@ import { useState } from 'react'
 import Image from 'next/image'
 
 import { PostCommentsView } from './PostCommentsView'
+import { PostEdit } from './PostEdit'
 import s from './PostViewModal.module.scss'
 
 import { useGetSinglePostQuery } from '@/entities/publicPosts'
 import { SwiperSlider } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { useErrorHandler, useFetchLoader, useTranslation } from '@/shared/lib'
-import { PostEdit } from './PostEdit'
 
 type Props = {
   postId: number
@@ -71,7 +71,8 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
                   firstName={data.owner.firstName}
                   lastName={data.owner.lastName}
                   description={data.description}
-                  updatedAt={data.updatedAt}
+                  postId={data.id}
+                  closeModal={closeModal}
                 />
               )}
             </div>

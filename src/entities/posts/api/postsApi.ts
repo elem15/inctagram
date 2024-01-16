@@ -25,7 +25,7 @@ const getLargeImage = (item: PostDataItem) => {
 export const postsApi = createApi({
   reducerPath: 'posts',
   baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
-  tagTypes: ['Posts'],
+  tagTypes: ['Posts', 'PublicPosts'],
   endpoints: builder => ({
     getPosts: builder.query<any, PostsQuery>({
       query: ({ userId, postId }) => {
@@ -96,7 +96,33 @@ export const postsApi = createApi({
       },
       invalidatesTags: [],
     }),
+    updatePost: builder.mutation<
+      any,
+      {
+        description: string
+        postId: number
+        accessToken: string | undefined
+      }
+    >({
+      query: ({ description, postId, accessToken }) => {
+        return {
+          url: `/posts/${postId}`,
+          body: { description },
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + accessToken,
+          },
+        }
+      },
+      invalidatesTags: ['Posts'],
+    }),
   }),
 })
 
-export const { useGetPostsQuery, usePublishPostsImageMutation, usePublishPostsMutation } = postsApi
+export const {
+  useGetPostsQuery,
+  usePublishPostsImageMutation,
+  usePublishPostsMutation,
+  useUpdatePostMutation,
+} = postsApi

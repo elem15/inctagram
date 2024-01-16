@@ -70,23 +70,13 @@ export const PublicationModal: FC<Props> = ({
   }
 
   const downloadNewPosts = () => {
-    new Promise(res => setTimeout(res, 2000))
-      .then(() => {
-        onPrevStep()
-      })
-
-      .then(() => {
-        dispatch(removeAllPhotos())
-      })
-      .then(() => {
-        setImageScr(null)
-      })
-      .then(() => {
-        dispatch(postsApi.util.resetApiState())
-      })
-      .then(() => {
-        discardAll()
-      })
+    new Promise(res => setTimeout(res, 2000)).then(() => {
+      onPrevStep()
+      dispatch(removeAllPhotos())
+      setImageScr(null)
+      dispatch(postsApi.util.resetApiState())
+      discardAll()
+    })
   }
 
   useFetchLoader(isPostLoading)

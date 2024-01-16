@@ -195,6 +195,8 @@ export const en = {
     like: 'Like',
     add_comment: 'Add a Comment...',
     publish: 'Publish',
+    description: 'Add publication descriptions',
+    save: 'Save changes',
   },
   post: {
     post_modal_title: 'Add photo',

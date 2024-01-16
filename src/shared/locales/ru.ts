@@ -195,6 +195,8 @@ export const ru: LangType = {
     like: 'Нравится',
     add_comment: 'Добавить комментарий...',
     publish: 'Опубликовать',
+    description: 'Добавьте описание',
+    save: 'Сохранить изменения',
   },
   post: {
     post_modal_title: 'Добавить фотографию',
