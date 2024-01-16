@@ -116,11 +116,12 @@ export const PublicationModal: FC<Props> = ({
     await publishPostImage({ postsPhoto: croppedImages, accessToken })
       .unwrap()
       .then(res => {
-        const imgId = res.images[0].uploadId
+        const images = res.images as PostImageDTO[]
+        const childrenMetadata = images.map(i => ({ uploadId: i.uploadId }))
 
         publishDescription({
           description: text,
-          childrenMetadata: [{ uploadId: imgId }],
+          childrenMetadata,
           accessToken,
         })
       })
