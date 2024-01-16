@@ -3,12 +3,19 @@
   flex-wrap: wrap;
 }
 
+@media (width <= 1024) {
+  .modalContent {
+    width: min-content;
+  }
+}
+
 .imageContainer {
-  width: 490px;
-  height: 400px;
+  width: 550px;
+  height: 621px;
 }
 
 .commentsContainer {
+  flex-basis: 450px;
   flex-grow: 1;
-  min-height: 400px;
+  min-height: 350px;
 }

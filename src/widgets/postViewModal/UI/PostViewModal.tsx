@@ -9,6 +9,7 @@ import { useGetSinglePostQuery } from '@/entities/publicPosts'
 import { SwiperSlider } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { useErrorHandler, useFetchLoader, useTranslation } from '@/shared/lib'
+import { PostEdit } from './PostEdit'
 
 type Props = {
   postId: number
@@ -27,7 +28,9 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
   return (
     <Modal
       open={isOpen}
-      size={'lg'}
+      size={'xl'}
+      isHeaderDisabled={modalType === 'view' ? true : false}
+      isPost={true}
       title={modalType === 'edit' ? t.post_view.edit : ''}
       onClose={closeModal}
     >
@@ -54,12 +57,24 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
         )}
         {modalType === 'edit' && (
           <>
-            <div className={s.imageContainer}>
+            <div>
               {data && data.id === postId && (
-                <Image src={data.images[0].url} alt={data.description} width={490} height={400} />
+                <Image src={data.images[0].url} alt={data.description} width={550} height={621} />
               )}
             </div>
-            <div className={s.commentsContainer}>Edit description</div>
+            <div className={s.commentsContainer}>
+              {data && (
+                <PostEdit
+                  setModalType={setModalType}
+                  ownerId={data.ownerId}
+                  avatarOwner={data.avatarOwner}
+                  firstName={data.owner.firstName}
+                  lastName={data.owner.lastName}
+                  description={data.description}
+                  updatedAt={data.updatedAt}
+                />
+              )}
+            </div>
           </>
         )}
       </div>

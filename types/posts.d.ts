@@ -34,6 +34,7 @@ type PostImageDTO = {
 type PostDataItem = {
   id: number,
   ownerId: number,
+  userName: string,
   description: string,
   location: string,
   images: PostImageDTO[],

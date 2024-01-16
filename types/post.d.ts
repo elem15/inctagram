@@ -32,6 +32,7 @@ type Owner = {
  type PostDataType = {
    id: number
    ownerId: number
+   userName: string
    description: string
    images: PostImageDTO[]
    owner: Owner

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import s from './PostCommentsView.module.scss'
+import s from './PostEdit.module.scss'
 
 import {
   BookmarkOutlineIcon,
@@ -34,7 +34,7 @@ type Props = {
   setModalType: (modalType: 'edit' | 'view') => void
 }
 
-export const PostCommentsView = ({
+export const PostEdit = ({
   ownerId,
   avatarOwner,
   firstName,
