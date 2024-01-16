@@ -8,7 +8,7 @@ import { useErrorHandler, useFetchLoader, useGoogleLogin } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { useClient } from '@/shared/lib/hooks/useClient'
 
-export function OauthCallbackGoogle() {
+export function Root() {
   const searchParams = useSearchParams()
 
   const code = searchParams?.get('code') as string | undefined
@@ -18,6 +18,18 @@ export function OauthCallbackGoogle() {
 
   const { isClient } = useClient()
   const { isAuth } = useAuth()
+
+  useEffect(() => {
+    const isProd = process.env.NODE_ENV === 'production'
+
+    if (isProd) {
+      if (isAuth) {
+        router.push('/my-profile')
+      } else {
+        router.push('/public-page')
+      }
+    }
+  }, [code, isAuth, router])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
