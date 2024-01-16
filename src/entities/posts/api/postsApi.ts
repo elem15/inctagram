@@ -117,6 +117,25 @@ export const postsApi = createApi({
       },
       invalidatesTags: ['Posts'],
     }),
+    deletePost: builder.mutation<
+      any,
+      {
+        postId: number
+        accessToken: string | undefined
+      }
+    >({
+      query: ({ postId, accessToken }) => {
+        return {
+          url: `/posts/${postId}`,
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + accessToken,
+          },
+        }
+      },
+      invalidatesTags: [],
+    }),
   }),
 })
 
@@ -125,4 +144,5 @@ export const {
   usePublishPostsImageMutation,
   usePublishPostsMutation,
   useUpdatePostMutation,
+  useDeletePostMutation,
 } = postsApi

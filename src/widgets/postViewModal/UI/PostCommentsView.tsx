@@ -32,6 +32,7 @@ type Props = {
   description: string
   updatedAt: string
   setModalType: (modalType: 'edit' | 'view') => void
+  openDeleteModal: () => void
 }
 
 export const PostCommentsView = ({
@@ -42,6 +43,7 @@ export const PostCommentsView = ({
   description,
   updatedAt,
   setModalType,
+  openDeleteModal,
 }: Props) => {
   const { isAuth, userId } = useAuth()
   const { t } = useTranslation()
@@ -77,7 +79,7 @@ export const PostCommentsView = ({
                 </Button>
               </CustomDropdownItem>
               <CustomDropdownItem>
-                <Button variant={'link'} className={s.button}>
+                <Button variant={'link'} className={s.button} onClick={() => openDeleteModal()}>
                   <DeletePostIcon /> {t.post_view.delete}
                 </Button>
               </CustomDropdownItem>

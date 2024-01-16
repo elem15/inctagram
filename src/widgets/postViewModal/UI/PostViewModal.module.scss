@@ -18,5 +18,11 @@
   flex-basis: 450px;
   flex-grow: 1;
   min-height: 350px;
-  
+}
+
+.deleteButtons {
+  display: flex;
+  column-gap: 30px;
+  justify-content: flex-end;
+  margin-top: 24px;
 }
