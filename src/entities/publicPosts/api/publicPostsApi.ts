@@ -11,6 +11,7 @@ const transformPostData = (el: PostDataType): PostDataType => {
     owner: el.owner,
     avatarOwner: el.avatarOwner,
     updatedAt: el.updatedAt,
+    userName: el.userName,
   }
 }
 
