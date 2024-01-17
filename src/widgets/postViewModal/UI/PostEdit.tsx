@@ -92,7 +92,11 @@ export const PostEdit = ({
       </main>
       <footer>
         <div className={s.submit}>
-          <Button variant="primary" onClick={handleUpdate} disabled={isPostEdit}>
+          <Button
+            variant="primary"
+            onClick={handleUpdate}
+            disabled={isPostEdit || postDescription.length > 500}
+          >
             {t.post_view.save}
           </Button>
         </div>

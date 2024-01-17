@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 
 import s from './Scroller.module.scss'
+
 import { cn } from '@/shared/lib/utils'
 
 export type ScrollerOrientation = 'vertical' | 'horizontal'
