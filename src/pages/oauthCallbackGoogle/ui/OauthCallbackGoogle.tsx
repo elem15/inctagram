@@ -20,20 +20,6 @@ export function OauthCallbackGoogle() {
   const { isAuth } = useAuth()
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (!code && !isAuth) {
-        router.push('/public-page')
-      } else if (!code && isAuth) {
-        router.push('/my-profile')
-      }
-    }, 2000)
-
-    return () => {
-      clearTimeout(timeout)
-    }
-  }, [code, isAuth, router])
-
-  useEffect(() => {
     const success = data && !error && !isLoading
 
     const timeout = setTimeout(() => {
@@ -41,6 +27,8 @@ export function OauthCallbackGoogle() {
         router.push('/my-profile')
       } else if (error) {
         router.push('/signin')
+      } else {
+        router.push('/public-page')
       }
     }, 3000)
 

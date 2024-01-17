@@ -32,34 +32,26 @@ export function Root() {
   }, [code, isAuth, router])
 
   useEffect(() => {
+    const success = data && !error && !isLoading
+
     const timeout = setTimeout(() => {
       if (!code && !isAuth) {
         router.push('/public-page')
       } else if (!code && isAuth) {
         router.push('/my-profile')
-      }
-    }, 2000)
-
-    return () => {
-      clearTimeout(timeout)
-    }
-  }, [code, isAuth, router])
-
-  useEffect(() => {
-    const success = data && !error && !isLoading
-
-    const timeout = setTimeout(() => {
-      if (success && isAuth) {
+      } else if (success && isAuth) {
         router.push('/my-profile')
       } else if (error) {
         router.push('/signin')
+      } else {
+        router.push('/public-page')
       }
     }, 3000)
 
     return () => {
       clearTimeout(timeout)
     }
-  }, [isLoading, error, data, isAuth, router])
+  }, [code, data, error, isAuth, isLoading, router])
 
   useErrorHandler(error as CustomerError)
   useFetchLoader(isLoading)
