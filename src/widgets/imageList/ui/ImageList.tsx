@@ -18,11 +18,11 @@ export const ImageListWidget = ({ userId }: Props) => {
   const { data, isLoading, error } = useGetPostsQuery({ userId, postId })
   const { isOpen, openModal, closeModal, modalId } = useModal()
 
+  // useEffect(() => {
+  //   setImages([])
+  // }, [])
   useEffect(() => {
-    setImages([])
-  }, [])
-  useEffect(() => {
-    const imagesData = data ? (data as PostDataToComponent[]) : []
+    const imagesData: PostDataToComponent[] = data ?? []
     const index = images.findIndex(image => image.id === imagesData[0]?.id)
 
     if (!data) {

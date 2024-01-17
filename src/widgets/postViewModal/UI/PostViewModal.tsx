@@ -54,14 +54,26 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
       })
   }
 
+  const handleCloseEditConfirmModal = () => {
+    setModalType('view')
+    closeEditCloseModal()
+  }
+
   return (
     <Modal
       open={isOpen}
       size={'xl'}
-      isHeaderDisabled={modalType === 'view' ? true : false}
+      isHeaderDisabled={modalType === 'view'}
       isPost={true}
       title={modalType === 'edit' ? t.post_view.edit : ''}
-      onClose={modalType === 'edit' && !isPostEdit ? openEditCloseModal : closeModal}
+      onClose={
+        // eslint-disable-next-line no-nested-ternary
+        modalType === 'edit'
+          ? !isPostEdit
+            ? openEditCloseModal
+            : handleCloseEditConfirmModal
+          : closeModal
+      }
     >
       <Modal open={isDeleteOpen} size={'sm'} title={t.post_view.delete} onClose={closeDeleteModal}>
         <Typography variant="regular_text_16">{t.post_view.delete_confirm}</Typography>
@@ -78,11 +90,11 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
         open={isEditCloseOpen}
         size={'sm'}
         title={t.post_view.close_edit_title}
-        onClose={closeEditCloseModal}
+        onClose={handleCloseEditConfirmModal}
       >
         <Typography variant="regular_text_16">{t.post_view.close_edit_confirm}</Typography>
         <div className={s.deleteButtons}>
-          <Button variant="outline" onClick={closeModal}>
+          <Button variant="outline" onClick={handleCloseEditConfirmModal}>
             {t.logout.yes}
           </Button>
           <Button variant="primary" onClick={closeEditCloseModal}>

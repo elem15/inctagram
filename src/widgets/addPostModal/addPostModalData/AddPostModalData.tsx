@@ -37,12 +37,6 @@ export const AddPostModalData = ({ selectPhoto, closePostModal, setImageScr }: P
   }
   const handleAspectChange = (selectedAspect: string, id: string) => {
     switch (selectedAspect) {
-      case 'contain':
-        dispatch(updateAspect({ aspect: 1, id }))
-        break
-      case '1/1':
-        dispatch(updateAspect({ aspect: 1, id }))
-        break
       case 'vertical':
         dispatch(updateAspect({ aspect: 4 / 9, id }))
         break
@@ -55,9 +49,9 @@ export const AddPostModalData = ({ selectPhoto, closePostModal, setImageScr }: P
   }
   const handleOnCropComplete =
     (id: string) =>
-    (_croppedArea: Record<'x' | 'y', number>, croppedAreaPixels: CroppedAreaPixel) => {
-      dispatch(updateCroppedAreaPixels({ croppedAreaPixels: croppedAreaPixels, id }))
-    }
+      (_croppedArea: Record<'x' | 'y', number>, croppedAreaPixels: CroppedAreaPixel) => {
+        dispatch(updateCroppedAreaPixels({ croppedAreaPixels: croppedAreaPixels, id }))
+      }
   const customStyles = {
     style: {
       containerStyle: {

@@ -34,6 +34,7 @@ export const PostEdit = ({
   closeModal,
   isPostEdit,
   setIsPostEdit,
+  setModalType,
 }: Props) => {
   const { t } = useTranslation()
   const [postDescription, addDescription] = useState(description)
@@ -50,7 +51,7 @@ export const PostEdit = ({
       .unwrap()
       .then(() => {
         dispatch(publicPostsApi.util.resetApiState())
-        closeModal()
+        setModalType('view')
       })
   }
 
