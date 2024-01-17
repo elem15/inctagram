@@ -9,7 +9,9 @@
 }
 
 .main {
+  max-width: 500px;
   height: 321px;
+  word-break: break-all;
 }
 
 @media (width <= 1024px) {
@@ -62,7 +64,10 @@
   display: flex;
   column-gap: 12px;
   align-items: flex-start;
+
   padding: 12px 24px;  
+
+  overflow-wrap: break-word;
 }
 
 .updatedAt {
@@ -70,9 +75,12 @@
 }
 
 .comment {
+  overflow-x: hidden;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+
+  max-width: 480px;
 }
 
 .like {

@@ -89,7 +89,7 @@ export const PostCommentsView = ({
         )}
       </header>
       <main className={s.main}>
-        <Scroller orientation="horizontal" customWidth="100%" className={s.scrollContent}>
+        <Scroller className={s.scrollContent}>
           <div className={s.post}>
             <Image
               src={avatarOwner}
