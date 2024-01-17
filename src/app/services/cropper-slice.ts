@@ -16,6 +16,7 @@ export interface CropperState {
   croppedAreaPixels: CroppedAreaPixel
   filterClass: string
   aspect: number
+  originalImage: string
 }
 
 const initialState: CropperState[] = []
@@ -33,6 +34,7 @@ export const croppersSlice = createSlice({
         croppedAreaPixels: null,
         filterClass: '',
         aspect: 1,
+        originalImage: '',
       }
 
       state.unshift(newData)
@@ -42,7 +44,13 @@ export const croppersSlice = createSlice({
 
       if (imageIndex !== -1) state.splice(imageIndex, 1)
     },
+    setOriginalImage: (state, action: PayloadAction<string>) => {
+      const cropper = state.find(img => img.image === action.payload)
 
+      if (cropper) {
+        cropper.originalImage = action.payload
+      }
+    },
     updatePhotos: (
       state,
       action: PayloadAction<{ id: string; image: string; croppedAreaPixels: CroppedAreaPixel }[]>
@@ -108,12 +116,5 @@ export const {
   deletePhoto,
   removeAllPhotos,
   setImage,
-  // updateFilteredImage,
-  // removeCropper,
-  // addCropper,
-  // updateCroppedAreaPixels,
-  // updateCroppedArea,
-  // updateCropper,
-  // updateFilterClass,
-  // editCropper,
+  setOriginalImage,
 } = croppersSlice.actions

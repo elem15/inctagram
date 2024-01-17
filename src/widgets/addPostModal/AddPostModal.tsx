@@ -3,7 +3,12 @@ import React, { ChangeEvent, useRef, useState } from 'react'
 import s from './AddPostModal.module.scss'
 
 import { useAppSelector } from '@/app/appStore'
-import { addNewPhoto, removeAllPhotos, updatePhotos } from '@/app/services/cropper-slice'
+import {
+  addNewPhoto,
+  removeAllPhotos,
+  setOriginalImage,
+  updatePhotos,
+} from '@/app/services/cropper-slice'
 import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
@@ -48,11 +53,26 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   const { errorText, showErrorText } = useErrorText()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
+  const handleCloseFilter = () => {
+    croppers.forEach(cropper => {
+      dispatch(
+        updatePhotos([
+          {
+            id: cropper.id,
+            image: cropper.originalImage,
+            croppedAreaPixels: cropper.croppedAreaPixels,
+          },
+        ])
+      )
+    })
+    closeModal()
+  }
 
   const addNewCropper = (image: string) => {
     dispatch(addNewPhoto(image))
   }
 
+  console.log({ croppers })
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.files && e.currentTarget.files.length > 0) {
       const file = e.currentTarget.files[0]
@@ -83,8 +103,6 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   }
   const handleClosePostCropModal = () => {
     closePostModal()
-    // dispatch(removeAllPhotos())
-    // setImageSrc(null)
   }
   const addNewCropperForFilter = async () => {
     const croppedImages = await Promise.all(
@@ -103,6 +121,9 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   }
 
   const handleOpenFilter = () => {
+    croppers.forEach(cropper => {
+      dispatch(setOriginalImage(cropper.image))
+    })
     addNewCropperForFilter()
     openModal()
   }
@@ -145,7 +166,7 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
         <>
           <FilterModal
             isOpenFilter={isOpen}
-            closeFilter={closeModal}
+            closeFilter={handleCloseFilter}
             closeCroppingModal={handleClosePostCropModal}
             setImageScr={setImageSrc}
           />
