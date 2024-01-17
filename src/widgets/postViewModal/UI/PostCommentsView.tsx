@@ -67,8 +67,7 @@ export const PostCommentsView = ({
             <Typography variant="bold_text_14">{userName}</Typography>
           </Link>
         </div>
-        {isAuth && (
-          // userId == ownerId &&
+        {isAuth && userId == ownerId && (
           <div className={s.wrappedActionMenu}>
             <CustomDropdown
               trigger={<Image src={ThreeDots} alt="menu-trigger" className={s.dots} />}

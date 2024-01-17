@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react'
 
+import { useSearchParams } from 'next/navigation'
+
 import s from './ImageList.module.scss'
 
 import { useGetPostsQuery } from '@/entities/posts'
@@ -17,10 +19,14 @@ export const ImageListWidget = ({ userId }: Props) => {
   const ref = useRef(null)
   const { data, isLoading, error } = useGetPostsQuery({ userId, postId })
   const { isOpen, openModal, closeModal, modalId } = useModal()
+  const searchParams = useSearchParams()
 
-  // useEffect(() => {
-  //   setImages([])
-  // }, [])
+  const postNumber = searchParams?.get('postId') as string | undefined
+
+  useEffect(() => {
+    postNumber && openModal(+postNumber)
+  }, [postNumber])
+
   useEffect(() => {
     const imagesData: PostDataToComponent[] = data ?? []
     const index = images.findIndex(image => image.id === imagesData[0]?.id)

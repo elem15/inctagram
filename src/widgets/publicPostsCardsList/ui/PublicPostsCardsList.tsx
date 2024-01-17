@@ -16,6 +16,7 @@ export const PublicPostsCardsList = () => {
           return (
             <PublicPostCard
               key={el.id}
+              postId={el.id}
               ownerId={el.ownerId}
               profileImage={el.avatarOwner}
               imagesUrl={el.images}

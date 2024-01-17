@@ -9,7 +9,7 @@ import s from './PostViewModal.module.scss'
 import { postsApi, useDeletePostMutation } from '@/entities/posts'
 import { publicPostsApi, useGetSinglePostQuery } from '@/entities/publicPosts'
 import { Button, SwiperSlider, Typography } from '@/shared/components'
-import { Modal } from '@/shared/components/modals'
+import { ConfirmModal, Modal } from '@/shared/components/modals'
 import { useAppDispatch, useErrorHandler, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
@@ -75,34 +75,22 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
           : closeModal
       }
     >
-      <Modal open={isDeleteOpen} size={'sm'} title={t.post_view.delete} onClose={closeDeleteModal}>
-        <Typography variant="regular_text_16">{t.post_view.delete_confirm}</Typography>
-        <div className={s.deleteButtons}>
-          <Button variant="outline" onClick={handleDeletePost}>
-            {t.logout.yes}
-          </Button>
-          <Button variant="primary" onClick={closeDeleteModal}>
-            {t.logout.no}
-          </Button>
-        </div>
-      </Modal>
-      <Modal
-        open={isEditCloseOpen}
-        size={'sm'}
+      <ConfirmModal
+        isOpen={isDeleteOpen}
+        title={t.post_view.delete}
+        confirmMessage={t.post_view.delete_confirm}
+        onClose={closeDeleteModal}
+        yes={handleDeletePost}
+        no={closeDeleteModal}
+      />
+      <ConfirmModal
+        isOpen={isEditCloseOpen}
         title={t.post_view.close_edit_title}
+        confirmMessage={t.post_view.close_edit_confirm}
         onClose={handleCloseEditConfirmModal}
-      >
-        <Typography variant="regular_text_16">{t.post_view.close_edit_confirm}</Typography>
-        <div className={s.deleteButtons}>
-          <Button variant="outline" onClick={handleCloseEditConfirmModal}>
-            {t.logout.yes}
-          </Button>
-          <Button variant="primary" onClick={closeEditCloseModal}>
-            {t.logout.no}
-          </Button>
-        </div>
-      </Modal>
-
+        yes={handleCloseEditConfirmModal}
+        no={closeEditCloseModal}
+      />
       <div className={s.modalContent}>
         {modalType === 'view' && (
           <>

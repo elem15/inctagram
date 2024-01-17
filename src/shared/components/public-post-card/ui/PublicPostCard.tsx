@@ -2,6 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Navigation, Pagination, Scrollbar, EffectFade } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
@@ -19,18 +20,18 @@ import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
 export const PublicPostCard: FC<PublicPostCardProps> = ({
+  postId,
   ownerId,
   profileImage,
   imagesUrl,
   description,
   userName,
-  firstName,
-  lastName,
   updatedAt,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const menuRef = useRef<HTMLDivElement | null>(null)
   const { t } = useTranslation()
+  const router = useRouter()
 
   useEffect(() => {
     const handler = (e: MouseEvent): void => {
@@ -44,6 +45,10 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
     }
   }, [isExpanded])
 
+  const handleOpenPost = () => {
+    router.push(`/public-posts/${ownerId}?postId=${postId}`)
+  }
+
   return (
     imagesUrl.length > 0 && (
       <div className={s.container}>
@@ -54,6 +59,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
           spaceBetween={10}
           slidesPerView={1}
           className={'post-images-slider'}
+          onClick={handleOpenPost}
         >
           {imagesUrl?.map((image: any, index: number) => {
             return (
