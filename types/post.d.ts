@@ -13,6 +13,7 @@ type PublicPostCardProps = {
   profileImage?: string | StaticImageData
   description: string
   imagesUrl: ImagesUrlData[]
+  userName: string
   firstName: string
   lastName: string
   updatedAt: string

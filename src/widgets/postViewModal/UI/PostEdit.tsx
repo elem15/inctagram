@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -20,6 +20,8 @@ type Props = {
   description: string
   setModalType: (modalType: 'edit' | 'view') => void
   closeModal: () => void
+  isPostEdit: boolean
+  setIsPostEdit: (isPostEdit: boolean) => void
 }
 
 export const PostEdit = ({
@@ -30,12 +32,18 @@ export const PostEdit = ({
   description,
   postId,
   closeModal,
+  isPostEdit,
+  setIsPostEdit,
 }: Props) => {
   const { t } = useTranslation()
   const [postDescription, addDescription] = useState(description)
   const { accessToken } = useAuth()
   const [updatedPost, { isLoading, error }] = useUpdatePostMutation()
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    setIsPostEdit(postDescription === description)
+  }, [description, postDescription, setIsPostEdit])
 
   const handleUpdate = () => {
     updatedPost({ description: postDescription, accessToken, postId })
@@ -75,6 +83,8 @@ export const PostEdit = ({
           onChange={e => {
             addDescription(e.target.value)
           }}
+          isError={postDescription.length > 500}
+          errorMessage={postDescription.length > 500 ? t.post_view.post_error : ''}
         />
         <Typography variant="small_text" className={s.counter}>
           {postDescription.length}/500
@@ -82,7 +92,7 @@ export const PostEdit = ({
       </main>
       <footer>
         <div className={s.submit}>
-          <Button variant="primary" onClick={handleUpdate}>
+          <Button variant="primary" onClick={handleUpdate} disabled={isPostEdit}>
             {t.post_view.save}
           </Button>
         </div>

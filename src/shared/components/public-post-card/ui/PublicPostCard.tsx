@@ -23,6 +23,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
   profileImage,
   imagesUrl,
   description,
+  userName,
   firstName,
   lastName,
   updatedAt,
@@ -84,9 +85,9 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
               ) : (
                 <Image src={SmileImg} className={s.profileImg} width={234} height={240} alt={''} />
               )}
-              {firstName && (
+              {userName && (
                 <Typography className={s.profileName} variant="bold_text_16">
-                  {`${firstName} ${lastName}`}
+                  {`${userName}`}
                 </Typography>
               )}
             </Link>

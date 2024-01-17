@@ -19,6 +19,7 @@ export const PublicPostsCardsList = () => {
               ownerId={el.ownerId}
               profileImage={el.avatarOwner}
               imagesUrl={el.images}
+              userName={el.userName}
               firstName={el.owner.firstName}
               lastName={el.owner.lastName}
               description={el.description}

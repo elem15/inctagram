@@ -28,6 +28,7 @@ import { useAuth } from '@/shared/lib/hooks/useAuth'
 type Props = {
   ownerId: number
   avatarOwner: string
+  userName: string
   firstName: string
   lastName: string
   description: string
@@ -39,6 +40,7 @@ type Props = {
 export const PostCommentsView = ({
   ownerId,
   avatarOwner,
+  userName,
   firstName,
   lastName,
   description,
@@ -62,9 +64,7 @@ export const PostCommentsView = ({
             className={s.smallAvatar}
           />
           <Link href={`/public-posts/${ownerId}`}>
-            <Typography variant="bold_text_14">
-              {firstName} {lastName}
-            </Typography>
+            <Typography variant="bold_text_14">{userName}</Typography>
           </Link>
         </div>
         {isAuth && (
@@ -101,7 +101,7 @@ export const PostCommentsView = ({
             <div className={s.postContent}>
               <Link href={`/public-posts/${ownerId}`}>
                 <Typography as="span" variant="bold_text_14">
-                  {firstName} {lastName}
+                  {userName}
                 </Typography>
               </Link>
               &nbsp;&nbsp;

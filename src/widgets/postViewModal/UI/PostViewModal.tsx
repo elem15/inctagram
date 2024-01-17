@@ -24,13 +24,18 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
   const { data, error, isLoading } = useGetSinglePostQuery(postId)
   const [modalType, setModalType] = useState<'view' | 'edit'>('view')
   const { t } = useTranslation()
-
+  const [isPostEdit, setIsPostEdit] = useState(false)
   const [deletePost, { isLoading: deleteLoading, error: deleteError }] = useDeletePostMutation()
 
   const {
     isOpen: isDeleteOpen,
     openModal: openDeleteModal,
     closeModal: closeDeleteModal,
+  } = useModal()
+  const {
+    isOpen: isEditCloseOpen,
+    openModal: openEditCloseModal,
+    closeModal: closeEditCloseModal,
   } = useModal()
 
   useFetchLoader(isLoading || deleteLoading)
@@ -44,7 +49,6 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
       .then(async () => {
         await new Promise(res => setTimeout(res, 1000))
         closeModal()
-        closeModal()
         dispatch(publicPostsApi.util.resetApiState())
         dispatch(postsApi.util.resetApiState())
       })
@@ -57,18 +61,32 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
       isHeaderDisabled={modalType === 'view' ? true : false}
       isPost={true}
       title={modalType === 'edit' ? t.post_view.edit : ''}
-      onClose={closeModal}
+      onClose={modalType === 'edit' && !isPostEdit ? openEditCloseModal : closeModal}
     >
-      <Modal open={isDeleteOpen} size={'sm'} title={'Delete Post'} onClose={closeDeleteModal}>
-        <Typography variant="regular_text_16">
-          Are you sure you want to delete this post?
-        </Typography>
+      <Modal open={isDeleteOpen} size={'sm'} title={t.post_view.delete} onClose={closeDeleteModal}>
+        <Typography variant="regular_text_16">{t.post_view.delete_confirm}</Typography>
         <div className={s.deleteButtons}>
           <Button variant="outline" onClick={handleDeletePost}>
-            Yes
+            {t.logout.yes}
           </Button>
           <Button variant="primary" onClick={closeDeleteModal}>
-            No
+            {t.logout.no}
+          </Button>
+        </div>
+      </Modal>
+      <Modal
+        open={isEditCloseOpen}
+        size={'sm'}
+        title={t.post_view.close_edit_title}
+        onClose={closeEditCloseModal}
+      >
+        <Typography variant="regular_text_16">{t.post_view.close_edit_confirm}</Typography>
+        <div className={s.deleteButtons}>
+          <Button variant="outline" onClick={closeModal}>
+            {t.logout.yes}
+          </Button>
+          <Button variant="primary" onClick={closeEditCloseModal}>
+            {t.logout.no}
           </Button>
         </div>
       </Modal>
@@ -85,6 +103,7 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
                   setModalType={setModalType}
                   ownerId={data.ownerId}
                   avatarOwner={data.avatarOwner}
+                  userName={data.userName}
                   firstName={data.owner.firstName}
                   lastName={data.owner.lastName}
                   description={data.description}
@@ -111,6 +130,8 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
             <div className={s.commentsContainer}>
               {data && (
                 <PostEdit
+                  isPostEdit={isPostEdit}
+                  setIsPostEdit={setIsPostEdit}
                   setModalType={setModalType}
                   ownerId={data.ownerId}
                   avatarOwner={data.avatarOwner}
