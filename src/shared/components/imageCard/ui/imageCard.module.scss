@@ -1,4 +1,7 @@
 .image {
+cursor: pointer;
+
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6,23 +9,27 @@
   width: 234px;
   height: 228px;
 
+  border-radius: 3px;
+
   img {
-    border-radius: 3px;
+    &:hover {
+      transform: scale(1.02, 1.02);
+    }
   }
 }
 
-@media (width <= 640px) {
-  .image {
-    width: 108px;
-    height: 108px;
-    border-radius: 3px;
-  }
-}
+// @media (width <= 640px) {
+//   .image {
+//     width: 108px;
+//     height: 108px;
+//     border-radius: 3px;
+//   }
+// }
 
-@media (width <= 375px) {
-  .image {
-    width: 90px;
-    height: 90px;
-    border-radius: 3px;
-  }
-}
+// @media (width <= 375px) {
+//   .image {
+//     width: 90px;
+//     height: 90px;
+//     border-radius: 3px;
+//   }
+// }

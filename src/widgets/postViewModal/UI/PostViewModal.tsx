@@ -99,7 +99,13 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
           <>
             <div>
               {data && data.id === postId && (
-                <Image src={data.images[0].url} alt={data.description} width={550} height={621} />
+                <Image
+                  src={data.images[0].url}
+                  alt={data.description}
+                  width={500}
+                  height={621}
+                  className={s.singleImage}
+                />
               )}
             </div>
             <div className={s.commentsContainer}>

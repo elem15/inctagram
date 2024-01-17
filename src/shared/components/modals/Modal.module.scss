@@ -44,7 +44,14 @@
   }
 
   &.xl {
-    width: 1024px;
+    width: 992px;
+  }
+
+  @media screen and (width <= 1024px) {
+    &.xl
+     {
+      width: fit-content;
+    }
   }
 
   @media screen and (width <= 768px) {
@@ -55,7 +62,6 @@
     &.l,
     &.sm,
     &.md,
-    &.xl,
     &.lg {
       width: calc(100% - 32px);
     }

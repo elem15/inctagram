@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 
 import s from './Scroller.module.scss'
+import { cn } from '@/shared/lib/utils'
 
 export type ScrollerOrientation = 'vertical' | 'horizontal'
 
@@ -18,7 +19,7 @@ export const Scroller = (props: ScrollerProps) => {
   return (
     <ScrollArea.Root
       scrollHideDelay={100_000}
-      className={s.scrollAreaRoot}
+      className={cn(s.scrollAreaRoot, props.className)}
       style={{
         height: props.customHeight,
         width: props.customWidth,
