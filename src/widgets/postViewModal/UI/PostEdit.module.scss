@@ -3,7 +3,6 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 24px;
-
 }
 
 .avatar {
@@ -28,14 +27,14 @@
 .button {
   margin: 0;
   padding: 0;
-  color: var(--color-light-100)
+  color: var(--color-light-100);
 }
 
 .post {
   display: flex;
   column-gap: 12px;
   align-items: flex-start;
-  padding: 12px 24px;  
+  padding: 12px 24px;
 }
 
 .counter {
@@ -44,12 +43,11 @@
   text-align: right;
 }
 
-
 .submit {
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  padding: 12px 24px; 
+  padding: 12px 24px;
 }
 
 .main {
@@ -58,7 +56,7 @@
 }
 
 .description {
-  height: 150px; 
+  height: 150px;
 }
 
 .container {

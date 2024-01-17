@@ -57,7 +57,7 @@
 .button {
   margin: 0;
   padding: 0;
-  color: var(--color-light-100)
+  color: var(--color-light-100);
 }
 
 .post {
@@ -65,7 +65,7 @@
   column-gap: 12px;
   align-items: flex-start;
 
-  padding: 12px 24px;  
+  padding: 12px 24px;
 
   overflow-wrap: break-word;
 }
@@ -84,7 +84,7 @@
 }
 
 .like {
-  padding: 24px 24px 0 0;  
+  padding: 24px 24px 0 0;
 }
 
 .share {
@@ -145,5 +145,5 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px; 
+  padding: 12px 24px;
 }

@@ -48,8 +48,7 @@
   }
 
   @media screen and (width <= 1024px) {
-    &.xl
-     {
+    &.xl {
       width: fit-content;
     }
   }
@@ -68,7 +67,7 @@
   }
 }
 
-.box{
+.box {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -79,7 +78,6 @@
 
   @media screen and (width <= 910px) {
     margin: 0 8%;
-
   }
 
   @media screen and (width <= 768px) {
@@ -110,7 +108,7 @@
   padding: 24px 24px 30px;
 }
 
-.postBox{
+.postBox {
   position: relative;
   padding: 0;
 }
@@ -150,6 +148,5 @@
 
   .closeButton {
     background: transparent;
-
   }
 }

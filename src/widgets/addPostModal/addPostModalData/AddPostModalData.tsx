@@ -50,9 +50,9 @@ export const AddPostModalData = ({ selectPhoto, closePostModal, setImageScr }: P
   }
   const handleOnCropComplete =
     (id: string) =>
-      (_croppedArea: Record<'x' | 'y', number>, croppedAreaPixels: CroppedAreaPixel) => {
-        dispatch(updateCroppedAreaPixels({ croppedAreaPixels: croppedAreaPixels, id }))
-      }
+    (_croppedArea: Record<'x' | 'y', number>, croppedAreaPixels: CroppedAreaPixel) => {
+      dispatch(updateCroppedAreaPixels({ croppedAreaPixels: croppedAreaPixels, id }))
+    }
   const customStyles = {
     style: {
       containerStyle: {
