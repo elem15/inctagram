@@ -115,12 +115,7 @@ const Information = () => {
     profile?.aboutMe && setValue('aboutMe', profile.aboutMe)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps, prettier/prettier
-  }, [
-    profile?.firstName,
-    profile?.lastName,
-    profile?.userName,
-    profile?.aboutMe,
-  ])
+  }, [profile?.firstName, profile?.lastName, profile?.userName, profile?.aboutMe])
 
   useEffect(() => {
     isSuccess && dispatch(setAlert({ message: t.profile.success, variant: 'info' }))

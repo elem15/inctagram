@@ -39,7 +39,7 @@ export const ProfilePhoto = () => {
           )}
         </div>
       </div>
-      <Button variant={'outline'} onClick={openModal} style={{ width: '148px' }}>
+      <Button variant={'outline'} onClick={() => openModal()} style={{ width: '148px' }}>
         {t.add_profile_photo.add_profile_photo_text}
       </Button>
       <AddAvatarModalWitOutRotation isOpen={isOpen} closeModal={closeModal} />

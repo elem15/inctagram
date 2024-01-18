@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import ReactTimeAgo from 'react-time-ago'
+import { useRouter } from 'next/router'
 import { Navigation, Pagination, Scrollbar, EffectFade } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
@@ -10,7 +10,7 @@ import 'swiper/css'
 import s from './PublicPostCard.module.scss'
 
 import SmileImg from '@/shared/assets/SmileImg.png'
-import { Typography } from '@/shared/components'
+import { TimeAgo, Typography } from '@/shared/components'
 import { ExpandableText } from '@/shared/components/expandable-text'
 import { useTranslation } from '@/shared/lib'
 import '../../../assets/swiperStyle/post-images-slider.scss'
@@ -20,17 +20,18 @@ import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
 export const PublicPostCard: FC<PublicPostCardProps> = ({
+  postId,
   ownerId,
   profileImage,
   imagesUrl,
   description,
-  firstName,
-  lastName,
+  userName,
   updatedAt,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const menuRef = useRef<HTMLDivElement | null>(null)
   const { t } = useTranslation()
+  const router = useRouter()
 
   useEffect(() => {
     const handler = (e: MouseEvent): void => {
@@ -44,6 +45,10 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
     }
   }, [isExpanded])
 
+  const handleOpenPost = () => {
+    router.push(`/public-posts/${ownerId}?postId=${postId}`)
+  }
+
   return (
     imagesUrl.length > 0 && (
       <div className={s.container}>
@@ -54,6 +59,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
           spaceBetween={10}
           slidesPerView={1}
           className={'post-images-slider'}
+          onClick={handleOpenPost}
         >
           {imagesUrl?.map((image: any, index: number) => {
             return (
@@ -85,14 +91,14 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
               ) : (
                 <Image src={SmileImg} className={s.profileImg} width={234} height={240} alt={''} />
               )}
-              {firstName && (
+              {userName && (
                 <Typography className={s.profileName} variant="bold_text_16">
-                  {`${firstName} ${lastName}`}
+                  {`${userName}`}
                 </Typography>
               )}
             </Link>
             <Typography className={s.timeInfo} variant="semi-bold_small_text">
-              <ReactTimeAgo date={Date.parse(updatedAt)} locale={t.lg} />
+              <TimeAgo updatedAt={updatedAt} lg={t.lg} />
             </Typography>
             <div className={s.description}>
               <ExpandableText

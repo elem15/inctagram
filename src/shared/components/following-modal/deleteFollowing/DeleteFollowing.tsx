@@ -37,7 +37,7 @@ export const DeleteFollowing = ({ avatar, name, isMob }: Props) => {
       ) : (
         <Button
           variant={'outline'}
-          onClick={openModal}
+          onClick={() => openModal()}
           style={
             isMob ? { fontSize: '14px', padding: '5px 10px', color: '#fff' } : { color: '#fff' }
           }

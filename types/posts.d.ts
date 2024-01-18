@@ -1,5 +1,5 @@
 type PostsQuery = {
-  userId: string,
+  userId: number,
   postId?: number,
 }
 type PostImage={
@@ -23,27 +23,21 @@ type PostsData = {
   totalUsers: number
 }
 
+type PostImageDTO = {
+  url: string,
+  width: number,
+  height: number,
+  fileSize: number,
+  uploadId: string
+}
+
 type PostDataItem = {
   id: number,
   ownerId: number,
+  userName: string,
   description: string,
   location: string,
-  images: [
-    {
-      url: string,
-      width: number,
-      height: number,
-      fileSize: number,
-      uploadId: string
-    },
-    {
-      url: string,
-      width: number,
-      height: number,
-      fileSize: number,
-      uploadId: string,
-    }
-  ],
+  images: PostImageDTO[],
   createdAt: string,
   updatedAt: string,
   avatarOwner:string,

@@ -4,14 +4,19 @@
     font-weight: bold;
     color: rgb(255 255 255);
   }
-  .swiper-pagination-fraction, .swiper-pagination-custom, .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal{
-    @media screen and (width<=910px){
-      width: 47%;
-      left: 30%;
+
+  .swiper-pagination-fraction,
+  .swiper-pagination-custom,
+  .swiper-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal {
+    @media screen and (width<=910px) {
       top: 89%;
+      left: 30%;
+      width: 47%;
       height: 10px;
     }
   }
+
   .swiper-button-prev::after,
   .swiper-button-next::after {
     padding: 10px;
@@ -19,7 +24,6 @@
     opacity: 0.8;
     background-color: var(--color-dark-500);
   }
-
 }
 
 .post-images-filter {

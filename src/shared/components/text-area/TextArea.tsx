@@ -20,7 +20,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
       <div className={s.container}>
         {label && <label className={s.label}>{label}</label>}
         <textarea
-          className={clsx(s.textarea, showError && s.error)}
+          className={clsx(s.textarea, showError && s.error, className)}
           onChange={handleInputValueChanged}
           ref={ref}
           {...rest}

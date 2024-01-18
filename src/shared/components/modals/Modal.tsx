@@ -9,7 +9,7 @@ import s from './Modal.module.scss'
 
 import { PostModalHeader } from '@/widgets/addPostModal/modalPostHeader'
 
-export type ModalSize = 'lg' | 'md' | 'sm' | 'xs' | 's' | 'm' | 'l'
+export type ModalSize = 'lg' | 'md' | 'sm' | 'xs' | 's' | 'm' | 'l' | 'xl'
 type Props = {
   children: ReactNode
   onClose?: () => void
@@ -22,6 +22,7 @@ type Props = {
   closePostModal?: () => void
   onClickNext?: () => void
   isCropHeader?: boolean
+  isHeaderDisabled?: boolean
   buttonText?: string
   disableButton?: any
 } & ComponentProps<'div'>
@@ -64,6 +65,7 @@ export const Modal = ({
   isCropHeader,
   buttonText,
   disableButton,
+  isHeaderDisabled,
 }: Props) => {
   const handleOpenChange = () => {
     onClose?.()
@@ -93,26 +95,36 @@ export const Modal = ({
               onInteractOutside={onInteractOutside}
             >
               <motion.div animate={'visible'} exit={'exit'} initial={'hidden'} variants={dropIn}>
-                {isCropHeader ? (
-                  <PostModalHeader
-                    closeModal={closePostModal}
-                    title={title}
-                    onNext={onClickNext}
-                    buttonText={buttonText}
-                    disableButton={disableButton}
-                  />
-                ) : (
-                  <header className={s.header}>
-                    <Dialog.Title asChild>
-                      <h2 className={s.title}>{title}</h2>
-                    </Dialog.Title>
+                {!isHeaderDisabled ? (
+                  <>
+                    {isCropHeader ? (
+                      <PostModalHeader
+                        closeModal={closePostModal}
+                        title={title}
+                        onNext={onClickNext}
+                        buttonText={buttonText}
+                        disableButton={disableButton}
+                      />
+                    ) : (
+                      <header className={s.header}>
+                        <Dialog.Title asChild>
+                          <h2 className={s.title}>{title}</h2>
+                        </Dialog.Title>
 
-                    {showCloseButton && (
-                      <Dialog.Close className={s.closeButton}>
-                        <CloseIcon />
-                      </Dialog.Close>
+                        {showCloseButton && (
+                          <Dialog.Close className={s.closeButton}>
+                            <CloseIcon />
+                          </Dialog.Close>
+                        )}
+                      </header>
                     )}
-                  </header>
+                  </>
+                ) : (
+                  <div className={s.closeButtonOutside}>
+                    <Dialog.Close className={s.closeButton}>
+                      <CloseIcon />
+                    </Dialog.Close>
+                  </div>
                 )}
                 <div className={classNames.contentBoxModal}>{children}</div>
               </motion.div>
@@ -150,5 +162,8 @@ function getSizeClassName(size: ModalSize) {
   }
   if (size === 'l') {
     return s.l
+  }
+  if (size === 'xl') {
+    return s.xl
   }
 }

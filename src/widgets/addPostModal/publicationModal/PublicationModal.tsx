@@ -70,23 +70,13 @@ export const PublicationModal: FC<Props> = ({
   }
 
   const downloadNewPosts = () => {
-    new Promise(res => setTimeout(res, 2000))
-      .then(() => {
-        onPrevStep()
-      })
-
-      .then(() => {
-        dispatch(removeAllPhotos())
-      })
-      .then(() => {
-        setImageScr(null)
-      })
-      .then(() => {
-        dispatch(postsApi.util.resetApiState())
-      })
-      .then(() => {
-        discardAll()
-      })
+    new Promise(res => setTimeout(res, 2000)).then(() => {
+      onPrevStep()
+      dispatch(removeAllPhotos())
+      setImageScr(null)
+      dispatch(postsApi.util.resetApiState())
+      discardAll()
+    })
   }
 
   useFetchLoader(isPostLoading)
@@ -126,11 +116,12 @@ export const PublicationModal: FC<Props> = ({
     await publishPostImage({ postsPhoto: croppedImages, accessToken })
       .unwrap()
       .then(res => {
-        const imgId = res.images[0].uploadId
+        const images = res.images as PostImageDTO[]
+        const childrenMetadata = images.map(i => ({ uploadId: i.uploadId }))
 
         publishDescription({
           description: text,
-          childrenMetadata: [{ uploadId: imgId }],
+          childrenMetadata,
           accessToken,
         })
       })

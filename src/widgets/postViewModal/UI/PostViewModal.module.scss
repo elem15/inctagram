@@ -1,0 +1,36 @@
+.modalContent {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.imageContainer {
+  width: 500px;
+  height: 621px;
+}
+
+@media (width <= 1024px) {
+  .modalContent {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.commentsContainer {
+  flex-basis: 450px;
+  flex-grow: 1;
+
+  max-width: 500px;
+  min-height: 350px;
+  padding-top: 20px;
+}
+
+.deleteButtons {
+  display: flex;
+  column-gap: 30px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.singleImage {
+  min-width: 500px;
+}
