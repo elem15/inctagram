@@ -14,7 +14,6 @@ import { TimeAgo, Typography } from '@/shared/components'
 import { ExpandableText } from '@/shared/components/expandable-text'
 import { useTranslation } from '@/shared/lib'
 import '../../../assets/swiperStyle/post-images-slider.scss'
-
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
@@ -48,8 +47,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
   }, [isExpanded])
 
   const handleOpenPost = () => {
-    console.log(ownerId, userId)
-    if (userId == ownerId) {
+    if (userId === ownerId) {
       router.push(`/my-profile?modalId=${postId}`)
     } else {
       router.push(`/public-posts/${ownerId}?modalId=${postId}`)
