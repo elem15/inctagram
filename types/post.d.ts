@@ -21,7 +21,7 @@ type PublicPostCardProps = {
 }
 
 type PublicPostsResponseData = {
-    items: []
+    items: PostDataType[]
     totalCount: number
     pageSize: number
     totalUsers: number

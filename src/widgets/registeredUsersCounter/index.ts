@@ -1,1 +1,1 @@
-export { RegisteredUsers } from './ui/RegisteredUsers'
+export * from './ui/RegisteredUsers'

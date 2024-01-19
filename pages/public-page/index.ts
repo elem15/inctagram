@@ -1,1 +1,1 @@
-export { PublicPage as default } from '@/pages/publicPage'
+export { PublicPage as default, getStaticProps } from '@/pages/publicPage'
