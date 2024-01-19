@@ -272,13 +272,13 @@ export const FilterModal: FC<Props> = ({
         {/*  />*/}
         {/*</div>*/}
 
-        <PublicationModal
-          isOpen={isOpen}
-          onPrevStep={closeModal}
-          discardAll={handleDiscard}
-          photos={croppers}
-          setImageScr={setImageScr}
-        />
+        {/*<PublicationModal*/}
+        {/*  isOpen={isOpen}*/}
+        {/*  onPrevStep={closeModal}*/}
+        {/*  discardAll={handleDiscard}*/}
+        {/*  photos={croppers}*/}
+        {/*  setImageScr={setImageScr}*/}
+        {/*/>*/}
       </Modal>
     </div>
   )
