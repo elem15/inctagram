@@ -1,14 +1,13 @@
-import { BACKEND_URL, BASE_URL } from '@/shared/constants/ext-urls'
+import { BACKEND_URL } from '@/shared/constants/ext-urls'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
-import { PublicPostsCardsList } from '@/widgets/publicPostsCardsList'
-import { RegisteredUsers } from '@/widgets/registeredUsersCounter'
-import { RegisteredUsersUI } from '@/widgets/registeredUsersCounter/ui/RegisteredUsersUI'
+import { PublicPostsCardsListUI } from '@/widgets/publicPostsCardsList'
+import { RegisteredUsersUI } from '@/widgets/registeredUsersCounter'
 
 const PublicPage = ({ data }: { data: PublicPostsResponseData }) => {
   return (
     <div className=" w-full mx-12 mt-6 mb-12">
       <RegisteredUsersUI totalUsers={data.totalUsers} />
-      {/* <PublicPostsCardsList /> */}
+      <PublicPostsCardsListUI items={data.items} />
     </div>
   )
 }
