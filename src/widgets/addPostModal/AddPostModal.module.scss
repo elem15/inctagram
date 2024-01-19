@@ -1,12 +1,14 @@
-.modalBox{
+.modalBox {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   min-width: 222px;
-margin-top: 48px;
+  margin-top: 48px;
   margin-bottom: 36px;
 }
-.box{
+
+.box {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,50 +20,52 @@ margin-top: 48px;
   background-color: var(--color-dark-500);
   border-radius: 2px;
 }
-.errorText{
 
-    width: 100%;
-    margin-bottom: 30px;
-    padding: 6px 24px;
+.errorText {
+  width: 100%;
+  margin-bottom: 30px;
+  padding: 6px 24px;
 
-    font-size: var(--font-size-s);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-m);
-    text-align: center;
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-m);
+  text-align: center;
 
-    background-color: var(--color-danger-900);
-    border: 1px solid var(--color-danger-500);
-    border-radius: 2px;
-
+  background-color: var(--color-danger-900);
+  border: 1px solid var(--color-danger-500);
+  border-radius: 2px;
 }
 
-.imageBox{
+.imageBox {
   position: relative;
 
-
   height: 504px;
-
 
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
-.menuBox{
+
+.menuBox {
   position: relative;
   height: 504px;
 }
-.croppedModal{
+
+.croppedModal {
   padding: 0;
 }
 
-.swiperController{
+.swiperController {
   position: relative;
 }
+
 .swiperButtonPrev,
-.swiperButtonNext{
+.swiperButtonNext {
   position: absolute;
+  z-index: 100;
+
   width: 48px;
   height: 48px;
-  background-color:var(--color-dark-100);
-z-index: 100;
+
+  background-color: var(--color-dark-100);
 }

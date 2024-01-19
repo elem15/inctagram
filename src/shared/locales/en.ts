@@ -188,6 +188,21 @@ export const en = {
   registered_users: {
     title: 'Registered Users:',
   },
+  post_view: {
+    edit: 'Edit Post',
+    delete: 'Delete Post',
+    answer: 'Answer',
+    like: 'Like',
+    add_comment: 'Add a Comment...',
+    publish: 'Publish',
+    description: 'Add publication descriptions',
+    save: 'Save changes',
+    delete_confirm: 'Are you sure you want to delete this post?',
+    close_edit_title: 'Close Post',
+    close_edit_confirm:
+      'Do you really want to close the edition of the publication? If you close changes won’t be saved',
+    post_error: 'Maximum number of characters 500',
+  },
   post: {
     post_modal_title: 'Add photo',
     crop_modal_title: 'Cropping',

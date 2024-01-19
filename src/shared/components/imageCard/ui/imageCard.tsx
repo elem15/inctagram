@@ -7,25 +7,33 @@ import s from './imageCard.module.scss'
 import { useFetchLoader } from '@/shared/lib'
 
 type Props = ImageProps & {
+  postId: number
   cardClassName?: string
+  openModal: (postId: number) => void
 }
 
-export const ImageCard = ({ src, alt, cardClassName, width, height }: Props) => {
+export const ImageCard = ({ postId, src, alt, cardClassName, width, height, openModal }: Props) => {
   const [loading, setLoading] = useState(true)
 
   useFetchLoader(loading)
 
   return (
-    <div className={s.image}>
-      <Image
-        src={src}
-        className={cardClassName}
-        alt={alt}
-        priority={false}
-        width={width}
-        height={height}
-        onLoadingComplete={() => setLoading(false)}
-      />
-    </div>
+    <>
+      <div
+        className={s.image}
+        onClick={() => {
+          openModal(postId)
+        }}
+      >
+        <Image
+          src={src}
+          className={cardClassName}
+          alt={alt}
+          width={width}
+          height={height}
+          onLoadingComplete={() => setLoading(false)}
+        />
+      </div>
+    </>
   )
 }

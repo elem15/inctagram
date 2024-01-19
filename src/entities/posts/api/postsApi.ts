@@ -2,10 +2,30 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { BACKEND_URL } from '@/shared/constants/ext-urls'
 
+const getLargeImage = (item: PostDataItem) => {
+  let img
+
+  if (item.images.length) {
+    img = item.images.find(i => i.width === 1440)
+  }
+
+  if (!img) {
+    img = item.images[0]
+  }
+
+  return {
+    id: item.id,
+    description: item.description,
+    url: img ? img.url : '',
+    width: img ? img.width : 640,
+    height: img ? img.height : 360,
+  }
+}
+
 export const postsApi = createApi({
   reducerPath: 'posts',
   baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
-  tagTypes: ['Posts'],
+  tagTypes: ['Posts', 'PublicPosts'],
   endpoints: builder => ({
     getPosts: builder.query<any, PostsQuery>({
       query: ({ userId, postId }) => {
@@ -19,13 +39,7 @@ export const postsApi = createApi({
       },
       providesTags: ['Posts'],
       transformResponse: (response: PostsData): PostDataToComponent[] => {
-        return response?.items.map(item => ({
-          id: item.id,
-          description: item.description,
-          url: item.images.length ? item.images[1].url : '',
-          width: item.images.length ? item.images[1].width : 640,
-          height: item.images.length ? item.images[1].height : 360,
-        }))
+        return response?.items.map(getLargeImage)
       },
     }),
     publishPostsImage: builder.mutation<any, { postsPhoto: any; accessToken: string | undefined }>({
@@ -82,7 +96,53 @@ export const postsApi = createApi({
       },
       invalidatesTags: [],
     }),
+    updatePost: builder.mutation<
+      any,
+      {
+        description: string
+        postId: number
+        accessToken: string | undefined
+      }
+    >({
+      query: ({ description, postId, accessToken }) => {
+        return {
+          url: `/posts/${postId}`,
+          body: { description },
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + accessToken,
+          },
+        }
+      },
+      invalidatesTags: ['Posts'],
+    }),
+    deletePost: builder.mutation<
+      any,
+      {
+        postId: number
+        accessToken: string | undefined
+      }
+    >({
+      query: ({ postId, accessToken }) => {
+        return {
+          url: `/posts/${postId}`,
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + accessToken,
+          },
+        }
+      },
+      invalidatesTags: [],
+    }),
   }),
 })
 
-export const { useGetPostsQuery, usePublishPostsImageMutation, usePublishPostsMutation } = postsApi
+export const {
+  useGetPostsQuery,
+  usePublishPostsImageMutation,
+  usePublishPostsMutation,
+  useUpdatePostMutation,
+  useDeletePostMutation,
+} = postsApi

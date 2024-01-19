@@ -1,1 +1,6 @@
-export { postsApi, useGetPostsQuery } from './api/postsApi'
+export {
+  postsApi,
+  useGetPostsQuery,
+  useUpdatePostMutation,
+  useDeletePostMutation,
+} from './api/postsApi'

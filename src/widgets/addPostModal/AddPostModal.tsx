@@ -158,9 +158,9 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
         onClickNext={handleOpenFilter}
         closePostModal={handleBack}
         buttonText={t.post.button_navigation_text}
-        isCropHeader={imageSrc ? true : false}
-        showCloseButton={imageSrc ? false : true}
-        isPost={true}
+        isCropHeader={!!imageSrc}
+        showCloseButton={!!imageSrc}
+        isPost
         onClose={closePostModal}
         onInteractOutside={handleInteractOutsideOfCrop}
       >

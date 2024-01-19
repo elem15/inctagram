@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react'
 
 import Cropper from 'react-easy-crop'
@@ -37,12 +38,6 @@ export const AddPostModalData = ({ selectPhoto, closePostModal, setImageScr }: P
   }
   const handleAspectChange = (selectedAspect: string, id: string) => {
     switch (selectedAspect) {
-      case 'contain':
-        dispatch(updateAspect({ aspect: 1, id }))
-        break
-      case '1/1':
-        dispatch(updateAspect({ aspect: 1, id }))
-        break
       case 'vertical':
         dispatch(updateAspect({ aspect: 4 / 9, id }))
         break

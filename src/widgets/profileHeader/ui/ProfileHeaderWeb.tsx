@@ -35,13 +35,13 @@ export const ProfileHeaderWeb = ({ data, isAuth }: Props) => {
             )}
           </div>
           <Typography variant="bold_text_16" className={s.linkSmallProfile}>
-            URLProfile
+            {data.userName}
           </Typography>
         </div>
         <div className={s.dataProfile}>
           <div className={s.header}>
             <Typography variant="h1" className={s.linkLargeProfile}>
-              URLProfile
+              {data.userName}
             </Typography>
             {isAuth && (
               <Button variant="secondary" className={s.buttonSettings}>

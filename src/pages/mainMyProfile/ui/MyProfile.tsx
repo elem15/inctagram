@@ -18,8 +18,8 @@ function MyProfile() {
 
   return (
     <div className={s.container}>
-      {data && <ProfileHeaderWeb data={data} isAuth={isAuth} />}
-      {userId && <ImageListWidget userId={userId} />}
+      {data ? <ProfileHeaderWeb data={data} isAuth={isAuth} /> : null}
+      {userId ? <ImageListWidget userId={userId} /> : null}
     </div>
   )
 }

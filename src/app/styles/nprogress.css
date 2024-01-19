@@ -11,7 +11,7 @@
   width: 100%;
   height: 4px;
 
-  background: #397DF6;
+  background: #397df6;
 }
 
 #nprogress .peg {
@@ -28,6 +28,8 @@
   width: 100px;
   height: 100%;
 
-  opacity: 1.0;
-  box-shadow: 0 0 10px #7dacfe, 0 0 5px #7dacfe;
+  opacity: 1;
+  box-shadow:
+    0 0 10px #7dacfe,
+    0 0 5px #7dacfe;
 }

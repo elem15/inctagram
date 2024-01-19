@@ -1,39 +1,44 @@
-@use "../../../../../../shared/assets/mixins";
-.tool{
-  @include mixins.tool
+@use '../../../../../../shared/assets/mixins';
+
+.tool {
+  @include mixins.tool;
 }
-.newItem{
-  width: 244px;
-  height: 106px;
+
+.newItem {
   display: flex;
   justify-content: space-between;
-
+  width: 244px;
+  height: 106px;
 }
-.onePhoto{
+
+.onePhoto {
   width: 152px;
 }
 
-.box{
+.box {
   opacity: 0.8;
 }
-.menuBox{
+
+.menuBox {
   position: relative;
 }
-.imgs{
+
+.imgs {
   display: flex;
   gap: 3px;
   width: 164px;
-  >img{
+
+  > img {
     width: 80px;
     height: 82px;
-
     opacity: 0.8;
   }
-
 }
-.oneSlide{
+
+.oneSlide {
   width: 152px;
 }
-.oneImg{
+
+.oneImg {
   width: 80px;
 }

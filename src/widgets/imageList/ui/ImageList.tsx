@@ -1,24 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react'
 
+import { useSearchParams } from 'next/navigation'
+
 import s from './ImageList.module.scss'
 
 import { useGetPostsQuery } from '@/entities/posts'
 import { ImageCard } from '@/shared/components/imageCard'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
-type Props = { userId: string }
+import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
+import { PostViewModal } from '@/widgets/postViewModal'
+
+type Props = { userId: number }
 
 export const ImageListWidget = ({ userId }: Props) => {
   const [postId, setPostId] = useState<number>()
   const [images, setImages] = useState<PostDataToComponent[]>([])
   const ref = useRef(null)
   const { data, isLoading, error } = useGetPostsQuery({ userId, postId })
+  const { isOpen, openModal, closeModal, modalId } = useModal()
+  const searchParams = useSearchParams()
+
+  const postNumber = searchParams?.get('postId') as string | undefined
 
   useEffect(() => {
-    setImages([])
-  }, [])
+    postNumber && openModal(+postNumber)
+  }, [postNumber])
+
   useEffect(() => {
-    const imagesData = data ? (data as PostDataToComponent[]) : []
+    const imagesData: PostDataToComponent[] = data ?? []
     const index = images.findIndex(image => image.id === imagesData[0]?.id)
 
     if (!data) {
@@ -55,13 +65,24 @@ export const ImageListWidget = ({ userId }: Props) => {
   return (
     <>
       <div className={s.container}>
-        {images?.map(({ id, url, description, width, height }) => (
-          <ImageCard key={id} src={url} alt={description} width={width} height={height} />
-        ))}
+        {!!images &&
+          images.length > 0 &&
+          images.map(({ id, url, description, width, height }) => (
+            <ImageCard
+              key={id}
+              postId={id}
+              src={url}
+              alt={description}
+              width={width}
+              height={height}
+              openModal={openModal}
+            />
+          ))}
       </div>
       <div ref={ref} style={{ visibility: 'hidden' }}>
         __________________
       </div>
+      {!!modalId && <PostViewModal postId={modalId} isOpen={isOpen} closeModal={closeModal} />}
     </>
   )
 }
