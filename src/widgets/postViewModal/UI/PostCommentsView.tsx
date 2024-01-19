@@ -21,6 +21,7 @@ import {
   TimeAgo,
   Typography,
 } from '@/shared/components'
+import { AvatarSmallView } from '@/shared/components/avatarSmallView'
 import { Scroller } from '@/shared/components/scroller/Scroller'
 import { useFormatDate, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
@@ -29,8 +30,6 @@ type Props = {
   ownerId: number
   avatarOwner: string
   userName: string
-  firstName: string
-  lastName: string
   description: string
   updatedAt: string
   setModalType: (modalType: 'edit' | 'view') => void
@@ -41,8 +40,6 @@ export const PostCommentsView = ({
   ownerId,
   avatarOwner,
   userName,
-  firstName,
-  lastName,
   description,
   updatedAt,
   setModalType,
@@ -56,13 +53,7 @@ export const PostCommentsView = ({
     <div>
       <header className={s.header}>
         <div className={s.avatar}>
-          <Image
-            src={avatarOwner}
-            width={36}
-            height={36}
-            alt="Owner's avatar"
-            className={s.smallAvatar}
-          />
+          <AvatarSmallView avatarOwner={avatarOwner} />
           <Link href={`/public-posts/${ownerId}`}>
             <Typography variant="bold_text_14">{userName}</Typography>
           </Link>
@@ -90,13 +81,7 @@ export const PostCommentsView = ({
       <main className={s.main}>
         <Scroller className={s.scrollContent}>
           <div className={s.post}>
-            <Image
-              src={avatarOwner}
-              width={36}
-              height={36}
-              alt="Owner's avatar"
-              className={s.smallAvatarPost}
-            />
+            <AvatarSmallView avatarOwner={avatarOwner} />
             <div className={s.postContent}>
               <Link href={`/public-posts/${ownerId}`}>
                 <Typography as="span" variant="bold_text_14">
@@ -233,13 +218,7 @@ export const PostCommentsView = ({
           </div>
           <div className={s.likeCounter}>
             <div className={s.avatarLayers}>
-              <Image
-                src={avatarOwner}
-                width={36}
-                height={36}
-                alt="Owner's avatar"
-                className={s.smallAvatarLayer}
-              />
+              <AvatarSmallView avatarOwner={avatarOwner} className={s.smallAvatarLayer} />
               <Image
                 src={PersonImg3}
                 width={36}

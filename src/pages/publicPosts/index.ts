@@ -1,1 +1,1 @@
-export { PublicPosts } from './ui/PublicPosts'
+export { PublicPosts, getServerSideProps } from './ui/PublicPosts'

@@ -1,37 +1,25 @@
-import { useRouter } from 'next/router'
+import { GetServerSideProps } from 'next'
 
-import { useGetPublicProfileQuery } from '@/entities/profile/api/profileApi'
-import { useErrorHandler, useFetchLoader } from '@/shared/lib'
-import { ImageListWidget } from '@/widgets/imageList'
+import { BACKEND_URL } from '@/shared/constants/ext-urls'
+import { ImageListWidgetSSR } from '@/widgets/imageListSSR'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { ProfileHeaderWeb } from '@/widgets/profileHeader'
 
-const PublicPosts = () => {
-  let {
-    query: { ownerId },
-  } = useRouter()
-
-  if (ownerId && !Array.isArray(ownerId)) {
-    ownerId = ownerId as string
-  } else {
-    ownerId = ''
-  }
-
-  const { data, isLoading, error } = useGetPublicProfileQuery({
-    profileId: ownerId,
-  })
-
-  useFetchLoader(isLoading)
-  useErrorHandler(error as CustomerError)
-
+export const PublicPosts = ({ data }: { data: PublicProfile }) => {
   return (
-    <div className=" w-full mx-12 mt-6 mb-12">
-      {data ? <ProfileHeaderWeb data={data} /> : null}
-      {ownerId ? <ImageListWidget userId={+ownerId} /> : null}
+    <div className="w-full mx-12 mt-6 mb-12">
+      <ProfileHeaderWeb data={data} />
+      <ImageListWidgetSSR userId={data.id} />
     </div>
   )
 }
 
 PublicPosts.getLayout = getHeaderLayout
 
-export { PublicPosts }
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  var profileId = ctx.query.ownerId
+  const res = await fetch(`${BACKEND_URL}/public-user/profile/${profileId}`)
+  const data: PublicProfile = await res.json()
+
+  return { props: { data } }
+}
