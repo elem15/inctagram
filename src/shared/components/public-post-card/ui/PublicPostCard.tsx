@@ -18,6 +18,7 @@ import '../../../assets/swiperStyle/post-images-slider.scss'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 export const PublicPostCard: FC<PublicPostCardProps> = ({
   postId,
@@ -32,6 +33,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
   const menuRef = useRef<HTMLDivElement | null>(null)
   const { t } = useTranslation()
   const router = useRouter()
+  const { userId } = useAuth()
 
   useEffect(() => {
     const handler = (e: MouseEvent): void => {
@@ -46,7 +48,12 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
   }, [isExpanded])
 
   const handleOpenPost = () => {
-    router.push(`/public-posts/${ownerId}?postId=${postId}`)
+    console.log(ownerId, userId)
+    if (userId == ownerId) {
+      router.push(`/my-profile?modalId=${postId}`)
+    } else {
+      router.push(`/public-posts/${ownerId}?modalId=${postId}`)
+    }
   }
 
   return (

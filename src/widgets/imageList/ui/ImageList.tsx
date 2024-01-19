@@ -21,7 +21,7 @@ export const ImageListWidget = ({ userId }: Props) => {
   const { isOpen, openModal, closeModal, modalId } = useModal()
   const searchParams = useSearchParams()
 
-  const postNumber = searchParams?.get('postId') as string | undefined
+  const postNumber = searchParams?.get('modalId') as string | undefined
 
   useEffect(() => {
     postNumber && openModal(+postNumber)
@@ -82,7 +82,7 @@ export const ImageListWidget = ({ userId }: Props) => {
       <div ref={ref} style={{ visibility: 'hidden' }}>
         __________________
       </div>
-      {!!modalId && <PostViewModal postId={modalId} isOpen={isOpen} closeModal={closeModal} />}
+      {!!modalId && <PostViewModal modalId={modalId} isOpen={isOpen} closeModal={closeModal} />}
     </>
   )
 }

@@ -1,4 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react'
+
+import { useSearchParams } from 'next/navigation'
+
 import s from '../../imageList/ui/ImageList.module.scss'
 
 import { ImageCard } from '@/shared/components/imageCard'
@@ -9,6 +13,13 @@ type Props = { posts: PostDataToComponent[] }
 
 export const ImageListWidgetSSR = ({ posts }: Props) => {
   const { isOpen, openModal, closeModal, modalId } = useModal()
+  const searchParams = useSearchParams()
+
+  const postNumber = searchParams?.get('modalId') as string | undefined
+
+  useEffect(() => {
+    postNumber && openModal(+postNumber)
+  }, [postNumber])
 
   return (
     <>
@@ -27,7 +38,7 @@ export const ImageListWidgetSSR = ({ posts }: Props) => {
             />
           ))}
       </div>
-      {!!modalId && <PostViewModal postId={modalId} isOpen={isOpen} closeModal={closeModal} />}
+      {!!modalId && <PostViewModal modalId={modalId} isOpen={isOpen} closeModal={closeModal} />}
     </>
   )
 }

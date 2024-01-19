@@ -8,20 +8,20 @@ import s from './PostViewModal.module.scss'
 
 import { postsApi, useDeletePostMutation } from '@/entities/posts'
 import { publicPostsApi, useGetSinglePostQuery } from '@/entities/publicPosts'
-import { Button, SwiperSlider, Typography } from '@/shared/components'
+import { SwiperSlider } from '@/shared/components'
 import { ConfirmModal, Modal } from '@/shared/components/modals'
 import { useAppDispatch, useErrorHandler, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 type Props = {
-  postId: number
+  modalId: number
   isOpen: boolean
   closeModal: () => void
 }
 
-export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
-  const { data, error, isLoading } = useGetSinglePostQuery(postId)
+export const PostViewModal = ({ modalId, isOpen, closeModal }: Props) => {
+  const { data, error, isLoading } = useGetSinglePostQuery(modalId)
   const [modalType, setModalType] = useState<'view' | 'edit'>('view')
   const { t } = useTranslation()
   const [isPostEdit, setIsPostEdit] = useState(false)
@@ -44,7 +44,7 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
   const dispatch = useAppDispatch()
 
   const handleDeletePost = () => {
-    deletePost({ postId, accessToken })
+    deletePost({ postId: modalId, accessToken })
       .unwrap()
       .then(async () => {
         await new Promise(res => setTimeout(res, 1000))
@@ -95,7 +95,7 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
         {modalType === 'view' && (
           <>
             <div className={s.imageContainer}>
-              {data && data.id === postId && <SwiperSlider imagesUrl={data.images} />}
+              {data && data.id === modalId && <SwiperSlider imagesUrl={data.images} />}
             </div>
             <div className={s.commentsContainer}>
               {data && (
@@ -104,8 +104,6 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
                   ownerId={data.ownerId}
                   avatarOwner={data.avatarOwner}
                   userName={data.userName}
-                  firstName={data.owner.firstName}
-                  lastName={data.owner.lastName}
                   description={data.description}
                   updatedAt={data.updatedAt}
                   openDeleteModal={openDeleteModal}
@@ -117,7 +115,7 @@ export const PostViewModal = ({ postId, isOpen, closeModal }: Props) => {
         {modalType === 'edit' && (
           <>
             <div>
-              {data && data.id === postId && (
+              {data && data.id === modalId && (
                 <Image
                   src={data.images[0].url}
                   alt={data.description}
