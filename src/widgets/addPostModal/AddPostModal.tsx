@@ -7,6 +7,7 @@ import {
   addNewPhoto,
   removeAllPhotos,
   setOriginalImage,
+  updateFilterClass,
   updatePhotos,
 } from '@/app/services/cropper-slice'
 import { DefaultProfileImg } from '@/shared/assets'
@@ -64,6 +65,7 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
           },
         ])
       )
+      dispatch(updateFilterClass({ id: cropper.id, filterClass: '' }))
     })
     closeModal()
   }
@@ -72,7 +74,6 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
     dispatch(addNewPhoto(image))
   }
 
-  console.log({ croppers })
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.files && e.currentTarget.files.length > 0) {
       const file = e.currentTarget.files[0]
