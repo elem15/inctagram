@@ -1,14 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 
 import s from '../../imageList/ui/ImageList.module.scss'
 
 import { ImageCard } from '@/shared/components/imageCard'
-import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { PostViewModalSSR } from '@/widgets/postViewModal'
 
 type Props = {
@@ -17,11 +15,12 @@ type Props = {
 }
 
 export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
-  const { openModal } = useModal()
+  const ref = useRef(null)
   const [postModal, setPostModal] = useState<PostDataType>()
   const router = useRouter()
   const searchParams = useSearchParams()
-  const modalId = searchParams?.get('modalId') as string | undefined
+  const [modalId, setModalId] = useState(router.query.modalId)
+  let postId = router.query.postId as string | undefined
 
   useEffect(() => {
     const post = modalId
@@ -29,15 +28,57 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
       : null
 
     post && setPostModal(post)
-    modalId && openModal()
   }, [modalId])
 
   const handleCloseModal = () => {
-    router.replace({
-      pathname: router.asPath.split('?')[0],
-      query: { modalId: '' },
-    })
+    router.replace(
+      {
+        pathname: router.asPath.split('?')[0],
+        query: { ...router.query, modalId: '' },
+      },
+      undefined,
+      { shallow: true, scroll: false }
+    )
+    setModalId('')
   }
+
+  const openModal = (id: number) => {
+    router.replace(
+      {
+        pathname: router.asPath.split('?')[0],
+        query: { ...router.query, modalId: id },
+      },
+      undefined,
+      { shallow: true, scroll: false }
+    )
+    setModalId(id + '')
+  }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const lastPostId = posts.at(-1)?.id
+
+        if (entry.isIntersecting && lastPostId != postId) {
+          router.replace(
+            {
+              pathname: router.asPath.split('?')[0],
+              query: { postId: lastPostId },
+            },
+            undefined,
+            { shallow: false, scroll: false }
+          )
+        }
+      },
+      { rootMargin: '0px' }
+    )
+
+    ref?.current && observer.observe(ref.current)
+
+    return () => {
+      observer && observer.disconnect()
+    }
+  }, [postId])
 
   return (
     <>
@@ -45,29 +86,22 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
         {!!posts &&
           posts.length > 0 &&
           posts.map(({ id, url, description, width, height }) => (
-            <Link
-              href={{
-                pathname: router.asPath.split('?')[0],
-                query: { modalId: id },
-              }}
-              passHref
-              replace
+            <ImageCard
               key={id}
-            >
-              <ImageCard
-                postId={id}
-                src={url}
-                alt={description}
-                width={width}
-                height={height}
-                openModal={() => null}
-              />
-            </Link>
+              postId={id}
+              src={url}
+              alt={description}
+              width={width}
+              height={height}
+              openModal={openModal}
+            />
           ))}
       </div>
-
+      <div ref={ref} style={{ visibility: 'hidden' }}>
+        __________________
+      </div>
       <PostViewModalSSR
-        isOpen={postModal?.id == +modalId!}
+        isOpen={postModal?.id === +modalId!}
         closeModal={handleCloseModal}
         data={postModal}
       />

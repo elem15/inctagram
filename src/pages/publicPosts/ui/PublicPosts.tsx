@@ -27,29 +27,27 @@ export const PublicPosts = ({ data, posts, postsDataItems }: Props) => {
 PublicPosts.getLayout = getHeaderLayout
 
 let profileIdRef: string | string[] | undefined
-let resProfile: Response
-let data: PublicProfile
-let resPosts: Response
-let postsData: PostsData
-let posts: PostDataToComponent[]
+let postsDataItems: PostDataItem[] = []
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const profileId = ctx.params?.ownerId
-  const modalId = ctx.query?.modalId
+  const postId = ctx.query?.postId
 
-  const postId = null
+  const resProfile: Response = await fetch(`${BACKEND_URL}/public-user/profile/${profileId}`)
+  const data: PublicProfile = await resProfile.json()
+  const resPosts: Response = await fetch(
+    `${BACKEND_URL}/public-posts/user/${profileId}/${postId ? postId : ''}?pageSize=8`
+  )
+  const resPostsDataItems: PostDataItem[] = (await resPosts.json()).items
 
-  if (profileId !== profileIdRef) {
-    resProfile = await fetch(`${BACKEND_URL}/public-user/profile/${profileId}`)
-    data = await resProfile.json()
-    resPosts = await fetch(
-      `${BACKEND_URL}/public-posts/user/${profileId}/${postId ? postId : ''}?pageSize=16`
-    )
-    postsData = await resPosts.json()
-    posts = postsData.items.map(getLargeImage)
-  }
+  if (profileIdRef !== profileId) postsDataItems = []
+
+  const index = postsDataItems.findIndex(post => post.id === resPostsDataItems[0]?.id)
+
+  postsDataItems = index === -1 ? [...postsDataItems, ...resPostsDataItems] : postsDataItems
+  const posts: PostDataToComponent[] = postsDataItems.map(getLargeImage)
 
   profileIdRef = profileId
 
-  return { props: { data, posts, postsDataItems: postsData.items } }
+  return { props: { data, posts, postsDataItems } }
 }

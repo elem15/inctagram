@@ -6,13 +6,8 @@ import { PostCommentsView } from './PostCommentsView'
 import { PostEdit } from './PostEdit'
 import s from './PostViewModal.module.scss'
 
-import { postsApi, useDeletePostMutation } from '@/entities/posts'
-import { publicPostsApi, useGetSinglePostQuery } from '@/entities/publicPosts'
 import { SwiperSlider } from '@/shared/components'
-import { ConfirmModal, Modal } from '@/shared/components/modals'
-import { useAppDispatch, useErrorHandler, useFetchLoader, useTranslation } from '@/shared/lib'
-import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
-import { useAuth } from '@/shared/lib/hooks/useAuth'
+import { Modal } from '@/shared/components/modals'
 
 type Props = {
   isOpen: boolean

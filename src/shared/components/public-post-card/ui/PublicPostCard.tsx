@@ -55,7 +55,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
           slidesPerView={1}
           className={'post-images-slider'}
           onClick={() => {
-            router.push(`/public-posts/${ownerId}?modalId=${postId}`)
+            router.push(`/public-posts/${ownerId}?postId=&modalId=${postId}`)
           }}
         >
           {imagesUrl?.map((image: any, index: number) => {

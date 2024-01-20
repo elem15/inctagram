@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import s from './PostCommentsView.module.scss'
 
@@ -48,6 +49,7 @@ export const PostCommentsView = ({
   const { isAuth, userId } = useAuth()
   const { t } = useTranslation()
   const { formatDate } = useFormatDate(t.lg)
+  const isSSR = useRouter().asPath.includes('public-posts')
 
   return (
     <div>
@@ -58,7 +60,7 @@ export const PostCommentsView = ({
             <Typography variant="bold_text_14">{userName}</Typography>
           </Link>
         </div>
-        {isAuth && userId == ownerId && (
+        {isAuth && userId == ownerId && !isSSR && (
           <div className={s.wrappedActionMenu}>
             <CustomDropdown
               trigger={<Image src={ThreeDots} alt="menu-trigger" className={s.dots} />}
