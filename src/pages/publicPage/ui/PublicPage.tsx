@@ -8,6 +8,7 @@ const PublicPage = ({ data }: { data: PublicPostsResponseData }) => {
     <div className=" w-full mx-12 mt-6 mb-12">
       <RegisteredUsersUI totalUsers={data.totalUsers} />
       <PublicPostsCardsListUI items={data.items} />
+      {/* <div>{JSON.stringify(data)}</div> */}
     </div>
   )
 }

@@ -24,7 +24,7 @@ const TestPage = () => {
         errorMessage={errorMessage}
         setResultDate={setResultDate}
         lang={t.lg}
-        onBlur={date => console.log(date)}
+        onBlur={date => null}
       />
     </div>
   )

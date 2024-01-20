@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -13,18 +13,24 @@ import { PostViewModalSSR } from '@/widgets/postViewModal'
 
 type Props = {
   posts: PostDataToComponent[]
-  post: PostDataItem
+  postsDataItems: PostDataType[]
 }
 
-export const ImageListWidgetSSR = ({ posts, post }: Props) => {
+export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
   const { openModal } = useModal()
+  const [postModal, setPostModal] = useState<PostDataType>()
   const router = useRouter()
   const searchParams = useSearchParams()
-  const postNumber = searchParams?.get('modalId') as string | undefined
+  const modalId = searchParams?.get('modalId') as string | undefined
 
   useEffect(() => {
-    postNumber && openModal()
-  }, [postNumber])
+    const post = modalId
+      ? typeof +modalId === 'number' && postsDataItems.find(p => p.id === +modalId!)
+      : null
+
+    post && setPostModal(post)
+    modalId && openModal()
+  }, [modalId])
 
   const handleCloseModal = () => {
     router.replace({
@@ -54,16 +60,16 @@ export const ImageListWidgetSSR = ({ posts, post }: Props) => {
                 alt={description}
                 width={width}
                 height={height}
-                openModal={openModal}
+                openModal={() => null}
               />
             </Link>
           ))}
       </div>
 
       <PostViewModalSSR
-        isOpen={post?.id == +postNumber!}
+        isOpen={postModal?.id == +modalId!}
         closeModal={handleCloseModal}
-        data={post}
+        data={postModal}
       />
     </>
   )

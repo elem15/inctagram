@@ -13,8 +13,9 @@ import { cn } from '@/shared/lib/utils'
 type Props = {
   data: PublicProfile
   isAuth?: boolean
+  userId?: number
 }
-export const ProfileHeaderWeb = ({ data, isAuth }: Props) => {
+export const ProfileHeaderWeb = ({ data, isAuth, userId }: Props) => {
   const { t } = useTranslation()
 
   return (
@@ -43,7 +44,7 @@ export const ProfileHeaderWeb = ({ data, isAuth }: Props) => {
             <Typography variant="h1" className={s.linkLargeProfile}>
               {data.userName}
             </Typography>
-            {isAuth && (
+            {isAuth && userId == data.id && (
               <Button variant="secondary" className={s.buttonSettings}>
                 <Link href="/my-profile/general-information">{t.home.profile_btn}</Link>
               </Button>
@@ -52,7 +53,7 @@ export const ProfileHeaderWeb = ({ data, isAuth }: Props) => {
           <div className={s.progressProfile}>
             <div className={s.info}>
               <Typography className={s.progressInfoValue} variant="bold_text_14">
-                1231
+                87
               </Typography>
               <div className={'max-lg:hidden'}>
                 <ModalOfFollowing />
@@ -66,7 +67,7 @@ export const ProfileHeaderWeb = ({ data, isAuth }: Props) => {
             </div>
             <div className={s.info}>
               <Typography className={s.progressInfoValue} variant="bold_text_14">
-                1231
+                112
               </Typography>
               <div className={'max-lg:hidden'}>
                 <ModalOfFollowers />
@@ -80,7 +81,7 @@ export const ProfileHeaderWeb = ({ data, isAuth }: Props) => {
             </div>
             <div className={s.info}>
               <Typography className={s.progressInfoValue} variant="bold_text_14">
-                1231
+                31
               </Typography>
               <Typography className={s.progressInfoText} variant="regular_text_14">
                 {t.followers_modal.post}

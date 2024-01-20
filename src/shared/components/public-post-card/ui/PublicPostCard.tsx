@@ -3,7 +3,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Navigation, Pagination, Scrollbar, EffectFade } from 'swiper/modules'
+import { Navigation, Pagination, Scrollbar } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 
@@ -17,7 +17,6 @@ import '../../../assets/swiperStyle/post-images-slider.scss'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
-import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 export const PublicPostCard: FC<PublicPostCardProps> = ({
   postId,
@@ -32,7 +31,6 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
   const menuRef = useRef<HTMLDivElement | null>(null)
   const { t } = useTranslation()
   const router = useRouter()
-  const { userId } = useAuth()
 
   useEffect(() => {
     const handler = (e: MouseEvent): void => {
@@ -46,14 +44,6 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
     }
   }, [isExpanded])
 
-  const handleOpenPost = () => {
-    if (userId === ownerId) {
-      router.push(`/my-profile?modalId=${postId}`)
-    } else {
-      router.push(`/public-posts/${ownerId}?modalId=${postId}`)
-    }
-  }
-
   return (
     imagesUrl.length > 0 && (
       <div className={s.container}>
@@ -64,7 +54,9 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
           spaceBetween={10}
           slidesPerView={1}
           className={'post-images-slider'}
-          onClick={handleOpenPost}
+          onClick={() => {
+            router.push(`/public-posts/${ownerId}?modalId=${postId}`)
+          }}
         >
           {imagesUrl?.map((image: any, index: number) => {
             return (
