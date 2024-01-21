@@ -36,12 +36,12 @@
 
   .singleImage,
   .imageContainer {
-    width: 500px;
-    height: 350px;
+    width: 420px;
+    height: 300px;
   }
   
   .commentsContainer {
-    flex-basis: 350px;
+    flex-basis: 440px;
     flex-grow: 1;
 
     max-width: 500px;
@@ -62,7 +62,7 @@
   }
   
   .commentsContainer {
-    flex-basis: 300px;
+    flex-basis: 430px;
     flex-grow: 1;
     padding-top: 10px;
   }
@@ -79,7 +79,7 @@
   }
 
   .commentsContainer {
-    flex-basis: 300px;
+    flex-basis: 450px;
     flex-grow: 1;
     padding-top: 5px;
   }
