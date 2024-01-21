@@ -17,18 +17,14 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
   const ref = useRef(null)
   const [postModal, setPostModal] = useState<PostDataType>()
   const router = useRouter()
-  const [modalId, setModalId] = useState(router.query.modalId)
+  const [modalId, setModalId] = useState<string | string[] | undefined>(router.query.modalId)
   const postId = router.query.postId
   const ownerId = router.query.ownerId
 
   useEffect(() => {
     router.beforePopState(({ as }) => {
       if (as !== router.asPath) {
-        if (router.pathname.includes('modalId')) {
-          handleCloseModal()
-        } else {
-          setModalId('')
-        }
+        handleCloseModal()
       }
 
       return true
@@ -48,9 +44,16 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
   }, [modalId])
 
   const handleCloseModal = () => {
+    let pathname: string
+
+    if (router.pathname.includes('modalId')) {
+      pathname = `${router.pathname.replace('[modalId]', '').replace('[ownerId]', ownerId + '')}`
+    } else {
+      pathname = `${router.asPath.split('?')[0]}`
+    }
     router.push(
       {
-        pathname: `${router.asPath.split('?')[0].split('/').toSpliced(-1).join('/')}`,
+        pathname,
         query: postId ? { postId } : null,
       },
       undefined,
@@ -67,7 +70,7 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
     } else {
       pathname = `${router.asPath.split('?')[0]}/${id}`
     }
-    router.replace({ pathname, query: postId ? { postId } : null }, undefined, {
+    router.push({ pathname, query: postId ? { postId } : null }, undefined, {
       shallow: true,
       scroll: false,
     })
@@ -80,7 +83,7 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
         const lastPostId = posts.at(-1)?.id
 
         if (entry.isIntersecting && lastPostId != postId) {
-          router.replace(
+          router.push(
             {
               pathname: router.asPath.split('?')[0],
               query: { postId: lastPostId },
