@@ -52,7 +52,7 @@ export const ImageListWidget = ({ userId }: Props) => {
           setPostId(images.at(-1)?.id)
         }
       },
-      { rootMargin: '0px' }
+      { rootMargin: '200px', threshold: 0.5 }
     )
 
     ref?.current && observer.observe(ref.current)
