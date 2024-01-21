@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react'
 
-import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 
 import s from '../../imageList/ui/ImageList.module.scss'
@@ -18,7 +17,6 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
   const ref = useRef(null)
   const [postModal, setPostModal] = useState<PostDataType>()
   const router = useRouter()
-  const searchParams = useSearchParams()
   const [modalId, setModalId] = useState(router.query.modalId)
   let postId = router.query.postId as string | undefined
 
@@ -34,7 +32,7 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
     router.replace(
       {
         pathname: router.asPath.split('?')[0],
-        query: { ...router.query, modalId: '' },
+        query: { postId, modalId: '' },
       },
       undefined,
       { shallow: true, scroll: false }
@@ -46,7 +44,7 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
     router.replace(
       {
         pathname: router.asPath.split('?')[0],
-        query: { ...router.query, modalId: id },
+        query: { postId, modalId: id },
       },
       undefined,
       { shallow: true, scroll: false }
