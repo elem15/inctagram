@@ -28,7 +28,7 @@ export const ImageListWidget = ({ userId }: Props) => {
   }, [postNumber])
 
   useEffect(() => {
-    const imagesData: PostDataToComponent[] = data ?? []
+    const imagesData: PostDataToComponent[] = data?.posts ?? []
     const index = images.findIndex(image => image.id === imagesData[0]?.id)
 
     if (!data) {
@@ -36,7 +36,7 @@ export const ImageListWidget = ({ userId }: Props) => {
     }
     //if add new post
     else if (images.length && images[0]?.id < imagesData[0]?.id) {
-      setImages(data)
+      setImages(imagesData)
     } else {
       setImages(prev => {
         return index === -1 ? [...prev, ...imagesData] : prev

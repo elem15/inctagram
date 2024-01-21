@@ -14,8 +14,9 @@ type Props = {
   data: PublicProfile
   isAuth?: boolean
   userId?: number
+  totalCount?: number
 }
-export const ProfileHeaderWeb = ({ data, isAuth, userId }: Props) => {
+export const ProfileHeaderWeb = ({ data, isAuth, userId, totalCount }: Props) => {
   const { t } = useTranslation()
 
   return (
@@ -81,7 +82,7 @@ export const ProfileHeaderWeb = ({ data, isAuth, userId }: Props) => {
             </div>
             <div className={s.info}>
               <Typography className={s.progressInfoValue} variant="bold_text_14">
-                31
+                {totalCount || 31}
               </Typography>
               <Typography className={s.progressInfoText} variant="regular_text_14">
                 {t.followers_modal.post}

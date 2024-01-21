@@ -11,14 +11,15 @@ type Props = {
   data: PublicProfile
   postsDataItems: PostDataType[]
   posts: PostDataToComponent[]
+  totalCount: number
 }
 
-export const PublicPosts = ({ data, posts, postsDataItems }: Props) => {
+export const PublicPosts = ({ data, posts, postsDataItems, totalCount }: Props) => {
   const { userId, isAuth } = useAuth()
 
   return (
     <div className="w-full mx-12 mt-6 mb-12">
-      <ProfileHeaderWeb data={data} isAuth={isAuth} userId={userId} />
+      <ProfileHeaderWeb data={data} isAuth={isAuth} userId={userId} totalCount={totalCount} />
       <ImageListWidgetSSR posts={posts} postsDataItems={postsDataItems} />
     </div>
   )
@@ -31,6 +32,7 @@ let postIdRef: string | string[] | undefined
 let postsDataItems: PostDataItem[] = []
 let data: PublicProfile
 let posts: PostDataToComponent[]
+let totalCount: number
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const profileId = ctx.params?.ownerId
@@ -46,8 +48,10 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     const resPosts: Response = await fetch(
       `${BACKEND_URL}/public-posts/user/${profileId}/${postId ? postId : ''}?pageSize=8`
     )
-    const resPostsDataItems: PostDataItem[] = (await resPosts.json()).items
+    const data = await resPosts.json()
+    const resPostsDataItems: PostDataItem[] = data.items
 
+    totalCount = data.totalCount
     const index = postsDataItems.findIndex(post => post.id === resPostsDataItems[0]?.id)
 
     postsDataItems = index === -1 ? [...postsDataItems, ...resPostsDataItems] : postsDataItems
@@ -56,5 +60,5 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
   profileIdRef = profileId
   postIdRef = postId
 
-  return { props: { data, posts, postsDataItems } }
+  return { props: { data, posts, postsDataItems, totalCount } }
 }

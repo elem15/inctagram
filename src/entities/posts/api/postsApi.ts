@@ -8,7 +8,7 @@ export const postsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
   tagTypes: ['Posts', 'PublicPosts'],
   endpoints: builder => ({
-    getPosts: builder.query<any, PostsQuery>({
+    getPosts: builder.query<PostsDataToComponentCounter, PostsQuery>({
       query: ({ userId, postId }) => {
         return {
           method: 'GET',
@@ -19,8 +19,8 @@ export const postsApi = createApi({
         }
       },
       providesTags: ['Posts'],
-      transformResponse: (response: PostsData): PostDataToComponent[] => {
-        return response?.items.map(getLargeImage)
+      transformResponse: (response: PostsData): PostsDataToComponentCounter => {
+        return { posts: response?.items.map(getLargeImage), totalCount: response.totalCount }
       },
     }),
     publishPostsImage: builder.mutation<any, { postsPhoto: any; accessToken: string | undefined }>({
