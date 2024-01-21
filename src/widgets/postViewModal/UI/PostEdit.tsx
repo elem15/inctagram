@@ -69,7 +69,7 @@ export const PostEdit = ({
             alt="Owner's avatar"
             className={s.smallAvatar}
           />
-          <Link href={`/public-posts/${ownerId}`}>
+          <Link href={`/public-posts/${ownerId}/0`}>
             <Typography variant="bold_text_14">
               {firstName} {lastName}
             </Typography>
