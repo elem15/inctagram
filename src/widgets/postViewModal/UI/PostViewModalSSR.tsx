@@ -1,9 +1,4 @@
-import { useState } from 'react'
-
-import Image from 'next/image'
-
 import { PostCommentsView } from './PostCommentsView'
-import { PostEdit } from './PostEdit'
 import s from './PostViewModal.module.scss'
 
 import { SwiperSlider } from '@/shared/components'

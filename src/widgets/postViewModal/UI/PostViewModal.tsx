@@ -119,8 +119,8 @@ export const PostViewModal = ({ modalId, isOpen, closeModal }: Props) => {
                 <Image
                   src={data.images[0].url}
                   alt={data.description}
-                  width={500}
-                  height={621}
+                  width={320}
+                  height={240}
                   className={s.singleImage}
                 />
               )}

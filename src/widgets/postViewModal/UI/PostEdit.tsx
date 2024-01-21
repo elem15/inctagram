@@ -31,7 +31,6 @@ export const PostEdit = ({
   lastName,
   description,
   postId,
-  closeModal,
   isPostEdit,
   setIsPostEdit,
   setModalType,
