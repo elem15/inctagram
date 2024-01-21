@@ -22,6 +22,24 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
   const ownerId = router.query.ownerId
 
   useEffect(() => {
+    router.beforePopState(({ as }) => {
+      if (as !== router.asPath) {
+        if (router.pathname.includes('modalId')) {
+          handleCloseModal()
+        } else {
+          setModalId('')
+        }
+      }
+
+      return true
+    })
+
+    return () => {
+      router.beforePopState(() => true)
+    }
+  }, [router])
+
+  useEffect(() => {
     const post = modalId
       ? typeof +modalId === 'number' && postsDataItems.find(p => p.id === +modalId!)
       : null
@@ -30,13 +48,10 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
   }, [modalId])
 
   const handleCloseModal = () => {
-    router.replace(
+    router.push(
       {
-        pathname: `/${router.pathname
-          .split('?')[0]
-          .replace('[modalId]', '0')
-          .replace('[ownerId]', ownerId + '')}`, // pathname: `/${router.asPath.split('?')[0].split('/').toSpliced(-1).join('/')}/0`,
-        query: { postId },
+        pathname: `${router.asPath.split('?')[0].split('/').toSpliced(-1).join('/')}`,
+        query: postId ? { postId } : null,
       },
       undefined,
       { shallow: true, scroll: false }
@@ -45,17 +60,17 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
   }
 
   const openModal = (id: number) => {
-    router.replace(
-      {
-        pathname: `/${router.pathname
-          .split('?')[0]
-          .replace('[modalId]', id + '')
-          .replace('[ownerId]', ownerId + '')}`, // pathname: `/${router.asPath.split('?')[0].split('/').toSpliced(-1).join('/')}/[modalId]`,
-        query: { postId },
-      },
-      undefined,
-      { shallow: true, scroll: false }
-    )
+    let pathname: string
+
+    if (router.pathname.includes('modalId')) {
+      pathname = `${router.pathname.replace('[modalId]', id + '').replace('[ownerId]', ownerId + '')}`
+    } else {
+      pathname = `${router.asPath.split('?')[0]}/${id}`
+    }
+    router.replace({ pathname, query: postId ? { postId } : null }, undefined, {
+      shallow: true,
+      scroll: false,
+    })
     setModalId(id + '')
   }
 
@@ -106,7 +121,7 @@ export const ImageListWidgetSSR = ({ posts, postsDataItems }: Props) => {
         __________________
       </div>
       <PostViewModalSSR
-        isOpen={postModal?.id === +modalId!}
+        isOpen={!!modalId && postModal?.id === +modalId!}
         closeModal={handleCloseModal}
         data={postModal}
       />

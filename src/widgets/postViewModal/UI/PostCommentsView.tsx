@@ -56,7 +56,7 @@ export const PostCommentsView = ({
       <header className={s.header}>
         <div className={s.avatar}>
           <AvatarSmallView avatarOwner={avatarOwner} />
-          <Link href={`/public-posts/${ownerId}/0`}>
+          <Link href={`/public-posts/${ownerId}`}>
             <Typography variant="bold_text_14">{userName}</Typography>
           </Link>
         </div>
@@ -85,7 +85,7 @@ export const PostCommentsView = ({
           <div className={s.post}>
             <AvatarSmallView avatarOwner={avatarOwner} />
             <div className={s.postContent}>
-              <Link href={`/public-posts/${ownerId}/0`}>
+              <Link href={`/public-posts/${ownerId}`}>
                 <Typography as="span" variant="bold_text_14">
                   {userName}
                 </Typography>

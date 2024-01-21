@@ -75,7 +75,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
         </Swiper>
         <div className={s.wrapper}>
           <div className={s.sticky} ref={menuRef}>
-            <Link href={`/public-posts/${ownerId}/0`} className={s.mainInfo}>
+            <Link href={`/public-posts/${ownerId}`} className={s.mainInfo}>
               {profileImage ? (
                 <Image
                   src={profileImage}
