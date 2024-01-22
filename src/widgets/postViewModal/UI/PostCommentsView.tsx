@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import s from './PostCommentsView.module.scss'
 
@@ -33,8 +32,54 @@ type Props = {
   userName: string
   description: string
   updatedAt: string
+  isSSR: boolean
+
   setModalType: (modalType: 'edit' | 'view') => void
   openDeleteModal: () => void
+}
+
+type PostModalHeaderProps = Omit<Props, 'description' | 'updatedAt'>
+
+export const PostModalHeader = ({
+  avatarOwner,
+  ownerId,
+  userName,
+  isSSR,
+  setModalType,
+  openDeleteModal,
+}: PostModalHeaderProps) => {
+  const { t } = useTranslation()
+  const { isAuth, userId } = useAuth()
+
+  return (
+    <header className={s.header}>
+      <div className={s.avatar}>
+        <AvatarSmallView avatarOwner={avatarOwner} />
+        <Link href={`/public-posts/${ownerId}`}>
+          <Typography variant="bold_text_14">{userName}</Typography>
+        </Link>
+      </div>
+      {isAuth && userId == ownerId && !isSSR && (
+        <div className={s.wrappedActionMenu}>
+          <CustomDropdown
+            trigger={<Image src={ThreeDots} alt="menu-trigger" className={s.dots} />}
+            align={'end'}
+          >
+            <CustomDropdownItem>
+              <Button variant={'link'} className={s.button} onClick={() => setModalType('edit')}>
+                <EditPostIcon /> {t.post_view.edit}
+              </Button>
+            </CustomDropdownItem>
+            <CustomDropdownItem>
+              <Button variant={'link'} className={s.button} onClick={() => openDeleteModal()}>
+                <DeletePostIcon /> {t.post_view.delete}
+              </Button>
+            </CustomDropdownItem>
+          </CustomDropdown>
+        </div>
+      )}
+    </header>
+  )
 }
 
 export const PostCommentsView = ({
@@ -43,43 +88,25 @@ export const PostCommentsView = ({
   userName,
   description,
   updatedAt,
+  isSSR,
   setModalType,
   openDeleteModal,
 }: Props) => {
-  const { isAuth, userId } = useAuth()
   const { t } = useTranslation()
   const { formatDate } = useFormatDate(t.lg)
-  const isSSR = useRouter().asPath.includes('public-posts')
 
   return (
     <div>
-      <header className={s.header}>
-        <div className={s.avatar}>
-          <AvatarSmallView avatarOwner={avatarOwner} />
-          <Link href={`/public-posts/${ownerId}`}>
-            <Typography variant="bold_text_14">{userName}</Typography>
-          </Link>
-        </div>
-        {isAuth && userId == ownerId && !isSSR && (
-          <div className={s.wrappedActionMenu}>
-            <CustomDropdown
-              trigger={<Image src={ThreeDots} alt="menu-trigger" className={s.dots} />}
-              align={'end'}
-            >
-              <CustomDropdownItem>
-                <Button variant={'link'} className={s.button} onClick={() => setModalType('edit')}>
-                  <EditPostIcon /> {t.post_view.edit}
-                </Button>
-              </CustomDropdownItem>
-              <CustomDropdownItem>
-                <Button variant={'link'} className={s.button} onClick={() => openDeleteModal()}>
-                  <DeletePostIcon /> {t.post_view.delete}
-                </Button>
-              </CustomDropdownItem>
-            </CustomDropdown>
-          </div>
-        )}
-      </header>
+      <div className={s.headerOnMiddle}>
+        <PostModalHeader
+          ownerId={ownerId}
+          avatarOwner={avatarOwner}
+          userName={userName}
+          isSSR={isSSR}
+          setModalType={setModalType}
+          openDeleteModal={openDeleteModal}
+        />
+      </div>
       <main className={s.main}>
         <Scroller className={s.scrollContent}>
           <div className={s.post}>

@@ -8,6 +8,10 @@
   border-bottom: 1px solid var(--color-dark-100);
 }
 
+.headerOnMiddle {
+  display: block;
+}
+
 .main {
   max-width: 500px;
   height: 321px;
@@ -17,6 +21,10 @@
 @media (width <= 1024px) {
   .main {
     height: 180px;
+  }
+
+  .headerOnMiddle {
+    display: none;
   }
 }
 
@@ -28,7 +36,7 @@
 
 @media (width <= 576px) {
   .main {
-    height: 300px;
+    height: 190px;
   }
 
   .scrollContent {
