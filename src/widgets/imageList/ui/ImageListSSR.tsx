@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 import s from '../../imageList/ui/ImageList.module.scss'
 
-import { ImageCard } from '@/shared/components/imageCard'
+import { ImageListUI } from './ImageListUI'
 
 type Props = {
   posts: PostDataToComponent[]
@@ -61,19 +61,7 @@ export const ImageListWidgetSSR = ({ posts }: Props) => {
   return (
     <>
       <div className={s.container}>
-        {!!posts &&
-          posts.length > 0 &&
-          posts.map(({ id, url, description, width, height }) => (
-            <ImageCard
-              key={id}
-              postId={id}
-              src={url}
-              alt={description}
-              width={width}
-              height={height}
-              openModal={openModal}
-            />
-          ))}
+        <ImageListUI posts={posts} openModal={openModal} />
       </div>
       <div ref={ref} style={{ visibility: 'hidden' }}>
         __________________

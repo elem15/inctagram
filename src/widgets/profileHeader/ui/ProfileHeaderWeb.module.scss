@@ -12,7 +12,7 @@
 @media (width <= 768px) {
   .container {
     display: flex;
-    gap: 25px;
+    gap: 15px;
     align-items: center;
     margin-bottom: 10px;
 
@@ -38,7 +38,7 @@
 
     .progressProfile {
       display: flex;
-      gap: 42px;
+      gap: 25px;
       height: 48px;
 
       .info {
@@ -80,7 +80,7 @@
 @media (width < 375px) {
   .container {
     display: flex;
-    gap: 25px;
+    gap: 10px;
     align-items: center;
     margin-bottom: 10px;
 

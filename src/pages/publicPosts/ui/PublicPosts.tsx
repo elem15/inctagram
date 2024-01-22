@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import { BACKEND_URL } from '@/shared/constants/ext-urls'
 import { getLargeImage } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
-import { ImageListWidgetSSR } from '@/widgets/imageListSSR'
+import { ImageListWidgetSSR } from '@/widgets/imageList'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { ProfileHeaderWeb } from '@/widgets/profileHeader'
 

@@ -36,9 +36,11 @@ export const ProfileHeaderWeb = ({ data, isAuth, userId, totalCount }: Props) =>
               <DefaultProfileImg style={{ width: '3rem', height: '3rem' }} />
             )}
           </div>
-          <Typography variant="bold_text_16" className={s.linkSmallProfile}>
-            {data.userName}
-          </Typography>
+          <Link href={{ pathname: `/public-posts/${data.id}` }}>
+            <Typography variant="bold_text_16" className={s.linkSmallProfile}>
+              {data.userName}
+            </Typography>
+          </Link>
         </div>
         <div className={s.dataProfile}>
           <div className={s.header}>
@@ -82,7 +84,7 @@ export const ProfileHeaderWeb = ({ data, isAuth, userId, totalCount }: Props) =>
             </div>
             <div className={s.info}>
               <Typography className={s.progressInfoValue} variant="bold_text_14">
-                {totalCount || 31}
+                {totalCount ?? 31}
               </Typography>
               <Typography className={s.progressInfoText} variant="regular_text_14">
                 {t.followers_modal.post}

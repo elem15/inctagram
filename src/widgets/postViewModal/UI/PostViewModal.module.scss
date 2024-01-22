@@ -1,3 +1,7 @@
+.modal {
+  display: inherit;
+}
+
 .modalContent {
   display: flex;
   flex-wrap: wrap;
@@ -53,8 +57,8 @@
 @media (width <= 576px) {
   .singleImage,
   .imageContainer {
-    width: 400px;
-    height: 300px;
+    width: 450px;
+    height: 350px;
   }
 
   .singleImage {
@@ -69,9 +73,14 @@
 }
 
 @media (width <= 450px) {
+  .modal {
+    display: none;
+  }
+
   .imageContainer {
-    width: 320px;
-    height: 270px;
+    width: 350px;
+    height: 250px;
+    margin: 0 auto;
   }
   
   .singleImage {

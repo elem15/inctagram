@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 import s from './ImageList.module.scss'
+import { ImageListUI } from './ImageListUI'
 
 import { useGetPostsQuery } from '@/entities/posts'
-import { ImageCard } from '@/shared/components/imageCard'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { PostViewModal } from '@/widgets/postViewModal'
@@ -65,19 +65,7 @@ export const ImageListWidget = ({ userId }: Props) => {
   return (
     <>
       <div className={s.container}>
-        {!!images &&
-          images.length > 0 &&
-          images.map(({ id, url, description, width, height }) => (
-            <ImageCard
-              key={id}
-              postId={id}
-              src={url}
-              alt={description}
-              width={width}
-              height={height}
-              openModal={openModal}
-            />
-          ))}
+        <ImageListUI posts={images} openModal={openModal} />
       </div>
       <div ref={ref} style={{ visibility: 'hidden' }}>
         __________________

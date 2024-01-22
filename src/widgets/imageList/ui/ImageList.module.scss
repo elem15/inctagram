@@ -1,6 +1,25 @@
+.containerWithModal,
 .container {
   display: flex;
   flex-flow: row wrap;
   gap: 15px;
   justify-content: center;
+}
+
+.withModal {
+  display: none;
+}
+
+@media (width <= 576px) {
+  .container {
+    gap: 8px;
+  }
+
+  .containerWithModal{
+    display: none;
+  }
+
+  .notModal {
+    display: block;
+  }
 }

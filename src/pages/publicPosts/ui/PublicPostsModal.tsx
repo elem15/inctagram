@@ -1,5 +1,5 @@
 import { useAuth } from '@/shared/lib/hooks/useAuth'
-import { ImageListWidgetSSRModal } from '@/widgets/imageListSSR'
+import { ImageListWidgetSSRModal } from '@/widgets/imageList'
 import { getHeaderLayout } from '@/widgets/layouts/header-layout/HeaderLayout'
 import { ProfileHeaderWeb } from '@/widgets/profileHeader'
 

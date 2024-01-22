@@ -20,9 +20,20 @@
   }
 }
 
+
 .scrollContent {
   width: 100%;
   background-color: var(--color-dark-300);
+}
+
+@media (width <= 576px) {
+  .main {
+    height: 300px;
+  }
+
+  .scrollContent {
+    background-color: transparent;
+  }
 }
 
 .avatar {

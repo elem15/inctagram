@@ -5,8 +5,10 @@ import { useRouter } from 'next/router'
 
 import s from '../../imageList/ui/ImageList.module.scss'
 
-import { ImageCard } from '@/shared/components/imageCard'
-import { PostViewModalSSR } from '@/widgets/postViewModal'
+import { ImageListUI } from './ImageListUI'
+
+import { useMediaQuery } from '@/shared/lib/hooks'
+import { ModalContentUI, PostViewModalSSR } from '@/widgets/postViewModal'
 
 type Props = {
   posts: PostDataToComponent[]
@@ -20,6 +22,7 @@ export const ImageListWidgetSSRModal = ({ posts, postsDataItems }: Props) => {
   const modalId = router.query.modalId
   const postId = router.query.postId
   const ownerId = router.query.ownerId
+  const isDesktop = useMediaQuery('(min-width: 576px)')
 
   useEffect(() => {
     const post = modalId
@@ -63,25 +66,16 @@ export const ImageListWidgetSSRModal = ({ posts, postsDataItems }: Props) => {
 
   return (
     <>
-      <div className={s.container}>
-        {!!posts &&
-          posts.length > 0 &&
-          posts.map(({ id, url, description, width, height }) => (
-            <ImageCard
-              key={id}
-              postId={id}
-              src={url}
-              alt={description}
-              width={width}
-              height={height}
-              openModal={openModal}
-            />
-          ))}
+      <div className={s.containerWithModal}>
+        <ImageListUI posts={posts} openModal={openModal} />
       </div>
       <div ref={ref} style={{ visibility: 'hidden' }}>
         __________________
       </div>
-      <PostViewModalSSR isOpen closeModal={handleCloseModal} data={postModal} />
+      <div className={s.withModal}>
+        <PostViewModalSSR isOpen={isDesktop} closeModal={handleCloseModal} data={postModal} />
+      </div>
+      <div className={s.notModal}>{postModal && <ModalContentUI data={postModal} />}</div>
     </>
   )
 }
