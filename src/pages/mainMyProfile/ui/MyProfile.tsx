@@ -22,7 +22,12 @@ function MyProfile() {
   return (
     <div className={s.container}>
       {data ? (
-        <ProfileHeaderWeb data={data} isAuth={isAuth} totalCount={postsData?.totalCount} />
+        <ProfileHeaderWeb
+          data={data}
+          isAuth={isAuth}
+          totalCount={postsData?.totalCount}
+          userId={data.id}
+        />
       ) : null}
       {userId ? <ImageListWidget userId={userId} /> : null}
     </div>

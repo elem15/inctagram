@@ -1,1 +1,1 @@
-export { PublicPosts as default, getServerSideProps } from '@/pages/publicPosts'
+export { PublicPostsModal as default, getServerSideProps } from '@/pages/publicPosts'
