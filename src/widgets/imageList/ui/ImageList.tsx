@@ -63,7 +63,6 @@ export const ImageListWidget = ({ userId }: Props) => {
       observer && observer.disconnect()
     }
   }, [images])
-  console.log(isDesktop)
 
   return (
     <>

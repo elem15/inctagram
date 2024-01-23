@@ -10,3 +10,14 @@
     gap: 8px;
   }
 }
+
+.closeWrapper {
+  width: 100%;
+  height: 10px;
+  padding-left: 95%;
+}
+
+.closeButton {
+  cursor: pointer;
+  transform: translateY(-15px);
+}

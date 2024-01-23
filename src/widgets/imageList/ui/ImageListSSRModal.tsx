@@ -7,6 +7,7 @@ import s from '../../imageList/ui/ImageList.module.scss'
 
 import { ImageListUI } from './ImageListUI'
 
+import { CloseIcon } from '@/shared/assets'
 import { useMediaQuery } from '@/shared/lib/hooks'
 import { ModalContentUI, PostViewModalSSR } from '@/widgets/postViewModal'
 
@@ -79,7 +80,19 @@ export const ImageListWidgetSSRModal = ({ posts, postsDataItems }: Props) => {
           </div>
         </>
       ) : (
-        <>{postModal && <ModalContentUI data={postModal} />}</>
+        <>
+          {postModal && (
+            <>
+              <div onClick={handleCloseModal} className={s.closeWrapper}>
+                <div className={s.closeButton}>
+                  <CloseIcon />
+                </div>
+              </div>
+              <ModalContentUI data={postModal} />
+              <br />
+            </>
+          )}
+        </>
       )}
     </>
   )

@@ -7,7 +7,6 @@
   column-gap: 12px;
   align-items: center;
   padding: 12px 24px;
-
 }
 
 .modal {
@@ -70,13 +69,13 @@
     width: 490px;
     height: 300px;
   }
-  
+
   .commentsContainer {
-    flex-basis: 440px;
-    flex-grow: 1;
+    // flex-basis: 440px;
+    // flex-grow: 1;
 
     max-width: 500px;
-    min-height: 350px;
+    height: 350px;
     padding-top: 20px;
   }
 }
@@ -91,7 +90,7 @@
   .singleImage {
     min-width: 350px;
   }
-  
+
   .commentsContainer {
     flex-basis: 430px;
     flex-grow: 1;
@@ -109,7 +108,7 @@
     height: 250px;
     margin: 0 auto;
   }
-  
+
   .singleImage {
     min-width: 320px;
   }
