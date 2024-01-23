@@ -66,16 +66,21 @@ export const ImageListWidgetSSRModal = ({ posts, postsDataItems }: Props) => {
 
   return (
     <>
-      <div className={s.containerWithModal}>
-        <ImageListUI posts={posts} openModal={openModal} />
-      </div>
-      <div ref={ref} style={{ visibility: 'hidden' }}>
-        __________________
-      </div>
-      <div className={s.withModal}>
-        <PostViewModalSSR isOpen={isDesktop} closeModal={handleCloseModal} data={postModal} />
-      </div>
-      <div className={s.notModal}>{postModal && <ModalContentUI data={postModal} />}</div>
+      {isDesktop ? (
+        <>
+          <div className={s.container}>
+            <ImageListUI posts={posts} openModal={openModal} />
+          </div>
+          <div ref={ref} style={{ visibility: 'hidden' }}>
+            __________________
+          </div>
+          <div className={s.withModal}>
+            <PostViewModalSSR isOpen closeModal={handleCloseModal} data={postModal} />
+          </div>
+        </>
+      ) : (
+        <>{postModal && <ModalContentUI data={postModal} />}</>
+      )}
     </>
   )
 }

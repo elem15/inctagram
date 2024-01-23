@@ -8,8 +8,9 @@ import { ImageListUI } from './ImageListUI'
 
 import { useGetPostsQuery } from '@/entities/posts'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
+import { useMediaQuery } from '@/shared/lib/hooks'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
-import { PostViewModal } from '@/widgets/postViewModal'
+import { PostViewModal, PostViewSmall } from '@/widgets/postViewModal'
 
 type Props = { userId: number }
 
@@ -20,6 +21,7 @@ export const ImageListWidget = ({ userId }: Props) => {
   const { data, isLoading, error } = useGetPostsQuery({ userId, postId })
   const { isOpen, openModal, closeModal, modalId } = useModal()
   const searchParams = useSearchParams()
+  const isDesktop = useMediaQuery('(min-width: 576px)')
 
   const postNumber = searchParams?.get('modalId') as string | undefined
 
@@ -61,16 +63,37 @@ export const ImageListWidget = ({ userId }: Props) => {
       observer && observer.disconnect()
     }
   }, [images])
+  console.log(isDesktop)
 
   return (
     <>
-      <div className={s.container}>
-        <ImageListUI posts={images} openModal={openModal} />
-      </div>
-      <div ref={ref} style={{ visibility: 'hidden' }}>
-        __________________
-      </div>
-      {!!modalId && <PostViewModal modalId={modalId} isOpen={isOpen} closeModal={closeModal} />}
+      {isDesktop ? (
+        <>
+          <div className={s.container}>
+            <ImageListUI posts={images} openModal={openModal} />
+          </div>
+          <div ref={ref} style={{ visibility: 'hidden' }}>
+            __________________
+          </div>
+          {!!modalId && <PostViewModal modalId={modalId} isOpen={isOpen} closeModal={closeModal} />}
+        </>
+      ) : (
+        <>
+          {!isOpen && (
+            <>
+              <div className={s.container}>
+                <ImageListUI posts={images} openModal={openModal} />
+              </div>
+              <div ref={ref} style={{ visibility: 'hidden' }}>
+                __________________
+              </div>
+            </>
+          )}
+          {!!modalId && isOpen && (
+            <PostViewSmall modalId={modalId} isOpen={isOpen} closeModal={closeModal} />
+          )}
+        </>
+      )}
     </>
   )
 }
