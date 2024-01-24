@@ -18,7 +18,7 @@ import { useErrorText } from '@/shared/lib/hooks'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { AddPostModalData } from '@/widgets/addPostModal/addPostModalData'
 import { CloseCrop } from '@/widgets/addPostModal/CloseCrop'
-import { FilterModal } from '@/widgets/addPostModal/filterModal/FilterModal'
+import { FilterPublicationModal } from '@/widgets/addPostModal/filterModal/FilterPublicatioModal'
 import getCroppedImg from '@/widgets/addProfilePhoto/addAvaWithoutRotation/crropUtils'
 
 type Props = {
@@ -165,7 +165,7 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
         onInteractOutside={handleInteractOutsideOfCrop}
       >
         <>
-          <FilterModal
+          <FilterPublicationModal
             isOpenFilter={isOpen}
             closeFilter={handleCloseFilter}
             closeCroppingModal={handleClosePostCropModal}

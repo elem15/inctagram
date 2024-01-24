@@ -15,7 +15,10 @@ import {
 } from '@/app/services/cropper-slice'
 import { useAppDispatch } from '@/shared/lib'
 import s from '@/widgets/addPostModal/AddPostModal.module.scss'
-import { PostPhotoModificationTools } from '@/widgets/addPostModal/modificationTools/tools/post-modification-tools'
+import {
+  AddNewPhotoTool,
+  PostPhotoModificationTools
+} from '@/widgets/addPostModal/modificationTools/tools/post-modification-tools'
 import { CroppedAreaPixel } from '@/widgets/addProfilePhoto/addAvaWithoutRotation/AddAvatarModalWithoutRotation'
 type Props = {
   selectPhoto: () => void
@@ -108,6 +111,7 @@ export const AddPostModalData = ({ selectPhoto, closePostModal, setImageScr }: P
           )
         })}
       </Swiper>
+      <AddNewPhotoTool selectNewPhoto={selectPhoto} closePostModal={closePostModal} setImageScr={setImageScr}/>
     </div>
   )
 }

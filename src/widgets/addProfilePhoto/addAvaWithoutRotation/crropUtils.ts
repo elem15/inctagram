@@ -4,7 +4,7 @@ export const createImage = (url: string): Promise<HTMLImageElement> => {
 
     image.addEventListener('load', () => resolve(image))
     image.addEventListener('error', error => reject(error))
-    image.setAttribute('crossOrigin', 'anonymous') // needed to avoid cross-origin issues on CodeSandbox
+    image.setAttribute('crossOrigin', 'anonymous')
     image.src = url
   })
 }
@@ -53,9 +53,4 @@ export default async function getCroppedImg(
   )
 
   return canvas.toDataURL('image/jpeg')
-  // return new Promise((resolve, reject) => {
-  //   canvas.toBlob((file) => {
-  //     resolve(URL.createObjectURL(file))
-  //   }, 'image/jpeg')
-  // })
 }

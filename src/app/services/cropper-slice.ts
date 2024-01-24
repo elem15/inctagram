@@ -115,6 +115,5 @@ export const {
   updateAspect,
   deletePhoto,
   removeAllPhotos,
-  setImage,
   setOriginalImage,
 } = croppersSlice.actions

@@ -9,6 +9,7 @@
 
   @media screen and (width <= 910px) {
     margin: 0 8%;
+    border-bottom: none;
   }
 
   @media screen and (width <= 768px) {
@@ -24,11 +25,19 @@
   @media screen and (width <= 768px) {
     font-size: var(--font-size-s);
   }
+  @media screen and (width <= 378px) {
+    font-size: var(--font-size-xs);
+  }
 }
 
 .prevButton {
   @media screen and (width <= 768px) {
     width: 16px;
     height: 16px;
+  }
+}
+.titleModal{
+  @media screen and (width<=378px){
+    font-size: var(--font-size-s);
   }
 }
