@@ -13,25 +13,15 @@ import { ModalContentUI, PostViewModalSSR } from '@/widgets/postViewModal'
 
 type Props = {
   posts: PostDataToComponent[]
-  postsDataItems: PostDataType[]
+  modalData: PostDataType
 }
 
-export const ImageListWidgetSSRModal = ({ posts, postsDataItems }: Props) => {
+export const ImageListWidgetSSRModal = ({ posts, modalData }: Props) => {
   const ref = useRef(null)
-  const [postModal, setPostModal] = useState<PostDataType>()
   const router = useRouter()
-  const modalId = router.query.modalId
   const postId = router.query.postId
   const ownerId = router.query.ownerId
   const isDesktop = useMediaQuery('(min-width: 576px)')
-
-  useEffect(() => {
-    const post = modalId
-      ? typeof +modalId === 'number' && postsDataItems.find(p => p.id === +modalId!)
-      : null
-
-    post && setPostModal(post)
-  }, [modalId])
 
   const handleCloseModal = () => {
     let pathname: string
@@ -51,44 +41,30 @@ export const ImageListWidgetSSRModal = ({ posts, postsDataItems }: Props) => {
     )
   }
 
-  const openModal = (id: number) => {
-    let pathname: string
-
-    if (router.pathname.includes('modalId')) {
-      pathname = `${router.pathname.replace('[modalId]', id + '').replace('[ownerId]', ownerId + '')}`
-    } else {
-      pathname = `${router.asPath.split('?')[0]}/${id}`
-    }
-    router.push({ pathname, query: postId ? { postId } : null }, undefined, {
-      shallow: true,
-      scroll: false,
-    })
-  }
-
   return (
     <>
       {isDesktop ? (
         <>
           <div className={s.container}>
-            <ImageListUI posts={posts} openModal={openModal} />
+            <ImageListUI posts={posts} />
           </div>
           <div ref={ref} style={{ visibility: 'hidden' }}>
             __________________
           </div>
           <div className={s.withModal}>
-            <PostViewModalSSR isOpen closeModal={handleCloseModal} data={postModal} />
+            <PostViewModalSSR isOpen closeModal={handleCloseModal} data={modalData} />
           </div>
         </>
       ) : (
         <>
-          {postModal && (
+          {modalData && (
             <>
               <div onClick={handleCloseModal} className={s.closeWrapper}>
                 <div className={s.closeButton}>
                   <CloseIcon />
                 </div>
               </div>
-              <ModalContentUI data={postModal} />
+              <ModalContentUI data={modalData} />
               <br />
             </>
           )}

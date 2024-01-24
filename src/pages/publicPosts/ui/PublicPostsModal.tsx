@@ -7,16 +7,17 @@ type Props = {
   data: PublicProfile
   postsDataItems: PostDataType[]
   posts: PostDataToComponent[]
+  modalData: PostDataType
   totalCount: number
 }
 
-export const PublicPostsModal = ({ data, posts, postsDataItems, totalCount }: Props) => {
+export const PublicPostsModal = ({ data, posts, modalData, totalCount }: Props) => {
   const { userId, isAuth } = useAuth()
 
   return (
     <div className="w-full mx-12 mt-6 mb-12">
       <ProfileHeaderWeb data={data} isAuth={isAuth} userId={userId} totalCount={totalCount} />
-      <ImageListWidgetSSRModal posts={posts} postsDataItems={postsDataItems} />
+      <ImageListWidgetSSRModal posts={posts} modalData={modalData} />
     </div>
   )
 }

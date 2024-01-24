@@ -9,7 +9,6 @@ import { ImageListUI } from './ImageListUI'
 
 type Props = {
   posts: PostDataToComponent[]
-  postsDataItems: PostDataType[]
 }
 
 export const ImageListWidgetSSR = ({ posts }: Props) => {

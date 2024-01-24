@@ -202,6 +202,7 @@ export const en = {
     close_edit_confirm:
       'Do you really want to close the edition of the publication? If you close changes won’t be saved',
     post_error: 'Maximum number of characters 500',
+    no_content: 'No posts yet',
   },
   post: {
     post_modal_title: 'Add photo',

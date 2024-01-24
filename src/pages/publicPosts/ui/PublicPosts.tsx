@@ -9,18 +9,17 @@ import { ProfileHeaderWeb } from '@/widgets/profileHeader'
 
 type Props = {
   data: PublicProfile
-  postsDataItems: PostDataType[]
   posts: PostDataToComponent[]
   totalCount: number
 }
 
-export const PublicPosts = ({ data, posts, postsDataItems, totalCount }: Props) => {
+export const PublicPosts = ({ data, posts, totalCount }: Props) => {
   const { userId, isAuth } = useAuth()
 
   return (
     <div className="w-full mx-12 mt-6 mb-12">
       <ProfileHeaderWeb data={data} isAuth={isAuth} userId={userId} totalCount={totalCount} />
-      <ImageListWidgetSSR posts={posts} postsDataItems={postsDataItems} />
+      <ImageListWidgetSSR posts={posts} />
     </div>
   )
 }
@@ -29,6 +28,8 @@ PublicPosts.getLayout = getHeaderLayout
 
 let profileIdRef: string | string[] | undefined
 let postIdRef: string | string[] | undefined
+let modalIdRef: string | string[] | undefined
+let modalData: PostDataType | null = null
 let postsDataItems: PostDataItem[] = []
 let data: PublicProfile
 let posts: PostDataToComponent[]
@@ -36,6 +37,7 @@ let totalCount: number
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const profileId = ctx.params?.ownerId
+  const modalId = ctx.params?.modalId
   const postId = ctx.query?.postId
 
   if (profileIdRef !== profileId) {
@@ -44,6 +46,13 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 
     data = await resProfile.json()
   }
+
+  if (modalId && modalId !== modalIdRef) {
+    const res: Response = await fetch(`${BACKEND_URL}/public-posts/${modalId}`)
+
+    modalData = await res.json()
+  }
+
   if (profileIdRef !== profileId || postIdRef !== postId) {
     const resPosts: Response = await fetch(
       `${BACKEND_URL}/public-posts/user/${profileId}/${postId ? postId : ''}?pageSize=8`
@@ -58,7 +67,8 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     posts = postsDataItems.map(getLargeImage)
   }
   profileIdRef = profileId
+  modalIdRef = modalId
   postIdRef = postId
 
-  return { props: { data, posts, postsDataItems, totalCount } }
+  return { props: { data, posts, totalCount, modalData } }
 }
