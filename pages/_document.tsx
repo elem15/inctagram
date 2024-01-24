@@ -5,7 +5,9 @@ export default function Document() {
     <Html lang="en">
       <link rel="icon" href="/earth.png" />
 
-      <Head />
+      <Head>
+        <meta name="darkreader-lock" />
+      </Head>
       <body>
         <Main />
         <NextScript />

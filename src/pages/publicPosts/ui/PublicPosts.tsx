@@ -45,12 +45,22 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     const resProfile: Response = await fetch(`${BACKEND_URL}/public-user/profile/${profileId}`)
 
     data = await resProfile.json()
+    if (!data?.id) {
+      return {
+        notFound: true,
+      }
+    }
   }
 
   if (modalId && modalId !== modalIdRef) {
     const res: Response = await fetch(`${BACKEND_URL}/public-posts/${modalId}`)
 
     modalData = await res.json()
+    if (!modalData?.id) {
+      return {
+        notFound: true,
+      }
+    }
   }
 
   if (profileIdRef !== profileId || postIdRef !== postId) {
@@ -58,6 +68,12 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
       `${BACKEND_URL}/public-posts/user/${profileId}/${postId ? postId : ''}?pageSize=8`
     )
     const data = await resPosts.json()
+
+    if (!data?.items) {
+      return {
+        notFound: true,
+      }
+    }
     const resPostsDataItems: PostDataItem[] = data.items
 
     totalCount = data.totalCount

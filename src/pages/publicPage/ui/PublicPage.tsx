@@ -16,6 +16,12 @@ export async function getStaticProps() {
   const res = await fetch(`${BACKEND_URL}/public-posts/all/?pageSize=4&sortDirection=desc`)
   const data: PublicPostsResponseData = await res.json()
 
+  if (!data?.items) {
+    return {
+      notFound: true,
+    }
+  }
+
   return { props: { data }, revalidate: 60 }
 }
 
