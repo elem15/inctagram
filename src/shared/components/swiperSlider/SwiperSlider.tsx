@@ -6,8 +6,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
-import '../../assets/swiperStyle/post-images-slider.scss'
-import './SwiperSlider.css'
+import './swiper-slider.scss'
 
 type Props = {
   imagesUrl: ImagesUrlData[]
@@ -21,7 +20,7 @@ export const SwiperSlider = ({ imagesUrl }: Props) => {
       pagination={{ clickable: true }}
       spaceBetween={10}
       slidesPerView={1}
-      className={'post-images-slider'}
+      className={'post-single-slider'}
       style={{ height: '100%', width: '100%' }}
     >
       {imagesUrl?.map((image: any, index: number) => {

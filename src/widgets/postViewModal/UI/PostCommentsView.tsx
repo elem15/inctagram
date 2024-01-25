@@ -21,6 +21,7 @@ import {
   TimeAgo,
   Typography,
 } from '@/shared/components'
+import { AvatarSmallView } from '@/shared/components/avatarSmallView'
 import { Scroller } from '@/shared/components/scroller/Scroller'
 import { useFormatDate, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
@@ -29,74 +30,87 @@ type Props = {
   ownerId: number
   avatarOwner: string
   userName: string
-  firstName: string
-  lastName: string
   description: string
   updatedAt: string
+  isSSR: boolean
+
   setModalType: (modalType: 'edit' | 'view') => void
   openDeleteModal: () => void
+}
+
+type PostModalHeaderProps = Omit<Props, 'description' | 'updatedAt'>
+
+export const PostModalHeader = ({
+  avatarOwner,
+  ownerId,
+  userName,
+  isSSR,
+  setModalType,
+  openDeleteModal,
+}: PostModalHeaderProps) => {
+  const { t } = useTranslation()
+  const { isAuth, userId } = useAuth()
+
+  return (
+    <header className={s.header}>
+      <div className={s.avatar}>
+        <AvatarSmallView avatarOwner={avatarOwner} />
+        <Link href={`/public-posts/${ownerId}`}>
+          <Typography variant="bold_text_14">{userName}</Typography>
+        </Link>
+      </div>
+      {isAuth && userId == ownerId && !isSSR && (
+        <div className={s.wrappedActionMenu}>
+          <CustomDropdown
+            trigger={<Image src={ThreeDots} alt="menu-trigger" className={s.dots} />}
+            align={'end'}
+          >
+            <CustomDropdownItem>
+              <Button variant={'link'} className={s.button} onClick={() => setModalType('edit')}>
+                <EditPostIcon /> {t.post_view.edit}
+              </Button>
+            </CustomDropdownItem>
+            <CustomDropdownItem>
+              <Button variant={'link'} className={s.button} onClick={() => openDeleteModal()}>
+                <DeletePostIcon /> {t.post_view.delete}
+              </Button>
+            </CustomDropdownItem>
+          </CustomDropdown>
+        </div>
+      )}
+    </header>
+  )
 }
 
 export const PostCommentsView = ({
   ownerId,
   avatarOwner,
   userName,
-  firstName,
-  lastName,
   description,
   updatedAt,
+  isSSR,
   setModalType,
   openDeleteModal,
 }: Props) => {
-  const { isAuth, userId } = useAuth()
   const { t } = useTranslation()
   const { formatDate } = useFormatDate(t.lg)
 
   return (
     <div>
-      <header className={s.header}>
-        <div className={s.avatar}>
-          <Image
-            src={avatarOwner}
-            width={36}
-            height={36}
-            alt="Owner's avatar"
-            className={s.smallAvatar}
-          />
-          <Link href={`/public-posts/${ownerId}`}>
-            <Typography variant="bold_text_14">{userName}</Typography>
-          </Link>
-        </div>
-        {isAuth && userId == ownerId && (
-          <div className={s.wrappedActionMenu}>
-            <CustomDropdown
-              trigger={<Image src={ThreeDots} alt="menu-trigger" className={s.dots} />}
-              align={'end'}
-            >
-              <CustomDropdownItem>
-                <Button variant={'link'} className={s.button} onClick={() => setModalType('edit')}>
-                  <EditPostIcon /> {t.post_view.edit}
-                </Button>
-              </CustomDropdownItem>
-              <CustomDropdownItem>
-                <Button variant={'link'} className={s.button} onClick={() => openDeleteModal()}>
-                  <DeletePostIcon /> {t.post_view.delete}
-                </Button>
-              </CustomDropdownItem>
-            </CustomDropdown>
-          </div>
-        )}
-      </header>
+      <div className={s.headerOnMiddle}>
+        <PostModalHeader
+          ownerId={ownerId}
+          avatarOwner={avatarOwner}
+          userName={userName}
+          isSSR={isSSR}
+          setModalType={setModalType}
+          openDeleteModal={openDeleteModal}
+        />
+      </div>
       <main className={s.main}>
         <Scroller className={s.scrollContent}>
           <div className={s.post}>
-            <Image
-              src={avatarOwner}
-              width={36}
-              height={36}
-              alt="Owner's avatar"
-              className={s.smallAvatarPost}
-            />
+            <AvatarSmallView avatarOwner={avatarOwner} />
             <div className={s.postContent}>
               <Link href={`/public-posts/${ownerId}`}>
                 <Typography as="span" variant="bold_text_14">
@@ -233,13 +247,7 @@ export const PostCommentsView = ({
           </div>
           <div className={s.likeCounter}>
             <div className={s.avatarLayers}>
-              <Image
-                src={avatarOwner}
-                width={36}
-                height={36}
-                alt="Owner's avatar"
-                className={s.smallAvatarLayer}
-              />
+              <AvatarSmallView avatarOwner={avatarOwner} className={s.smallAvatarLayer} />
               <Image
                 src={PersonImg3}
                 width={36}

@@ -14,7 +14,7 @@ export const useAuth = () => {
         addUser({
           email: localStorage.getItem('email'),
           accessToken: localStorage.getItem('token'),
-          userId: localStorage.getItem('userId'),
+          userId: +localStorage.getItem('userId')!,
         })
       )
     }

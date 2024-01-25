@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import Image from 'next/image'
 import Link from 'next/link'
 
 import s from './PostEdit.module.scss'
@@ -8,6 +7,7 @@ import s from './PostEdit.module.scss'
 import { useUpdatePostMutation } from '@/entities/posts'
 import { publicPostsApi } from '@/entities/publicPosts'
 import { Button, Textarea, Typography } from '@/shared/components'
+import { AvatarSmallView } from '@/shared/components/avatarSmallView'
 import { useAppDispatch, useErrorHandler, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 
@@ -15,8 +15,7 @@ type Props = {
   postId: number
   ownerId: number
   avatarOwner: string
-  firstName: string
-  lastName: string
+  userName: string
   description: string
   setModalType: (modalType: 'edit' | 'view') => void
   closeModal: () => void
@@ -27,11 +26,9 @@ type Props = {
 export const PostEdit = ({
   ownerId,
   avatarOwner,
-  firstName,
-  lastName,
+  userName,
   description,
   postId,
-  closeModal,
   isPostEdit,
   setIsPostEdit,
   setModalType,
@@ -62,17 +59,9 @@ export const PostEdit = ({
     <div className={s.container}>
       <header className={s.header}>
         <div className={s.avatar}>
-          <Image
-            src={avatarOwner}
-            width={36}
-            height={36}
-            alt="Owner's avatar"
-            className={s.smallAvatar}
-          />
+          <AvatarSmallView avatarOwner={avatarOwner} />
           <Link href={`/public-posts/${ownerId}`}>
-            <Typography variant="bold_text_14">
-              {firstName} {lastName}
-            </Typography>
+            <Typography variant="bold_text_14">{userName}</Typography>
           </Link>
         </div>
       </header>

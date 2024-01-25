@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
 
 import Image, { type ImageProps } from 'next/image'
@@ -9,7 +10,7 @@ import { useFetchLoader } from '@/shared/lib'
 type Props = ImageProps & {
   postId: number
   cardClassName?: string
-  openModal: (postId: number) => void
+  openModal?: (postId: number) => void
 }
 
 export const ImageCard = ({ postId, src, alt, cardClassName, width, height, openModal }: Props) => {
@@ -21,9 +22,13 @@ export const ImageCard = ({ postId, src, alt, cardClassName, width, height, open
     <>
       <div
         className={s.image}
-        onClick={() => {
-          openModal(postId)
-        }}
+        onClick={
+          openModal
+            ? () => {
+              openModal(postId)
+            }
+            : () => null
+        }
       >
         <Image
           src={src}

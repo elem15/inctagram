@@ -10,3 +10,4 @@ export {
 } from './hooks'
 export { consoleErrors } from './handlers'
 export { axiosBaseQuery } from './axios/axiosBaseQuery'
+export { getLargeImage } from './utils/getLargeImage'

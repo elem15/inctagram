@@ -1,1 +1,1 @@
-export { PublicPage } from './ui/PublicPage'
+export { PublicPage, getStaticProps } from './ui/PublicPage'

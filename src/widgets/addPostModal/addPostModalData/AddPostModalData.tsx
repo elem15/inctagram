@@ -53,9 +53,9 @@ export const AddPostModalData = ({ selectPhoto, closePostModal, setImageScr }: P
   }
   const handleOnCropComplete =
     (id: string) =>
-    (_croppedArea: Record<'x' | 'y', number>, croppedAreaPixels: CroppedAreaPixel) => {
-      dispatch(updateCroppedAreaPixels({ croppedAreaPixels: croppedAreaPixels, id }))
-    }
+      (_croppedArea: Record<'x' | 'y', number>, croppedAreaPixels: CroppedAreaPixel) => {
+        dispatch(updateCroppedAreaPixels({ croppedAreaPixels: croppedAreaPixels, id }))
+      }
   const customStyles = {
     style: {
       containerStyle: {
@@ -99,19 +99,15 @@ export const AddPostModalData = ({ selectPhoto, closePostModal, setImageScr }: P
                 />
               </div>
               <PostPhotoModificationTools
-                closePostModal={closePostModal}
                 zoomValue={[cropper.zoom]}
                 onChange={zoom => handleZoomChange(zoom, cropper.id)}
-                onAspectChange={aspect => handleAspectChange(aspect, cropper.id)}
                 imageId={cropper.id}
-                selectNewPhoto={selectPhoto}
-                setImageScr={setImageScr}
               />
             </SwiperSlide>
           )
         })}
       </Swiper>
-      <AddNewPhotoTool selectNewPhoto={selectPhoto} closePostModal={closePostModal} setImageScr={setImageScr}/>
+      <AddNewPhotoTool selectNewPhoto={selectPhoto} closePostModal={closePostModal} setImageScr={setImageScr} />
     </div>
   )
 }

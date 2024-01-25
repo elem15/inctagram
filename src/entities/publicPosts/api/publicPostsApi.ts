@@ -20,7 +20,7 @@ export const publicPostsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
   tagTypes: ['PublicPosts', 'SinglePost'],
   endpoints: builder => ({
-    getPublicPosts: builder.query<any, void>({
+    getPublicPosts: builder.query<PublicPostsResponseData, void>({
       query: () => ({
         url: '/public-posts/all/?pageSize=4&sortDirection=desc',
         method: 'GET',
@@ -29,9 +29,12 @@ export const publicPostsApi = createApi({
       transformResponse: (response: PublicPostsResponseData) => {
         const publicPostsData = response?.items.map(transformPostData)
 
-        const usersCounter = response?.totalUsers
-
-        return { publicPostsData, usersCounter }
+        return {
+          items: publicPostsData,
+          totalUsers: response.totalUsers,
+          totalCount: response.totalCount,
+          pageSize: response.pageSize,
+        }
       },
     }),
     getSinglePost: builder.query<PostDataType, number>({

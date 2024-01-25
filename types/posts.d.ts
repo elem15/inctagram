@@ -16,6 +16,11 @@ type PostDataToComponent = {
   height: number;
 }
 
+type PostsDataToComponentCounter = {
+  posts: PostDataToComponent[],
+  totalCount: number
+}
+
 type PostsData = {
   totalCount: number,
   pageSize: number,

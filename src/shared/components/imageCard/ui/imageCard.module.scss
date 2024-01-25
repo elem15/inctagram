@@ -18,18 +18,18 @@
   }
 }
 
-// @media (width <= 640px) {
-//   .image {
-//     width: 108px;
-//     height: 108px;
-//     border-radius: 3px;
-//   }
-// }
+@media (width <= 640px) {
+  .image {
+    width: 108px;
+    height: 108px;
+    border-radius: 3px;
+  }
+}
 
-// @media (width <= 375px) {
-//   .image {
-//     width: 90px;
-//     height: 90px;
-//     border-radius: 3px;
-//   }
-// }
+@media (width <= 375px) {
+  .image {
+    width: 90px;
+    height: 90px;
+    border-radius: 3px;
+  }
+}
