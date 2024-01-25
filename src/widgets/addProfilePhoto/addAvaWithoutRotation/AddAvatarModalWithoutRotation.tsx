@@ -40,6 +40,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
   const dispatch = useAppDispatch()
   const { errorText, showErrorText } = useErrorText()
   const [savePhoto, { error, isLoading }] = useSavePhotoMutation()
+  const [isButtonDisable, setButtonDisable] = useState(false)
 
   useEffect(() => {
     if (error) {
@@ -68,6 +69,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
     }
   }
   const saveP = async () => {
+    setButtonDisable(true)
     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels)
 
     if (croppedImage) {
@@ -91,6 +93,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
     setImageSrc(null)
     showErrorText('')
     setZoom(1)
+    setButtonDisable(false)
   }
 
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -202,7 +205,12 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
               </div>
 
               <div className={s.buttonBox}>
-                <Button variant={'primary'} className={s.buttons} onClick={saveP}>
+                <Button
+                  variant={'primary'}
+                  className={s.buttons}
+                  onClick={saveP}
+                  disabled={isButtonDisable}
+                >
                   {t.add_profile_photo.save_button}
                 </Button>
               </div>

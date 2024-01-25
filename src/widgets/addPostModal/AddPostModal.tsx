@@ -3,7 +3,13 @@ import React, { ChangeEvent, useRef, useState } from 'react'
 import s from './AddPostModal.module.scss'
 
 import { useAppSelector } from '@/app/appStore'
-import { addNewPhoto, removeAllPhotos, updatePhotos } from '@/app/services/cropper-slice'
+import {
+  addNewPhoto,
+  removeAllPhotos,
+  setOriginalImage,
+  updateFilterClass,
+  updatePhotos,
+} from '@/app/services/cropper-slice'
 import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
@@ -12,7 +18,7 @@ import { useErrorText } from '@/shared/lib/hooks'
 import { useModal } from '@/shared/lib/hooks/open-or-close-hook'
 import { AddPostModalData } from '@/widgets/addPostModal/addPostModalData'
 import { CloseCrop } from '@/widgets/addPostModal/CloseCrop'
-import { FilterModal } from '@/widgets/addPostModal/filterModal/FilterModal'
+import { FilterPublicationModal } from '@/widgets/addPostModal/filterModal/FilterPublicatioModal'
 import getCroppedImg from '@/widgets/addProfilePhoto/addAvaWithoutRotation/crropUtils'
 
 type Props = {
@@ -48,6 +54,21 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   const { errorText, showErrorText } = useErrorText()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
+  const handleCloseFilter = () => {
+    croppers.forEach(cropper => {
+      dispatch(
+        updatePhotos([
+          {
+            id: cropper.id,
+            image: cropper.originalImage,
+            croppedAreaPixels: cropper.croppedAreaPixels,
+          },
+        ])
+      )
+      dispatch(updateFilterClass({ id: cropper.id, filterClass: '' }))
+    })
+    closeModal()
+  }
 
   const addNewCropper = (image: string) => {
     dispatch(addNewPhoto(image))
@@ -83,8 +104,6 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   }
   const handleClosePostCropModal = () => {
     closePostModal()
-    // dispatch(removeAllPhotos())
-    // setImageSrc(null)
   }
   const addNewCropperForFilter = async () => {
     const croppedImages = await Promise.all(
@@ -103,6 +122,9 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   }
 
   const handleOpenFilter = () => {
+    croppers.forEach(cropper => {
+      dispatch(setOriginalImage(cropper.image))
+    })
     addNewCropperForFilter()
     openModal()
   }
@@ -137,15 +159,15 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
         closePostModal={handleBack}
         buttonText={t.post.button_navigation_text}
         isCropHeader={!!imageSrc}
-        showCloseButton={!!imageSrc}
-        isPost
+        showCloseButton={imageSrc ? false : true}
+        isPost={true}
         onClose={closePostModal}
         onInteractOutside={handleInteractOutsideOfCrop}
       >
         <>
-          <FilterModal
+          <FilterPublicationModal
             isOpenFilter={isOpen}
-            closeFilter={closeModal}
+            closeFilter={handleCloseFilter}
             closeCroppingModal={handleClosePostCropModal}
             setImageScr={setImageSrc}
           />
