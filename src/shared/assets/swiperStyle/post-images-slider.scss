@@ -9,11 +9,17 @@
   .swiper-pagination-custom,
   .swiper-horizontal > .swiper-pagination-bullets,
   .swiper-pagination-bullets.swiper-pagination-horizontal {
+
     @media screen and (width<=910px) {
-      top: 89%;
+      top: 86%;
       left: 30%;
       width: 47%;
       height: 10px;
+      margin: 4px;
+    }
+    @media screen and (width<=459px) {
+      top: 77%;
+
     }
   }
 

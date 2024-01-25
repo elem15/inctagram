@@ -1,1 +1,1 @@
-export { PublicationModal } from './PublicationModal'
+export { PublicationData } from './PublicationData'

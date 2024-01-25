@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import { Scrollbar } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -21,14 +20,16 @@ type Props = {
   closePostModal: () => void
   setImageScr: (img: string | null) => void
 }
+const newPhotoTrigger = (
+  <div className={s.tool}>
+    <DefaultProfileImg style={{ width: '24px', height: '24px' }} />
+  </div>
+)
+
 export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, closePostModal, setImageScr }) => {
   const dispatch = useAppDispatch()
   const photos = useAppSelector(state => state.croppersSlice)
-  const newPhotoTrigger = (
-    <div className={s.tool}>
-      <DefaultProfileImg style={{ width: '24px', height: '24px' }} />
-    </div>
-  )
+
   const handleSelect = (event: Event) => {
     event.preventDefault()
   }
@@ -43,7 +44,7 @@ export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, closePostModal, set
   }
 
   return (
-    <div>
+    <div className={s.boxTool}>
       <CustomDropdown
         trigger={newPhotoTrigger}
         align={'end'}
@@ -69,7 +70,7 @@ export const AddNewPhotoTool: FC<Props> = ({ selectNewPhoto, closePostModal, set
                 return (
                   <SwiperSlide key={photo.id}>
                     <div className={s.imgs}>
-                      <Image src={photo.image} alt={''} width={80} height={82} />
+                      <img src={photo.image} alt={''} width={80} height={82} />
                       <div onClick={() => handleDeletePhoto(photo.id)}>
                         <DeleteIcon
                           style={{

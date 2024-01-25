@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import s from './Delete.module.scss'
 
 import { useDeletePhotoMutation } from '@/entities/profile/api/profileApi'
@@ -13,11 +15,13 @@ export const DeleteProfilePhoto = () => {
   const { t } = useTranslation()
   const { isOpen, openModal, closeModal } = useModal()
   const { accessToken } = useAuth()
-
-  const [deleteAvatar] = useDeletePhotoMutation()
+  const [buttonDisables, setDisabled] = useState(false)
+  const [deleteAvatar, { isSuccess }] = useDeletePhotoMutation()
   const handlerDeleteAvatar = () => {
+    setDisabled(true)
     deleteAvatar({ body: null, accessToken })
     closeModal()
+    if (isSuccess) setDisabled(false)
   }
 
   return (
@@ -42,7 +46,12 @@ export const DeleteProfilePhoto = () => {
       >
         <span className={s.text}>{t.delete_photo_of_profile.text}</span>
         <div className={s.buttons}>
-          <Button variant="outline" className={s.buttonn} onClick={handlerDeleteAvatar}>
+          <Button
+            variant="outline"
+            className={s.buttonn}
+            onClick={handlerDeleteAvatar}
+            disabled={buttonDisables}
+          >
             {t.delete_photo_of_profile.button_yes}
           </Button>
           <Button className={s.buttonn} onClick={closeModal}>

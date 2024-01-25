@@ -23,7 +23,9 @@ export const PostModalHeader = ({
       <Button variant={'link'} onClick={closeModal} className={s.prevButton}>
         <IconLeft />
       </Button>
-      <Typography variant={'h1'}>{title}</Typography>
+      <Typography variant={'h1'} className={s.titleModal}>
+        {title}
+      </Typography>
       <Button variant={'link'} onClick={onNext} disabled={disableButton} className={s.pubText}>
         {buttonText}
       </Button>
