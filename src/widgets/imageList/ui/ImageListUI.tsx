@@ -1,5 +1,4 @@
 import { ImageCard } from '@/shared/components/imageCard'
-import { useTranslation } from '@/shared/lib'
 
 type Props = {
   posts: PostDataToComponent[]
@@ -7,11 +6,9 @@ type Props = {
 }
 
 export const ImageListUI = ({ posts, openModal }: Props) => {
-  const { t } = useTranslation()
-
   return (
     <>
-      {posts?.length ? (
+      {posts?.length &&
         posts.map(({ id, url, description, width, height }) => (
           <ImageCard
             key={id}
@@ -22,10 +19,7 @@ export const ImageListUI = ({ posts, openModal }: Props) => {
             height={height}
             openModal={openModal}
           />
-        ))
-      ) : (
-        <div>{t.post_view.no_content}</div>
-      )}
+        ))}
     </>
   )
 }

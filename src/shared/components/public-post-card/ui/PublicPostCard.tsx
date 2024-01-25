@@ -13,7 +13,7 @@ import SmileImg from '@/shared/assets/SmileImg.png'
 import { TimeAgo, Typography } from '@/shared/components'
 import { ExpandableText } from '@/shared/components/expandable-text'
 import { useTranslation } from '@/shared/lib'
-import '../../../assets/swiperStyle/post-images-slider.scss'
+import '../../swiperSlider/swiper-slider.scss'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
@@ -53,7 +53,7 @@ export const PublicPostCard: FC<PublicPostCardProps> = ({
           pagination={{ clickable: true }}
           spaceBetween={10}
           slidesPerView={1}
-          className={'post-images-slider'}
+          className={'post-single-slider'}
           onClick={() => {
             router.push(`/public-posts/${ownerId}/${postId}`)
           }}
