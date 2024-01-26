@@ -6,35 +6,35 @@ import { BACKEND_URL, BASE_WORK_URL } from '@/shared/constants/ext-urls'
 import { consoleErrors } from '@/shared/lib'
 import { IEmailBaseUrl, IEmailPassword, IEmailPasswordUser } from '@/shared/types'
 
-export const authGoogleApi = createApi({
-  reducerPath: 'authGoogle',
-  baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
-  tagTypes: ['User'],
-  endpoints: builder => ({
-    googleLogin: builder.mutation<any, string>({
-      query: code => ({
-        body: { code },
-        url: '/auth/google/login',
-        method: 'POST',
-      }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled
+// export const authGoogleApi = createApi({
+//   reducerPath: 'authGoogle',
+//   baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
+//   tagTypes: ['User'],
+//   endpoints: builder => ({
+//     googleLogin: builder.mutation<any, string>({
+//       query: code => ({
+//         body: { code },
+//         url: '/auth/google/login',
+//         method: 'POST',
+//       }),
+//       async onQueryStarted(_, { dispatch, queryFulfilled }) {
+//         try {
+//           const { data } = await queryFulfilled
 
-          dispatch(setLoginUser({ email: data.email, accessToken: data.accessToken }))
-        } catch (error) {
-          const e = error as RTKError
+//           dispatch(setLoginUser({ email: data.email, accessToken: data.accessToken }))
+//         } catch (error) {
+//           const e = error as RTKError
 
-          if ('error' in e) {
-            consoleErrors(e.error)
-          } else console.error(e)
-        }
-      },
-    }),
-  }),
-})
+//           if ('error' in e) {
+//             consoleErrors(e.error)
+//           } else console.error(e)
+//         }
+//       },
+//     }),
+//   }),
+// })
 
-export const { useGoogleLoginMutation } = authGoogleApi
+// export const { useGoogleLoginMutation } = authGoogleApi
 
 export const authApi = createApi({
   reducerPath: 'userAuth',
@@ -86,15 +86,31 @@ export const authApi = createApi({
         }
       },
     }),
+    refreshToken: builder.mutation<any, void>({
+      query: () => ({
+        url: '/auth/update-tokens',
+        method: 'POST',
+        credentials: 'include',
+      }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+
+          dispatch(setLoginUser({ accessToken: data.accessToken }))
+        } catch (error) {
+          const e = error as RTKError
+
+          if ('error' in e) {
+            consoleErrors(e.error)
+          } else console.error(e)
+        }
+      },
+    }),
     logOut: builder.mutation<any, string>({
-      query: accessToken => ({
+      query: () => ({
         url: '/auth/logout',
         method: 'POST',
         credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + accessToken,
-        },
       }),
       async onQueryStarted(_, { dispatch }) {
         dispatch(clearLocalUserData())
@@ -153,4 +169,6 @@ export const {
   useValidCodeMutation,
   useResendRegistrationLinkMutation,
   useLogOutMutation,
+  useRefreshTokenMutation,
+  useGoogleLoginMutation,
 } = authApi

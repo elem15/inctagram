@@ -1,10 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { BACKEND_URL } from '@/shared/constants/ext-urls'
+import { baseQueryWithReauth } from '@/entities/posts'
 
 export const profileApi = createApi({
   reducerPath: 'userProfile',
-  baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['Profile', 'PublicProfile'],
   endpoints: builder => ({
     getPublicProfile: builder.query<PublicProfile, PublicProfileQuery>({

@@ -1,11 +1,12 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { BACKEND_URL } from '@/shared/constants/ext-urls'
+import { baseQueryWithReauth } from '..'
+
 import { getLargeImage } from '@/shared/lib'
 
 export const postsApi = createApi({
   reducerPath: 'posts',
-  baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['Posts', 'PublicPosts'],
   endpoints: builder => ({
     getPosts: builder.query<PostsDataToComponentCounter, PostsQuery>({

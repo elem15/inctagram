@@ -48,5 +48,5 @@ export interface IEmailPasswordUser extends IEmailPassword {
 
 export interface IEmailToken {
   accessToken: string
-  email: string
+  email?: string
 }

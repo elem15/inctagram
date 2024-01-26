@@ -2,7 +2,6 @@ import s from './MyProfile.module.scss'
 
 import { useGetPostsQuery } from '@/entities/posts'
 import { useGetProfileQuery } from '@/entities/profile'
-import { useGetPublicPostsQuery } from '@/entities/publicPosts'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { ImageListWidget } from '@/widgets/imageList'
@@ -22,12 +21,7 @@ function MyProfile() {
   return (
     <div className={s.container}>
       {data ? (
-        <ProfileHeaderWeb
-          data={data}
-          isAuth={isAuth}
-          totalCount={postsData?.totalCount}
-          userId={data.id}
-        />
+        <ProfileHeaderWeb data={data} isAuth={isAuth} totalCount={postsData?.totalCount} />
       ) : null}
       {userId ? <ImageListWidget userId={userId} /> : null}
     </div>

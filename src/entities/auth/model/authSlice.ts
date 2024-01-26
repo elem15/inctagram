@@ -46,7 +46,8 @@ const authSlice = createSlice({
     setLoginUser: (state, { payload: { email, accessToken } }) => {
       const userId = jwtDecode<MyJwtPayload>(accessToken).userId
 
-      state.email = email
+      state.email = email ? email : localStorage.getItem('email')
+
       state.accessToken = accessToken
       state.userId = +userId
 
