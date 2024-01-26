@@ -11,7 +11,7 @@ import { clearLocalUserData, setLoginUser } from '@/entities/auth'
 import { BACKEND_URL, BASE_WORK_URL } from '@/shared/constants/ext-urls'
 import { IEmailToken } from '@/shared/types'
 
-export const baseQuery = fetchBaseQuery({ baseUrl: BASE_WORK_URL })
+export const baseQuery = fetchBaseQuery({ baseUrl: BACKEND_URL })
 
 export const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,

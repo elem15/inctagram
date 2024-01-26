@@ -38,7 +38,7 @@ import { IEmailBaseUrl, IEmailPassword, IEmailPasswordUser } from '@/shared/type
 
 export const authApi = createApi({
   reducerPath: 'userAuth',
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_WORK_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: BACKEND_URL }),
   tagTypes: ['User'],
   endpoints: builder => ({
     registration: builder.mutation<any, IEmailPasswordUser>({
