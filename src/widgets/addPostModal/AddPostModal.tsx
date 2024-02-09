@@ -126,7 +126,6 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
     await croppers.forEach(cropper => {
       dispatch(setOriginalImage(cropper.image))
     })
-
     await addNewCropperForFilter()
     openModal()
   }
