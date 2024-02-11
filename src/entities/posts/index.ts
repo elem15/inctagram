@@ -1,3 +1,5 @@
+export { baseQueryWithReauth } from './api/baseQueryWithReauth'
+
 export {
   postsApi,
   useGetPostsQuery,

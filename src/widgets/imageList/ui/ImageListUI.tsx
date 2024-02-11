@@ -8,7 +8,7 @@ type Props = {
 export const ImageListUI = ({ posts, openModal }: Props) => {
   return (
     <>
-      {posts?.length &&
+      {!!posts?.length &&
         posts.map(({ id, url, description, width, height }) => (
           <ImageCard
             key={id}
