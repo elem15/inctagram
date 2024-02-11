@@ -204,7 +204,6 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
             ref={inputRef}
             style={{ display: 'none' }}
             type={'file'}
-            multiple
           />
         </>
       </Modal>
