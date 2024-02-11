@@ -54,6 +54,7 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
   const { errorText, showErrorText } = useErrorText()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
+
   const handleCloseFilter = () => {
     croppers.forEach(cropper => {
       dispatch(
@@ -121,17 +122,12 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
     dispatch(updatePhotos(croppedImages))
   }
 
-  const handleOpenFilter = () => {
-    croppers.forEach(cropper => {
+  const handleOpenFilter = async () => {
+    await croppers.forEach(cropper => {
       dispatch(setOriginalImage(cropper.image))
     })
-    addNewCropperForFilter()
+    await addNewCropperForFilter()
     openModal()
-  }
-
-  const handleDiscard = () => {
-    setCloseCropModal(false)
-    handleClosePostCropModal()
   }
 
   const handleInteractOutsideOfCrop = (event: Event) => {
@@ -208,7 +204,6 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
             ref={inputRef}
             style={{ display: 'none' }}
             type={'file'}
-            multiple
           />
         </>
       </Modal>
