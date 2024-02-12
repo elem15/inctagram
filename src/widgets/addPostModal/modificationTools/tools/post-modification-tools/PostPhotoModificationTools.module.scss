@@ -1,0 +1,76 @@
+.tool {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  opacity: 0.8;
+  background-color: var(--color-dark-500);
+  border-radius: 2px;
+}
+
+.toolBox {
+  position: absolute;
+  z-index: 12;
+  top: 87%;
+
+  display: flex;
+  justify-content: space-between;
+
+  width: 20%;
+  padding: 0 12px;
+
+
+}
+
+.sizeBox {
+  display: flex;
+  gap: 24px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+}
+
+.boxWindow {
+  transform: translateY(0);
+
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+
+  width: 156px;
+  height: 152px;
+  padding: 10px 12px;
+
+  opacity: 0.8;
+  background-color: var(--color-dark-500);
+  border-radius: 2px;
+
+  transition:
+    opacity 180ms linear,
+    transform 90ms ease-out;
+}
+
+.size {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.customContentBox {
+  opacity: 0.8;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+
+  &:focus {
+    fill: var(--color-accent-500);
+  }
+}

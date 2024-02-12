@@ -33,15 +33,16 @@ export const SignInWidget: FC = () => {
   const { isClient } = useClient()
   const { t } = useTranslation()
   const [Login, { isLoading, error, isSuccess }] = useLoginMutation()
+
   const router = useRouter()
 
   const onSubmit: SubmitHandler<IAuthInput> = data => {
     Login({ email: data.email, password: data.password })
   }
 
-  const googleLogin = () => {
+  const login = (url: string) => {
     setSocialsLoading(true)
-    window.location.assign(AUTH_URLS.GOOGLE)
+    window.location.assign(url)
   }
 
   useEffect(() => {
@@ -69,12 +70,12 @@ export const SignInWidget: FC = () => {
     <div className={styles.wrapper}>
       <h1 className={styles.heading}>{t.signin.title}</h1>
       <div className={styles.icon}>
-        <Button variant="link" onClick={googleLogin}>
+        <Button variant="link" onClick={() => login(AUTH_URLS.GOOGLE)}>
           <GoogleIcon />
         </Button>
-        <Link href={AUTH_URLS.GITHUB} onClick={() => setSocialsLoading(true)}>
+        <Button variant="link" onClick={() => login(AUTH_URLS.GITHUB)}>
           <GithubIcon className="fill-light-100" />
-        </Link>
+        </Button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <SignInAuth formState={formState} register={registerInput} getValues={getValues} />

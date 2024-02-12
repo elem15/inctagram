@@ -12,9 +12,9 @@ import { AddAvatarModalWitOutRotation } from '@/widgets/addProfilePhoto/addAvaWi
 import { DeleteProfilePhoto } from '@/widgets/addProfilePhoto/deleteProfilePhoto/DeleteProfilePhoto'
 
 export const ProfilePhoto = () => {
-  const { userId, accessToken } = useAuth()
+  const { accessToken } = useAuth()
   const { isOpen, openModal, closeModal } = useModal()
-  const { data } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
+  const { data } = useGetProfileQuery({ accessToken } as UserAuthData)
   const { t } = useTranslation()
 
   return (
@@ -39,7 +39,7 @@ export const ProfilePhoto = () => {
           )}
         </div>
       </div>
-      <Button variant={'outline'} onClick={openModal} style={{ width: '148px' }}>
+      <Button variant={'outline'} onClick={() => openModal()} style={{ width: '148px' }}>
         {t.add_profile_photo.add_profile_photo_text}
       </Button>
       <AddAvatarModalWitOutRotation isOpen={isOpen} closeModal={closeModal} />

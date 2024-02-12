@@ -31,6 +31,7 @@ export const en = {
     forgot_password: 'Forgot Password',
     sign_in: 'Sign In',
     sign_up: 'Sign Up',
+    log_in: 'Log in ',
     account_question: 'Don’t have an account?',
     error_message: 'The email or password are incorrect. Try again please',
     email_required: 'Email is required',
@@ -146,6 +147,7 @@ export const en = {
     account_management: 'Account Management',
     my_payments: 'My Payments',
     auth_error: 'Auth error. Signin again',
+    server_error: 'Server error. Reload page',
     user_name_error: 'User with this name already exist',
     success: 'Your settings are saved!',
   },
@@ -154,7 +156,7 @@ export const en = {
     text_of_button_select_from_comp: 'Select from Computer',
     error_type_of_photo: 'The format of the uploaded photo must be PNG and JPEG.',
     error: 'Error! ',
-    error_size_photo: 'Photo size must be less than 1.5 MB!',
+    error_size_photo: 'The photo size should not exceed 10 MB!',
     save_button: ' Save',
   },
   delete_photo_of_profile: {
@@ -182,6 +184,46 @@ export const en = {
   },
   delete_followers: {
     remove_text: 'Do you really want to remove',
+  },
+  registered_users: {
+    title: 'Registered Users:',
+  },
+  post_view: {
+    edit: 'Edit Post',
+    delete: 'Delete Post',
+    answer: 'Answer',
+    like: 'Like',
+    add_comment: 'Add a Comment...',
+    publish: 'Publish',
+    description: 'Add publication descriptions',
+    save: 'Save changes',
+    delete_confirm: 'Are you sure you want to delete this post?',
+    close_edit_title: 'Close Post',
+    close_edit_confirm:
+      'Do you really want to close the edition of the publication? If you close changes won’t be saved',
+    post_error: 'Maximum number of characters 500',
+    no_content: 'No posts yet',
+  },
+  post: {
+    post_modal_title: 'Add photo',
+    crop_modal_title: 'Cropping',
+    button_navigation_text: 'Next',
+    select_button: 'Select',
+    draft_button: 'Open Draft',
+    aspect_original: 'Original',
+    filter_modal: 'Filters',
+    publication_modal: 'Publication',
+    publish_button: 'Publish',
+    label_of_textarea: 'Add publication descriptions',
+    placeholder_of_textarea: 'Add your description',
+    label_of_input: 'Add location',
+    title_close_modal: 'Close',
+    text_close_modal:
+      ' Do you really want to close the creation of a publication? If you close everything will be\n' +
+      '          deleted',
+    discard_button: 'Discard',
+    save_draft: 'Save draft',
+    add_img_message: 'You have added the maximum number of photos allowed!',
   },
 }
 export type LangType = typeof en

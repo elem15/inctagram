@@ -1,0 +1,86 @@
+.modBox {
+  display: flex;
+  width: 100%;
+  height: 31.5rem;
+
+  @media (width<=768px) {
+    flex-direction: column;
+    border-top: 1px solid var(--color-dark-100);
+  }
+}
+
+.imageContainer {
+  width: 50%;
+
+  @media (width<=768px) {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+.imageBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+
+  @media (width<=768px) {
+    height: 220px;
+    margin-top: 8px;
+  }
+}
+
+.dataBox {
+  width: 50%;
+
+  @media (width<=768px) {
+    width: 100%;
+  }
+}
+
+.avaAndUserName {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  margin-bottom: 30px;
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+border: 1px solid var(--color-dark-100);
+    @media (width<=768px) {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  @media (width<=768px) {
+    margin-bottom: 5px;
+  }
+}
+
+.textareaBox {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--color-dark-100);
+
+  @media (width<=768px) {
+    margin-bottom: 10px;
+    padding: 1rem 1.5rem;
+  }
+}
+
+.textArea {
+  @media (width<=768px) {
+    height: 60px;
+    margin-bottom: 10px;
+  }
+}
+
+.locationBox {
+  padding: 1.5rem;
+
+  @media (width<=768px) {
+    padding: 0 1.5rem;
+  }
+}

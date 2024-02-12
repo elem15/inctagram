@@ -18,7 +18,7 @@ export const RemoveFollower = ({ avatar, name, isMob }: Props) => {
     <>
       <Button
         variant={'link'}
-        onClick={openModal}
+        onClick={() => openModal()}
         style={isMob ? { fontSize: '14px', padding: '5px 10px', color: '#fff' } : { color: '#fff' }}
       >
         {t.followers_modal.button_remove}

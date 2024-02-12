@@ -7,12 +7,14 @@ import s from '../AddProfilePhotoModal.module.scss'
 import getCroppedImg from './crropUtils'
 
 import { setAlert } from '@/app/services'
+import { clearLocalUserData } from '@/entities/auth'
 import { useSavePhotoMutation } from '@/entities/profile/api/profileApi'
 import { DefaultProfileImg } from '@/shared/assets'
 import { Button } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { SliderDemo } from '@/shared/components/slider'
 import { useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
+import { useErrorText } from '@/shared/lib/hooks'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 type Props = {
@@ -31,17 +33,20 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
   const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState<number>(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CroppedAreaPixel>(null)
-  const [errorText, setErrorText] = useState<string | undefined>()
 
   const { accessToken } = useAuth()
   const { t } = useTranslation()
   const inputRef = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch()
-
+  const { errorText, showErrorText } = useErrorText()
   const [savePhoto, { error, isLoading }] = useSavePhotoMutation()
+  const [isButtonDisable, setButtonDisable] = useState(false)
 
   useEffect(() => {
-    error && dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+    if (error) {
+      dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+      dispatch(clearLocalUserData())
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])
   const onCropComplete = useCallback((_croppedArea: any, croppedAreaPixels: CroppedAreaPixel) => {
@@ -64,6 +69,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
     }
   }
   const saveP = async () => {
+    setButtonDisable(true)
     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels)
 
     if (croppedImage) {
@@ -85,24 +91,25 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
     closeModal()
 
     setImageSrc(null)
-    setErrorText(undefined)
+    showErrorText('')
     setZoom(1)
+    setButtonDisable(false)
   }
 
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.files && e.currentTarget.files.length > 0) {
       const file = e.currentTarget.files[0]
       const acceptedTypes = ['image/jpeg', 'image/png']
-      const maxSizeBytes = 1.5 * 1024 * 1024
+      const maxSizeBytes = 10 * 1024 * 1024
 
       if (!acceptedTypes.includes(file.type)) {
-        setErrorText(t.add_profile_photo.error_type_of_photo)
+        showErrorText(t.add_profile_photo.error_type_of_photo)
 
         return
       }
 
       if (file.size > maxSizeBytes) {
-        setErrorText(t.add_profile_photo.error_size_photo)
+        showErrorText(t.add_profile_photo.error_size_photo)
 
         return
       }
@@ -139,7 +146,7 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
   const handleCloseModal = () => {
     closeModal()
     setImageSrc(null)
-    setErrorText(undefined)
+    showErrorText('')
     setZoom(1)
   }
 
@@ -198,7 +205,12 @@ export const AddAvatarModalWitOutRotation = ({ isOpen, closeModal }: Props) => {
               </div>
 
               <div className={s.buttonBox}>
-                <Button variant={'primary'} className={s.buttons} onClick={saveP}>
+                <Button
+                  variant={'primary'}
+                  className={s.buttons}
+                  onClick={saveP}
+                  disabled={isButtonDisable}
+                >
                   {t.add_profile_photo.save_button}
                 </Button>
               </div>

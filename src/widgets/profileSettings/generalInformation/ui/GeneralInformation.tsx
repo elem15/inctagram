@@ -7,12 +7,14 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useCountries } from '../model/useCountries'
 
+import { AsyncSelect } from './AsyncSelect'
 import s from './GeneralInformation.module.scss'
 
 import { setAlert } from '@/app/services'
+import { clearLocalUserData } from '@/entities/auth'
 import { useGetProfileQuery } from '@/entities/profile'
 import { usePutProfileMutation } from '@/entities/profile/api/profileApi'
-import { Button, Input, Textarea, SelectCustom } from '@/shared/components'
+import { Button, Input, Textarea, SelectCustom, Typography } from '@/shared/components'
 import { DatePicker } from '@/shared/components/datePicker'
 import { useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
@@ -36,12 +38,8 @@ const Information = () => {
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   })
-  const { userId, accessToken } = useAuth()
-  const {
-    data: profile,
-    isLoading,
-    error,
-  } = useGetProfileQuery({ profileId: userId, accessToken } as UserAuthData)
+  const { accessToken } = useAuth()
+  const { data: profile, isLoading, error } = useGetProfileQuery({ accessToken } as UserAuthData)
 
   const [putProfile, { isLoading: isPutLoading, error: putError, isSuccess }] =
     usePutProfileMutation()
@@ -54,10 +52,12 @@ const Information = () => {
         setError('userName', { type: 'server', message: t.profile.user_name_error })
       } else {
         dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+        dispatch(clearLocalUserData())
         router.push('/signin')
       }
     } else if (error) {
       dispatch(setAlert({ message: t.profile.auth_error, variant: 'error' }))
+      dispatch(clearLocalUserData())
       router.push('/signin')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,12 +115,7 @@ const Information = () => {
     profile?.aboutMe && setValue('aboutMe', profile.aboutMe)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps, prettier/prettier
-  }, [
-    profile?.firstName,
-    profile?.lastName,
-    profile?.userName,
-    profile?.aboutMe,
-  ])
+  }, [profile?.firstName, profile?.lastName, profile?.userName, profile?.aboutMe])
 
   useEffect(() => {
     isSuccess && dispatch(setAlert({ message: t.profile.success, variant: 'info' }))
@@ -136,7 +131,7 @@ const Information = () => {
     onChangeCountryHandler,
   } = useCountries()
 
-  const onChangeCityHandler = (value: any) => {
+  const onChangeCityHandler = (value: string) => {
     setValue('city', value)
     trigger()
   }
@@ -225,14 +220,23 @@ const Information = () => {
                 value={country}
                 onValueChange={onChangeCountryHandler}
               />
-              <SelectCustom
-                {...register('city')}
-                disabled={!country}
-                label={t.profile.cities}
-                options={cities}
-                placeHolder={profile?.city || t.profile.city_blank}
-                onValueChange={onChangeCityHandler}
-              />
+              {cities.length > 100 ? (
+                <div className={s.citiesContainer}>
+                  <Typography className={s.label} as={'label'}>
+                    {t.profile.cities}
+                  </Typography>
+                  <AsyncSelect cities={cities} onValueChange={onChangeCityHandler} />
+                </div>
+              ) : (
+                <SelectCustom
+                  {...register('city')}
+                  disabled={!country}
+                  label={t.profile.cities}
+                  options={cities}
+                  placeHolder={profile?.city || t.profile.city_blank}
+                  onValueChange={onChangeCityHandler}
+                />
+              )}
             </div>
 
             <Textarea

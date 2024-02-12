@@ -20,10 +20,27 @@ type DropdownProps = {
   className?: string
   style?: CSSProperties
   align?: 'start' | 'center' | 'end'
+  side?: 'top' | 'right' | 'bottom' | 'left'
+  isArrow?: boolean
+  sideOffset?: number
+  stayOpen?: boolean
 } & ComponentPropsWithoutRef<typeof DropdownMenu.Root>
 
 export const CustomDropdown = forwardRef<ElementRef<typeof DropdownMenu.Trigger>, DropdownProps>(
-  ({ trigger, children, className, style, align }: DropdownProps, ref) => {
+  (
+    {
+      trigger,
+      children,
+      className,
+      style,
+      align,
+      side = 'bottom',
+      isArrow = true,
+      sideOffset = 8,
+      stayOpen = false,
+    }: DropdownProps,
+    ref
+  ) => {
     const [open, setOpen] = useState(false)
 
     const classNames = {
@@ -41,16 +58,17 @@ export const CustomDropdown = forwardRef<ElementRef<typeof DropdownMenu.Trigger>
         <DropdownMenu.Portal>
           <DropdownMenu.Content
             className={classNames.content}
-            sideOffset={8}
+            sideOffset={sideOffset}
             style={style}
             onClick={event => {
               event.stopPropagation()
-              setOpen(false)
+              stayOpen ? setOpen(true) : setOpen(false)
             }}
+            side={side}
             align={align}
           >
+            {isArrow && <DropdownMenu.Arrow className={classNames.arrowWrap} />}
             <div className={classNames.itemsWrap}>{children}</div>
-            <DropdownMenu.Arrow className={classNames.arrowWrap} />
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
       </DropdownMenu.Root>

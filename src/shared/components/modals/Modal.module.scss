@@ -5,6 +5,11 @@
   background-color: rgb(0 0 0 / 50%);
 }
 
+.postBox {
+  position: relative;
+  padding: 0;
+}
+
 .content {
   position: fixed;
   z-index: 101;
@@ -43,6 +48,29 @@
     width: 972px;
   }
 
+  &.xl {
+    width: 992px;
+
+    .postBox {
+      height: auto;
+    }
+  }
+
+  @media screen and (width <= 1024px) {
+    &.xl {
+      width: fit-content;
+    }
+  }
+
+  @media screen and (width <= 576px) {
+    &.xl {
+      .postBox {
+        height: 90vh;
+        height: 90svh;
+      }
+    }
+  }
+
   @media screen and (width <= 768px) {
     &,
     &.xs,
@@ -54,6 +82,25 @@
     &.lg {
       width: calc(100% - 32px);
     }
+  }
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 24px 11px;
+
+  border-bottom: 1px solid var(--color-dark-100);
+
+  @media screen and (width <= 910px) {
+    margin: 0 8%;
+  }
+
+  @media screen and (width <= 768px) {
+    justify-content: space-between;
+    margin: 0 10%;
   }
 }
 
@@ -100,5 +147,19 @@
   &:focus-visible {
     background-color: var(--color-dark-100);
     outline: none;
+  }
+}
+
+.closeButtonOutside {
+  position: relative;
+  transform: translate(40px, -40px);
+
+  display: flex;
+  justify-content: flex-end;
+
+  height: 0;
+
+  .closeButton {
+    background: transparent;
   }
 }

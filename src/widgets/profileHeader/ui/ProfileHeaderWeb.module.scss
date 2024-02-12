@@ -1,6 +1,122 @@
+.dataProfile {
+  width: 100%;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  column-gap: 5px;
+  align-items: center;
+}
+
 @media (width <= 768px) {
   .container {
-    display: none;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      min-width: 72px;
+      min-height: 72px;
+
+      background-color: var(--color-dark-500);
+      border-radius: 50%;
+    }
+
+    .buttonSettings {
+      display: none;
+    }
+
+    .linkLargeProfile {
+      display: none;
+    }
+
+    .progressProfile {
+      display: flex;
+      gap: 25px;
+      height: 48px;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 54px;
+      }
+    }
+  }
+
+  .progressInfoText {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-s);
+  }
+
+  .profileName {
+    margin-bottom: 20px;
+  }
+
+  .description {
+    margin-bottom: 20px;
+  }
+
+  .text {
+    margin-bottom: 20px;
+
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 24px;
+    color: var(--color-accent-500);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent-500);
+  }
+}
+
+@media (width < 375px) {
+  .container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .buttonSettings {
+      display: none;
+    }
+
+    .linkLargeProfile {
+      display: none;
+    }
+
+    .progressProfile {
+      display: flex;
+      gap: 15px;
+      height: 48px;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .progressInfoValue {
+          font-size: 10px;
+          font-weight: 700;
+          font-style: normal;
+          line-height: 16px;
+        }
+
+        .progressInfoText {
+          font-size: 10px;
+          font-weight: 700;
+          font-style: normal;
+          line-height: 16px;
+        }
+      }
+    }
   }
 }
 
@@ -9,19 +125,22 @@
     display: flex;
     gap: 39px;
     align-items: center;
-    justify-content: space-between;
-
     margin-bottom: 53px;
 
     .image {
       display: flex;
+      align-items: center;
+      justify-content: center;
 
-      width: 204px;
-      height: 100%;
-      min-height: 200px;
+      min-width: 204px;
+      min-height: 204px;
 
-      background-color: var(--color-dark-900);
+      background-color: var(--color-dark-500);
       border-radius: 50%;
+    }
+
+    .linkSmallProfile {
+      display: none;
     }
 
     .header {
@@ -75,12 +194,13 @@
 
     .image {
       display: flex;
+      align-items: center;
+      justify-content: center;
 
-      width: 180px;
-      height: 100%;
+      min-width: 180px;
       min-height: 180px;
 
-      background-color: var(--color-dark-900);
+      background-color: var(--color-dark-500);
       border-radius: 50%;
     }
 
@@ -89,6 +209,14 @@
       justify-content: space-between;
       height: 36px;
       margin-bottom: 20px;
+
+      .buttonSettings {
+        display: none;
+      }
+
+      .linkLargeProfile {
+        display: none;
+      }
 
       &:focus-visible {
         border-radius: 2px;

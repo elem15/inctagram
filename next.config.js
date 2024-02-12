@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -18,6 +18,7 @@ const nextConfig = {
     google_client_id:
       process.env.GOOGLE_CLIENT_ID ||
       '617342613759-f3kbvgm8l310fn40vh6qna2pv8u2uccr.apps.googleusercontent.com',
+    // '535513477329-0m3nj9m45g3r0sm8kdh5i8c5jkjs88f0.apps.googleusercontent.com',
   },
   images: {
     remotePatterns: [

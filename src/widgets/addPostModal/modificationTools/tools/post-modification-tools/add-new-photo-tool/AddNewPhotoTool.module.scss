@@ -1,0 +1,53 @@
+@use '../../../../../../shared/assets/mixins';
+
+.tool {
+  @include mixins.tool;
+}
+
+.newItem {
+  display: flex;
+  justify-content: space-between;
+  width: 244px;
+  height: 106px;
+}
+
+.onePhoto {
+  width: 152px;
+}
+
+.box {
+  opacity: 0.8;
+}
+.boxTool{
+  position: absolute;
+  width: 100%;
+  top: 87%;
+  z-index: 12;
+  left: 90%;
+  @media screen and (width<=910px){
+    //top:
+  }
+}
+.menuBox {
+  position: relative;
+}
+
+.imgs {
+  display: flex;
+  gap: 3px;
+  width: 164px;
+
+  > img {
+    width: 80px;
+    height: 82px;
+    opacity: 0.8;
+  }
+}
+
+.oneSlide {
+  width: 152px;
+}
+
+.oneImg {
+  width: 80px;
+}

@@ -1,0 +1,12 @@
+@mixin tool() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  opacity: 0.8;
+  background-color: var(--color-dark-500);
+  border-radius: 2px;
+}
