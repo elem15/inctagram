@@ -24,6 +24,8 @@ export const SwiperSlider = ({ imagesUrl }: Props) => {
       style={{ height: '100%', width: '100%' }}
     >
       {imagesUrl?.map((image: any, index: number) => {
+        if (image.width !== 1440) return
+
         return (
           <SwiperSlide key={index}>
             <Image style={{ objectFit: 'cover' }} priority fill src={image.url} alt={''} />
