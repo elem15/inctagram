@@ -28,7 +28,7 @@ export const SwiperSlider = ({ imagesUrl }: Props) => {
 
         return (
           <SwiperSlide key={index}>
-            <Image style={{ objectFit: 'cover' }} priority fill src={image.url} alt={''} />
+            <Image style={{ objectFit: 'contain' }} priority fill src={image.url} alt={''} />
           </SwiperSlide>
         )
       })}
