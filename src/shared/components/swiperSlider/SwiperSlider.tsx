@@ -27,7 +27,7 @@ export const SwiperSlider = ({ imagesUrl }: Props) => {
         if (image.width !== 1440) return
 
         return (
-          <SwiperSlide key={index}>
+          <SwiperSlide style={{ position: 'relative' }} key={index}>
             <Image style={{ objectFit: 'contain' }} priority fill src={image.url} alt={''} />
           </SwiperSlide>
         )
