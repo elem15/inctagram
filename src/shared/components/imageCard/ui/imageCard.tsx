@@ -13,7 +13,7 @@ type Props = ImageProps & {
   openModal?: (postId: number) => void
 }
 
-export const ImageCard = ({ postId, src, alt, cardClassName, width, height, openModal }: Props) => {
+export const ImageCard = ({ postId, src, alt, cardClassName, openModal }: Props) => {
   const [loading, setLoading] = useState(true)
 
   useFetchLoader(loading)
