@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react'
 
+import Image from 'next/image'
 import { A11y, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -44,8 +45,14 @@ export const PublicationData = ({ photos }: Props) => {
             {photos.map(photo => {
               return (
                 <SwiperSlide key={photo.id} className={s.swiper}>
-                  <div className={s.imageBox}>
-                    <img src={photo.image} style={{ filter: photo.filterClass }} alt={''} />
+                  <div style={{ position: 'relative' }} className={s.imageBox}>
+                    <Image
+                      src={photo.image}
+                      style={{ filter: photo.filterClass, objectFit: 'contain' }}
+                      priority
+                      fill
+                      alt={''}
+                    />
                   </div>
                 </SwiperSlide>
               )

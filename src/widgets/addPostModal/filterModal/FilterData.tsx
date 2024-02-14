@@ -44,17 +44,17 @@ export const FilteringData: FC<Props> = ({ isOpenFilter }) => {
           {croppers.map(post => {
             return (
               <SwiperSlide key={post.id}>
-                <div className={s.box}>
+                <div style={{ position: 'relative' }} className={s.box}>
                   <Image
                     src={post.image}
                     alt={''}
                     style={{
                       filter: post.filterClass,
+                      objectFit: 'contain',
                     }}
+                    fill
                     className={s.postImg}
                     ref={imageRef}
-                    width={100}
-                    height={100}
                   />
                 </div>
               </SwiperSlide>

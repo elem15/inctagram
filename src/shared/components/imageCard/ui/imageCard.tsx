@@ -22,6 +22,7 @@ export const ImageCard = ({ postId, src, alt, cardClassName, width, height, open
     <>
       <div
         className={s.image}
+        style={{ position: 'relative' }}
         onClick={
           openModal
             ? () => {
@@ -32,10 +33,12 @@ export const ImageCard = ({ postId, src, alt, cardClassName, width, height, open
       >
         <Image
           src={src}
+          style={{ objectFit: 'contain' }}
           className={cardClassName}
+          sizes='50vw'
+          fill
+          priority
           alt={alt}
-          width={width}
-          height={height}
           onLoadingComplete={() => setLoading(false)}
         />
       </div>

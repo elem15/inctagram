@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import s from './ImageList.module.scss'
 import { ImageListUI } from './ImageListUI'
 
+import { useAppSelector } from '@/app/appStore'
 import { useGetPostsQuery } from '@/entities/posts'
 import { useErrorHandler, useFetchLoader } from '@/shared/lib'
 import { useMediaQuery } from '@/shared/lib/hooks'
@@ -22,6 +23,7 @@ export const ImageListWidget = ({ userId }: Props) => {
   const { isOpen, openModal, closeModal, modalId } = useModal()
   const searchParams = useSearchParams()
   const isDesktop = useMediaQuery('(min-width: 576px)')
+  const croppers = useAppSelector(state => state.croppersSlice)
 
   const postNumber = searchParams?.get('modalId') as string | undefined
 
