@@ -23,6 +23,7 @@
   align-items: center;
   justify-content: center;
   height: 500px;
+  position: relative;
 
   @media (width<=768px) {
     height: 220px;
