@@ -22,7 +22,6 @@ export const ImageCard = ({ postId, src, alt, cardClassName, openModal }: Props)
     <>
       <div
         className={s.image}
-        style={{ position: 'relative' }}
         onClick={
           openModal
             ? () => {

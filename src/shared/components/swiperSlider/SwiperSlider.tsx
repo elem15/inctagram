@@ -24,7 +24,7 @@ export const SwiperSlider = ({ imagesUrl }: Props) => {
       style={{ height: '100%', width: '100%' }}
     >
       {imagesUrl?.map((image: any, index: number) => {
-        if (image.width !== 1440) return
+        if (image.width !== 1440) return null
 
         return (
           <SwiperSlide style={{ position: 'relative' }} key={index}>

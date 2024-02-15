@@ -45,7 +45,7 @@ export const PublicationData = ({ photos }: Props) => {
             {photos.map(photo => {
               return (
                 <SwiperSlide key={photo.id} className={s.swiper}>
-                  <div style={{ position: 'relative' }} className={s.imageBox}>
+                  <div className={s.imageBox}>
                     <Image
                       src={photo.image}
                       style={{ filter: photo.filterClass, objectFit: 'contain' }}
