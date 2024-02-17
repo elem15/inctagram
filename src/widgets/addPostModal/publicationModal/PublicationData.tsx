@@ -33,7 +33,7 @@ export const PublicationData = ({ photos }: Props) => {
 
   useEffect(() => {
     setEditedPhotos(photos)
-  }, [editedPhotos])
+  }, [photos])
 
   return (
     <div className={s.modBox}>
