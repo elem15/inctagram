@@ -28,6 +28,7 @@ export const ModalOfFollowing = () => {
         onClick={openModal}
         style={{ cursor: 'pointer' }}
       >
+
         {t.following_modal.followings_title}
       </Typography>
 

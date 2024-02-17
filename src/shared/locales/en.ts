@@ -123,6 +123,11 @@ export const en = {
   notification_menu: {
     title: 'Notification',
   },
+  add_following: {
+    // title_of_delete_modal: 'Удалить подписку',
+    // delete_button: 'Отписаться',
+    text: 'Are you sure you want to subscribe to',
+  },
   profile: {
     user_name: 'Username',
     first_name: 'First name',
@@ -185,6 +190,8 @@ export const en = {
   delete_followers: {
     remove_text: 'Do you really want to remove',
   },
+
+
   registered_users: {
     title: 'Registered Users:',
   },
