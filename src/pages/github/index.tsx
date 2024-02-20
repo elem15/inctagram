@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
@@ -10,6 +10,7 @@ import { useClient } from '@/shared/lib/hooks/useClient'
 
 export function Github() {
   const searchParams = useSearchParams()
+  const [redirectAttempted, setRedirectAttempted] = useState(false)
 
   const email = searchParams?.get('email') as string
   const accessToken = searchParams?.get('accessToken') as string
@@ -19,11 +20,14 @@ export function Github() {
   const { isClient } = useClient()
 
   useEffect(() => {
-    if (email && accessToken) {
+    if (email && accessToken && !redirectAttempted) {
       dispatch(setLoginUser({ email, accessToken }))
+      setRedirectAttempted(true)
+      router.push('/my-profile').catch(error => {
+        console.error('Failed to navigate:', error)
+      })
     }
-    router.push('/my-profile')
-  }, [accessToken, dispatch, email, router])
+  }, [accessToken, dispatch, email, router, redirectAttempted])
 
   return (
     <>
