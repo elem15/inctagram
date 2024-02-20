@@ -34,9 +34,9 @@ export const ImageCard = ({ postId, src, alt, cardClassName, openModal }: Props)
           src={src}
           style={{ objectFit: 'contain' }}
           className={cardClassName}
-          sizes='50vw'
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           fill
-          priority
+          priority={true}
           alt={alt}
           onLoadingComplete={() => setLoading(false)}
         />

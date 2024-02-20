@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 
 import Image from 'next/image'
 import { A11y, Navigation, Pagination } from 'swiper/modules'
@@ -19,6 +19,7 @@ export const PublicationData = ({ photos }: Props) => {
   const { userId, accessToken } = useAuth()
   const dispatch = useAppDispatch()
 
+  const [editedPhotos, setEditedPhotos] = useState<CropperState[]>([])
   const { data: profileData } = useGetProfileQuery({ profileId: +userId, accessToken })
   const [wordCount, setWordCount] = useState(0)
   const { t } = useTranslation()
@@ -29,6 +30,10 @@ export const PublicationData = ({ photos }: Props) => {
 
     setWordCount(value.length)
   }
+
+  useEffect(() => {
+    setEditedPhotos(photos)
+  }, [photos])
 
   return (
     <div className={s.modBox}>
@@ -42,7 +47,7 @@ export const PublicationData = ({ photos }: Props) => {
           slidesPerView={1}
         >
           <div>
-            {photos.map(photo => {
+            {editedPhotos.map(photo => {
               return (
                 <SwiperSlide key={photo.id} className={s.swiper}>
                   <div className={s.imageBox}>
