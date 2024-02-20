@@ -169,35 +169,35 @@ export const AddPostModal = ({ openPostModal, closePostModal }: Props) => {
           />
 
           {!isOpen && imageSrc ? (
-              <AddPostModalData
-                selectPhoto={selectPhotoHandler}
-                closePostModal={closePostModal}
-                setImageScr={setImageSrc}
-              />
-            ) : (
-              <div className={s.modalBox}>
-                {errorText && (
-                  <div className={s.errorText}>
-                    <strong>{t.add_profile_photo.error}</strong>
-                    {errorText}
-                  </div>
-                )}
-                <div className={s.box}>
-                  <DefaultProfileImg style={{ width: '3rem', height: '3rem' }} />
+            <AddPostModalData
+              selectPhoto={selectPhotoHandler}
+              closePostModal={closePostModal}
+              setImageScr={setImageSrc}
+            />
+          ) : (
+            <div className={s.modalBox}>
+              {errorText && (
+                <div className={s.errorText}>
+                  <strong>{t.add_profile_photo.error}</strong>
+                  {errorText}
                 </div>
-
-                <Button
-                  variant={'primary'}
-                  style={{ marginBottom: '24px', width: '168px' }}
-                  onClick={selectPhotoHandler}
-                >
-                  {t.post.select_button}
-                </Button>
-                <Button variant={'outline'} style={{ width: '170px' }}>
-                  {t.post.draft_button}
-                </Button>
+              )}
+              <div className={s.box}>
+                <DefaultProfileImg style={{ width: '3rem', height: '3rem' }} />
               </div>
-            )}
+
+              <Button
+                variant={'primary'}
+                style={{ marginBottom: '24px', width: '168px' }}
+                onClick={selectPhotoHandler}
+              >
+                {t.post.select_button}
+              </Button>
+              <Button variant={'outline'} style={{ width: '170px' }}>
+                {t.post.draft_button}
+              </Button>
+            </div>
+          )}
           <input
             accept={'image/jpeg, image/png'}
             onChange={onFileChange}

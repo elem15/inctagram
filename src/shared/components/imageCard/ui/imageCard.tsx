@@ -6,7 +6,6 @@ import Image, { type ImageProps } from 'next/image'
 import s from './imageCard.module.scss'
 
 import { useFetchLoader } from '@/shared/lib'
-import { StaticImport, StaticRequire } from "next/dist/shared/lib/get-img-props";
 
 type Props = ImageProps & {
   postId: number
