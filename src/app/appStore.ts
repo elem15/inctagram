@@ -5,10 +5,12 @@ import { authReducer, authApi } from '../entities/auth'
 
 import { appSlice, postSlice } from '@/app/services'
 import { croppersSlice } from '@/app/services/cropper-slice'
+import { subscriptionSlice } from '@/app/services/subscription-slice'
 import { countriesApi } from '@/entities/countries/'
 import { postsApi } from '@/entities/posts'
 import { profileApi } from '@/entities/profile'
 import { publicPostsApi } from '@/entities/publicPosts'
+import { subscriptionApi } from '@/entities/subscription'
 
 const store = configureStore({
   reducer: {
@@ -17,11 +19,13 @@ const store = configureStore({
     [postSlice.name]: postSlice.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [croppersSlice.name]: croppersSlice.reducer,
+    [subscriptionSlice.name]: subscriptionSlice.reducer,
     // [authGoogleApi.reducerPath]: authGoogleApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,
     [publicPostsApi.reducerPath]: publicPostsApi.reducer,
     [postsApi.reducerPath]: postsApi.reducer,
+    [subscriptionApi.reducerPath]: subscriptionApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
@@ -30,7 +34,8 @@ const store = configureStore({
       profileApi.middleware,
       countriesApi.middleware,
       publicPostsApi.middleware,
-      postsApi.middleware
+      postsApi.middleware,
+      subscriptionApi.middleware
     ),
 })
 
