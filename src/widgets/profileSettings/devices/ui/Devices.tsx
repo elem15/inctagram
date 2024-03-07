@@ -15,6 +15,10 @@ const Component = () => {
     useFetchLoader(isLoading || deleteLoading)
     console.log(data)
 
+    const result = data({
+        accessToken,
+    }).unwrap()
+
     return (
         <div>
             <Typography variant={'h3'}>Current Device</Typography>
