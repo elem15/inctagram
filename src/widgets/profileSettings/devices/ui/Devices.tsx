@@ -7,6 +7,7 @@ import {useAuth} from "@/shared/lib/hooks/useAuth";
 import {useDeleteAllMutation, useDeleteSessionMutation, useGetDevicesQuery} from "@/entities/device's";
 import {useErrorHandler, useFetchLoader} from "@/shared/lib";
 import {PhoneIcon} from "@/shared/assets/icons/Phone";
+import React from 'react';
 
 const Component = () => {
     const { accessToken} = useAuth()
@@ -32,7 +33,7 @@ const Component = () => {
             {data && data.length > 0 ? (
                 <>
                     <Typography variant="h3">Current Device</Typography>
-                    <CardsCurrentDevice icon={IconComponent} IP={data[0].ip} deviceName={data[0].browserName}/>
+                    <CardsCurrentDevice key={data[0].deviceId} icon={IconComponent} IP={data[0].ip} deviceName={data[0].browserName}/>
 
                     <div className={s.button}>
                         <Button onClick={onClickHandler} variant="outline">
@@ -43,7 +44,7 @@ const Component = () => {
                     <div className={s.spacer}></div>
 
                     {data.slice(0).map((device) => (
-                        <>
+                        <React.Fragment key={device.deviceId}>
                             <Typography variant="h3">Active Sessions</Typography>
                             <CardsActiveDevice
                                 key={device.deviceId}
@@ -53,7 +54,7 @@ const Component = () => {
                                 IP={device.ip}
                                 handleDeleteSession={handleDeleteSession}
                             />
-                        </>
+                        </React.Fragment>
                     ))}
                 </>
             ) : (
@@ -70,4 +71,3 @@ export const Devices = () => {
         </TabsLayout>
     )
 }
-
