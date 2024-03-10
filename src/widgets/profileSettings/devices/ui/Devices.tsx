@@ -6,26 +6,33 @@ import s from './Devices.module.scss'
 import {useAuth} from "@/shared/lib/hooks/useAuth";
 import {useDeleteAllMutation, useDeleteSessionMutation, useGetDevicesQuery} from "@/entities/device's";
 import {useErrorHandler, useFetchLoader} from "@/shared/lib";
+import {PhoneIcon} from "@/shared/assets/icons/Phone";
 
 const Component = () => {
-    const {userId, accessToken, isAuth} = useAuth()
+    const { accessToken} = useAuth()
     const {data, isLoading, error} = useGetDevicesQuery({accessToken})
-    const [deleteDevice, {isLoading: deleteLoading, error: deleteError}] = useDeleteAllMutation()
-    useErrorHandler((deleteError || deleteLoading) as CustomerError)
-    useFetchLoader(isLoading || deleteLoading)
-    console.log(data)
+    const [deleteDevice, {isLoading: deleteLoadingAll, error: deleteErrorAll}] = useDeleteAllMutation()
 
+    const [deleteSessionDevice, { isLoading: deleteLoading, error: deleteError }] = useDeleteSessionMutation()
+
+    useFetchLoader(isLoading || deleteLoading || deleteLoadingAll)
+
+    useErrorHandler((deleteError || deleteLoading || deleteLoadingAll || deleteErrorAll) as CustomerError)
     const onClickHandler = () => {
-        deleteDevice({body: null, accessToken})
+        deleteDevice({accessToken})
     }
 
+    const handleDeleteSession = () => {
+        data && deleteSessionDevice({ deviceId: data[0].deviceId, accessToken })
+    }
+    const IconComponent = data && data[0].deviceType === 'phone' ? <PhoneIcon/> : <ChromeIcon/>;
 
     return (
         <div>
             {data && data.length > 0 ? (
                 <>
                     <Typography variant="h3">Current Device</Typography>
-                    <CardsCurrentDevice icon={<ChromeIcon/>} IP={data[0].ip} deviceName={data[0].browserName}/>
+                    <CardsCurrentDevice icon={IconComponent} IP={data[0].ip} deviceName={data[0].browserName}/>
 
                     <div className={s.button}>
                         <Button onClick={onClickHandler} variant="outline">
@@ -35,21 +42,22 @@ const Component = () => {
 
                     <div className={s.spacer}></div>
 
-                    {data.slice(1).map((device) => (
+                    {data.slice(0).map((device) => (
                         <>
                             <Typography variant="h3">Active Sessions</Typography>
                             <CardsActiveDevice
                                 key={device.deviceId}
                                 visited={device.lastActive}
-                                icon={<ChromeIcon/>}
+                                icon={IconComponent}
                                 deviceName={device.osName}
                                 IP={device.ip}
+                                handleDeleteSession={handleDeleteSession}
                             />
                         </>
                     ))}
                 </>
             ) : (
-                <div>No devices found.</div>
+                ''
             )}
         </div>
     );
@@ -62,3 +70,4 @@ export const Devices = () => {
         </TabsLayout>
     )
 }
+

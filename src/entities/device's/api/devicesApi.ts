@@ -20,7 +20,7 @@ export const devicesApi = createApi({
             }),
             providesTags: ['Devices'],
         }),
-        deleteAll: builder.mutation<void, { body: null; accessToken: string | undefined }>({
+        deleteAll: builder.mutation<void, {accessToken: string | undefined }>({
             query: ({accessToken}) => {
                 return {
                     url: '/sessions/terminate-all',
@@ -34,11 +34,7 @@ export const devicesApi = createApi({
             },
             invalidatesTags: ['Devices'],
         }),
-        deleteSession: builder.mutation<any,
-            {
-                deviceId: number
-                accessToken: string | undefined
-            }>({
+        deleteSession: builder.mutation<void, {deviceId: number ; accessToken: string | undefined}>({
             query: ({deviceId, accessToken}) => {
                 return {
                     url: `/sessions/${deviceId}`,

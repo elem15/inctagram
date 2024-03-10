@@ -2,6 +2,7 @@ import React, {ReactNode} from "react";
 import s from './CardsDevices.module.scss';
 import {Typography} from "@/shared/components";
 import {LogOut} from "lucide-react";
+import { format } from "date-fns";
 
 
 type Props = {
@@ -9,6 +10,7 @@ type Props = {
     deviceName: string;
     IP: string;
     visited?: string
+    handleDeleteSession?: () => void;
 };
 
 export const CardsCurrentDevice = ({IP, deviceName, icon, visited}: Props) => {
@@ -26,22 +28,26 @@ export const CardsCurrentDevice = ({IP, deviceName, icon, visited}: Props) => {
 };
 
 
-export const CardsActiveDevice = ({IP, deviceName, icon, visited}: Props) => {
-
+export const CardsActiveDevice = ({IP, deviceName, icon, visited,handleDeleteSession}: Props) => {
+    const lastActiveDate = visited ? new Date(visited) : null;
+    const formattedDate = lastActiveDate ? format(lastActiveDate, 'yyyy-MM-dd') : '';
 
     return (
         <div className={s.cardsDevice}>
             <svg className={s.icon}>{icon}</svg>
             <div className={s.details}>
-                <Typography variant={'h3'} className={s.name}>{deviceName}</Typography>
-                <Typography className={s.ip} variant={'small_text'}>IP:{IP}</Typography>
-                <Typography variant={'small_text'}>{visited}</Typography>
+                <Typography variant="h3" className={s.name}>
+                    {deviceName}
+                </Typography>
+                <Typography className={s.ip} variant="small_text">
+                    IP: {IP}
+                </Typography>
+                <Typography variant="small_text">Last Active: {formattedDate}</Typography>
             </div>
-            <div className={s.button} >
-                <LogOut/>
+            <div className={s.button}>
+                <LogOut onClick={handleDeleteSession}/>
                 <Typography>Log Out</Typography>
             </div>
-
         </div>
     );
 };
