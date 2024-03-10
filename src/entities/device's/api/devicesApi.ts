@@ -9,7 +9,7 @@ export const devicesApi = createApi({
     baseQuery: baseQueryWithReauth,
     tagTypes: ['Devices'],
     endpoints: builder => ({
-        getDevices: builder.query<Device, UserAuthData>({
+        getDevices: builder.query<Device[], UserAuthData>({
             query: ({accessToken}) => ({
                 method: 'GET',
                 url: '/sessions',
