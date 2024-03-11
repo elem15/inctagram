@@ -26,7 +26,9 @@ const Component = () => {
     const handleDeleteSession = () => {
         data && deleteSessionDevice({ deviceId: data[0].deviceId, accessToken })
     }
-    const IconComponent = data && data[0].deviceType === 'phone' ? <PhoneIcon/> : <ChromeIcon/>;
+    const IconComponent = data && data[0].deviceType === 'phone'
+        ? (data[0].osName === 'ios' ? <PhoneIcon/> : <PhoneIcon/>)
+        : <ChromeIcon/>;
 
     return (
         <div>
