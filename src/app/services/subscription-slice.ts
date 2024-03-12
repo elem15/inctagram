@@ -1,17 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { RootState } from '@/app/appStore'
+import { useTranslation } from '@/shared/lib'
 
 type initialType = {
   isSubscription: boolean
-  subscriptionFrom: string
+  amountDays: number
   subscriptionTo: string
+  currentPrice: ValuePriceType
 }
 
 const initialState: initialType = {
   isSubscription: false,
-  subscriptionFrom: '',
+  amountDays: 1,
   subscriptionTo: '',
+  currentPrice: '',
 }
 
 export const subscriptionSlice = createSlice({
@@ -20,8 +23,9 @@ export const subscriptionSlice = createSlice({
   reducers: {
     setTime: (state, action: PayloadAction<initialType>) => {
       state.isSubscription = action.payload.isSubscription
-      state.subscriptionFrom = action.payload.subscriptionFrom
+      state.amountDays = action.payload.amountDays
       state.subscriptionTo = action.payload.subscriptionTo
+      state.currentPrice = action.payload.currentPrice
     },
   },
 })

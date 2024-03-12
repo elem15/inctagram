@@ -43,4 +43,5 @@ export const subscriptionApi = createApi({
   }),
 })
 
-export const { useSubscribeMutation, useCurrentSubscriptionQuery, useGetPaymentsQuery } = subscriptionApi
+export const { useSubscribeMutation, useCurrentSubscriptionQuery, useGetPaymentsQuery } =
+  subscriptionApi

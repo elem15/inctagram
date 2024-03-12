@@ -7,12 +7,10 @@ import styles from './AccountManagement.module.scss'
 import { useAppSelector } from '@/app/appStore'
 import { selectSubscription, setTime } from '@/app/services/subscription-slice'
 import { useSubscribeMutation } from '@/entities/subscription'
-import { useGetPaymentsQuery } from '@/entities/subscription/api/subscriptionApi'
 import { PayPal, Stripe } from '@/shared/assets'
 import { Button, SuperCheckbox, Typography } from '@/shared/components'
 import { Modal } from '@/shared/components/modals'
 import { RadioGr } from '@/shared/components/radio-group'
-import { BASE_WORK_URL } from '@/shared/constants/ext-urls'
 import { useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
 import { calculateDates } from '@/shared/lib/utils/сalculateDates'
@@ -26,23 +24,30 @@ enum PERIOD {
 
 const Component = () => {
   const { t } = useTranslation()
+  const { accessToken } = useAuth()
+
   const [valueType, setValueType] = useState<ValueType>(t.account_type.personal as ValueType)
-  const [valuePrice, setValuePrice] = useState<ValuePriceType>(t.subscription.day)
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [isChecked, setChecked] = useState<boolean>(false)
   const [flag, setFlag] = useState<boolean>(false)
-  const [periodDays, setPeriodDays] = useState<PERIOD>(PERIOD.DAY)
-  const { accessToken } = useAuth()
 
-  const [subscribe, { isLoading, isSuccess, isError }] = useSubscribeMutation()
-  const { data: dataSub } = useGetPaymentsQuery({ accessToken } as UserAuthData)
+  const [subscribe, { isLoading, isError }] = useSubscribeMutation()
+
+  const { amountDays, subscriptionTo, currentPrice } = useAppSelector(selectSubscription)
+  const [periodDays, setPeriodDays] = useState<PERIOD>(amountDays)
+  const [valuePrice, setValuePrice] = useState<ValuePriceType>(t.subscription.day)
 
   const router = useRouter()
   const dispatch = useAppDispatch()
 
-  useFetchLoader(isLoading)
+  const [day, month, year] = subscriptionTo.split('.').map(Number)
+  const subscriptionExpirationDate =
+    router.locale === 'ru' ? new Date(year, month - 1, day) : new Date(subscriptionTo)
+  const nextDay = new Date(
+    subscriptionExpirationDate.setDate(subscriptionExpirationDate.getDate() + 1)
+  ).toLocaleDateString(router.locale === 'en' ? 'en-EN' : 'ru-RU')
 
-  const { subscriptionFrom, subscriptionTo } = useAppSelector(selectSubscription)
+  useFetchLoader(isLoading)
 
   const typeAccount = [
     { label: t.account_type.personal, value: t.account_type.personal },
@@ -63,10 +68,10 @@ const Component = () => {
 
   const handlerSubscribe: MouseEventHandler<HTMLButtonElement> = async e => {
     const body = {
-      typeSubscription: data[valuePrice].period,
+      typeSubscription: data[valuePrice as ValuePriceType].period,
       paymentType: e.currentTarget.name.toUpperCase(),
-      amount: Number(data[valuePrice].amount),
-      baseUrl: BASE_WORK_URL,
+      amount: Number(data[valuePrice as ValuePriceType].amount),
+      baseUrl: window.location.href,
     }
 
     const result = await subscribe({
@@ -74,38 +79,69 @@ const Component = () => {
       accessToken,
     }).unwrap()
 
-    window.open(result.url, '_blank')
-    setOpenModal(true)
+    window.location.href = result.url
   }
 
   const onSuccess = () => {
+    const price = localStorage.getItem('price')
+
     setOpenModal(false)
     setFlag(true)
+    let count: PERIOD
 
-    if (data[valuePrice].period === 'DAY') {
+    if (data[price as ValuePriceType].period === 'DAY') {
       setPeriodDays(PERIOD.DAY)
-    } else if (data[valuePrice].period === 'WEEKLY') {
+      count = PERIOD.DAY
+    } else if (data[price as ValuePriceType].period === 'WEEKLY') {
       setPeriodDays(PERIOD.WEEK)
+      count = PERIOD.WEEK
     } else {
       setPeriodDays(PERIOD.MONTH)
+      count = PERIOD.MONTH
     }
 
     dispatch(
       setTime({
         isSubscription: true,
-        subscriptionFrom: new Date().toLocaleDateString(router.locale === 'en' ? 'en-EN' : 'ru-RU'),
-        subscriptionTo: calculateDates(periodDays).toLocaleDateString(
+        amountDays: count,
+        currentPrice: price as ValuePriceType,
+        subscriptionTo: calculateDates(count).toLocaleDateString(
           router.locale === 'en' ? 'en-EN' : 'ru-RU'
         ),
       })
     )
   }
 
-  console.log(dataSub)
+  const onChangPrice = (value: ValuePriceType) => {
+    localStorage.setItem('price', value)
+    setValuePrice(value)
+  }
+
+  const onChangTypeAccount = (value: ValueType) => {
+    setValueType(value)
+    localStorage.setItem('price', t.subscription.day)
+  }
+
+  useEffect(() => {
+    if (router.query.success) {
+      setOpenModal(true)
+    }
+  }, [router.query.success])
 
   useEffect(() => {
     setValueType(t.account_type.personal as ValueType)
-    setValuePrice(t.subscription.day)
+    setValuePrice(currentPrice || t.subscription.day)
+
+    dispatch(
+      setTime({
+        isSubscription: true,
+        currentPrice,
+        amountDays,
+        subscriptionTo: calculateDates(periodDays).toLocaleDateString(
+          router.locale === 'en' ? 'en-EN' : 'ru-RU'
+        ),
+      })
+    )
   }, [router.locale])
 
   return (
@@ -116,11 +152,11 @@ const Component = () => {
           <div className={`${styles.wrapper} ${styles.wrapperWithFlex}`}>
             <div className={styles.time}>
               <Typography className={styles.colorText}>{t.expire_at}</Typography>
-              <Typography variant={'regular_text_16'}>{subscriptionFrom}</Typography>
+              <Typography variant={'regular_text_16'}>{subscriptionTo}</Typography>
             </div>
             <div className={styles.time}>
               <Typography className={styles.colorText}>{t.next_payment}</Typography>
-              <Typography variant={'regular_text_16'}>{subscriptionTo}</Typography>
+              <Typography variant={'regular_text_16'}>{nextDay}</Typography>
             </div>
           </div>
           <SuperCheckbox
@@ -135,7 +171,7 @@ const Component = () => {
         <Typography variant={'h3'}>{t.text_account}:</Typography>
         <div className={styles.wrapper}>
           <RadioGr
-            onValueChange={value => setValueType(value as ValueType)}
+            onValueChange={value => onChangTypeAccount(value as ValueType)}
             options={typeAccount}
             value={valueType}
           />
@@ -147,9 +183,9 @@ const Component = () => {
           <Typography variant={'h3'}>{t.text_subscription_costs}:</Typography>
           <div className={styles.wrapper}>
             <RadioGr
-              onValueChange={value => setValuePrice(value as ValuePriceType)}
+              onValueChange={value => onChangPrice(value)}
               options={businessPrice}
-              value={valuePrice}
+              value={valuePrice as ValuePriceType}
             />
           </div>
           <div className={styles.payPalAndStripe}>
@@ -163,7 +199,7 @@ const Component = () => {
           </div>
         </div>
       )}
-      {isSuccess && openModal ? (
+      {router.query.success && openModal ? (
         <Modal size={'sm'} open={openModal} title={t.text_success}>
           <Typography variant={'regular_text_16'}>{t.payment_success}</Typography>
           <Button className={styles.successButton} fullWidth onClick={onSuccess}>
@@ -171,7 +207,7 @@ const Component = () => {
           </Button>
         </Modal>
       ) : null}
-      {isError && openModal ? (
+      {isError && router.query.success && openModal ? (
         <Modal size={'sm'} open={openModal} title={t.text_error}>
           <Typography variant={'regular_text_16'}>{t.transaction_failed}</Typography>
           <Button className={styles.successButton} fullWidth onClick={onSuccess}>
