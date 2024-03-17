@@ -13,6 +13,7 @@ import { Modal } from '@/shared/components/modals'
 import { RadioGr } from '@/shared/components/radio-group'
 import { useAppDispatch, useFetchLoader, useTranslation } from '@/shared/lib'
 import { useAuth } from '@/shared/lib/hooks/useAuth'
+import { addLangValue } from '@/shared/lib/utils/addLangValue'
 import { calculateDates } from '@/shared/lib/utils/сalculateDates'
 import { TabsLayout } from '@/widgets/layouts'
 
@@ -26,16 +27,19 @@ const Component = () => {
   const { t } = useTranslation()
   const { accessToken } = useAuth()
 
-  const [valueType, setValueType] = useState<ValueType>(t.account_type.personal as ValueType)
+  const { amountDays, isSubscription, subscriptionTo } = useAppSelector(selectSubscription)
+  const [valuePrice, setValuePrice] = useState<ValuePriceType>(() => {
+    return (localStorage.getItem('price') || t.subscription.day) as ValuePriceType
+  })
+  const [valueType, setValueType] = useState<ValueType>(() => {
+    return (localStorage.getItem('type') || t.account_type.personal) as ValueType
+  })
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [isChecked, setChecked] = useState<boolean>(false)
-  const [flag, setFlag] = useState<boolean>(false)
 
   const [subscribe, { isLoading, isError }] = useSubscribeMutation()
 
-  const { amountDays, subscriptionTo, currentPrice } = useAppSelector(selectSubscription)
   const [periodDays, setPeriodDays] = useState<PERIOD>(amountDays)
-  const [valuePrice, setValuePrice] = useState<ValuePriceType>(t.subscription.day)
 
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -86,7 +90,6 @@ const Component = () => {
     const price = localStorage.getItem('price')
 
     setOpenModal(false)
-    setFlag(true)
     let count: PERIOD
 
     if (data[price as ValuePriceType].period === 'DAY') {
@@ -119,6 +122,7 @@ const Component = () => {
 
   const onChangTypeAccount = (value: ValueType) => {
     setValueType(value)
+    localStorage.setItem('type', value)
     localStorage.setItem('price', t.subscription.day)
   }
 
@@ -129,13 +133,13 @@ const Component = () => {
   }, [router.query.success])
 
   useEffect(() => {
-    setValueType(t.account_type.personal as ValueType)
-    setValuePrice(currentPrice || t.subscription.day)
+    setValueType(addLangValue<ValueType>(t.lg as LangType, valueType))
+    setValuePrice(addLangValue<ValuePriceType>(t.lg as LangType, valuePrice))
 
     dispatch(
       setTime({
         isSubscription: true,
-        currentPrice,
+        currentPrice: valuePrice as ValuePriceType,
         amountDays,
         subscriptionTo: calculateDates(periodDays).toLocaleDateString(
           router.locale === 'en' ? 'en-EN' : 'ru-RU'
@@ -146,7 +150,7 @@ const Component = () => {
 
   return (
     <div className={styles.container}>
-      {flag && (
+      {isSubscription && (
         <div>
           <Typography variant={'h3'}>{t.current_subscription}:</Typography>
           <div className={`${styles.wrapper} ${styles.wrapperWithFlex}`}>
@@ -183,9 +187,9 @@ const Component = () => {
           <Typography variant={'h3'}>{t.text_subscription_costs}:</Typography>
           <div className={styles.wrapper}>
             <RadioGr
-              onValueChange={value => onChangPrice(value)}
+              onValueChange={value => onChangPrice(value as ValuePriceType)}
               options={businessPrice}
-              value={valuePrice as ValuePriceType}
+              value={valuePrice}
             />
           </div>
           <div className={styles.payPalAndStripe}>

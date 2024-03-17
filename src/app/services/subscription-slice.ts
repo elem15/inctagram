@@ -1,13 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { RootState } from '@/app/appStore'
-import { useTranslation } from '@/shared/lib'
 
-type initialType = {
+export interface initialType {
   isSubscription: boolean
   amountDays: number
   subscriptionTo: string
-  currentPrice: ValuePriceType
+  currentPrice: ValuePriceType | string
 }
 
 const initialState: initialType = {
