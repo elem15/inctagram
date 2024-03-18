@@ -45,7 +45,7 @@ export const SignUpAuth: FC<IAuthFields> = ({ register, formState: { errors }, g
       ></InputField>
       <PasswordField
         {...register('password', {
-          required:  t.signup.password_required,
+          required: t.signup.password_required,
           minLength: {
             value: 6,
             message: t.messages.password_min_length,

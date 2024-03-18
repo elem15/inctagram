@@ -1,103 +1,104 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
-import {clsx} from 'clsx'
-import {useRouter} from 'next/router'
+import { clsx } from 'clsx'
+import { useRouter } from 'next/router'
 
 import s from './DataOfFollowers.module.scss'
 
-import {IconUser} from '@/shared/assets'
-import {Button, Input} from '@/shared/components'
-import {RemoveFollower} from '@/shared/components/followers-modal/deleteFollowers'
-import {useTranslation} from '@/shared/lib'
-import {followingArray} from '@/shared/components/following-modal'
-import {AddFollowers} from "@/shared/components/followers-modal/addFollowers";
+import { IconUser } from '@/shared/assets'
+import { Button, Input } from '@/shared/components'
+import { RemoveFollower } from '@/shared/components/followers-modal/deleteFollowers'
+import { useTranslation } from '@/shared/lib'
+import { followingArray } from '@/shared/components/following-modal'
+import { AddFollowers } from '@/shared/components/followers-modal/addFollowers'
 
 export const DataOfFollowers = () => {
-    const {t} = useTranslation()
-    const router = useRouter()
-    const [shouldTruncate, setShouldTruncate] = useState(false)
-    const [followersArray, setFollowersArray] = useState([
-        {avatar: '', value: '1', title: 'URLProfile', isUnfollow: false},
-        {avatar: '', value: '2', title: 'URLProfile', isUnfollow: false},
-        {avatar: '', value: '3', title: 'URLProfile', isUnfollow: true},
-        {avatar: '', value: '4', title: 'URLProfile', isUnfollow: false},
-        {avatar: '', value: '5', title: 'URLProfile', isUnfollow: false},
-        {avatar: '', value: '6', title: 'URLProfile', isUnfollow: false},
-        {avatar: '', value: '7', title: 'URLProfile', isUnfollow: true},
-    ])
+  const { t } = useTranslation()
+  const router = useRouter()
+  const [shouldTruncate, setShouldTruncate] = useState(false)
+  const [followersArray, setFollowersArray] = useState([
+    { avatar: '', value: '1', title: 'URLProfile', isUnfollow: false },
+    { avatar: '', value: '2', title: 'URLProfile', isUnfollow: false },
+    { avatar: '', value: '3', title: 'URLProfile', isUnfollow: true },
+    { avatar: '', value: '4', title: 'URLProfile', isUnfollow: false },
+    { avatar: '', value: '5', title: 'URLProfile', isUnfollow: false },
+    { avatar: '', value: '6', title: 'URLProfile', isUnfollow: false },
+    { avatar: '', value: '7', title: 'URLProfile', isUnfollow: true },
+  ])
 
-    useEffect(() => {
-        if (router.pathname === '/my-profile/following-page/[subscription]') {
-            setShouldTruncate(true)
-        } else {
-            setShouldTruncate(false)
-        }
-    }, [router.pathname])
-
-    const handleRemoveFollower = (index: number) => {
-        const updatedFollowersArray = [...followersArray]
-        updatedFollowersArray.splice(index, 1)
-        setFollowersArray(updatedFollowersArray)
+  useEffect(() => {
+    if (router.pathname === '/my-profile/following-page/[subscription]') {
+      setShouldTruncate(true)
+    } else {
+      setShouldTruncate(false)
     }
-    const handleAddFollower = (index: number) => {
-        const updatedFollowersArray = [...followersArray]
-        updatedFollowersArray[index].isUnfollow = !updatedFollowersArray[index].isUnfollow
-        setFollowersArray(updatedFollowersArray)
-    }
+  }, [router.pathname])
 
-    return (
-        <>
-            <Input type={'search'} placeholder={t.following_modal.input_placeholder}/>
+  const handleRemoveFollower = (index: number) => {
+    const updatedFollowersArray = [...followersArray]
+    updatedFollowersArray.splice(index, 1)
+    setFollowersArray(updatedFollowersArray)
+  }
+  const handleAddFollower = (index: number) => {
+    const updatedFollowersArray = [...followersArray]
+    updatedFollowersArray[index].isUnfollow = !updatedFollowersArray[index].isUnfollow
+    setFollowersArray(updatedFollowersArray)
+  }
 
-            <ul>
-                {followersArray.map((follower, index) => {
-                    const truncatedTitle =
-                        shouldTruncate && follower.title.length >= 5
-                            ? `${follower.title.substring(0, 2)}...`
-                            : follower.title
+  return (
+    <>
+      <Input type={'search'} placeholder={t.following_modal.input_placeholder} />
 
-                    return (
-                        <li key={follower.value} className={s.dataBox}>
-                            <p
-                                className={s.avatar}
-                                style={{
-                                    backgroundImage: follower.avatar ? `${follower.avatar}` : 'none',
-                                }}
-                            >
-                                {follower.avatar ? null : <IconUser/>}
-                            </p>
-                            <span className={clsx(router.locale === 'ru' ? s.ruText : s.text)}>
+      <ul>
+        {followersArray.map((follower, index) => {
+          const truncatedTitle =
+            shouldTruncate && follower.title.length >= 5
+              ? `${follower.title.substring(0, 2)}...`
+              : follower.title
+
+          return (
+            <li key={follower.value} className={s.dataBox}>
+              <p
+                className={s.avatar}
+                style={{
+                  backgroundImage: follower.avatar ? `${follower.avatar}` : 'none',
+                }}
+              >
+                {follower.avatar ? null : <IconUser />}
+              </p>
+              <span className={clsx(router.locale === 'ru' ? s.ruText : s.text)}>
                 {truncatedTitle}
               </span>
-                            {!follower.isUnfollow && (
-                                <AddFollowers
-                                    avatar={follower.avatar}
-                                    isMob={shouldTruncate}
-                                    name={follower.title}
-                                    onAdd={() => handleAddFollower(index)}/>
-                                // <Button
-                                //     variant={'primary'}
-                                //     style={
-                                //         shouldTruncate
-                                //             ? { fontSize: '14px', padding: '5px 10px', color: '#fff' }
-                                //             : { fontSize: '16px' }
-                                //     }
-                                // >
-                                //     {t.following_modal.follow_button}
-                                // </Button>
-                            )}
-                            <div className={s.deleteButtonBox}>
-                                <RemoveFollower
-                                    avatar={follower.avatar}
-                                    isMob={shouldTruncate}
-                                    name={follower.title}
-                                    onRemove={() => handleRemoveFollower(index)}
-                                />
-                            </div>
-                        </li>
-                    )
-                })}
-            </ul>
-        </>
-    )
+              {!follower.isUnfollow && (
+                <AddFollowers
+                  avatar={follower.avatar}
+                  isMob={shouldTruncate}
+                  name={follower.title}
+                  onAdd={() => handleAddFollower(index)}
+                />
+                // <Button
+                //     variant={'primary'}
+                //     style={
+                //         shouldTruncate
+                //             ? { fontSize: '14px', padding: '5px 10px', color: '#fff' }
+                //             : { fontSize: '16px' }
+                //     }
+                // >
+                //     {t.following_modal.follow_button}
+                // </Button>
+              )}
+              <div className={s.deleteButtonBox}>
+                <RemoveFollower
+                  avatar={follower.avatar}
+                  isMob={shouldTruncate}
+                  name={follower.title}
+                  onRemove={() => handleRemoveFollower(index)}
+                />
+              </div>
+            </li>
+          )
+        })}
+      </ul>
+    </>
+  )
 }
