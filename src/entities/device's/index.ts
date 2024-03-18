@@ -1,1 +1,6 @@
-export { useDeleteAllMutation,useDeleteSessionMutation,useGetDevicesQuery, devicesApi } from './api/devicesApi'
+export {
+  useDeleteAllMutation,
+  useDeleteSessionMutation,
+  useGetDevicesQuery,
+  devicesApi,
+} from './api/devicesApi'
