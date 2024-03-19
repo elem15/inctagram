@@ -6,11 +6,10 @@ import { useRouter } from 'next/router'
 import s from './DataOfFollowers.module.scss'
 
 import { IconUser } from '@/shared/assets'
-import { Button, Input } from '@/shared/components'
+import { Input } from '@/shared/components'
+import { AddFollowers } from '@/shared/components/followers-modal/addFollowers'
 import { RemoveFollower } from '@/shared/components/followers-modal/deleteFollowers'
 import { useTranslation } from '@/shared/lib'
-import { followingArray } from '@/shared/components/following-modal'
-import { AddFollowers } from '@/shared/components/followers-modal/addFollowers'
 
 export const DataOfFollowers = () => {
   const { t } = useTranslation()
@@ -36,11 +35,13 @@ export const DataOfFollowers = () => {
 
   const handleRemoveFollower = (index: number) => {
     const updatedFollowersArray = [...followersArray]
+
     updatedFollowersArray.splice(index, 1)
     setFollowersArray(updatedFollowersArray)
   }
   const handleAddFollower = (index: number) => {
     const updatedFollowersArray = [...followersArray]
+
     updatedFollowersArray[index].isUnfollow = !updatedFollowersArray[index].isUnfollow
     setFollowersArray(updatedFollowersArray)
   }
@@ -76,16 +77,6 @@ export const DataOfFollowers = () => {
                   name={follower.title}
                   onAdd={() => handleAddFollower(index)}
                 />
-                // <Button
-                //     variant={'primary'}
-                //     style={
-                //         shouldTruncate
-                //             ? { fontSize: '14px', padding: '5px 10px', color: '#fff' }
-                //             : { fontSize: '16px' }
-                //     }
-                // >
-                //     {t.following_modal.follow_button}
-                // </Button>
               )}
               <div className={s.deleteButtonBox}>
                 <RemoveFollower
