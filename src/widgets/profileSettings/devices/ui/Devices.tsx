@@ -57,7 +57,7 @@ const Component = () => {
             key={data[0].deviceId}
             icon={IconComponent}
             IP={data[0].ip}
-            deviceName={data[0].browserName}
+            deviceName={data[0].osName}
           />
 
           <div className={s.button}>

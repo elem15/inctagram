@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import s from './CardsDevices.module.scss'
+import s from './CardsDevice.module.scss'
 import { Typography } from '@/shared/components'
 import { LogOut } from 'lucide-react'
 import { format } from 'date-fns'
