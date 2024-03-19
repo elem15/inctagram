@@ -32,7 +32,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'staging-it-incubator.s3.eu-central-1.amazonaws.com',
         port: '',
-        pathname: '/users-inctagram/**',
+        pathname: '/trainee-instagram-api/**',
       },
     ],
   },
