@@ -176,6 +176,11 @@ export const ru: LangType = {
     delete_button: 'Отписаться',
     text: 'Вы действительно хотите отписаться от',
   },
+  add_following: {
+    // title_of_delete_modal: 'Удалить подписку',
+    // delete_button: 'Отписаться',
+    text: 'Вы действительно хотите подписаться на',
+  },
   followers_modal: {
     title: 'Подписчики',
     modals_title: 'Подписчиков',

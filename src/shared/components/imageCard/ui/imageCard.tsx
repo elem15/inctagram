@@ -25,8 +25,8 @@ export const ImageCard = ({ postId, src, alt, cardClassName, openModal }: Props)
         onClick={
           openModal
             ? () => {
-              openModal(postId)
-            }
+                openModal(postId)
+              }
             : () => null
         }
       >
