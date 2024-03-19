@@ -1,23 +1,27 @@
-import { TabsLayout } from '@/widgets/layouts'
-import {
-  CardsActiveDevice,
-  CardsCurrentDevice,
-} from '@/widgets/profileSettings/devices/ui/CardsDevice/CardsDevice'
-import { Button, Typography } from '@/shared/components'
-import { ChromeIcon } from '@/shared/assets/icons/ChromeIcon'
+import React, { useState } from 'react'
+
 import s from './Devices.module.scss'
-import { useAuth } from '@/shared/lib/hooks/useAuth'
+
 import {
   useDeleteAllMutation,
   useDeleteSessionMutation,
   useGetDevicesQuery,
 } from "@/entities/device's"
+import { ChromeIcon } from '@/shared/assets/icons/ChromeIcon'
+import { MackIcon } from '@/shared/assets/icons/MackIcon'
+import { PhoneIcon } from '@/shared/assets/icons/PhoneIcon'
+import { Button, Typography } from '@/shared/components'
 import { useErrorHandler, useFetchLoader, useTranslation } from '@/shared/lib'
-import { PhoneIcon } from '@/shared/assets/icons/Phone'
-import React from 'react'
+import { useAuth } from '@/shared/lib/hooks/useAuth'
+import { TabsLayout } from '@/widgets/layouts'
+import {
+  CardsActiveDevice,
+  CardsCurrentDevice,
+} from '@/widgets/profileSettings/devices/ui/CardsDevice/CardsDevice'
 
 const Component = () => {
   const { accessToken } = useAuth()
+  const [icon, setIcon] = useState<React.ReactNode>(null)
   const { data, isLoading, error } = useGetDevicesQuery({ accessToken })
   const [deleteDevice, { isLoading: deleteLoadingAll, error: deleteErrorAll }] =
     useDeleteAllMutation()
@@ -37,16 +41,14 @@ const Component = () => {
   const handleDeleteSession = () => {
     data && deleteSessionDevice({ deviceId: data[0].deviceId, accessToken })
   }
-  const IconComponent =
-    data && data[0].deviceType === 'phone' ? (
-      data[0].osName === 'ios' ? (
-        <PhoneIcon />
-      ) : (
-        <PhoneIcon />
-      )
-    ) : (
-      <ChromeIcon />
-    )
+
+  if (data && data[0].deviceName === 'phone') {
+    setIcon(<PhoneIcon />)
+  } else if (data && data[0].osName === 'IOS') {
+    setIcon(<MackIcon />)
+  } else {
+    setIcon(<ChromeIcon />)
+  }
 
   return (
     <div>
@@ -55,7 +57,7 @@ const Component = () => {
           <Typography variant="h3">Current Device</Typography>
           <CardsCurrentDevice
             key={data[0].deviceId}
-            icon={IconComponent}
+            icon={icon}
             IP={data[0].ip}
             deviceName={data[0].osName}
           />
@@ -68,13 +70,13 @@ const Component = () => {
 
           <div className={s.spacer}></div>
 
-          {data.slice(0).map(device => (
+          {data.slice(1).map(device => (
             <React.Fragment key={device.deviceId}>
               <Typography variant="h3">Active Sessions</Typography>
               <CardsActiveDevice
                 key={device.deviceId}
                 visited={device.lastActive}
-                icon={IconComponent}
+                icon={icon}
                 deviceName={device.osName}
                 IP={device.ip}
                 handleDeleteSession={handleDeleteSession}

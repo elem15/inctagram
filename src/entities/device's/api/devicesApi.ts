@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+import { baseQueryWithReauth } from '@/entities/posts'
 import { OptionsType } from '@/shared/components'
 import { BASE_URL } from '@/shared/constants/ext-urls'
-import { baseQueryWithReauth } from '@/entities/posts'
 
 export const devicesApi = createApi({
   reducerPath: 'apiDevices',

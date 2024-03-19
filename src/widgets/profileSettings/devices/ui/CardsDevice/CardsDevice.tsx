@@ -1,8 +1,11 @@
 import React, { ReactNode } from 'react'
-import s from './CardsDevice.module.scss'
-import { Typography } from '@/shared/components'
-import { LogOut } from 'lucide-react'
+
 import { format } from 'date-fns'
+import { LogOut } from 'lucide-react'
+
+import s from './CardsDevice.module.scss'
+
+import { Typography } from '@/shared/components'
 import { useTranslation } from '@/shared/lib'
 
 type Props = {
@@ -39,6 +42,7 @@ export const CardsActiveDevice = ({
   const lastActiveDate = visited ? new Date(visited) : null
   const formattedDate = lastActiveDate ? format(lastActiveDate, 'yyyy-MM-dd') : ''
   const { t } = useTranslation()
+
   return (
     <div className={s.cardsDevice}>
       <svg className={s.icon}>{icon}</svg>
