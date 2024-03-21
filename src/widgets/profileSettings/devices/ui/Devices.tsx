@@ -64,7 +64,7 @@ const Component = () => {
             deviceName={data[0].osName}
           />
 
-          {data.slice(0).map(device => (
+          {data.slice(1).map(device => (
             <React.Fragment key={device.deviceId}>
               <div className={s.button}>
                 <Button onClick={onClickHandler} variant="outline">
