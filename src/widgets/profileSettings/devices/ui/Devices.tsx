@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 import s from './Devices.module.scss'
 
@@ -41,6 +41,7 @@ const Component = () => {
   const handleDeleteSession = () => {
     data && deleteSessionDevice({ deviceId: data[0].deviceId, accessToken })
   }
+
   useEffect(() => {
     if (data && data[0].deviceName === 'phone') {
       setIcon(<PhoneIcon />)
@@ -49,8 +50,7 @@ const Component = () => {
     } else {
       setIcon(<ChromeIcon />)
     }
-
-  }, [data]);
+  }, [data])
 
   return (
     <div>
@@ -64,17 +64,16 @@ const Component = () => {
             deviceName={data[0].osName}
           />
 
-
           {data.slice(0).map(device => (
-          <React.Fragment key={device.deviceId}>
-            <div className={s.button}>
-              <Button onClick={onClickHandler} variant="outline">
-                {t.devices.Terminate_sessions}
-              </Button>
-            </div>
+            <React.Fragment key={device.deviceId}>
+              <div className={s.button}>
+                <Button onClick={onClickHandler} variant="outline">
+                  {t.devices.Terminate_sessions}
+                </Button>
+              </div>
 
-            <div className={s.spacer}></div>
-            <Typography variant="h3">Active Sessions</Typography>
+              <div className={s.spacer}></div>
+              <Typography variant="h3">Active Sessions</Typography>
               <CardsActiveDevice
                 key={device.deviceId}
                 visited={device.lastActive}
